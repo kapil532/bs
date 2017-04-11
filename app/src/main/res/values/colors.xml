@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0246B5</color>
+    <color name="colorPrimaryDark">#0246B5</color>
+
+    <color name="light_grey"> #F5F5F5</color>
+   <!-- <color name="brandColor">#0044E3</color>-->
+    <color name="brandColor">#0246B5</color>
+
+    <color name="tab_selected">#FF9000</color>
+
+    <!-- Neutral Actions -->
+
+    <!-- Negative Actions -->
+
+    <!-- Positive Actions -->
+
+    <!-- Positive Actions -->
+
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="sub_header">#a2a2a2</color>
+    <color name="row_color">#ebebeb</color>
+
+
+    <!-- GREY -->
+    <color name="grey_2">#999999</color>
+
+
+    <!-- GREY -->
+
+    <!-- QUIET -->
+
+    <!-- OTHER -->
+    <!-- red light -->
+
+    <!-- LEGACY? -->
+
+    <!--   <color name="brand_color">#823f3f</color> -->
+
+    <!-- flat color -->
+
+
+    <item name="darkorange" type="color">#FFFF8800</item>
+
+
+    <color name="red">#FF0000</color>
+
+    <color name="transparent">#00aaaaaa</color>
+    <color name="app_fontColor_dark">#ffffff</color>
+    <color name="app_fontColor">#e6575757</color>
+    <color name="app_fontBlackColor">#000000</color>
+    <color name="tab_unselected_bg_start">#f98c1f</color>
+
+
+    <color name="app_color_background">#fafafa</color>
+
+    <integer-array name="color_array">
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+    </integer-array>
+
+    <color name="brand_background_color">#F9F4EE</color>
+    <color name="bottom_bar_background_color">#E1D8C9</color>
+
+    <color name="brand_text_color">#323335</color>
+    <color name="brand_text_hint_color">#C4BEB0</color>
+
+    <color name="brand_secondary_color">#92D0FF</color>
+
+    <color name="brand_secondary_trasnparent_color">#CC92D0FF</color>
+    <color name="brand_secondary_trasnparent_color_90">#E692D0FF</color>
+    <color name="brand_secondary_trasnparent_color_95">#F292D0FF</color>
+    <color name="brand_secondary_trasnparent_color_5">#8092D0FF</color>
+    <color name="brand_secondary_trasnparent_color_3">#4D92D0FF</color>
+    <color name="brand_secondary_trasnparent_color_1">#3392D0FF</color>
+    <color name="white_trasnparent_color_1">#80ffffff</color>
+
+</resources>

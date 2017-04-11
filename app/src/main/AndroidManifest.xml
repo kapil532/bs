@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.langoor.blueshak">
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="23" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.langoor.blueshak.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <permission
+        android:name="com.langoor.blueshak.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <!-- added by me -->
+    <!-- GCM -->
+    <!--
+         <permission
+         android:name=".permission.C2D_MESSAGE"
+         android:protectionLevel="signature" />
+    -->
+    <uses-permission android:name=".permission.C2D_MESSAGE" />
+    <!-- added by me -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name="com.langoor.app.blueshak.AppController"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_app_icon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <!-- admin@blueshak.com account api key for test dubug -->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f07881e8535106c06f831a244d499a3eae719d7f"
+            />
+        <!-- manurk@langoor.com account api key for test dubug -->
+    <!-- <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e5d9825e360ef0515e077591c732c93a32dc5472" />-->
+     <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar"> -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDP4oI0-UKhNRuaWFv8kgJv4wxBogc_brs" />
+
+        <!-- FaceBook App Id -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <!-- pooshwoosh app id for Messaging and Notifications -->
+
+        <meta-data
+            android:name="PW_APPID"
+            android:value="957DB-09E27" />
+
+        <!--
+            <meta-data
+            android:name="PW_APPID"
+            android:value="8F8FF-9ED14" />
+        -->
+        <meta-data
+            android:name="PW_PROJECT_ID"
+            android:value="A226750935967" />
+        <!-- FaceBook App Id -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.splash.SplashScreenActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.langoor.app.blueshak.splash.NextSplashScreen"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+        <activity
+            android:name="com.langoor.app.blueshak.garage.CreateSaleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_list"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.garage.CreateSaleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!--
+                 <activity
+                android:name="com.langoor.app.app.blueshak.product.ProductDetail"
+                android:configChanges="orientation|keyboardHidden"
+                android:label="@string/app_name"
+                android:launchMode="singleTop"
+                android:theme="@style/AppTheme"
+                android:parentActivityName="com.langoor.app.app.blueshak.product.ProductDetail"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden" />
+        -->
+
+        <activity
+            android:name="com.langoor.app.blueshak.register.TermsConditions"
+            android:label="@string/title_activity_terms_conditions"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.register.TermsConditions"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name="com.langoor.app.blueshak.item.ProductDetail"
+            android:label="@string/title_activity_item_detail"
+            android:parentActivityName="com.langoor.app.blueshak.item.ProductDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.PickLocation"
+            android:label="@string/title_activity_pick_location"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.register.TermsConditions"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
+        <activity
+            android:name="com.langoor.app.blueshak.report.ReportListing"
+            android:label="@string/title_activity_report_listing"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.report.ReportListing"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.view_sales.MapActivity"
+            android:label="@string/title_activity_map"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.view_sales.MapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.item.ImageViewActivty"
+            android:label="@string/title_activity_image_view_activty"
+            android:parentActivityName="com.langoor.app.blueshak.item.ImageViewActivty"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.item.MakeOffersActivty"
+            android:label="@string/title_activity_make_offers_activty"
+            android:parentActivityName="com.langoor.app.blueshak.item.MakeOffersActivty"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.profile.ProfileEditActivity"
+            android:label="@string/title_activity_profile_edit"
+            android:parentActivityName="com.langoor.app.blueshak.profile.ProfileEditActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.shop.ShopActivity"
+            android:label="@string/title_activity_shop"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.shop.ShopActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.bookmarks.BookMarkActivty"
+            android:label="@string/title_activity_book_mark_activty"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.bookmarks.BookMarkActivty"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.search.SearchActivity"
+            android:label="@string/title_activity_reviews_ratings"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.search.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize"  />
+        <activity
+            android:name="com.langoor.app.blueshak.filter.FilterActivity"
+            android:label="@string/title_activity_filter"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.filter.FilterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.Messaging.activity.MessageActivity"
+            android:label="@string/title_activity_message"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.Messaging.activity.MessageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.reviews_rating.ReviewsRatings"
+            android:label="@string/title_activity_reviews_ratings"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.reviews_rating.ReviewsRatings"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.garage.MyItems"
+            android:label="@string/title_activity_my_items"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.garage.MyItems"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- Messaging Services -->
+
+
+        <!-- GCM -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.pushwoosh.GCMInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <service android:name="com.pushwoosh.GCMListenerService" />
+        <service
+            android:name="com.pushwoosh.GCMRegistrationService"
+            android:exported="false" />
+
+        <!-- deals with GCM directly -->
+        <receiver
+            android:name="com.langoor.app.blueshak.Messaging.gcm.GcmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.langoor.blueshak" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.pushwoosh.local.AlarmReceiver" />
+
+        <service
+            android:name="com.langoor.app.blueshak.Messaging.gcm.GcmIntentService"
+            android:exported="false" />
+
+        <activity
+            android:name="com.langoor.app.blueshak.Messaging.activity.ChatActivity"
+            android:label="@string/title_activity_chat_activty"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.Messaging.activity.ChatActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.item.ViewActivity"
+            android:label="@string/title_activity_view"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.item.ViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.reviews_rating.AddRating"
+            android:label="@string/title_activity_add_rating"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.reviews_rating.AddRating"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.login.LoginActivity"
+            android:parentActivityName="com.langoor.app.blueshak.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.langoor.app.blueshak.otp.OTPActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.langoor.app.blueshak.otp.OTPActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.register.SignUpSCreenActivity"
+            android:parentActivityName="com.langoor.app.blueshak.register.SignUpSCreenActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.forgot_password.ForgotPasswordActivity"
+            android:parentActivityName="com.langoor.app.blueshak.forgot_password.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.langoor.app.blueshak.category.CategoryActivity"
+            android:parentActivityName="com.langoor.app.blueshak.category.CategoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.langoor.app.blueshak.mylistings.MyListings"
+            android:label="@string/title_activity_my_listings"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.garage.GarageSalesList"
+            android:label="@string/title_activity_garage_sales_list"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.langoor.app.blueshak.currency.CurrencyActivity"
+            android:label="@string/title_activity_currency"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>

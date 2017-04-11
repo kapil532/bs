@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brand_background_color"
+    android:fitsSystemWindows="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.langoor.app.blueshak.otp.OTPActivity"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@color/brand_background_color"
+        android:orientation="vertical" >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/close_button"
+            android:visibility="gone"
+            android:layout_gravity="right"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/ic_clear_black_24dp"
+            android:layout_alignParentRight="true"
+
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp" >
+
+        <com.langoor.app.blueshak.text.MyTextView
+            android:id="@+id/titile"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sign_up_text_size"
+            android:gravity="center"
+          android:textColor="@color/brand_text_color"
+            android:text="@string/otp_text">
+            </com.langoor.app.blueshak.text.MyTextView>
+        <LinearLayout
+            android:id="@+id/resend_otp_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <com.hbb20.CountryCodePicker
+                    android:layout_marginTop="5dp"
+                    android:layout_weight=".6"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:id="@+id/isd_code"
+                    app:defaultCode="61"
+                    app:hideNameCode="true"
+                    app:contentColor="@color/brand_text_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight=".4"
+                    >
+
+                    <com.langoor.app.blueshak.text.MyEditTextView
+                        android:padding="15dp"
+                        android:id="@+id/etMobileNUmber"
+                        android:layout_width="match_parent"
+                        android:background="@android:drawable/editbox_background_normal"
+                        android:layout_height="@dimen/login_edit_text_height"
+                        android:drawablePadding="@dimen/edittext_drawable_padding"
+                        android:imeOptions="actionDone"
+                        android:textSize="@dimen/sign_up_text_size"
+                        android:maxLength="12"
+                        android:digits="0123456789"
+                        android:layout_marginTop="@dimen/margin_top"
+                        android:hint="Phone Number"
+                        android:singleLine="true"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/brand_text_color"
+                        android:textColorHint="@color/brand_text_hint_color"
+                        android:textStyle="normal" >
+                    </com.langoor.app.blueshak.text.MyEditTextView>
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <com.langoor.app.blueshak.text.MyButton
+                android:id="@+id/resend_otp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="12dp"
+                android:layout_height="@dimen/login_btn_height"
+                android:textColor="#ffffff"
+                android:layout_gravity="center_horizontal"
+                android:textAllCaps="false"
+                android:textSize="@dimen/sign_up_text_size"
+                android:background="@drawable/round_corner_btn__style"
+                android:text="Resend Otp">
+            </com.langoor.app.blueshak.text.MyButton>
+
+        </LinearLayout>
+            <!--<ImageView
+            android:layout_marginTop="5dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/app_logo" />-->
+        <LinearLayout
+          android:id="@+id/verify_otp_content"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical" >
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                >
+                <com.langoor.app.blueshak.text.MyEditTextView
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:layout_height="@dimen/login_edit_text_height"
+                    android:layout_margin="5dp"
+                    android:padding="10dp"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:hint="Enter OTP"
+                    android:maxLength="6"
+                    android:textSize="@dimen/sign_up_text_size"
+                    android:drawablePadding="@dimen/edittext_drawable_padding"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:textColor="@color/brand_text_color"
+                    android:textColorHint="@color/brand_text_hint_color"
+                    android:textStyle="normal" >
+                </com.langoor.app.blueshak.text.MyEditTextView>
+            </android.support.design.widget.TextInputLayout>
+            <!--  <com.langoor.app.blueshak.text.MyEditTextView
+                  android:layout_marginTop="10dp"
+                  android:id="@+id/etEmail"
+                  android:layout_width="match_parent"
+                  android:textSize="@dimen/sign_up_text_size"
+                  android:layout_height="@dimen/signup_height_editbo"
+                  android:hint="Enter OTP"
+                  android:background="@android:drawable/editbox_background_normal"
+                  android:inputType="number"
+                  android:padding="15dp"
+                  android:singleLine="true"
+                  android:textColor="@color/brand_text_color"
+                  android:textColorHint="@color/brand_text_hint_color"
+                  android:textStyle="normal">
+                  </com.langoor.app.blueshak.text.MyEditTextView>-->
+            <com.langoor.app.blueshak.text.MyTextView
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/sign_up_text_size"
+                android:textColor="@color/brand_text_color"
+                android:text="@string/otp_resend_text"
+                android:id="@+id/otp_get_another">
+
+            </com.langoor.app.blueshak.text.MyTextView>
+            <com.langoor.app.blueshak.text.MyTextView
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sign_up_text_size"
+                android:gravity="center"
+                android:textColor="@color/brand_text_color"
+                android:text="Entered the wrong Phone number? Edit."
+                android:id="@+id/otp_try_again">
+            </com.langoor.app.blueshak.text.MyTextView>
+            <com.langoor.app.blueshak.text.MyButton
+                android:id="@+id/btnSignIn"
+                android:layout_width="match_parent"
+                android:layout_marginTop="12dp"
+                android:layout_height="@dimen/login_btn_height"
+                android:textColor="#ffffff"
+                android:layout_gravity="center_horizontal"
+                android:textAllCaps="false"
+                android:textSize="@dimen/sign_up_text_size"
+                android:background="@drawable/round_corner_btn__style"
+                android:text="Verify">
+            </com.langoor.app.blueshak.text.MyButton>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+        <fr.castorflex.android.circularprogressbar.CircularProgressBar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:cpb_color="#F00"
+            app:cpb_colors="@array/color_array"
+            app:cpb_max_sweep_angle="300"
+            app:cpb_min_sweep_angle="10"
+            app:cpb_rotation_speed="1.0"
+            android:visibility="gone"
+            android:padding="10dp"
+            app:cpb_stroke_width="4dp"
+            android:background="@drawable/bg_circle_unread_count"
+            app:cpb_sweep_speed="1.0"
+            android:id="@+id/progress_bar"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/tab_selected"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+</RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

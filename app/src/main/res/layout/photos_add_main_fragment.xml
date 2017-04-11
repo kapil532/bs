@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:weightSum="10"
+        android:id="@+id/linearLayout2">
+        <com.langoor.app.blueshak.text.MyTextView
+            android:id="@+id/photos_add_main_fragment_title_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textAppearance="@style/MediumText"
+            android:gravity="left"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:layout_weight="3"
+            >
+            </com.langoor.app.blueshak.text.MyTextView>
+
+        <ImageView
+            android:id="@+id/photos_add_main_fragment_add_imageView"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:src="@drawable/add_item"
+            android:layout_weight="10"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+  </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout2">
+
+    <org.lucasr.twowayview.TwoWayView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/photos_add_main_fragment_photos_list"
+        style="@style/TwoWayView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawSelectorOnTop="false"
+        tools:context=".MainActivity"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/photos_add_main_fragment_add_imageView_add" />
+
+            <ImageView
+                android:id="@+id/photos_add_main_fragment_add_imageView_add"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center"
+                android:layout_weight="10"
+                android:padding="10dp"
+                android:visibility="gone"
+                android:src="@drawable/add_item"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

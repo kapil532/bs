@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brand_background_color"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+<!--    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">-->
+
+<!--<android.support.v7.widget.CardView
+
+    android:layout_margin="7dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    card_view:cardCornerRadius="0dp"
+    card_view:contentPadding="0dp"
+    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardElevation="5dp"
+    card_view:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/brand_background_color"
+    >-->
+
+   <!-- <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+     >-->
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+      android:layout_above="@+id/user_commu_content"
+        >
+        <LinearLayout
+               android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <FrameLayout
+                android:id="@+id/container_upload_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+                <com.langoor.app.blueshak.text.MyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/brand_text_color"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_margin="5dp"
+                    android:visibility="gone"
+                android:textSize="@dimen/sign_up_text_size"
+                android:text="Choose a sale display picture from camera or Choose photos from gallery">
+                    </com.langoor.app.blueshak.text.MyTextView>
+            <com.langoor.app.blueshak.text.MyEditTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:id="@+id/creategarrage_name"
+                android:background="@android:drawable/editbox_background_normal"
+                android:layout_margin="5dp"
+                android:padding="15dp"
+                android:textSize="@dimen/sign_up_text_size"
+                android:imeOptions="actionNext"
+                android:textColor="@color/brand_text_color"
+                android:textColorHint="@color/brand_text_hint_color"
+                android:hint="Sale name">
+                </com.langoor.app.blueshak.text.MyEditTextView>
+
+             <com.langoor.app.blueshak.text.MyEditTextView
+                android:id="@+id/creategarrage_description"
+                android:layout_margin="5dp"
+                 android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:hint="Sale description"
+                android:inputType="textAutoCorrect|textMultiLine|textCapSentences"
+                android:maxEms="10"
+                android:textSize="@dimen/sign_up_text_size"
+                android:textColor="@color/brand_text_color"
+                 android:textColorHint="@color/brand_text_hint_color"
+                android:minLines="3"
+                android:gravity="start|left"
+                 android:background="@android:drawable/editbox_background_normal">
+                 </com.langoor.app.blueshak.text.MyEditTextView>
+
+            <com.langoor.app.blueshak.text.MyEditTextView
+                android:layout_width="match_parent"
+                android:background="@android:drawable/editbox_background_normal"
+                android:layout_margin="5dp"
+                android:padding="15dp"
+                android:singleLine="true"
+
+                android:textSize="@dimen/sign_up_text_size"
+                android:imeOptions="actionNext"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:id="@+id/creategarrage_date"
+                android:focusableInTouchMode="false"
+                android:layout_weight="0.5"
+                android:textColor="@color/brand_text_color"
+                 android:textColorHint="@color/brand_text_hint_color"
+
+                android:hint="Date">
+                </com.langoor.app.blueshak.text.MyEditTextView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.langoor.app.blueshak.text.MyEditTextView
+                    android:layout_width="match_parent"
+                    android:textColor="@color/brand_text_color"
+                     android:textColorHint="@color/brand_text_hint_color"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:layout_margin="5dp"
+                    android:padding="15dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:editable="false"
+                    android:textSize="@dimen/sign_up_text_size"
+                    android:id="@+id/creategarrage_starttime"
+                    android:focusableInTouchMode="false"
+                    android:imeOptions="actionNext"
+                    android:layout_weight="0.5"
+
+                    android:hint="Start Time">
+                    </com.langoor.app.blueshak.text.MyEditTextView>
+                <com.langoor.app.blueshak.text.MyEditTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                 
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:layout_margin="5dp"
+                    android:padding="15dp"
+
+
+                    android:textColor="@color/brand_text_color"
+                   android:textColorHint="@color/brand_text_hint_color"
+                    android:singleLine="true"
+                    android:textSize="@dimen/sign_up_text_size"
+                    android:editable="false"
+                    android:imeOptions="actionNext"
+                    android:layout_weight="0.5"
+                    android:focusableInTouchMode="false"
+                    android:id="@+id/creategarrage_endtime"
+
+                    android:hint="End Time">
+                    </com.langoor.app.blueshak.text.MyEditTextView>
+            </LinearLayout>
+            <com.langoor.app.blueshak.text.MyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               android:textColorHint="@color/brand_text_hint_color"
+                android:textColor="@color/brand_text_color"
+                android:visibility="gone"
+                android:backgroundTint="@color/brandColor"
+                android:padding="15dp"
+                android:textSize="@dimen/sign_up_text_size"
+                android:text="@string/sales_left">
+                </com.langoor.app.blueshak.text.MyTextView>
+            <com.langoor.app.blueshak.text.MyTextView
+                android:id="@+id/autoCompleteTextView"
+                android:layout_width="match_parent"
+                android:background="@android:drawable/editbox_background_normal"
+                android:layout_margin="5dp"
+                android:padding="15dp"
+                android:imeOptions="actionNext"
+                android:gravity="center_vertical"
+               android:textColorHint="@color/brand_text_hint_color"
+                android:textColor="@color/brand_text_color"
+                android:singleLine="true"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_pick_location"
+                android:textSize="@dimen/sign_up_text_size"
+
+                android:layout_centerHorizontal="true"
+                android:hint="Sale location">
+
+            </com.langoor.app.blueshak.text.MyTextView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bottom_bar_background_color"/>
+            <LinearLayout
+                android:id="@+id/add_item_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <com.langoor.app.blueshak.text.MyTextView
+                        android:id="@+id/select_items"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Items"
+                        android:gravity="left"
+                        android:textColor="@color/brand_text_color"
+                       android:textSize="@dimen/sign_up_text_size"
+                        android:layout_marginRight="20dp"
+                        >
+                    </com.langoor.app.blueshak.text.MyTextView>
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_height="24dp"
+                        android:textSize="@dimen/sign_up_text_size"
+                        android:layout_alignParentRight="true"
+                        android:text="0" android:src="@drawable/ic_plus"
+                        android:textColor="@color/brand_text_color"
+                        >
+                    </ImageView>
+                </RelativeLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bottom_bar_background_color"/>
+            <!--<com.langoor.app.blueshak.text.MyTextView
+                android:id="@+id/select_items"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_margin="5dp"
+                android:padding="15dp"
+                android:imeOptions="actionDone"
+                android:gravity="center_vertical"
+               android:textColorHint="@color/brand_text_hint_color"
+                android:textColor="@color/brand_text_color"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_add_circle_outline_black_24dp"
+                android:textSize="@dimen/sign_up_text_size"
+                android:layout_centerHorizontal="true"
+                android:hint="Select items">
+                </com.langoor.app.blueshak.text.MyTextView>-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                />
+            <android.support.v7.widget.RecyclerView
+
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:dividerHeight="7dp"
+                android:scrollbars="none"
+                android:paddingLeft="@dimen/space"
+                android:paddingRight="@dimen/space"
+                 />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+<!--</android.support.v7.widget.CardView>-->
+
+      <!--  <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/creategarrage_additem"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@color/darkorange"
+            android:textAllCaps="false"
+            android:textAppearance="@style/MediumText"
+            android:textSize="@dimen/sign_up_text_size"
+            android:text="Publish"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />-->
+   <!-- <android.support.v7.widget.CardView
+        card_view:cardPreventCornerOverlap="false"
+        android:layout_width="match_parent"
+        android:gravity="bottom|right"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        card_view:cardCornerRadius="2dp"
+        app:cardElevation="3dp"
+        android:id="@+id/user_commu_content"
+        >-->
+        <LinearLayout
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottom_bar"
+            android:layout_margin="3dp"
+            android:layout_gravity="center_horizontal">
+            <com.langoor.app.blueshak.text.MyButton
+                android:id="@+id/new_item"
+                android:layout_width="match_parent"
+                android:layout_weight=".5"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/MediumText"
+                android:textColor="@color/white"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp"
+                android:visibility="gone"
+                android:textSize="16sp"
+                android:background="@drawable/button_item_detail"
+                android:text="New Item">
+                </com.langoor.app.blueshak.text.MyButton>
+        </LinearLayout>
+
+
+    <!--    </android.support.v7.widget.CardView>-->
+    <android.support.v7.widget.CardView
+        card_view:cardPreventCornerOverlap="false"
+        app:contentPadding="5dp"
+        android:layout_width="match_parent"
+        android:gravity="bottom|right"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        card_view:cardCornerRadius="2dp"
+        app:cardElevation="3dp"
+        android:id="@+id/user_commu_content"
+        >
+        <com.langoor.app.blueshak.text.MyButton
+            android:id="@+id/publish"
+            android:layout_weight=".5"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/MediumText"
+            android:textColor="@color/white"
+            android:background="@drawable/round_corner_btn__style"
+            android:textSize="@dimen/sign_up_text_size"
+            android:text="Publish"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+        </com.langoor.app.blueshak.text.MyButton>
+    </android.support.v7.widget.CardView>
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        app:cpb_color="#F00"
+        app:cpb_colors="@array/color_array"
+        app:cpb_max_sweep_angle="300"
+        app:cpb_min_sweep_angle="10"
+        app:cpb_rotation_speed="1.0"
+
+        android:visibility="gone"
+        android:padding="10dp"
+        app:cpb_stroke_width="4dp"
+        android:background="@drawable/bg_circle_unread_count"
+        app:cpb_sweep_speed="1.0"
+        android:id="@+id/progress_bar"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/tab_selected"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
+
+<!--    </FrameLayout>-->
+
+

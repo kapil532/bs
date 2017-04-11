@@ -1,0 +1,96 @@
+<resources>
+    <dimen name="padding_signup">5dp</dimen>
+    <dimen name="signup_height_editbo">50dp</dimen>
+    <dimen name="margin_top">10dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="image_slider_card_portrait_height">350dp</dimen>
+
+    <dimen name="space">4dp</dimen>
+    <!-- Guillotine screen dimens-->
+
+    <dimen name="navigation_divider_margin">5dp</dimen>
+    <dimen name="navigation_divider_margin_left">12dp</dimen>
+
+    <dimen name="product_list_row_item_icon_size">25dp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!--  <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>-->
+
+
+    <dimen name="login_btn_height">50dp</dimen>
+    <dimen name="login_edit_text_height">50dp</dimen>
+    <dimen name="login_btn_textsize">20sp</dimen>
+
+    <dimen name="username_edittext_topmargin">30dp</dimen>
+    <dimen name="edittext_drawable_padding">20dp</dimen>
+
+
+    <dimen name="sign_up_text_size">18sp</dimen>
+
+
+    <!--  <dimen name="padding_signup">5dp</dimen>
+    <dimen name="signup_height_editbo">50dp</dimen>
+    <dimen name="margin_top">10dp</dimen>
+    <dimen name="width_for_signup">320dp</dimen>-->
+    <dimen name="profile_text_size">16sp</dimen>
+
+    <!-- <dimen name="header_height">60dp</dimen>
+-->
+    <dimen name="camera_margin_right">5dp</dimen>
+
+    <dimen name="send_button_width">40dp</dimen>
+    <dimen name="message_edit_text_heght">12dp</dimen>
+    <dimen name="send_button_height">35dp</dimen>
+    <dimen name="empty_label_size">18sp</dimen>
+
+    <dimen name="Chat_input_container_height">44dp</dimen>
+    <integer name="message_max_length">140</integer>
+    <dimen name="sent_message_layout_maxwidth">280dp</dimen>
+    <dimen name="received_message_layout_maxwidth">230dp</dimen>
+    <dimen name="chatview_textsize">18sp</dimen>
+    <dimen name="results_all_textsize">16sp</dimen>
+    <dimen name="chatview_timestamp_textsize">14sp</dimen>
+
+
+    <dimen name="contactlist_ctimestamp_margin_right">16sp</dimen>
+
+    <dimen name="unreadcount_width">25dp</dimen>
+    <dimen name="unreadcount_height">25dp</dimen>
+
+    <dimen name="my_add_item_image_size">100dp</dimen>
+
+    <dimen name="create_sale_form_text_size">16sp</dimen>
+
+
+    <dimen name="tv_selection_fragment_window_width">350dp</dimen>
+    <dimen name="tv_selection_fragment_title_height">45dp</dimen>
+    <dimen name="tv_selection_fragment_title_textsize">20sp</dimen>
+    <dimen name="tv_selection_fragment_devicelist_height">300dp</dimen>
+    <!--   <dimen name="home_icon_size">75dp</dimen>-->
+
+    <dimen name="chatview_target_profilepic_size">40dp</dimen>
+    <dimen name="chatview_target_profilepic_rightmargin">5dp</dimen>
+    <dimen name="chatview_image_width_size">190dp</dimen>
+    <dimen name="chatview_image_height_size">170dp</dimen>
+
+
+    <dimen name="bottom_botton_text_size">18sp</dimen>
+    <dimen name="login_btn_corner_radius">25dp</dimen>
+    <dimen name="item_detail_title_text_size">18sp</dimen>
+    <dimen name="ic_clear_margin">16dp</dimen>
+
+
+    <dimen name="splash_logo_width">150dp</dimen>
+    <dimen name="splash_logo_height">150dp</dimen>
+    <dimen name="splash_logo_margin_top">35dp</dimen>
+
+
+</resources>

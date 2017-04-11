@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brand_background_color"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.langoor.app.blueshak.filter.FilterActivity"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="beforeDescendants"
+    android:paddingTop="20dp">
+<android.support.v4.widget.NestedScrollView
+    android:layout_above="@+id/user_commu_content"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="beforeDescendants"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brand_background_color"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/brand_background_color"
+        android:orientation="vertical"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/brand_background_color"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.langoor.app.blueshak.text.MyTextView
+                android:layout_weight=".3"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Current country only"
+                android:textSize="@dimen/sign_up_text_size"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:padding="10dp">
+            </com.langoor.app.blueshak.text.MyTextView>
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight=".7"
+                android:id="@+id/current_country"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:checked="true"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bottom_bar_background_color"/>
+        <com.langoor.app.blueshak.text.MyTextView
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Location"
+            android:textSize="@dimen/sign_up_text_size"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:padding="10dp">
+        </com.langoor.app.blueshak.text.MyTextView>
+
+      <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bottom_bar_background_color"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/location_content"
+                android:layout_width="match_parent"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.langoor.app.blueshak.text.MyTextView
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:layout_margin="5dp"
+                    android:padding="15dp"
+                    android:imeOptions="actionNext"
+                    android:gravity="center_vertical"
+                    android:textColorHint="@color/brand_text_color"
+                    android:textColor="@color/brand_text_color"
+                    android:singleLine="true"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_pick_location"
+                    android:textSize="@dimen/sign_up_text_size"
+                    android:layout_centerHorizontal="true"
+                    android:hint="My location">
+                    </com.langoor.app.blueshak.text.MyTextView>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bottom_bar_background_color"/>
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_marginTop="10dp"
+            android:id="@+id/sorting_main_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.langoor.app.blueshak.text.MyTextView
+                    android:layout_weight=".3"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="Sorting"
+                    android:textSize="@dimen/sign_up_text_size"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:padding="10dp">
+                </com.langoor.app.blueshak.text.MyTextView>
+                <Switch
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight=".7"
+                    android:id="@+id/sorting"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:checked="true"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </LinearLayout>
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bottom_bar_background_color"/>
+            <LinearLayout
+
+
+                android:id="@+id/sorting_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                    <LinearLayout
+
+                        android:id="@+id/nearest_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.langoor.app.blueshak.text.MyTextView
+                            android:layout_weight=".3"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:text="Nearest First"
+                            android:textSize="@dimen/sign_up_text_size"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="10dp">
+                        </com.langoor.app.blueshak.text.MyTextView>
+                        <Switch
+                            android:layout_width="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight=".7"
+                            android:id="@+id/nearest_first"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:checked="true"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+                    </LinearLayout>
+                    <LinearLayout
+
+                        android:id="@+id/l_to_h_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.langoor.app.blueshak.text.MyTextView
+                            android:layout_weight=".3"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:text="Lowest to highest price"
+                            android:textSize="@dimen/sign_up_text_size"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="10dp">
+                        </com.langoor.app.blueshak.text.MyTextView>
+                        <Switch
+                            android:layout_width="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight=".7"
+                            android:id="@+id/l_to_h"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:checked="false"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/h_to_l_content"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.langoor.app.blueshak.text.MyTextView
+                            android:layout_weight=".3"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:text="Highest to lowest price"
+                            android:textSize="@dimen/sign_up_text_size"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="10dp">
+                        </com.langoor.app.blueshak.text.MyTextView>
+                        <Switch
+                            android:layout_width="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight=".7"
+                            android:id="@+id/h_to_l"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:checked="false"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+                    </LinearLayout>
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.langoor.app.blueshak.text.MyTextView
+                        android:padding="10dp"
+                        android:layout_weight=".3"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="Most Recent"
+                        android:textSize="@dimen/sign_up_text_size"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        >
+                    </com.langoor.app.blueshak.text.MyTextView>
+                    <Switch
+                        android:layout_width="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight=".7"
+                        android:id="@+id/sort_by_recent"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:checked="false"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ending_soon_content"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.langoor.app.blueshak.text.MyTextView
+                        android:padding="10dp"
+                        android:layout_weight=".3"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="Ending Soon"
+                        android:textSize="@dimen/sign_up_text_size"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        >
+                    </com.langoor.app.blueshak.text.MyTextView>
+                    <Switch
+                        android:layout_width="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight=".7"
+                        android:id="@+id/ending_soon"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:checked="false"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/bottom_bar_background_color"
+                android:layout_height="1dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.langoor.app.blueshak.text.MyTextView
+                android:layout_weight=".5"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Search Radius"
+               android:textSize="@dimen/sign_up_text_size"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:padding="10dp">
+            </com.langoor.app.blueshak.text.MyTextView>
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight=".5"
+                android:id="@+id/search_radius"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:checked="false"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/distance_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.langoor.app.blueshak.text.MyTextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Distance"
+           android:textSize="@dimen/sign_up_text_size"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:padding="10dp">
+            </com.langoor.app.blueshak.text.MyTextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2.5">
+                    <com.langoor.app.blueshak.text.MyTextViewBold
+                        android:id="@+id/distance_start_tv"
+                        android:textColor="@color/brandColor"
+                        android:backgroundTint="@color/brandColor"
+                        android:layout_alignParentLeft="true"
+                        android:textColorHint="@color/brandColor"
+                        android:layout_width="wrap_content"
+                       android:textSize="22sp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/SmallerText"
+                        android:visibility="gone"
+                        android:ems="10"
+                        android:hint="1 Km">
+                        </com.langoor.app.blueshak.text.MyTextViewBold>
+                   <!-- <com.langoor.app.blueshak.text.MyTextViewBold
+                        android:id="@+id/distance_end_tv"
+                        android:visibility="gone"
+                        android:textColor="@color/brandColor"
+                        android:backgroundTint="@color/brandColor"
+                        android:textColorHint="@color/brandColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:gravity="right"
+                        android:textAppearance="@style/SmallerText"
+                        android:layout_alignParentRight="true"
+                        android:ems="10"
+                        android:hint="60 Kms">
+                        </com.langoor.app.blueshak.text.MyTextViewBold>-->
+                    <SeekBar
+                        android:id="@+id/distance_range_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/brandColor"
+                        android:max="250"
+                        android:thumb="@drawable/thumb"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="10dp"
+
+                        android:indeterminate="false" />
+                </RelativeLayout>
+                <com.langoor.app.blueshak.text.MyTextViewBold
+                    android:id="@+id/distance_end_tv"
+                    android:textColor="@color/brandColor"
+                    android:backgroundTint="@color/brandColor"
+                    android:textColorHint="@color/brandColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:gravity="center"
+                    android:textAppearance="@style/SmallerText"
+                    android:layout_alignParentRight="true"
+                    android:ems="10"
+                    android:hint="60 Km">
+                </com.langoor.app.blueshak.text.MyTextViewBold>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+
+            android:layout_width="match_parent"
+            android:background="@color/bottom_bar_background_color"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/only_garage_item_content"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.langoor.app.blueshak.text.MyTextView
+                android:layout_weight=".3"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Garage sale items only"
+                android:textSize="@dimen/sign_up_text_size"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:padding="10dp">
+            </com.langoor.app.blueshak.text.MyTextView>
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight=".7"
+                android:id="@+id/nly_garage_sale_items"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:checked="false"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/bottom_bar_background_color"
+            android:layout_height="1dp"/>
+        <com.langoor.app.blueshak.text.MyTextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight=".5"
+            android:text="Categories"
+            android:textSize="@dimen/sign_up_text_size"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:padding="10dp">
+        </com.langoor.app.blueshak.text.MyTextView>
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/bottom_bar_background_color"
+            android:layout_height="1dp"/>
+        <RelativeLayout
+            android:id="@+id/all_categories_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:orientation="vertical" >
+            <com.langoor.app.blueshak.text.MyTextView
+                android:id="@+id/all_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="All"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_above="@+id/last_text_message"
+                android:layout_toRightOf="@+id/profile_pic"
+                android:layout_toLeftOf="@+id/profile_pic"
+                android:layout_toEndOf="@+id/profile_pic" >
+            </com.langoor.app.blueshak.text.MyTextView>
+
+            <ImageView
+                android:layout_width="@dimen/product_list_row_item_icon_size"
+                android:layout_height="@dimen/product_list_row_item_icon_size"
+                android:id="@+id/ic_check"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:visibility="gone"
+                android:src="@drawable/ic_check"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/bottom_bar_background_color"
+            android:layout_height="1dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:dividerHeight="7dp"
+            android:scrollbars="none"
+            />
+
+
+        <View
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:background="@color/bottom_bar_background_color"
+            android:layout_height="1dp"/>
+<!--        <com.langoor.app.blueshak.text.MyTextView
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:text="Price"
+            android:textSize="@dimen/sign_up_text_size"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:padding="10dp">
+        </com.langoor.app.blueshak.text.MyTextView>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <com.langoor.app.blueshak.text.MyTextView
+                    android:id="@+id/price_start_tv"
+                    android:textColor="@color/brandColor"
+                    android:backgroundTint="@color/brandColor"
+                    android:layout_alignParentLeft="true"
+                    android:textColorHint="@color/brandColor"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/SmallerText"
+                    android:ems="10"
+                    android:hint="$ 0">
+                </com.langoor.app.blueshak.text.MyTextView>
+                <com.langoor.app.blueshak.text.MyTextView
+                    android:id="@+id/price_end_tv"
+                    android:textColor="@color/brandColor"
+                    android:backgroundTint="@color/brandColor"
+                    android:textColorHint="@color/brandColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:gravity="right"
+                    android:textAppearance="@style/SmallerText"
+                    android:layout_alignParentRight="true"
+                    android:ems="10"
+                    android:hint="">
+                </com.langoor.app.blueshak.text.MyTextView>
+                <com.edmodo.rangebar.RangeBar
+                    android:id="@+id/price_range_bar"
+                    android:layout_below="@+id/price_end_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    custom:tickCount="7"
+                    custom:tickHeight="0dp"
+                    custom:barColor="@color/darkorange"
+                    custom:connectingLineColor="@color/brandColor"
+                    custom:thumbColorNormal="@color/brandColor"
+                    custom:thumbColorPressed="@color/darkorange"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bottom_bar_background_color"/>-->
+    </LinearLayout>
+
+</LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
+    <android.support.v7.widget.CardView
+        card_view:cardPreventCornerOverlap="false"
+        app:contentPadding="5dp"
+        android:layout_width="match_parent"
+        android:gravity="bottom|right"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        card_view:cardCornerRadius="2dp"
+        app:cardElevation="3dp"
+        android:id="@+id/user_commu_content"
+        >
+    <com.langoor.app.blueshak.text.MyButton
+
+        android:id="@+id/applyButton"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/login_btn_textsize"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_corner_btn__style"
+        android:text="Apply Filters"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        </com.langoor.app.blueshak.text.MyButton>
+</android.support.v7.widget.CardView>
+</RelativeLayout>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:setPreventCornerOverlap="false"
+    card_view:cardCornerRadius="0dp"
+    card_view:contentPadding="10dp"
+    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardElevation="5dp"
+    card_view:cardUseCompatPadding="true">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+        android:layout_height="wrap_content">
+        <com.vlonjatg.progressactivity.ProgressActivity
+                android:id="@+id/products_details_progressActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                progressActivity:loadingBackgroundColor="@color/app_color_background"
+                progressActivity:emptyBackgroundColor="@color/app_color_background"
+                progressActivity:errorBackgroundColor="@color/app_color_background">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                    <com.daimajia.slider.library.SliderLayout
+                            android:id="@+id/product_detail_slider"
+                            android:layout_width="match_parent"
+                            custom:pager_animation="ZoomOutSlide"
+                            android:clickable="true"
+                            custom:indicator_visibility="visible"
+                            custom:selected_color="@color/brandColor"
+                            custom:unselected_color="#55555555"
+                            custom:pager_animation_span="1100"
+                            android:layout_height="250dp"
+
+                            />
+            <!--custom:auto_cycle="true"-->
+            <!--  android:layout_height="@dimen/image_slider_card_portrait_height"-->
+
+                      <!--  <com.daimajia.slider.library.Indicators.PagerIndicator
+                            android:id="@+id/product_detail_custom_indicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_gravity="center_vertical"
+                            custom:selected_color="@color/brandColor"
+                            custom:unselected_color="#55555555"
+                            custom:shape="oval"
+                            custom:selected_padding_left="3dp"
+                            custom:selected_padding_right="3dp"
+                            custom:unselected_padding_left="3dp"
+                            custom:unselected_padding_right="3dp"
+                            custom:selected_width="8dp"
+                            custom:selected_height="8dp"
+                            custom:unselected_width="4dp"
+                            custom:unselected_height="4dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            />-->
+
+
+        </RelativeLayout>
+
+
+        </com.vlonjatg.progressactivity.ProgressActivity>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation="vertical"
+android:id="@+id/detail_content"
+        android:layout_below="@+id/slider">
+
+                <com.langoor.app.blueshak.text.MyTextView
+                    android:id="@+id/sale_item_row_list_name_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAppearance="@style/MediumText"
+                    android:singleLine="true"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:layout_weight=".5"
+                    android:text="Andy's Garrage Sale">
+                    </com.langoor.app.blueshak.text.MyTextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal">
+            <com.langoor.app.blueshak.text.MyTextView
+                android:id="@+id/sale_item_row_list_items_no_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/MediumText"
+                android:singleLine="true"
+                android:textSize="15sp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:textColor="@color/brandColor"
+                android:layout_weight=".40"
+                android:text="7 Items">
+                </com.langoor.app.blueshak.text.MyTextView>
+            <com.langoor.app.blueshak.text.MyTextView
+                android:id="@+id/sales_item_row_list_distance_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/MediumText"
+                android:singleLine="true"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_weight=".6"
+                android:drawableLeft="@drawable/ic_map_blue_24dp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/brandColor"
+                android:textSize="15sp"
+                android:text="333332 km Away">
+                </com.langoor.app.blueshak.text.MyTextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal">
+            <com.langoor.app.blueshak.text.MyTextView
+                android:id="@+id/sales_item_row_list_date_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/MediumText"
+                android:singleLine="true"
+                android:textSize="17sp"
+                android:layout_weight=".5"
+                android:textColor="#808080"
+                android:text="1st August">
+                </com.langoor.app.blueshak.text.MyTextView>
+            <View
+                android:layout_height="match_parent"
+                android:layout_width="1dp"
+                android:background="#808080"
+                />
+            <com.langoor.app.blueshak.text.MyTextView
+                android:id="@+id/sales_item_row_list_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/MediumText"
+                android:singleLine="true"
+                android:textSize="17sp"
+                android:layout_weight=".5"
+                android:gravity="right"
+                android:textColor="#808080"
+                android:text="1st August">
+                </com.langoor.app.blueshak.text.MyTextView>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

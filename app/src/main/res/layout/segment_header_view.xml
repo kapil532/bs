@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/brand_secondary_color"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/header_content"
+    android:padding="10dp"
+    android:orientation="horizontal">
+
+  <LinearLayout
+      android:background="@drawable/rounded_border_textview"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+  <com.langoor.app.blueshak.text.MyTextViewBold
+      android:id="@+id/tab1"
+      android:layout_weight=".5"
+      android:layout_gravity="center"
+      android:background="@color/brandColor"
+      android:textSize="@dimen/sign_up_text_size"
+      android:padding="5dp"
+      android:textColor="@color/white"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="1dp"
+      android:gravity="center_horizontal"
+      android:text="Garage"/>
+    <com.langoor.app.blueshak.text.MyTextViewBold
+        android:layout_margin="1dp"
+        android:background="@color/brand_secondary_color"
+        android:textSize="@dimen/sign_up_text_size"
+        android:id="@+id/tab2"
+        android:layout_weight=".5"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:textColor="@color/brandColor"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:text="Items"/>
+</LinearLayout>
+</LinearLayout>
+
+

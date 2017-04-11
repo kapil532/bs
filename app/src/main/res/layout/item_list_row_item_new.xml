@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:setPreventCornerOverlap="true"
+        card_view:cardCornerRadius="0dp"
+        app:cardElevation="5dp"
+        card_view:contentPadding="0dp"
+        card_view:hardwareAccelerated="true"
+        app:cardBackgroundColor="@color/brand_background_color"
+        card_view:cardUseCompatPadding="true">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/slider"
+            android:orientation="vertical">
+            <ImageView
+
+                android:id="@+id/product_image"
+                android:layout_width="fill_parent"
+                android:adjustViewBounds="true"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:clickable="true"
+
+               />
+        <ImageView
+            android:id="@+id/is_sold"
+            android:layout_marginTop="5dp"
+            android:layout_width="50dp"
+            android:adjustViewBounds="true"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:clickable="true"
+            android:gravity="center|end"
+            android:layout_below="@+id/is_new_item"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/is_garage_item"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_garage_on"
+            android:adjustViewBounds="true"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:scaleType="fitXY"
+            android:clickable="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center|end"
+            />
+      <ImageView
+            android:id="@+id/is_new_item"
+            android:layout_width="50dp"
+            android:src="@drawable/ic_new"
+            android:adjustViewBounds="true"
+            android:layout_height="wrap_content"
+          android:visibility="gone"
+            android:layout_marginRight="5dp"
+            android:scaleType="fitXY"
+            android:clickable="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center|end"
+            />
+       <!-- <ImageView
+            android:id="@+id/is_new_item"
+            android:layout_width="40dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/new_tag"
+            android:adjustViewBounds="true"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:clickable="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center|end"
+            />-->
+
+       <!-- <Button
+            android:layout_width="40dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="2dp"
+            android:layout_height="25dp"
+            android:background="@drawable/bs_new_orange"
+            android:textAllCaps="true"
+            android:textAppearance="@style/MediumText"
+            android:textSize="10sp"
+            android:layout_gravity="center"
+            android:text="NEW"
+            android:textStyle="normal"
+            android:gravity="center|end"
+            android:id="@+id/is_new_item"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            />-->
+
+    </RelativeLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.langoor.app.blueshak.text.MyTextViewMediumBold
+                android:id="@+id/item_price"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/MediumText"
+                android:singleLine="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="@color/brandColor"
+                android:layout_weight=".5"
+                android:text="$ 250">
+                </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+       <!-- <View
+            android:layout_width="1dp"
+            android:background="@color/grey_2"
+            android:layout_height="wrap_content"
+            />-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_weight=".5"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+             >
+
+            <ImageView
+                android:id="@+id/item_favirate"
+                android:layout_width="22dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="22dp"
+                android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+
+</LinearLayout>
+</android.support.v7.widget.CardView>

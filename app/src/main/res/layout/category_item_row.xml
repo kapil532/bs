@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/item_view"
+    android:background="@color/brand_background_color"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight=".20"
+                            android:layout_marginLeft="5dp"
+                            android:orientation="vertical" >
+
+                                <com.langoor.app.blueshak.text.MyTextView
+                                    android:id="@+id/name_tv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Electronics and computers Houshold"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_above="@+id/last_text_message"
+                                    android:layout_toRightOf="@+id/profile_pic"
+                                    android:layout_toLeftOf="@+id/profile_pic"
+                                    android:layout_toEndOf="@+id/profile_pic" >
+                                    </com.langoor.app.blueshak.text.MyTextView>
+                        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight=".80"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:gravity="right">
+                   <!-- android:button="@drawable/customdrawablecheckbox"-->
+                        <CheckBox
+                            android:id="@+id/chkSelected"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_gravity="center_vertical"
+                            android:checked="true"
+                            android:buttonTint="@color/brandColor"
+                            android:layout_centerVertical="true"
+                            />
+                       <ImageView
+                            android:id="@+id/ic_check"
+                           android:visibility="gone"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="@dimen/product_list_row_item_icon_size"
+                            android:layout_height="@dimen/product_list_row_item_icon_size"
+                            android:src="@drawable/ic_check"/>
+                </LinearLayout>
+
+                </LinearLayout>
+
+
+

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.langoor.app.blueshak.category.CategoryActivity"
+    tools:showIn="@layout/activity_category">
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+             android:dividerHeight="7dp"
+            android:scrollbars="none"
+            android:paddingLeft="@dimen/space"
+            android:paddingRight="@dimen/space"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/done"
+        android:layout_alignParentTop="true" />
+        <com.langoor.app.blueshak.text.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="Loading Categories..."
+            android:textSize="@dimen/empty_label_size"
+            android:gravity="center"
+            android:id="@+id/no_sales"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" >
+        </com.langoor.app.blueshak.text.MyTextView>
+
+        <com.langoor.app.blueshak.text.MyButton
+            android:layout_width="wrap_content"
+            android:id="@+id/done"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@drawable/round_corner_btn__style"
+            android:textAllCaps="false"
+            android:textAppearance="@style/MediumText"
+            android:textSize="@dimen/create_sale_form_text_size"
+            android:text="Done"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" >
+        </com.langoor.app.blueshak.text.MyButton>
+    </RelativeLayout>

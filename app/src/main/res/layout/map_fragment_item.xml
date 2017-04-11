@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:background="@color/sub_header"
+        android:id="@+id/linearLayout3">
+        <com.langoor.app.blueshak.text.MyTextView
+            android:id="@+id/sale_header_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:text="Garage Sales near you"
+            android:drawableRight="@drawable/ic_list"
+            android:textSize="16sp"
+            android:padding="10dp"
+            >
+            </com.langoor.app.blueshak.text.MyTextView>
+    </LinearLayout>
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout3" />
+    <ImageView
+        android:id="@+id/en_large"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_maximize"
+        android:background="@color/brand_secondary_trasnparent_color"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/map_fragment_list_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_list" />
+    <LinearLayout
+        android:background="@color/brand_secondary_trasnparent_color"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/header_content"
+        android:orientation="horizontal">
+
+        <com.langoor.app.blueshak.text.MyTextViewBold
+            android:layout_margin="10dp"
+            android:layout_weight=".75"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Results in 'All'"
+            android:textStyle="bold"
+            android:textColor="@color/brandColor"
+            android:singleLine="true"
+            android:id="@+id/results_all"
+            android:layout_gravity="center_vertical"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:ellipsize="none"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/view2"
+            android:layout_toStartOf="@+id/view2" >
+        </com.langoor.app.blueshak.text.MyTextViewBold>
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="35dp"
+            android:id="@+id/go_to_filter"
+            android:layout_weight=".25"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_filter_blue"/>
+        <!--<ImageView
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:id="@+id/go_to_filter"
+            android:layout_weight=".25"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_filter_blue"/>-->
+    </LinearLayout>
+</RelativeLayout>

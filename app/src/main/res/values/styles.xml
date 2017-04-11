@@ -1,0 +1,107 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/brandColor</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+    </style>
+    <!--  <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>-->
+    <style name="AppTheme.NoActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <!--    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>-->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/brandColor</item>
+        <item name="android:textSize">20sp</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/brandColor</item>
+        <item name="colorControlNormal">@color/brandColor</item>
+        <item name="colorControlActivated">@color/brandColor</item>
+
+    </style>
+
+
+    <style name="LargeText" parent="LargeSizeText">
+        <item name="android:textColor">@color/app_fontColor</item>
+    </style>
+
+    <style name="MediumText" parent="MediumSizeText">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="SmallestText" parent="SmallestSizeText">
+        <item name="android:textColor">@color/app_fontColor</item>
+    </style>
+
+    <style name="SmallerText" parent="SmallerSizeText">
+        <item name="android:textColor">@color/app_fontColor</item>
+    </style>
+
+    <style name="SmallText" parent="SmallSizeText">
+        <item name="android:textColor">@color/app_fontColor</item>
+    </style>
+
+    <style name="MediumText_white" parent="MediumSizeText">
+        <item name="android:textColor">@color/app_fontColor</item>
+    </style>
+
+    <style name="LargeText_white" parent="LargeSizeText">
+        <item name="android:textColor">@color/app_fontColor</item>
+    </style>
+
+    <style name="SmallText_white" parent="SmallSizeText">
+        <item name="android:textColor">@color/app_fontColor</item>
+    </style>
+
+    <style name="MediumSizeText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:typeface">normal</item>
+    </style>
+
+    <style name="LargeSizeText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">22sp</item>
+        <item name="android:typeface">normal</item>
+    </style>
+
+    <style name="SmallSizeText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:typeface">normal</item>
+    </style>
+
+    <style name="SmallerSizeText" parent="@android:style/TextAppearance.Small">
+        <item name="android:textSize">10sp</item>
+        <item name="android:typeface">normal</item>
+    </style>
+
+    <style name="SmallestSizeText" parent="@android:style/TextAppearance.Small">
+        <item name="android:textSize">8sp</item>
+        <item name="android:typeface">normal</item>
+    </style>
+
+    <style name="TwoWayView">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!--   <style name="AppTheme.NoActionBar">
+           <item name="windowActionBar">false</item>
+           <item name="windowNoTitle">true</item>
+       </style>
+
+       <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+       <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+   -->
+</resources>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_below="@+id/product_detail_tool_bar"
+    android:layout_above="@+id/product_detail_button_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="@color/white"
+    tools:context="com.langoor.app.blueshak.report.ReportListing"
+    tools:showIn="@layout/activity_report_listing"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="0dp"
+        card_view:contentPadding="0dp"
+        app:cardBackgroundColor="@color/brand_background_color"
+        card_view:cardElevation="7dp"
+        card_view:cardUseCompatPadding="true"
+
+        ><RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+    <RadioGroup android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+
+        >
+        <com.langoor.app.blueshak.text.MyRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prohibited item"
+                  android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:id="@+id/radioButton"
+           >
+            </com.langoor.app.blueshak.text.MyRadioButton>
+        <com.langoor.app.blueshak.text.MyRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp"
+            android:text="Description/Title/Image contains ads"
+            android:id="@+id/radioButton1"
+            android:textSize="18sp"
+            >
+            </com.langoor.app.blueshak.text.MyRadioButton>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Image PS/Screenshot/Watermark"
+                  android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:id="@+id/radioButton2"
+            />
+        <com.langoor.app.blueshak.text.MyRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp"
+            android:text="Nudity,Eroticism,Violence"
+            android:textSize="18sp"
+            android:id="@+id/radioButton3"
+            >
+            </com.langoor.app.blueshak.text.MyRadioButton>
+        <com.langoor.app.blueshak.text.MyRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp"
+            android:text="Duplicate Listing"
+            android:textSize="18sp"
+            android:id="@+id/radioButton4"
+            >
+            </com.langoor.app.blueshak.text.MyRadioButton>
+        <com.langoor.app.blueshak.text.MyRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:text="Counterfeit items"
+            android:id="@+id/radioButton5"
+        >
+            </com.langoor.app.blueshak.text.MyRadioButton>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inappropriate item Title/Description"
+            android:textSize="18sp"
+                  android:layout_marginTop="10dp"
+            android:id="@+id/radioButton6"
+        />
+        <com.langoor.app.blueshak.text.MyRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Include Links/Phone Numbers/Emails"
+                  android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:id="@+id/radioButton7"
+            >
+            </com.langoor.app.blueshak.text.MyRadioButton>
+        <com.langoor.app.blueshak.text.MyRadioButton
+            android:layout_width="wrap_content"
+                  android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:text="Miscategorized"
+            android:id="@+id/radioButton8"
+            android:textSize="18sp"
+            >
+            </com.langoor.app.blueshak.text.MyRadioButton>
+        <com.langoor.app.blueshak.text.MyRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp"
+            android:text="Other (Please clarify)"
+            android:textSize="18sp"
+            android:id="@+id/radioButton9"
+            >
+            </com.langoor.app.blueshak.text.MyRadioButton>
+    </RadioGroup>
+    <com.langoor.app.blueshak.text.MyEditTextView
+        android:id="@+id/pd_description"
+        android:layout_margin="5dp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Why are you reporting this Listing? (Optional)"
+        android:maxEms="10"
+        android:imeOptions="actionDone"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey_2"
+        android:minLines="3"
+        android:gravity="start|left"
+        android:background="@android:drawable/editbox_background_normal">
+        </com.langoor.app.blueshak.text.MyEditTextView>
+
+
+</LinearLayout>
+        <fr.castorflex.android.circularprogressbar.CircularProgressBar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:cpb_color="#F00"
+            app:cpb_colors="@array/color_array"
+            app:cpb_max_sweep_angle="300"
+            app:cpb_min_sweep_angle="10"
+            app:cpb_rotation_speed="1.0"
+            android:visibility="gone"
+            android:padding="10dp"
+            app:cpb_stroke_width="4dp"
+            android:background="@drawable/bg_circle_unread_count"
+            app:cpb_sweep_speed="1.0"
+            android:id="@+id/progress_bar"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/tab_selected"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</ScrollView>

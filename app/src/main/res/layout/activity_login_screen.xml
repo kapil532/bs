@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brand_background_color"
+    android:fitsSystemWindows="true"
+
+    tools:context="com.langoor.app.blueshak.login.LoginActivity"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+ <!--   <?xml version="1.0" encoding="utf-8"?>-->
+    <!--<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        card_view:cardCornerRadius="0dp"
+        card_view:contentPadding="0dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardElevation="5dp"
+        card_view:cardUseCompatPadding="true"
+        >-->
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/brand_background_color"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical" >
+        <ImageView
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/close_button"
+            android:layout_gravity="right"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/ic_clear_black_24dp"
+            android:layout_alignParentRight="true"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_above="@+id/test">
+            <com.langoor.app.blueshak.text.MyTextView
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Please sign in to continue"
+                android:backgroundTint="@color/black"
+                android:textColor="@color/brand_text_color"
+                android:textSize="@dimen/sign_up_text_size" >
+            </com.langoor.app.blueshak.text.MyTextView>
+            <!-- <ImageView
+                   android:layout_width="70dp"
+                   android:layout_height="70dp"
+                   android:layout_marginTop="5dp"
+                   android:src="@drawable/ic_app_icon" />
+       -->
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+              >
+                <com.langoor.app.blueshak.text.MyEditTextView
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:layout_height="@dimen/login_edit_text_height"
+                    android:layout_margin="5dp"
+                    android:padding="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/username_edittext_topmargin"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionNext"
+                    android:hint="@string/email"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="@dimen/sign_up_text_size"
+                    android:textColor="@color/brand_text_color"
+                    android:textColorHint="@color/brand_text_color"
+                    android:textStyle="normal" >
+                </com.langoor.app.blueshak.text.MyEditTextView>
+              <!--  android:drawableLeft="@drawable/ic_mail_outline_black_24dp"
+                android:drawablePadding="@dimen/edittext_drawable_padding"
+                android:paddingLeft="@dimen/edittext_drawable_padding"-->
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               >
+                <com.langoor.app.blueshak.text.MyEditTextView
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:layout_height="@dimen/login_edit_text_height"
+                    android:layout_margin="5dp"
+                    android:padding="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:inputType="textWebEmailAddress"
+                    android:password="true"
+                    android:hint="@string/password"
+                    android:maxLines="1"
+                    android:textSize="@dimen/sign_up_text_size"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:textColor="@color/brand_text_color"
+                    android:textColorHint="@color/brand_text_color"
+
+                    android:textStyle="normal" >
+                </com.langoor.app.blueshak.text.MyEditTextView>
+            <!--    android:drawableLeft="@drawable/ic_https_black_24dp"
+                android:drawablePadding="@dimen/edittext_drawable_padding"
+                android:paddingLeft="@dimen/edittext_drawable_padding"-->
+            </android.support.design.widget.TextInputLayout>
+
+            <com.langoor.app.blueshak.text.MyButton
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:background="@drawable/round_corner_btn__style"
+                android:layout_marginTop="15dp"
+                android:layout_height="@dimen/login_btn_height"
+                android:text="Sign In"
+                android:textSize="@dimen/login_btn_textsize"
+                android:textAllCaps="false"
+                android:textColor="#ffffff" >
+            </com.langoor.app.blueshak.text.MyButton>
+
+            <com.facebook.login.widget.LoginButton
+                android:visibility="gone"
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp" />
+            <com.langoor.app.blueshak.text.MyButton
+                android:id="@+id/face_book_login"
+                android:layout_width="match_parent"
+                android:background="@drawable/round_corner_btn__style_blue"
+                android:layout_marginTop="15dp"
+                android:layout_height="@dimen/login_btn_height"
+                android:text="Sign In with facebook"
+                android:textSize="@dimen/login_btn_textsize"
+                android:textAllCaps="false"
+                android:textColor="#ffffff" >
+            </com.langoor.app.blueshak.text.MyButton>
+            <com.langoor.app.blueshak.text.MyTextView
+                android:id="@+id/forgot_password"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Forgotten Password?"
+                android:backgroundTint="@color/brand_text_color"
+                android:textColor="@color/brand_text_color"
+                android:textSize="14sp" >
+            </com.langoor.app.blueshak.text.MyTextView>
+        </LinearLayout>
+        <com.langoor.app.blueshak.text.MyTextView
+            android:id="@+id/test"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:gravity="center"
+            android:text="Don't have an account?"
+            android:textColor="@color/brand_text_color"
+            android:textSize="@dimen/sign_up_text_size"
+            android:layout_above="@+id/sign_up"
+            android:layout_centerHorizontal="true" >
+        </com.langoor.app.blueshak.text.MyTextView>
+
+       <!-- <com.langoor.app.blueshak.text.MyButton
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/sign_up"
+            android:layout_width="match_parent"
+            android:background="@drawable/round_corner_btn__style_blue"
+            android:gravity="center"
+            android:layout_height="@dimen/login_btn_height"
+            android:text="Create Account"
+            android:textSize="@dimen/login_btn_textsize"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" >
+        </com.langoor.app.blueshak.text.MyButton>-->
+        <com.langoor.app.blueshak.text.MyButton
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/sign_up"
+            android:layout_width="match_parent"
+            android:background="@drawable/round_corner_btn__style_blue"
+            android:layout_height="@dimen/login_btn_height"
+            android:text="Create Account"
+            android:textSize="@dimen/login_btn_textsize"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_centerHorizontal="true">
+            </com.langoor.app.blueshak.text.MyButton>
+        <fr.castorflex.android.circularprogressbar.CircularProgressBar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:cpb_color="#F00"
+            app:cpb_colors="@array/color_array"
+            app:cpb_max_sweep_angle="300"
+            app:cpb_min_sweep_angle="10"
+            app:cpb_rotation_speed="1.0"
+            android:visibility="gone"
+            android:padding="10dp"
+            app:cpb_stroke_width="4dp"
+            android:background="@drawable/bg_circle_unread_count"
+            app:cpb_sweep_speed="1.0"
+            android:id="@+id/progress_bar"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/tab_selected"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+    <!--
+    </android.support.v7.widget.CardView>
+    -->
+
+
+
+</android.support.design.widget.CoordinatorLayout>
+

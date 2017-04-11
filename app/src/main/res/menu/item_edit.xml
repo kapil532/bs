@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/delete_item"
+       />
+    <item android:title="@string/mark_as_sold"
+        android:id="@+id/sold_item"/>
+    <item android:title="@string/edit" />
+</menu>

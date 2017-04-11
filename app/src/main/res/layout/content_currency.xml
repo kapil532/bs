@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.langoor.app.blueshak.currency.CurrencyActivity"
+    android:background="@color/brand_background_color"
+    tools:showIn="@layout/activity_currency">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:dividerHeight="7dp"
+        android:scrollbars="none"
+        android:paddingLeft="@dimen/space"
+        android:paddingRight="@dimen/space"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/done"
+        android:layout_alignParentTop="true" />
+    <com.langoor.app.blueshak.text.MyTextView
+        android:layout_width="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="Loading Categories..."
+        android:textSize="@dimen/empty_label_size"
+        android:gravity="center"
+        android:id="@+id/no_sales"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" >
+    </com.langoor.app.blueshak.text.MyTextView>
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        app:cpb_color="#F00"
+        app:cpb_colors="@array/color_array"
+        app:cpb_max_sweep_angle="300"
+        app:cpb_min_sweep_angle="10"
+        app:cpb_rotation_speed="1.0"
+
+        android:visibility="gone"
+        android:padding="10dp"
+        app:cpb_stroke_width="4dp"
+        android:background="@drawable/bg_circle_unread_count"
+        app:cpb_sweep_speed="1.0"
+        android:id="@+id/progress_bar"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/tab_selected"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+    <com.langoor.app.blueshak.text.MyButton
+        android:layout_width="wrap_content"
+        android:id="@+id/done"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:background="@drawable/round_corner_btn__style"
+        android:textAllCaps="false"
+        android:textAppearance="@style/MediumText"
+        android:textSize="@dimen/create_sale_form_text_size"
+        android:text="Done"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" >
+    </com.langoor.app.blueshak.text.MyButton>
+
+</RelativeLayout>
+

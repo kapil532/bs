@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Blueshak</string>
+
+    <!--Network Static messages-->
+    <string name="NetworkError">No Network Available</string>
+    <string name="ServerError">Server Response Timeout</string>
+    <string name="AuthFailedError">Server Authentication Failed</string>
+    <string name="ParseError">Parsing Error</string>
+    <string name="NoConnectionError">No Connection available to Host</string>
+    <string name="TimeOutError">Server Timeout Error</string>
+    <string name="ErrorResponseData">Error Response Data</string>
+    <string name="ErrorEmailVerification">Please verify your email and try again. The email link was sent during registration.</string>
+    <string name="no_items_found">No Items Found Near You</string>
+
+    <string name="loading">Loading ...</string>
+    <string name="myProfile">My Profile</string>
+
+    <string name="support">Support</string>
+
+
+    <string name="garageSale">Garage Sale</string>
+    <string name="item">Item</string>
+
+    <string name="sales_left">You can add up to 10 products per sale, 50 product left overall.</string>
+
+    <string name="email">Email address</string>
+    <string name="password">Password</string>
+
+
+    <!--<string name="facebook_app_id">645536408947810</string>-->
+
+   <!-- <string name="facebook_app_id">1753514361569070</string>-->
+
+    <string name="facebook_app_id">133724250427239</string>
+
+    <string name="chat_input_hint">Type a message</string>
+    <string name="no_messages">No messages</string>
+
+    <!-- Used in app/dialog examples -->
+    <!-- Used in app/dialog examples -->
+    <string-array name="select_dialog_items">
+       <!-- <item>Click a picture from camera</item>-->
+        <item>Camera</item>
+        <item>Choose from gallery</item>
+    </string-array>
+    <!-- Used in app/dialog examples -->
+    <string name="title_activity_reviews_ratings">Reviews</string>
+    <string name="delete_item">Delete</string>
+    <string name="mark_as_sold">Mark as sold</string>
+    <string name="edit">Edit</string>
+    <string name="delete_sale">Delete</string>
+    <string name="edit_Sale">Edit Garage Sale</string>
+    <string name="end_sale">Close Garage Sale</string>
+    <string name="reschedule_sale">Reschedule Garage Sale</string>
+    <string name="title_activity_terms_conditions">Help Center</string>
+    <string name="title_activity_profile_edit">Profile Edit</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_message">MessageActivity</string>
+    <string name="title_activity_list">List</string>
+    <string name="title_activity_item_detail">Listing Details</string>
+    <string name="title_activity_pick_location">Location</string>
+    <string name="title_activity_report_listing">Report Listing</string>
+    <string name="title_activity_map">Map</string>
+    <string name="title_activity_image_view_activty">Listing Details</string>
+    <string name="title_activity_make_offers_activty">Make Offer</string>
+    <string name="title_activity_shop">ShopActivity</string>
+    <string name="title_activity_book_mark_activty">My Wishlist</string>
+    <string name="title_activity_filter">Filter</string>
+    <string name="location_update_request">Please enable the GPS location to update the best products near you</string>
+    <!--<string name="profile_edit_text">Become a verified user above- this shows other Blueshak you 're the real deal! Once verified, you'll receive a special avatar.</string>-->
+    <!--<string name="profile_edit_text_next_line">Blueshak will only use your phone number or facebook details to verify your identity and we will not share them with anyone else.</string>-->
+    <!-- <string name="zipcode_code">Use a Zipcode to confirm your location</string>-->
+    <string name="list_item">Sell An Item</string>
+    <string name="create_sale">Create Garage Sale</string>
+    <string name="item_updated_message">Item has been updated Successfully.</string>
+    <string name="title_activity_my_items">Add Items</string>
+    <string name="title_activity_chat_activty">ChatActivty</string>
+    <string name="title_activity_view">Image</string>
+    <string name="title_activity_add_rating">Review</string>
+    <string name="title_activity_my_listings">My Listings</string>
+    <string name="title_activity_garage_sales_list">GarageSalesList</string>
+    <string name="title_activity_currency">CurrencyActivity</string>
+    <string name="copy_right_text">Copyright Blueshak Pty Ltd. Version: 1.4</string>
+    <string name="marked_inappropriate_success_message">Item marked as inappropriate. Thank you for your help. We will review your submission.</string>
+
+    <string name="contact_permission_text">Get accounts and Read contacts Services Permission required for this app</string>
+    <string name="settings">settings</string>
+    <string name="otp_text">We have sent you verification code to verify your phone number</string>
+    <string name="otp_resend_text">Didn\'t receive one? Resend verification code.</string>
+
+</resources>

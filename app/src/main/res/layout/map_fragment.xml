@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@color/sub_header"
+            android:id="@+id/linearLayout3">
+            <com.langoor.app.blueshak.text.MyTextView
+                android:id="@+id/sale_header_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:text="Garage Sales near you"
+                android:drawableRight="@drawable/ic_list"
+                android:textSize="16sp"
+                android:padding="10dp"
+                >
+            </com.langoor.app.blueshak.text.MyTextView>
+    </LinearLayout>
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout3" />
+    <ImageView
+    android:id="@+id/en_large"
+    android:layout_width="45dp"
+    android:layout_height="45dp"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_maximize"
+        android:background="@color/brand_secondary_trasnparent_color"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/map_fragment_list_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_list" />
+    <LinearLayout
+        android:visibility="gone"
+        android:background="@color/brand_secondary_trasnparent_color"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/header_content"
+        android:orientation="horizontal">
+
+        <!--<com.langoor.app.blueshak.text.MyTextViewBold
+
+            android:layout_margin="10dp"
+            android:layout_weight=".75"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Results in 'All'"
+            android:textStyle="bold"
+            android:textColor="@color/brandColor"
+            android:singleLine="true"
+            android:id="@+id/results_all"
+            android:layout_gravity="center_vertical"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:ellipsize="none"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/view2"
+            android:layout_toStartOf="@+id/view2" >
+        </com.langoor.app.blueshak.text.MyTextViewBold>-->
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="35dp"
+            android:id="@+id/go_to_filter"
+            android:layout_weight=".25"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_filter_blue"/>
+        <!--<ImageView
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:id="@+id/go_to_filter"
+            android:layout_weight=".25"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_filter_blue"/>-->
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/brand_secondary_color"
+        android:orientation="vertical">
+        <com.langoor.app.blueshak.text.MyTextView
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/searchViewResult"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:imeOptions="actionDone"
+            android:hint="Search Blueshak"
+            android:textSize="16sp"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/ic_search_field"
+            android:background="@android:drawable/editbox_background_normal"
+            android:textColor="@color/brand_text_color"
+            android:layout_below="@+id/header_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+        </com.langoor.app.blueshak.text.MyTextView>
+        <com.langoor.app.blueshak.text.MyTextViewMediumBold
+            android:background="@color/white"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Results from nearest first"
+            android:textStyle="italic"
+            android:textColor="@color/black"
+            android:singleLine="true"
+            android:id="@+id/results_all"
+            android:layout_gravity="center_vertical"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:ellipsize="none"
+            android:textSize="@dimen/results_all_textsize"
+            ></com.langoor.app.blueshak.text.MyTextViewMediumBold>
+    </LinearLayout>
+
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        app:cpb_color="#F00"
+        app:cpb_colors="@array/color_array"
+        app:cpb_max_sweep_angle="300"
+        app:cpb_min_sweep_angle="10"
+        app:cpb_rotation_speed="1.0"
+        android:visibility="gone"
+        android:padding="10dp"
+        app:cpb_stroke_width="4dp"
+        android:background="@drawable/bg_circle_unread_count"
+        app:cpb_sweep_speed="1.0"
+        android:id="@+id/progress_bar"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/tab_selected"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

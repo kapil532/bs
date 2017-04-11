@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/brand_secondary_color"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:id="@+id/header_content"
+    android:orientation="horizontal">
+
+    <com.langoor.app.blueshak.text.MyTextViewBold
+        android:layout_margin="10dp"
+        android:layout_weight=".75"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Results in 'All'"
+        android:textStyle="bold"
+        android:textColor="@color/brandColor"
+        android:singleLine="true"
+        android:id="@+id/results_all"
+        android:layout_gravity="center_vertical"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:ellipsize="none"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/view2"
+        android:layout_toStartOf="@+id/view2" >
+        </com.langoor.app.blueshak.text.MyTextViewBold>
+    <ImageView
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="35dp"
+        android:id="@+id/go_to_filter"
+        android:layout_weight=".25"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_filter_blue"/>
+</LinearLayout>
+
+
+

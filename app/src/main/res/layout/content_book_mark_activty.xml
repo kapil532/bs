@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/swipe_container"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+app:layout_behavior="@string/appbar_scrolling_view_behavior"
+tools:context="com.langoor.app.blueshak.bookmarks.BookMarkActivty"
+tools:showIn="@layout/activity_book_mark_activty"
+    >
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/brand_background_color">
+        <!--android:background="#DCDCDC"-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/sub_header"
+            android:id="@+id/linearLayout3">
+            <com.langoor.app.blueshak.text.MyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                android:id="@+id/sale_header_name"
+                android:gravity="center_vertical"
+                android:drawableRight="@drawable/ic_map_black_24dp"
+                android:textSize="16sp"
+                android:padding="10dp"
+                >
+                </com.langoor.app.blueshak.text.MyTextView>
+        </LinearLayout>
+
+        <!--<ListView
+              android:id="@+id/sales_list_fragment_list_view"
+              android:layout_width="match_parent"
+              android:scrollbars="none"
+              android:layout_height="match_parent"
+              android:layout_margin="5dp"
+              android:choiceMode="singleChoice"
+              android:divider="@drawable/list_divider"
+              android:dividerHeight="7dp"
+              android:footerDividersEnabled="true"
+              android:layout_below="@+id/linearLayout3" />
+      -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:dividerHeight="7dp"
+            android:scrollbars="none"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/linearLayout3"
+            android:paddingLeft="@dimen/space"
+            android:paddingRight="@dimen/space"/>
+
+
+        <com.langoor.app.blueshak.text.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_star_big_off"
+            android:drawablePadding="5dp"
+            android:text="No Bookmarks Found"
+            android:textSize="@dimen/empty_label_size"
+            android:visibility="gone"
+            android:gravity="center"
+            android:id="@+id/no_bookmarks"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" >
+            </com.langoor.app.blueshak.text.MyTextView>
+        <fr.castorflex.android.circularprogressbar.CircularProgressBar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:cpb_color="#F00"
+            app:cpb_colors="@array/color_array"
+            app:cpb_max_sweep_angle="300"
+            app:cpb_min_sweep_angle="10"
+            app:cpb_rotation_speed="1.0"
+            android:visibility="gone"
+            android:padding="10dp"
+            app:cpb_stroke_width="4dp"
+            android:background="@drawable/bg_circle_unread_count"
+            app:cpb_sweep_speed="1.0"
+            android:id="@+id/progress_bar"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/tab_selected"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
+
