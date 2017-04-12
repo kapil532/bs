@@ -3,6 +3,9 @@ package com.langoor.app.blueshak;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -14,6 +17,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,6 +59,9 @@ import com.langoor.app.blueshak.view_sales.MapFragmentSales;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarBadge;
 import com.roughike.bottombar.OnMenuTabClickListener;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends PushActivity implements LocationListener, MessageManager.OnNotificationReceived {
     private static BottomBar mBottomBar;
@@ -100,6 +107,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        hashKey();
         try {
             activity = this;
             mainContext = this;
@@ -531,5 +539,27 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
         }
 
 
+    }
+
+
+
+    private void hashKey()
+    {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    getPackageName(),
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        }
+        catch (PackageManager.NameNotFoundException e) {
+
+        }
+        catch (NoSuchAlgorithmException e) {
+
+        }
     }
 }

@@ -70,7 +70,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDP4oI0-UKhNRuaWFv8kgJv4wxBogc_brs" />
+            android:value="AIzaSyBNV4_3GEbM3Pc08ifm7mKIBoC9k-842tg" />
 
         <!-- FaceBook App Id -->
         <meta-data
