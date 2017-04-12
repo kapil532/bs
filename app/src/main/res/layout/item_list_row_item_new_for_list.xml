@@ -15,25 +15,28 @@
         app:cardBackgroundColor="@color/brand_background_color"
         card_view:cardUseCompatPadding="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:background="@color/white"
         android:layout_height="wrap_content">
+
         <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/slider"
-                android:orientation="vertical">
+                android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
                 <ImageView
 
                     android:id="@+id/product_image"
-                    android:layout_width="90dp"
-                    android:adjustViewBounds="true"
-                    android:layout_height="90dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_app_icon"
+                    android:layout_width="100dp"
+                    android:scaleType="centerCrop"
+                    android:layout_height="100dp"
                     android:clickable="true"
+                    android:src="@drawable/ic_app_icon"
 
                    />
             <ImageView
@@ -63,6 +66,24 @@
                 android:layout_alignParentEnd="true"
                 android:gravity="center|end"
                 />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_weight=".5"
+                android:layout_below="@+id/is_garage_item"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content"
+                >
+
+                <ImageView
+                    android:id="@+id/item_favirate"
+                    android:layout_width="22dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="22dp"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
           <ImageView
                 android:id="@+id/is_new_item"
                 android:layout_width="50dp"
@@ -78,14 +99,26 @@
                 android:layout_alignParentEnd="true"
                 android:gravity="center|end"
                 />
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:padding="5dp"
-                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/product_image"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+               >
+                <com.langoor.app.blueshak.text.MyTextViewMediumBold
+                    android:id="@+id/item_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="dd 6"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/brand_text_color"
+                    android:singleLine="true"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                   >
+                </com.langoor.app.blueshak.text.MyTextViewMediumBold>
                 <com.langoor.app.blueshak.text.MyTextViewMediumBold
                     android:id="@+id/item_price"
                     android:layout_marginLeft="10dp"
@@ -95,37 +128,27 @@
                     android:singleLine="true"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_gravity="center"
                     android:textColor="@color/brandColor"
                     android:text="$ 250">
                 </com.langoor.app.blueshak.text.MyTextViewMediumBold>
-                <!-- <View
-                     android:layout_width="1dp"
-                     android:background="@color/grey_2"
-                     android:layout_height="wrap_content"
-                     />-->
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_weight=".5"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:layout_height="wrap_content"
-                    >
 
-                    <ImageView
-                        android:id="@+id/item_favirate"
-                        android:layout_width="22dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_height="22dp"
-                        android:layout_centerHorizontal="true" />
-                </RelativeLayout>
+                <com.langoor.app.blueshak.text.MyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:singleLine="false"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/item_location"
+                    android:text="new "
+                    android:textColor="@color/brand_text_color"
+                  >
+                </com.langoor.app.blueshak.text.MyTextView>
             </LinearLayout>
 
         </RelativeLayout>
 
 
-
-
-
-    </LinearLayout>
+    </RelativeLayout>
 </android.support.v7.widget.CardView>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,7 +44,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
     private static final int VIEWTYPE_LOADER = 2;
     public String item_address;
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        protected TextView item_price;
+        protected TextView item_price,item_name,item_location;
         protected ImageView image_iv,favarite,is_sold,is_garage;
         public MyViewHolder(View view) {
             super(view);
@@ -52,7 +53,8 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
             is_sold= (ImageView) view.findViewById(R.id.is_sold);
             is_garage= (ImageView) view.findViewById(R.id.is_garage_item);
             favarite= (ImageView) view.findViewById(R.id.item_favirate);
-        }
+            item_name= (TextView) view.findViewById(R.id.item_name);
+            item_location= (TextView) view.findViewById(R.id.item_location);        }
     }
 
     class VHLoader extends RecyclerView.ViewHolder{
@@ -101,8 +103,15 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                     price=(int)Float.parseFloat(obj.getSalePrice());*/
 
                 holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(),obj.getSalePrice()));
+              holder.item_name.setText(obj.getName());
 
-                if(obj.is_bookmark())
+
+              if(!TextUtils.isEmpty(obj.getCity()))
+                  holder.item_location.setText(obj.getCity());
+              else
+                  holder.item_location.setVisibility(View.GONE);
+
+              if(obj.is_bookmark())
                     holder.favarite.setImageResource(R.drawable.like_full);
                 else
                     holder.favarite.setImageResource(R.drawable.like_border);
