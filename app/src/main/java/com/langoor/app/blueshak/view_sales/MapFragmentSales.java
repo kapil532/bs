@@ -327,8 +327,8 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         /*googleMap.setMyLocationEnabled(true);*/
       /*  googleMap.setMyLocationEnabled(true);*/
-        googleMap.setTrafficEnabled(true);
-        googleMap.setIndoorEnabled(true);
+        googleMap.setTrafficEnabled(false);
+        googleMap.setIndoorEnabled(false);
         googleMap.setBuildingsEnabled(true);
         /*if(from_activity))
             googleMap.getUiSettings().setZoomControlsEnabled(true);*/
@@ -339,6 +339,7 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
         else
             setUpClusterer();
     }
+    float camera_focus_zoom = 10.0f;
     private void addMarker() {
         MarkerOptions options = new MarkerOptions();
         /*MarkerOptions marker = new MarkerOptions().position(currentLatLng).title("resturan")
@@ -361,7 +362,8 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
         Marker mapMarker = map.addMarker(options);
         mapMarker.setTitle(shop_name);
         Log.d(TAG, "Marker added.............................");
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,0));
+       // map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,camera_focus_zoom));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, camera_focus_zoom));
         Log.d(TAG, "Zoom done.............................");
 
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -422,7 +424,7 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
     }
 
     private void setUpClusterer() {
-        if(locServices.getLocation()!=null)map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(locServices.getLatitude(), locServices.getLongitude()), 10));
+        if(locServices.getLocation()!=null)map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(locServices.getLatitude(), locServices.getLongitude()), camera_focus_zoom));
         mClusterManager = new ClusterManager<MyItem>(getActivity(), map);
         /*mClusterManager.getMarkerCollection().setOnInfoWindowAdapter(new MarkerInfoWindowAdapter());
         mClusterManager.getClusterMarkerCollection().setOnInfoWindowAdapter(new ClusterInfoWindow());*/
@@ -511,7 +513,8 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
            if(model.is_current_country() || model.isDistance_enabled()){
                drawCircle();
            }
-           map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,7));
+          // map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,camera_focus_zoom));
+           map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, camera_focus_zoom));
        }
 
     }

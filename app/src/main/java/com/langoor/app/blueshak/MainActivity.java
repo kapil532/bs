@@ -169,10 +169,12 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                                         Fragment fragment = new MapFragmentSales().newInstance(locationModel, GlobalVariables.TYPE_GARAGE, null, null, false, filterModel);
                                         mainActivityFM.beginTransaction().replace(R.id.container, fragment, "").commit();
                                         grid.setImageResource(R.drawable.ic_grid);
+                                        is_map=false;
                                     } else {
                                         GarageSalesListFragment garageSalesListFragment = GarageSalesListFragment.newInstance(salesListModel, GlobalVariables.TYPE_GARAGE, filterModel, locationModel, false);
                                         mainActivityFM.beginTransaction().replace(R.id.container, garageSalesListFragment, "").commit();
                                         grid.setImageResource(R.drawable.pin_white);
+                                        is_map=true;
                                     }
                                     break;
                                 case 2:
@@ -238,10 +240,12 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                                 Fragment fragment = new MapFragmentSales().newInstance(locationModel, GlobalVariables.TYPE_GARAGE, null, null, false, filterModel);
                                 mainActivityFM.beginTransaction().replace(R.id.container, fragment, "").commit();
                                 grid.setImageResource(R.drawable.ic_grid);
+                                is_map=false;
                             } else {
                                 GarageSalesListFragment garageSalesListFragment = GarageSalesListFragment.newInstance(salesListModel, GlobalVariables.TYPE_GARAGE, filterModel, locationModel, false);
                                 mainActivityFM.beginTransaction().replace(R.id.container, garageSalesListFragment, "").commit();
                                 grid.setImageResource(R.drawable.pin_white);
+                                is_map=true;
                             }
                             break;
                         case R.id.list:
