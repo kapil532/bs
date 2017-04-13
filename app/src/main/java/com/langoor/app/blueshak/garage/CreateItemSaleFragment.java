@@ -77,7 +77,9 @@ import com.langoor.app.blueshak.util.LocationService;
 import com.langoor.app.blueshak.view.MultiAutoCompletionView;
 import com.tokenautocomplete.TokenCompleteTextView;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTextView.TokenListener{
 
@@ -158,7 +160,7 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
 
             if(currency!=null)
                 saleprice.setHint("Price in "+currency);
-            pd_salepricetype.setOnClickListener(new View.OnClickListener() {
+                 pd_salepricetype.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent= CurrencyActivity.newInstance(context,pd_salepricetype.getText().toString());
@@ -226,8 +228,10 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
     return view;
     }
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -747,21 +751,44 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
 
     public void setValuesPRO(ProfileDetailsModel model)
     {
-        if (model != null) {
 
 
-            if (model.getPhone() != null && !TextUtils.isEmpty(model.getPhone())) {
+
+        if (model != null)
+        {
+            if (model.getPhone() != null && !TextUtils.isEmpty(model.getPhone()))
+            {
 
                 stdCode=""+ model.getIsd();
                 Log.d("STD CODEDC","STDCODE"+stdCode);
                 if(currency != null)
                 {
                     pd_salepricetype.setText(currency);
+                    if(currency!=null)
+                        saleprice.setHint("Price in "+currency);
+                    pd_salepricetype.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent= CurrencyActivity.newInstance(context,pd_salepricetype.getText().toString());
+                            startActivityForResult(intent,globalVariables.REQUEST_CODE_SELECT_CURRENCY);
+
+                        }
+                    });
                 }
                 else
                 {
 
                     generateCurre();
+                    if(currency!=null)
+                        saleprice.setHint("Price in "+currency);
+                    pd_salepricetype.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent= CurrencyActivity.newInstance(context,pd_salepricetype.getText().toString());
+                            startActivityForResult(intent,globalVariables.REQUEST_CODE_SELECT_CURRENCY);
+
+                        }
+                    });
                     //pd_salepricetype.setText(stdCode);
                 }
             }
@@ -781,6 +808,7 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
                     if(stdCode.equalsIgnoreCase("+"+product_list.get(i).getPhonecode()))
                     {
                         stdCode  =product_list.get(i).getCurrency();
+                        GlobalFunctions.setSharedPreferenceString(getActivity(),GlobalVariables.SHARED_PREFERENCE_USER_CURRENCY,stdCode);
                         pd_salepricetype.setText(stdCode);
                         return;
                     }

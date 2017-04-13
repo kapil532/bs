@@ -29,6 +29,7 @@ public class GlobalVariables {
     public static final String SHARED_PREFERENCE_AVATAR =  "avatar";
     public static final String SHARED_PREFERENCE_PERMISSION ="SharedPreferencePermissionCheck";
     public static final String SHARED_PREFERENCE_CURRENCY = "currency";
+    public static final String SHARED_PREFERENCE_USER_CURRENCY = "usercurrency";
     public static final String MESSAGE_UNREAD_COUNT = "messagesunreadcount";
     public static final String NOTIFICATIONS_UNREAD_COUNT = "notificationsunreadcount";
     public static final String BOOKMARKS_UNREAD_COUNT = "bookmarksunreadcount";

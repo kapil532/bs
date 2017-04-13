@@ -1,7 +1,9 @@
 package com.langoor.app.blueshak.currency;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -28,6 +30,7 @@ import com.langoor.app.blueshak.filter.FilterActivity;
 import com.langoor.app.blueshak.garage.CreateItemSaleFragment;
 import com.langoor.app.blueshak.garage.CreateSaleActivity;
 import com.langoor.app.blueshak.global.GlobalFunctions;
+import com.langoor.app.blueshak.global.GlobalVariables;
 import com.langoor.app.blueshak.root.RootActivity;
 import com.langoor.app.blueshak.services.ServerResponseInterface;
 import com.langoor.app.blueshak.services.ServicesMethodsManager;
@@ -187,10 +190,46 @@ public class CurrencyActivity extends RootActivity  implements OnSelected {
     public void onSelected(int position)
     {
         Log.d(TAG,"onSelected###############"+product_list.get(position).getCurrency());
-        setReturnResult(product_list.get(position));
+        if( GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_USER_CURRENCY).equalsIgnoreCase(product_list.get(position).getCurrency()))
+        {
+            setReturnResult(product_list.get(position));
+        }
+        else
+        {
+            dialogBox(position);
+        }
+
 
     }
 
+    public void dialogBox(final int position) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Are you sure you want to choose different curreny for your item?");
+        alertDialogBuilder.setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
 
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1)
+                    {
+                         arg0.dismiss();
+                        setReturnResult(product_list.get(position));
+                    }
+
+
+                });
+
+        alertDialogBuilder.setNegativeButton("NO",
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        arg0.dismiss();
+                        finish();
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 
 }
