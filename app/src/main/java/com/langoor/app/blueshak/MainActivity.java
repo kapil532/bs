@@ -62,6 +62,8 @@ import com.roughike.bottombar.OnMenuTabClickListener;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Currency;
+import java.util.Locale;
 
 public class MainActivity extends PushActivity implements LocationListener, MessageManager.OnNotificationReceived {
     private static BottomBar mBottomBar;
@@ -556,7 +558,12 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                Log.d("KeyHash:", "VALUESS"+GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_COUNTRY));
+                Log.d("KeyHash:", "VALUESS"+GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY));
+                Log.d("KeyHash:", "VALUESS"+GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_PHONE));
+                Log.d("KeyHash:", "VALUESS"+GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_POSTALCODES));
+                Log.d("KeyHash:", "VALUESS"+GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_CURRENCIES));
+                Log.d("KeyHash:", "VALUESS"+GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_CURRENCY));
             }
         }
         catch (PackageManager.NameNotFoundException e) {
@@ -565,5 +572,15 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
         catch (NoSuchAlgorithmException e) {
 
         }
+        //getCurrency();
     }
+
+    /*private  void getCurrency()
+    {
+        Locale locale= getResources().getConfiguration().locale;
+
+        Currency currency=Currency.getInstance(locale);
+        String symbol = currency.getSymbol();
+        Log.d("SYMOBOLS ","CURRENCYCURENY"+symbol);
+    }*/
 }

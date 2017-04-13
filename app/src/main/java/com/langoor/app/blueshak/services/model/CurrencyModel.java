@@ -14,9 +14,27 @@ public class CurrencyModel implements Serializable {
     private final String TAG = "CurrencyModel";
     private final String
             CURRENCY_ISO = "country_iso",
-            CURRENCY = "currency";
+            CURRENCY = "currency",COUNTRY_CODE="country_code",PHONECODE="phonecode";
 
-    String country_iso=null, currency=null;
+    String country_iso=null,
+            currency=null,country_code=null,phonecode=null;
+
+    public String getCountry_code() {
+        return country_code;
+    }
+
+    public void setCountry_code(String country_code) {
+        this.country_code = country_code;
+    }
+
+    public String getPhonecode() {
+        return phonecode;
+    }
+
+    public void setPhonecode(String phonecode) {
+        this.phonecode = phonecode;
+    }
+
     boolean is_selected=false;
 
     public boolean is_selected() {
@@ -48,6 +66,8 @@ public class CurrencyModel implements Serializable {
             JSONObject json = new JSONObject(jsonObject);
             country_iso = json.getString(CURRENCY_ISO);
             currency = json.getString(CURRENCY);
+            country_code = json.getString(COUNTRY_CODE);
+            phonecode = json.getString(PHONECODE);
             return true;
         }catch(Exception ex){
             Log.d(TAG, "Json Exception : " + ex);
@@ -62,6 +82,8 @@ public class CurrencyModel implements Serializable {
             JSONObject jsonMain = new JSONObject();
             jsonMain.put(CURRENCY_ISO, country_iso);
             jsonMain.put(CURRENCY, currency);
+            jsonMain.put(COUNTRY_CODE, country_code);
+            jsonMain.put(PHONECODE, phonecode);
             returnString = jsonMain.toString();
         }
         catch (Exception ex){Log.d(TAG," To String Exception : "+ex);

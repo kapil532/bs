@@ -261,7 +261,11 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 	public void setThisPage(){
 		getUserDetails(context);
 	}
-	private void getUserDetails(Context context){
+
+
+
+	private void getUserDetails(Context context)
+	{
 		showProgressBar();
 		ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
 		servicesMethodsManager.getUserDetails(context, new ServerResponseInterface() {
@@ -545,5 +549,46 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 		}
 	}
 
+	private ProfileDetailsModel profileDetailsModelp=new ProfileDetailsModel();
 
+	private void getUserDetailsPro(Context context)
+	{
+		ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+		servicesMethodsManager.getUserDetails(context, new ServerResponseInterface() {
+			@Override
+			public void OnSuccessFromServer(Object arg0) {
+				Log.d(TAG, "onSuccess Response"+arg0.toString());
+				profileDetailsModelp = (ProfileDetailsModel) arg0;
+				setValuesPRO(profileDetailsModelp);
+			}
+
+			@Override
+			public void OnFailureFromServer(String msg) {
+
+				Log.d(TAG, msg);
+			}
+
+			@Override
+			public void OnError(String msg) {
+				Log.d(TAG, msg);
+			}
+		}, "Profile");
+
+	}
+
+	String stdCode="";
+
+	public void setValuesPRO(ProfileDetailsModel model)
+	{
+		if (model != null) {
+
+
+			if (model.getPhone() != null && !TextUtils.isEmpty(model.getPhone())) {
+
+				stdCode=""+ model.getIsd();
+				Log.d("STD CODEDC","STDCODE"+stdCode);
+			}
+
+		}
+	}
 }

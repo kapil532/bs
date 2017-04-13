@@ -106,8 +106,8 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
               holder.item_name.setText(obj.getName());
 
 
-              if(!TextUtils.isEmpty(obj.getCity()))
-                  holder.item_location.setText(obj.getCity());
+              if(!TextUtils.isEmpty(obj.getAddress()))
+                  holder.item_location.setText(obj.getAddress());
               else
                   holder.item_location.setVisibility(View.GONE);
 

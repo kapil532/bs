@@ -36,7 +36,9 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.langoor.app.blueshak.currency.CurrencyActivity;
+import com.langoor.app.blueshak.services.model.CurrencyListModel;
 import com.langoor.app.blueshak.services.model.CurrencyModel;
+import com.langoor.app.blueshak.services.model.ProfileDetailsModel;
 import com.langoor.blueshak.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -131,7 +133,7 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
         createItemSaleFragment.setArguments(bundle);
         return createItemSaleFragment;
     }
-
+    String currency;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -140,6 +142,7 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
         context= getActivity();
         activity=getActivity();
         view = inflater.inflate(R.layout.item_productdetails_new, container, false);
+        getUserDetailsPro(getActivity());
         try{
             progress_bar=(ProgressBar)view.findViewById(R.id.progress_bar);
             name = (EditText) view.findViewById(R.id.pd_name);
@@ -147,8 +150,12 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
             saleprice = (EditText) view.findViewById(R.id.pd_saleprice);
             category = (TextView) view.findViewById(R.id.pd_category);
             pd_salepricetype = (TextView) view.findViewById(R.id.pd_salepricetype);
-            String currency=GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_CURRENCY);
-            pd_salepricetype.setText(currency);
+            currency  =GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_CURRENCY);
+
+            //Log.d("STD CODEDC","STDCODE"+currency);
+
+
+
             if(currency!=null)
                 saleprice.setHint("Price in "+currency);
             pd_salepricetype.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +166,8 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
 
                 }
             });
+
+
             mAutocompleteTextView = (TextView) view.findViewById(R.id
                     .pick_location);
             mAutocompleteTextView.setOnClickListener(new View.OnClickListener() {
@@ -705,6 +714,81 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
     public void hideProgressBar(){
         if(progress_bar!=null)
             progress_bar.setVisibility(View.GONE);
+    }
+
+    private ProfileDetailsModel profileDetailsModelp=new ProfileDetailsModel();
+
+    private void getUserDetailsPro(Context context)
+    {
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getUserDetails(context, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                Log.d(TAG, "onSuccess Response"+arg0.toString());
+                profileDetailsModelp = (ProfileDetailsModel) arg0;
+                setValuesPRO(profileDetailsModelp);
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+
+                Log.d(TAG, msg);
+            }
+
+            @Override
+            public void OnError(String msg) {
+                Log.d(TAG, msg);
+            }
+        }, "Profile");
+
+    }
+
+    String stdCode="";
+
+    public void setValuesPRO(ProfileDetailsModel model)
+    {
+        if (model != null) {
+
+
+            if (model.getPhone() != null && !TextUtils.isEmpty(model.getPhone())) {
+
+                stdCode=""+ model.getIsd();
+                Log.d("STD CODEDC","STDCODE"+stdCode);
+                if(currency != null)
+                {
+                    pd_salepricetype.setText(currency);
+                }
+                else
+                {
+
+                    generateCurre();
+                    //pd_salepricetype.setText(stdCode);
+                }
+            }
+
+        }
+    }
+    private CurrencyListModel clma;
+    private List<CurrencyModel> product_list = new ArrayList<CurrencyModel>();
+    private void generateCurre() {
+        if(clma==null) {
+            clma = GlobalFunctions.getCurrencies(activity);
+            if (clma != null) {
+                product_list=clma.getCurrency_list();
+                for(int i=0;i<product_list.size();i++)
+                {
+
+                    if(stdCode.equalsIgnoreCase("+"+product_list.get(i).getPhonecode()))
+                    {
+                        stdCode  =product_list.get(i).getCurrency();
+                        pd_salepricetype.setText(stdCode);
+                        return;
+                    }
+                }
+
+            }
+        }
+
     }
 }
 

@@ -29,12 +29,15 @@ import com.langoor.app.blueshak.garage.CreateItemSaleFragment;
 import com.langoor.app.blueshak.garage.CreateSaleActivity;
 import com.langoor.app.blueshak.global.GlobalFunctions;
 import com.langoor.app.blueshak.root.RootActivity;
+import com.langoor.app.blueshak.services.ServerResponseInterface;
+import com.langoor.app.blueshak.services.ServicesMethodsManager;
 import com.langoor.app.blueshak.services.model.CategoryListModel;
 import com.langoor.app.blueshak.services.model.CategoryModel;
 import com.langoor.app.blueshak.services.model.CreateSalesModel;
 import com.langoor.app.blueshak.services.model.CurrencyListModel;
 import com.langoor.app.blueshak.services.model.CurrencyModel;
 import com.langoor.app.blueshak.services.model.ProductModel;
+import com.langoor.app.blueshak.services.model.ProfileDetailsModel;
 import com.langoor.blueshak.R;
 
 import java.util.ArrayList;
@@ -121,6 +124,7 @@ public class CurrencyActivity extends RootActivity  implements OnSelected {
             e.printStackTrace();
             Crashlytics.log(e.getMessage());
         }
+
     }
     @Override
     public void onStart() {
@@ -180,9 +184,13 @@ public class CurrencyActivity extends RootActivity  implements OnSelected {
         }
     }
     @Override
-    public void onSelected(int position) {
+    public void onSelected(int position)
+    {
         Log.d(TAG,"onSelected###############"+product_list.get(position).getCurrency());
         setReturnResult(product_list.get(position));
 
     }
+
+
+
 }

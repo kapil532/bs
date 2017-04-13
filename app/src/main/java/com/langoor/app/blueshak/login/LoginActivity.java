@@ -565,6 +565,8 @@ public class LoginActivity extends RootActivity implements View.OnClickListener,
 		}, "Register User");
 	}
 	private void validateFbLogin(UserModel user){
+		Log.d(TAG,"validateLogingfc"+user.toString());
+
 		GlobalFunctions.setSharedPreferenceInt(context,GlobalVariables.SHARED_PREFERENCE_IS_OTP_VERIFIED,1);
 		GlobalFunctions.setSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_COUNTRY, user.getCountry());
 		GlobalFunctions.setSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_EMAIL, user.getEmail());
