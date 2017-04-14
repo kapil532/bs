@@ -167,7 +167,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
              all_categories_content=(RelativeLayout)findViewById(R.id.all_categories_content);
              only_garage_items=(Switch)findViewById(R.id.nly_garage_sale_items);
              nearest_first=(Switch)findViewById(R.id.nearest_first);
-/*  sorting=(Switch)findViewById(R.id.sorting);*/
+  /*  sorting=(Switch)findViewById(R.id.sorting);*/
              current_country=(Switch)findViewById(R.id.current_country);
              h_to_l=(Switch)findViewById(R.id.h_to_l);
              l_to_h=(Switch)findViewById(R.id.l_to_h);

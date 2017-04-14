@@ -45,15 +45,20 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
     public String item_address;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         protected TextView item_price,item_name,item_location;
-        protected ImageView image_iv,favarite,is_sold,is_garage;
+        protected ImageView image_iv,favarite,is_sold,is_garage,shippable,pick_up;
+        public View container;
+
         public MyViewHolder(View view) {
             super(view);
+            container=view;
             item_price = (TextView) view.findViewById(R.id.item_price);
             image_iv= (ImageView) view.findViewById(R.id.product_image);
             is_sold= (ImageView) view.findViewById(R.id.is_sold);
             is_garage= (ImageView) view.findViewById(R.id.is_garage_item);
             favarite= (ImageView) view.findViewById(R.id.item_favirate);
             item_name= (TextView) view.findViewById(R.id.item_name);
+            shippable= (ImageView) view.findViewById(R.id.shippable);
+            pick_up= (ImageView) view.findViewById(R.id.pick_up);
             item_location= (TextView) view.findViewById(R.id.item_location);        }
     }
 
@@ -120,6 +125,9 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                 else
                     holder.new_flag_image.setVisibility(View.GONE);
                 */
+              if(obj.isPickup())holder.pick_up.setVisibility(View.VISIBLE);
+              if(obj.isShipable())holder.shippable.setVisibility(View.VISIBLE);
+
                 if(!obj.isAvailable())
                     holder.is_sold.setImageResource(R.drawable.ic_sold);
                 else{
@@ -131,7 +139,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                 else
                     holder.is_garage.setVisibility(View.GONE);
 
-                holder.image_iv.setOnClickListener(new View.OnClickListener() {
+                holder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                      /*  getItemInfo(obj.getId());*/
