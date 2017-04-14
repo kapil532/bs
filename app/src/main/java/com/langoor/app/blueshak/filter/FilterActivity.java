@@ -730,7 +730,10 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
                     category.setText(categoryModel.getName());
                     selectedCategoryString.clear();
                     selectedCategoryString.add(categoryModel.getName());
-
+                    all_categories.setTextColor(context.getResources().getColor(R.color.brand_text_color));
+                    ic_check.setVisibility(View.GONE);
+                    detail.setCategories(categoryModel.getId());
+                    detail.setCategory_names(categoryModel.getName());
                    /* Log.i(TAG,"REQUEST_CODE_SELECT_CATEGORY "+requestCode);
                     CategoryModel categoryModel = (CategoryModel) data.getExtras().getSerializable(CREATE_ITEM_CATEGORY_BUNDLE_KEY);
                     selectedCategoryString.clear();

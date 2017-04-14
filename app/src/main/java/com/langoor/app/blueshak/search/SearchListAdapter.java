@@ -49,7 +49,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public class MyViewHolder extends RecyclerView.ViewHolder {
         protected TextView item_price,item_location,item_name;
         private ImageView is_sold,shippable,pick_up;
-        protected ImageView image_iv,favarite;
+        protected ImageView image_iv,favarite,is_garage;
         LinearLayout linearLayout;
         View view_;
         public MyViewHolder(View view) {
@@ -59,6 +59,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             image_iv= (ImageView) view.findViewById(R.id.product_image);
             shippable= (ImageView) view.findViewById(R.id.shippable);
             pick_up= (ImageView) view.findViewById(R.id.pick_up);
+            is_garage= (ImageView) view.findViewById(R.id.is_garage_item);
             is_sold= (ImageView) view.findViewById(R.id.is_sold);
             favarite= (ImageView) view.findViewById(R.id.item_favirate);
             item_location= (TextView) view.findViewById(R.id.item_location);
@@ -108,7 +109,10 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     holder.item_location.setText(obj.getCity());
                 else
                     holder.item_location.setVisibility(View.GONE);
-
+                if(obj.is_garage_item())
+                    holder.is_garage.setVisibility(View.VISIBLE);
+                else
+                    holder.is_garage.setVisibility(View.GONE);
 
                 if(obj.is_bookmark())
                     holder.favarite.setImageResource(R.drawable.like_full);
