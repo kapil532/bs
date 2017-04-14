@@ -473,6 +473,40 @@
             android:layout_width="match_parent"
             android:background="@color/bottom_bar_background_color"
             android:layout_height="1dp"/>
+
+
+
+        <RelativeLayout
+            android:id="@+id/category_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight=".5"
+            android:padding="10dp"
+            >
+            <com.langoor.app.blueshak.text.MyTextView
+                android:id="@+id/pd_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:gravity="left"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sign_up_text_size"
+                android:layout_marginRight="20dp"
+                >
+            </com.langoor.app.blueshak.text.MyTextView>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_marginTop="1dp"
+                android:layout_height="24dp"
+                android:textSize="@dimen/sign_up_text_size"
+                android:layout_alignParentRight="true"
+                android:text="0" android:src="@drawable/ic_brow_arrow"
+                android:textColor="@color/brand_text_color"
+                >
+            </ImageView>
+        </RelativeLayout>
         <com.langoor.app.blueshak.text.MyTextView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -482,6 +516,7 @@
             android:textSize="@dimen/sign_up_text_size"
             android:gravity="center_vertical"
             android:textColor="@color/black"
+            android:visibility="gone"
             android:padding="10dp">
         </com.langoor.app.blueshak.text.MyTextView>
         <View
@@ -494,6 +529,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:layout_margin="10dp"
+            android:visibility="gone"
             android:orientation="vertical" >
             <com.langoor.app.blueshak.text.MyTextView
                 android:id="@+id/all_categories"
@@ -502,6 +538,7 @@
                 android:text="All"
                 android:textColor="@color/black"
                 android:textSize="20sp"
+                android:visibility="gone"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_above="@+id/last_text_message"
@@ -532,6 +569,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:dividerHeight="7dp"
+            android:visibility="gone"
             android:scrollbars="none"
             />
 

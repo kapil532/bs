@@ -112,6 +112,8 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
     boolean is_all=false;
     private TextView title_tv;
     private LocationService locServices;
+    TextView category;
+  RelativeLayout  category_layout;
     public static Intent newInstance(Context context,LocationModel locationModel,int from){
         System.out.println("########newInstance#######"+Integer.toString(from));
         Intent mIntent = new Intent(context,FilterActivity.class);
@@ -171,6 +173,22 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
              l_to_h=(Switch)findViewById(R.id.l_to_h);
              ending_soon=(Switch)findViewById(R.id.ending_soon);
              sort_by_recent=(Switch)findViewById(R.id.sort_by_recent);
+             category_layout =(RelativeLayout)findViewById(R.id.category_layout);
+             category_layout.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     Intent intent= CategoryActivity.newInstance(context,false,category.getText().toString());
+                     startActivityForResult(intent,globalVariables.REQUEST_CODE_SELECT_CATEGORY);
+                 }
+             });
+             category = (TextView)findViewById(R.id.pd_category);
+             category.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     Intent intent= CategoryActivity.newInstance(context,false,category.getText().toString());
+                     startActivityForResult(intent,globalVariables.REQUEST_CODE_SELECT_CATEGORY);
+                 }
+             });
              all_categories=(TextView)findViewById(R.id.all_categories);
              ic_check=(ImageView)findViewById(R.id.ic_check);
              all_categories_content.setOnClickListener(new View.OnClickListener() {
@@ -707,7 +725,13 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
                     detail.setFormatted_address(location_model.getFormatted_address());
                     location.setText(location_model.getFormatted_address());
                 }else if(requestCode==globalVariables.REQUEST_CODE_SELECT_CATEGORY){
-                    Log.i(TAG,"REQUEST_CODE_SELECT_CATEGORY "+requestCode);
+
+                    CategoryModel categoryModel = (CategoryModel) data.getExtras().getSerializable(CREATE_ITEM_CATEGORY_BUNDLE_KEY);
+                    category.setText(categoryModel.getName());
+                    selectedCategoryString.clear();
+                    selectedCategoryString.add(categoryModel.getName());
+
+                   /* Log.i(TAG,"REQUEST_CODE_SELECT_CATEGORY "+requestCode);
                     CategoryModel categoryModel = (CategoryModel) data.getExtras().getSerializable(CREATE_ITEM_CATEGORY_BUNDLE_KEY);
                     selectedCategoryString.clear();
                     for (int i = 0; i < categoryModel.getSelectedCategoryString().size(); i++) {
@@ -719,7 +743,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
                             temp = i==0? selectedCategoryString.get(0): temp+", "+selectedCategoryString.get(i);
                         }
 
-                    }
+                    }*/
                 }
             }
         } catch (NullPointerException e){
