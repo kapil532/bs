@@ -79,7 +79,6 @@
             android:layout_alignParentEnd="true"
             android:layout_above="@+id/last_text_message"
             android:layout_toRightOf="@+id/profile_pic"
-            android:layout_toLeftOf="@+id/is_garage_item"
             android:layout_toEndOf="@+id/profile_pic" >
 
 

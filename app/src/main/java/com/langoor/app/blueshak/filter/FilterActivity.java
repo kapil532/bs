@@ -663,7 +663,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
                 detail.setSortByRecent_garage(false);
 
             if(ending_soon.isChecked()){
-                detail.setResults_text("ending soon");
+                detail.setResults_text("ending first");
                 detail.setEnding_soon(true);
             }else
                 detail.setEnding_soon(false);
