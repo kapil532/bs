@@ -21,7 +21,7 @@
                                     android:id="@+id/name_tv"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Electronics and computers Houshold"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="20sp"
                                     android:layout_alignParentRight="true"
@@ -32,7 +32,8 @@
                                     android:layout_toEndOf="@+id/profile_pic" >
                                     </com.langoor.app.blueshak.text.MyTextView>
                         </LinearLayout>
-                <LinearLayout
+
+    <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_weight=".80"
                     android:layout_height="match_parent"

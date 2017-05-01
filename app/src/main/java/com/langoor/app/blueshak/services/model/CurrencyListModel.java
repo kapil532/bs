@@ -37,8 +37,12 @@ public class CurrencyListModel implements Serializable {
             for(int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 CurrencyModel currencyModel = new CurrencyModel();
-                currencyModel.toObject(jsonObject.toString());
-                categoryModelList.add(currencyModel);
+                if(currencyModel.toObject(jsonObject.toString()))
+                {
+                   // currencyModel.toObject(jsonObject.toString());
+                    categoryModelList.add(currencyModel);
+                }
+
             }
             currency_list.addAll(categoryModelList); categoryModelList.clear();
             return true;

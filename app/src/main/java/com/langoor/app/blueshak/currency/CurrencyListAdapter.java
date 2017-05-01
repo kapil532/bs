@@ -58,6 +58,7 @@ public class CurrencyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             if (view_holder instanceof MyViewHolder) {
                 final MyViewHolder holder = (MyViewHolder) view_holder;
                 CurrencyModel obj = albumList.get(position);
+
                 holder.item_name.setText(obj.getCurrency());
                 holder.item_view.setOnClickListener(new View.OnClickListener() {
                     @Override

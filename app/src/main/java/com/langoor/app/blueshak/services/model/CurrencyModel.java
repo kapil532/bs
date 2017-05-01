@@ -66,9 +66,17 @@ public class CurrencyModel implements Serializable {
             JSONObject json = new JSONObject(jsonObject);
             country_iso = json.getString(CURRENCY_ISO);
             currency = json.getString(CURRENCY);
+
             country_code = json.getString(COUNTRY_CODE);
             phonecode = json.getString(PHONECODE);
-            return true;
+            if(currency.length()>1)
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
+
         }catch(Exception ex){
             Log.d(TAG, "Json Exception : " + ex);
            }
