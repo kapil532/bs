@@ -24,7 +24,7 @@ android {
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        applicationId 'com.langoor.blueshak'
+        applicationId 'com.blueshak'
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 4

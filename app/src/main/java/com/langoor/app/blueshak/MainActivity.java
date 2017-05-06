@@ -109,7 +109,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        hashKey();
+       //hashKey();
         try {
             activity = this;
             mainContext = this;
@@ -252,8 +252,9 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             break;
                         case R.id.list:
                             activeTab=2;
-                            grid.setVisibility(View.GONE);
-                            go_to_search.setVisibility(View.VISIBLE);
+                            // for tab hidden just comment below 2 lines
+                           grid.setVisibility(View.GONE);
+                           go_to_search.setVisibility(View.VISIBLE);
                             View menuItemView = findViewById(R.id.list);
                      /*   menuItemView.setBackground(R.drawable.bt_add);*/
                             if (!((Activity) mainContext).isFinishing()) {
@@ -306,7 +307,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             break;
                         case R.id.list:
                             activeTab=2;
-                            grid.setVisibility(View.GONE);
+                           // grid.setVisibility(View.GONE);
                             View menuItemView = findViewById(R.id.list);
                             if (!((Activity) mainContext).isFinishing()) {
                                 show_popUp(menuItemView);

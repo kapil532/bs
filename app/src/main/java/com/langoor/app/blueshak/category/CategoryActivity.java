@@ -118,6 +118,7 @@ public class CategoryActivity extends RootActivity implements OnSelected {
                 if (clm != null) {
 
                     product_list=clm.getCategoryList();
+                    product_list.add(0,getList());
                 }
             }
             recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -233,5 +234,14 @@ public class CategoryActivity extends RootActivity implements OnSelected {
         Log.d(TAG,"onSelected###############"+product_list.get(position).getName());
         setReturnResult(product_list.get(position));
 
+    }
+
+
+    CategoryModel getList()
+    {
+        CategoryModel caf = new CategoryModel();
+        caf.setId("");
+        caf.setName("All");
+        return caf;
     }
 }
