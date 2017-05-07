@@ -1215,6 +1215,7 @@ public class ServicesMethodsManager {
         setCallbacks(mCallInterface);
         String param ="latlng="+lat+","+lng;
         param +="&sensor=true";
+        Log.d("LOCATION SERVICES","GET DATA FROMLOCATION URL"+param);
         getData(context, new LocationModel(), ServerConstants.URL_GET_ADDRESS, param, TAG);
 
        /* http://maps.google.com/maps/api/geocode/json?latlng="+lat+","+lng+"&sensor=true*/

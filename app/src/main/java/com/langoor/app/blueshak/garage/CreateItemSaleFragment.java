@@ -143,6 +143,10 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
        /* setHasOptionsMenu(true);*/
         context= getActivity();
         activity=getActivity();
+
+       stdCode=GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
+
+Log.d("stdCode","stdCode"+stdCode);
         view = inflater.inflate(R.layout.item_productdetails_new, container, false);
         getUserDetailsPro(getActivity());
         try{
@@ -225,6 +229,7 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
             Log.d(TAG,"Exception");
             e.printStackTrace();
         }
+        generateCurre();
     return view;
     }
     @Override
@@ -759,8 +764,8 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
             if (model.getPhone() != null && !TextUtils.isEmpty(model.getPhone()))
             {
 
-                stdCode=""+ model.getIsd();
-                Log.d("STD CODEDC","STDCODE"+stdCode);
+//                stdCode=""+ model.getIsd();
+//                Log.d("STD CODEDC","STDCODE"+stdCode);
                 if(currency != null)
                 {
                     pd_salepricetype.setText(currency);
@@ -778,7 +783,7 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
                 else
                 {
 
-                    generateCurre();
+
                     if(currency!=null)
                         saleprice.setHint("Price in "+currency);
                     pd_salepricetype.setOnClickListener(new View.OnClickListener() {
@@ -804,10 +809,11 @@ public class CreateItemSaleFragment extends Fragment  implements TokenCompleteTe
                 product_list=clma.getCurrency_list();
                 for(int i=0;i<product_list.size();i++)
                 {
-
-                    if(stdCode.equalsIgnoreCase("+"+product_list.get(i).getPhonecode()))
+                    Log.d("stdCode","stdCode1122"+stdCode+"---"+product_list.get(i).getCountry_code());
+                    if(stdCode.equalsIgnoreCase(product_list.get(i).getCountry_code()))
                     {
                         stdCode  =product_list.get(i).getCurrency();
+                        Log.d("stdCode","stdCode11"+stdCode);
                         GlobalFunctions.setSharedPreferenceString(getActivity(),GlobalVariables.SHARED_PREFERENCE_USER_CURRENCY,stdCode);
                         pd_salepricetype.setText(stdCode);
                         return;

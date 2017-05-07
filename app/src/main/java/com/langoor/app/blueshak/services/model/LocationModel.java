@@ -1,13 +1,17 @@
 package com.langoor.app.blueshak.services.model;
 
+import android.content.Context;
 import android.util.Log;
 import com.langoor.app.blueshak.AppController;
+import com.langoor.app.blueshak.global.GlobalFunctions;
 import com.langoor.app.blueshak.global.GlobalVariables;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.Serializable;
 
 public class LocationModel implements Serializable {
+
+    public static Context ctx;
     private final String TAG = "LocationModel";
     public static final String
             CITY="city",
@@ -73,7 +77,8 @@ public class LocationModel implements Serializable {
 
     String city=null;
     String subhurb=null;
-    String state=null;String country=null,country_code=null,stree_number=null,autocomplete_address=null;
+    String state=null;
+    String country=null, country_code=null,stree_number=null,autocomplete_address=null;
     String postal_code=null;
 
     String latitude =/* GlobalVariables.Sydney_latitude*/null;
@@ -161,6 +166,10 @@ public class LocationModel implements Serializable {
                             }
                             if(address_obj.has("short_name")){
                                 country_code=address_obj.getString("short_name");
+                                if(ctx!= null) {
+                                    GlobalFunctions.setSharedPreferenceString(ctx, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY, country_code);
+                                }
+                                    Log.d("COUNTRYCODE","COUNTRYCODESHORT111"+country_code);
                             }
                         }
                         if(type_arr.get(0).equals("postal_code")){
@@ -186,6 +195,7 @@ public class LocationModel implements Serializable {
         String returnString = null;
         try {
             JSONObject jsonMain = new JSONObject();
+            Log.d("COUNTRYCODE","COUNTRYCODESHORT11122"+country_code);
             jsonMain.put(LATITUDE, latitude);
             jsonMain.put(LONGITUDE, longitude);
             jsonMain.put(CITY, city);

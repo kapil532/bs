@@ -109,6 +109,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        LocationModel.ctx=this;
        //hashKey();
         try {
             activity = this;
@@ -405,7 +406,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                 LocationModel locationModel = (LocationModel) arg0;
                 if (locationModel != null) {
                     setAddress(locationModel.getFormatted_address());
-                    Log.d(TAG, "###########Setting the Current Country SHARED_PREFERENCE_LOCATION_COUNTRY############");
+                    Log.d(TAG, "###########Setting the Current Country SHARED_PREFERENCE_LOCATION_COUNTRY############"+locationModel.getFormatted_address());
                     GlobalFunctions.setSharedPreferenceString(mainContext, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY, locationModel.getCountry_code());
                 }
 

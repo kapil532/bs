@@ -102,7 +102,7 @@ public class CurrencyActivity extends RootActivity  implements OnSelected {
             if(clm==null) {
                clm = GlobalFunctions.getCurrencies(activity);
                if (clm != null) {
-                   product_list=clm.getCurrency_list();
+                   product_list=removeDuplicatesa(clm.getCurrency_list());
                }
            }
            recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -127,6 +127,43 @@ public class CurrencyActivity extends RootActivity  implements OnSelected {
             e.printStackTrace();
             Crashlytics.log(e.getMessage());
         }
+
+    }
+
+
+    public ArrayList removeDuplicatesa(List <CurrencyModel> inArray)
+    {
+        ArrayList <CurrencyModel> outArray = new ArrayList();
+        boolean doAdd = true;
+        CurrencyModel mo = new CurrencyModel();
+        for (int i = 0; i < inArray.size(); i++)
+        {
+            String testString = inArray.get(i).getCurrency();
+            mo= inArray.get(i);
+            for (int j = 0; j < inArray.size(); j++)
+            {
+                if (i == j)
+                {
+                    break;
+                }
+                else if (inArray.get(j).getCurrency().equals(testString))
+                {
+                    doAdd = false;
+                    break;
+                }
+
+            }
+            if (doAdd)
+            {
+                outArray.add(mo);
+            }
+            else
+            {
+                doAdd = true;
+            }
+
+        }
+        return outArray;
 
     }
     @Override

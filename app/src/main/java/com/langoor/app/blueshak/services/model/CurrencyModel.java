@@ -66,9 +66,9 @@ public class CurrencyModel implements Serializable {
             JSONObject json = new JSONObject(jsonObject);
             country_iso = json.getString(CURRENCY_ISO);
             currency = json.getString(CURRENCY);
-
             country_code = json.getString(COUNTRY_CODE);
             phonecode = json.getString(PHONECODE);
+            Log.d("COUNTRYCODESHORT","COUNTRYCODESHORT#@"+phonecode);
             if(currency.length()>1)
             {
                 return true;
@@ -88,6 +88,7 @@ public class CurrencyModel implements Serializable {
         String returnString = null;
         try{
             JSONObject jsonMain = new JSONObject();
+            Log.d("COUNTRYCODESHORT","COUNTRYCODESHORT#@ss"+country_code);
             jsonMain.put(CURRENCY_ISO, country_iso);
             jsonMain.put(CURRENCY, currency);
             jsonMain.put(COUNTRY_CODE, country_code);
