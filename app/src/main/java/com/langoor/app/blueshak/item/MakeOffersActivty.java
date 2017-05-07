@@ -8,7 +8,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -94,7 +96,22 @@ public class MakeOffersActivty extends RootActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);*/
             progress_bar=(ProgressBar)findViewById(R.id.progress_bar);
             offer_price=(EditText)findViewById(R.id.offer_price);
+            offer_price .addTextChangedListener(new TextWatcher() {
+                public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                    String text = arg0.toString();
+                    if (text.contains(".") && text.substring(text.indexOf(".") + 1).length() > 2) {
+                        offer_price.setText(text.substring(0, text.length() - 1));
+                        offer_price.setSelection(offer_price.getText().length());
+                    }
+                }
 
+                public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+                }
+
+                public void afterTextChanged(Editable arg0) {
+                }
+            });
             make_offer=(Button)findViewById(R.id.make_offer_);
             offer_text=(TextView)findViewById(R.id.offer_text);
             product_image=(ImageView)findViewById(R.id.product_image);

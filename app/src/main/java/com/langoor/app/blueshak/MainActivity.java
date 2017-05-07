@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.telephony.PhoneNumberUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -584,5 +585,17 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
         Currency currency=Currency.getInstance(locale);
         String symbol = currency.getSymbol();
         Log.d("SYMOBOLS ","CURRENCYCURENY"+symbol);
+    }*/
+
+   /* private  void getISDD()
+    {
+        PhoneNumberUtils phoneUtil = PhoneNumberUtils.getInstance();
+        try {
+            // phone must begin with '+'
+            PhoneNumber numberProto = phoneUtil.parse(phone, "");
+            int countryCode = numberProto.getCountryCode();
+        } catch (NumberParseException e) {
+            System.err.println("NumberParseException was thrown: " + e.toString());
+        }
     }*/
 }
