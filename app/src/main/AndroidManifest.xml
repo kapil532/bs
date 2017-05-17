@@ -181,7 +181,15 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
-            android:name="com.langoor.app.blueshak.report.ReportListing"
+        android:name="com.langoor.app.blueshak.report.ReportListing"
+        android:label="@string/title_activity_report_listing"
+        android:launchMode="singleTop"
+        android:parentActivityName="com.langoor.app.blueshak.report.ReportListing"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name="com.langoor.app.blueshak.PickLocationFromMap"
             android:label="@string/title_activity_report_listing"
             android:launchMode="singleTop"
             android:parentActivityName="com.langoor.app.blueshak.report.ReportListing"

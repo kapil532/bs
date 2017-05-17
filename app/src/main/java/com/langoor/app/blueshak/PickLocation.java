@@ -412,7 +412,8 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
             CharSequence attributions = places.getAttributions();
             if(proceed)
                 proceed=false;
-            lat=place.getLatLng().latitude;lng=place.getLatLng().longitude;
+            lat=place.getLatLng().latitude;
+            lng=place.getLatLng().longitude;
             getAddressFromLatLng();
             locationModel.setLatitude(Double.toString(place.getLatLng().latitude));
             locationModel.setLongitude(Double.toString(place.getLatLng().longitude));

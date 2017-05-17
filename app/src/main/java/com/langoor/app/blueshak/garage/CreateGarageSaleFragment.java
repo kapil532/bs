@@ -43,6 +43,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.langoor.app.blueshak.PickLocationFromMap;
 import com.langoor.blueshak.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -204,8 +205,10 @@ public class CreateGarageSaleFragment extends Fragment{
             mAutocompleteTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent= PickLocation.newInstance(context,GlobalVariables.TYPE_GARAGE_SALE,false,locationModel);
-                    startActivityForResult(intent,globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION);
+                   /* Intent intent= PickLocation.newInstance(context,GlobalVariables.TYPE_GARAGE_SALE,false,locationModel);
+                    startActivityForResult(intent,globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION);*/
+                    Intent in = new Intent(getActivity(), PickLocationFromMap.class);
+                    startActivity(in);
                 }
             });
             mAutocompleteTextView.setOnEditorActionListener(new DoneOnEditorActionListener());
