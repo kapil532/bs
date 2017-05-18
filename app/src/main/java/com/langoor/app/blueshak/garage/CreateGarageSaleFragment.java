@@ -557,7 +557,8 @@ public class CreateGarageSaleFragment extends Fragment{
             if(resultCode == activity.RESULT_OK){
                 Log.i(TAG,"result ok ");
                 Log.i(TAG,"request code "+globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION);
-                if(requestCode==globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION){
+                if(requestCode==globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION)
+                {
                     LocationModel location_model = (LocationModel) data.getExtras().getSerializable(CREATE_GARRAGE_LOCATION_BUNDLE_KEY);
                     Log.i(TAG,"name pm"+location_model.getFormatted_address());
                     locationModel=location_model;

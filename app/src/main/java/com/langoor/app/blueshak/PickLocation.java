@@ -265,11 +265,12 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
                         locationModel.setAutocomplete_address(mAutocompleteTextView.getText().toString().trim());
                         GlobalFunctions.setSharedPreferenceString(activity,GlobalVariables.CURRENT_LOCATION,mAutocompleteTextView.getText().toString());
                         Log.i(TAG, "Selected: " + locationModel.getFormatted_address()+" Latitude :"+locationModel.getLatitude()+" Longitude :"+locationModel.getLongitude());
-                        if(from==GlobalVariables.TYPE_FILTER_ACTIVITY || from==GlobalVariables.TYPE_ADD_TEMS || from==GlobalVariables.TYPE_MY_PROFILE || from==GlobalVariables.TYPE_SIGN_UP||from==GlobalVariables.TYPE_LOGIN || from==GlobalVariables.TYPE_GARAGE_SALE){
+                        if(from==GlobalVariables.TYPE_FILTER_ACTIVITY || from==GlobalVariables.TYPE_ADD_TEMS || from==GlobalVariables.TYPE_MY_PROFILE || from==GlobalVariables.TYPE_SIGN_UP||from==GlobalVariables.TYPE_LOGIN || from==GlobalVariables.TYPE_GARAGE_SALE)
+                        {
                             setReturnResult(locationModel);
                         }else{
                             closeThisActivity();
-                            Intent i=MainActivity.newInstance(context,locationModel,null);
+                             Intent i=MainActivity.newInstance(context,locationModel,null);
                             startActivity(i);
 
                         }
