@@ -45,8 +45,8 @@ public class GlobalVariables {
     public static final String LONGITUDE = "lattitude";
     public static final String SELECTED_ITEMS_LIST = "selcted_items_list";
     public static final String SELECTED_old_LIST = "selcted_old_items_list";
-    public static final int IMAGE_WIDTH = 640;
-    public static final int IMAGE_HEIGHT = 360;
+    public static final int IMAGE_WIDTH = 800;
+    public static final int IMAGE_HEIGHT = 1280;
     public static final int PERMISSIONS_REQUEST_CAMERA = 151;
     public static final int PERMISSIONS_REQUEST_LOCATION_CHECK= 145;
     public static final int PERMISSIONS_REQUEST_CALENDER = 152;

@@ -185,7 +185,9 @@ public class GlobalFunctions {
 
     public static void saveImageWithFixedPixels(String path) {
         File image = new File(path);
+        long length = image.length() / 1024;
 
+        Log.d(TAG,"Bitmap SIZE : Width =---->>>> "+length);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         options.inInputShareable = true;
@@ -194,8 +196,8 @@ public class GlobalFunctions {
         /*Bitmap photo = BitmapFactory.decodeFile(image.getPath(), options);*/
         /*if the images are rorated 90 degree in potrais mode,,please rotate back to same*/
         Bitmap photo =decodeFile(path);
-        Log.d(TAG,"Bitmap SIZE : Width = "+options.outWidth+" Height = "+options.outHeight);
-        if(options.outWidth>=GlobalVariables.IMAGE_WIDTH || options.outHeight>=GlobalVariables.IMAGE_HEIGHT){
+        Log.d(TAG,"Bitmap SIZE : Width =---->>>> "+options.outWidth+" Height = "+options.outHeight);
+        if(photo.getWidth()>=GlobalVariables.IMAGE_WIDTH || photo.getHeight()>=GlobalVariables.IMAGE_HEIGHT){
             photo = lessResolution(path,GlobalVariables.IMAGE_WIDTH , GlobalVariables.IMAGE_HEIGHT);//Bitmap.createScaledBitmap(photo, globalVariables.IMAGE_WIDTH , globalVariables.IMAGE_HEIGHT, false);
             Log.d(TAG,"Resized Bitmap SIZE : Width = "+options.outWidth+" Height = "+options.outHeight);
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();

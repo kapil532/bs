@@ -94,7 +94,7 @@ public class BoomarkItemListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
            /* holder.item_price.setGravity(Gravity.CENTER_HORIZONTAL);*/
 
                 if(!TextUtils.isEmpty(obj.getCity()))
-                    holder.item_location.setText(obj.getCity());
+                    holder.item_location.setText(obj.getAddress());
                 else
                     holder.item_location.setVisibility(View.GONE);
 

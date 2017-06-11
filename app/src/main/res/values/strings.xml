@@ -81,7 +81,7 @@
     <string name="title_activity_my_listings">My Listings</string>
     <string name="title_activity_garage_sales_list">GarageSalesList</string>
     <string name="title_activity_currency">CurrencyActivity</string>
-    <string name="copy_right_text">Copyright Blueshak Pty Ltd. Version: 1.4</string>
+    <string name="copy_right_text">Copyright Blueshak Pty Ltd. Version: 1.2</string>
     <string name="marked_inappropriate_success_message">Item marked as inappropriate. Thank you for your help. We will review your submission.</string>
 
     <string name="contact_permission_text">Get accounts and Read contacts Services Permission required for this app</string>

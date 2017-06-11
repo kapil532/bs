@@ -106,7 +106,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                /* holder.item_price.setGravity(Gravity.CENTER_HORIZONTAL);*/
 
                 if(!TextUtils.isEmpty(obj.getCity()))
-                    holder.item_location.setText(obj.getCity());
+                    holder.item_location.setText(obj.getAddress());
                 else
                     holder.item_location.setVisibility(View.GONE);
                 if(obj.is_garage_item())
