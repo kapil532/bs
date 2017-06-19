@@ -2,13 +2,12 @@ package com.langoor.app.blueshak.garage;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.widget.ButtonBarLayout;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,26 +19,28 @@ import com.langoor.blueshak.R;
  * Created by Kapil Katiyar on 6/19/2017.
  */
 
- public class NegotiableSelection extends RootActivity
+ public class ShippingSelection extends RootActivity
 {
     Button pd_publish;
-    Switch item_negotiable;
-    Switch hide_item;
+    Switch allow_international_shi_s;
     TextView activity_title,cancel;
    static Activity activity;
+   LinearLayout local_shipping_l,allow_international_shi_l,intl_shipping_cost_l;
+    EditText local_shipping_cost;
+    EditText intl_shipping_cost_e;
+    EditText time_to_deliver_e;
+   Switch Shipping_is_free;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.negotiable_selection);
+        setContentView(R.layout.shipping_selection);
         activity = this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-          /*  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);*/
         LayoutInflater inflator = LayoutInflater.from(this);
         View v = inflator.inflate(R.layout.action_bar_titlel, null);
         activity_title=(TextView)v.findViewById(R.id.title);
-        activity_title.setText("Negotiable");
+        activity_title.setText("Shipping");
         toolbar.addView(v);
         cancel=(TextView)v.findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -56,20 +57,20 @@ import com.langoor.blueshak.R;
             @Override
             public void onClick(View v) {
 
-                if(item_negotiable.isChecked() || hide_item.isChecked())
-                {
 
-                }
-                else
-                {
-                    Toast.makeText(NegotiableSelection.this,"Please select one!",Toast.LENGTH_LONG).show();
-                }
 
             }
         });
 
-        item_negotiable =(Switch)findViewById(R.id.item_negotiable);
-        hide_item =(Switch)findViewById(R.id.hide_item);
+        Shipping_is_free =(Switch)findViewById(R.id.Shipping_is_free);
+        local_shipping_l =(LinearLayout) findViewById(R.id.local_shipping_l);
+        allow_international_shi_l =(LinearLayout) findViewById(R.id.allow_international_shi_l);
+        intl_shipping_cost_l =(LinearLayout) findViewById(R.id.intl_shipping_cost_l);
+        time_to_deliver_e =(EditText) findViewById(R.id.time_to_deliver_e);
+        intl_shipping_cost_e =(EditText) findViewById(R.id.intl_shipping_cost_e);
+        local_shipping_cost =(EditText) findViewById(R.id.local_shipping_cost);
+
+        allow_international_shi_s =(Switch)findViewById(R.id.allow_international_shi_s);
     }
     public static void closeThisActivity(){
         if(activity!=null)
@@ -77,5 +78,12 @@ import com.langoor.blueshak.R;
             activity.finish();
         }
     }
+
+
+private void hideAndShow()
+{
+
+}
+
 
 }
