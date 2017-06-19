@@ -67,7 +67,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-
         android:background="@color/bottom_bar_background_color"/>
 
     <LinearLayout
@@ -108,6 +107,7 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/local_shipping_l_v"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="16dp"
@@ -116,7 +116,7 @@
 
 
     <LinearLayout
-android:id="@+id/local_shipping_l"
+        android:id="@+id/local_shipping_l"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -154,6 +154,7 @@ android:id="@+id/local_shipping_l"
         </RelativeLayout>
     </LinearLayout>
     <View
+        android:id="@+id/allow_international_shi_l_v"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="16dp"
@@ -198,12 +199,10 @@ android:id="@+id/allow_international_shi_l"
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/bottom_bar_background_color"/>
+
 
     <View
+        android:id="@+id/intl_shipping_cost_l_v"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="16dp"
@@ -249,11 +248,9 @@ android:id="@+id/intl_shipping_cost_l"
                 />
         </RelativeLayout>
     </LinearLayout>
+
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/bottom_bar_background_color"/>
-    <View
+        android:id="@+id/time_to_deliver_l_v"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="16dp"

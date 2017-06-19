@@ -318,7 +318,7 @@
                                 android:layout_marginRight="8dp"
                                 android:background="@color/bottom_bar_background_color"/>
                             <LinearLayout
-
+                               android:id="@+id/shipping_l"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"

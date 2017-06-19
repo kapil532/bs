@@ -126,7 +126,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     private Boolean type_edit_item = false;
     private Boolean type_garage = false;
     private String loading_label = "Publishing Item...";
-    private LinearLayout category_content, add_to_garage_sale_content,pd_nagotiable_l;
+    private LinearLayout category_content, add_to_garage_sale_content,pd_nagotiable_l,shipping_l;
     private ProgressBar progress_bar;
 
     public static CreateItemSaleFragment newInstance(Context context, CreateProductModel sales, LocationModel locationModel, String type, int from) {
@@ -211,6 +211,15 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 public void onClick(View v) {
                        Intent mIntent = new Intent(context, NegotiableSelection.class);
                         startActivity(mIntent);
+                }
+            });
+
+            shipping_l = (LinearLayout) view.findViewById(R.id.shipping_l);
+            shipping_l.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent mIntent = new Intent(context, ShippingSelection.class);
+                    startActivity(mIntent);
                 }
             });
             category_content.setOnClickListener(new View.OnClickListener() {
