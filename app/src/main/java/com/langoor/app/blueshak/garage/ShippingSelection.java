@@ -27,10 +27,11 @@ import com.langoor.blueshak.R;
     TextView activity_title,cancel;
    static Activity activity;
     View local_shipping_l_v,allow_international_shi_l_v,intl_shipping_cost_l_v;
-   LinearLayout local_shipping_l,allow_international_shi_l,intl_shipping_cost_l;
+   LinearLayout local_shipping_l,allow_international_shi_l,intl_shipping_cost_l,shibble_l;
     EditText local_shipping_cost;
     EditText intl_shipping_cost_e;
     EditText time_to_deliver_e;
+    Switch Shippible_s;
    Switch Shipping_is_free;
 
 
@@ -91,6 +92,7 @@ import com.langoor.blueshak.R;
         allow_international_shi_l =(LinearLayout) findViewById(R.id.allow_international_shi_l);
         allow_international_shi_l_v =(View) findViewById(R.id.allow_international_shi_l_v);
         intl_shipping_cost_l =(LinearLayout) findViewById(R.id.intl_shipping_cost_l);
+
         intl_shipping_cost_l_v =(View) findViewById(R.id.intl_shipping_cost_l_v);
 
 
@@ -99,6 +101,23 @@ import com.langoor.blueshak.R;
         local_shipping_cost =(EditText) findViewById(R.id.local_shipping_cost);
 
         allow_international_shi_s =(Switch)findViewById(R.id.allow_international_shi_s);
+        shibble_l =(LinearLayout)findViewById(R.id.shibble_l);
+        shibble_l.setVisibility(View.GONE);
+        Shippible_s =(Switch)findViewById(R.id.Shippible_s);
+        Shippible_s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    shibble_l.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    shibble_l.setVisibility(View.GONE);
+                }
+            }
+        });
+
         allow_international_shi_s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -135,7 +154,7 @@ private void hideAndShow(int key)
            allow_international_shi_l_v.setVisibility(View.VISIBLE);
            intl_shipping_cost_l.setVisibility(View.GONE);
            intl_shipping_cost_l_v.setVisibility(View.GONE);
-
+           allow_international_shi_s.setChecked(false);
            break;
 
 
