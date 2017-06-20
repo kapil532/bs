@@ -531,6 +531,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             }
             name.setText(productModel.getName());
             description.setText(productModel.getDescription());
+
             saleprice.setText(productModel.getSalePrice());
             pd_salepricetype.setText(productModel.getCurrency());
             shippable.setChecked(productModel.isShippable() ? true : false);
@@ -866,6 +867,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                         stdCode = product_list.get(i).getCurrency();
                         Log.d("stdCode", "stdCode11" + stdCode);
                         GlobalFunctions.setSharedPreferenceString(getActivity(), GlobalVariables.SHARED_PREFERENCE_USER_CURRENCY, stdCode);
+                        ShippingSelection.price_default=stdCode;
                         pd_salepricetype.setText(stdCode);
                         return;
                     }

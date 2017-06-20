@@ -3,6 +3,8 @@ package com.langoor.app.blueshak.garage;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -20,26 +22,26 @@ import com.langoor.blueshak.R;
  * Created by Kapil Katiyar on 6/19/2017.
  */
 
- public class ShippingSelection extends RootActivity
-{
+public class ShippingSelection extends RootActivity {
     Button pd_publish;
     Switch allow_international_shi_s;
-    TextView activity_title,cancel;
-   static Activity activity;
-    View local_shipping_l_v,allow_international_shi_l_v,intl_shipping_cost_l_v;
-   LinearLayout local_shipping_l,allow_international_shi_l,intl_shipping_cost_l,shibble_l;
+    TextView activity_title, cancel;
+    static Activity activity;
+    View local_shipping_l_v, allow_international_shi_l_v, intl_shipping_cost_l_v;
+    LinearLayout local_shipping_l, allow_international_shi_l, intl_shipping_cost_l, shibble_l;
     EditText local_shipping_cost;
     EditText intl_shipping_cost_e;
     EditText time_to_deliver_e;
     Switch Shippible_s;
-   Switch Shipping_is_free;
+    Switch Shipping_is_free;
 
+public static String price_default="";
+    final int SHIPPINGISFREEACTIVE = 121;
+    final int ALLOWINTERNATIONALACTIVE = 141;
 
-    final int SHIPPINGISFREEACTIVE=121;
-    final int ALLOWINTERNATIONALACTIVE=141;
-
-    final int SHIPPINGISFREEDEACTIVE=151;
-    final int ALLOWINTERNATIONALDEACTIVE=161;
+    final int SHIPPINGISFREEDEACTIVE = 151;
+    final int ALLOWINTERNATIONALDEACTIVE = 161;
+    String ss="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,70 +51,120 @@ import com.langoor.blueshak.R;
         setSupportActionBar(toolbar);
         LayoutInflater inflator = LayoutInflater.from(this);
         View v = inflator.inflate(R.layout.action_bar_titlel, null);
-        activity_title=(TextView)v.findViewById(R.id.title);
+        activity_title = (TextView) v.findViewById(R.id.title);
         activity_title.setText("Shipping");
         toolbar.addView(v);
-        cancel=(TextView)v.findViewById(R.id.cancel);
+        cancel = (TextView) v.findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                    closeThisActivity();
+                closeThisActivity();
 
             }
         });
 
-        pd_publish = (Button)findViewById(R.id.pd_publish);
+        pd_publish = (Button) findViewById(R.id.pd_publish);
         pd_publish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                confirmShipping();
 
             }
         });
 
-        Shipping_is_free =(Switch)findViewById(R.id.Shipping_is_free);
+        Shipping_is_free = (Switch) findViewById(R.id.Shipping_is_free);
+        Shipping_is_free.setChecked(false);
         Shipping_is_free.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                {
-                    hideAndShow(SHIPPINGISFREEACTIVE);
-                }
-                else
-                {
+                if (isChecked) {
                     hideAndShow(SHIPPINGISFREEDEACTIVE);
+                } else {
+
+                    hideAndShow(SHIPPINGISFREEACTIVE);
                 }
             }
         });
 
-        local_shipping_l =(LinearLayout) findViewById(R.id.local_shipping_l);
-        local_shipping_l_v =(View) findViewById(R.id.local_shipping_l_v);
-        allow_international_shi_l =(LinearLayout) findViewById(R.id.allow_international_shi_l);
-        allow_international_shi_l_v =(View) findViewById(R.id.allow_international_shi_l_v);
-        intl_shipping_cost_l =(LinearLayout) findViewById(R.id.intl_shipping_cost_l);
+        local_shipping_l = (LinearLayout) findViewById(R.id.local_shipping_l);
+        local_shipping_l_v = (View) findViewById(R.id.local_shipping_l_v);
+        allow_international_shi_l = (LinearLayout) findViewById(R.id.allow_international_shi_l);
+        allow_international_shi_l_v = (View) findViewById(R.id.allow_international_shi_l_v);
+        intl_shipping_cost_l = (LinearLayout) findViewById(R.id.intl_shipping_cost_l);
 
-        intl_shipping_cost_l_v =(View) findViewById(R.id.intl_shipping_cost_l_v);
+        intl_shipping_cost_l_v = (View) findViewById(R.id.intl_shipping_cost_l_v);
 
 
-        time_to_deliver_e =(EditText) findViewById(R.id.time_to_deliver_e);
-        intl_shipping_cost_e =(EditText) findViewById(R.id.intl_shipping_cost_e);
-        local_shipping_cost =(EditText) findViewById(R.id.local_shipping_cost);
+        time_to_deliver_e = (EditText) findViewById(R.id.time_to_deliver_e);
+        time_to_deliver_e.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        allow_international_shi_s =(Switch)findViewById(R.id.allow_international_shi_s);
-        shibble_l =(LinearLayout)findViewById(R.id.shibble_l);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        intl_shipping_cost_e = (EditText) findViewById(R.id.intl_shipping_cost_e);
+        intl_shipping_cost_e.setHint(price_default);
+        intl_shipping_cost_e.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                String text = arg0.toString();
+                if (text.contains(".") && text.substring(text.indexOf(".") + 1).length() > 2) {
+                    intl_shipping_cost_e.setText(text.substring(0, text.length() - 1));
+                    intl_shipping_cost_e.setSelection(intl_shipping_cost_e.getText().length());
+                }
+            }
+
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+            }
+
+            public void afterTextChanged(Editable arg0) {
+            }
+        });
+        local_shipping_cost = (EditText) findViewById(R.id.local_shipping_cost);
+        local_shipping_cost.setHint(price_default);
+        local_shipping_cost.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                String text = arg0.toString();
+                if (text.contains(".") && text.substring(text.indexOf(".") + 1).length() > 2) {
+                    local_shipping_cost.setText(text.substring(0, text.length() - 1));
+                    local_shipping_cost.setSelection(local_shipping_cost.getText().length());
+                }
+            }
+
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+            }
+
+            public void afterTextChanged(Editable arg0) {
+            }
+        });
+        allow_international_shi_s = (Switch) findViewById(R.id.allow_international_shi_s);
+
+
+        shibble_l = (LinearLayout) findViewById(R.id.shibble_l);
         shibble_l.setVisibility(View.GONE);
-        Shippible_s =(Switch)findViewById(R.id.Shippible_s);
+        Shippible_s = (Switch) findViewById(R.id.Shippible_s);
         Shippible_s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                {
+                if (isChecked) {
                     shibble_l.setVisibility(View.VISIBLE);
-                }
-                else
-                {
+                    hideAndShow(SHIPPINGISFREEACTIVE);
+                    hideAndShow(ALLOWINTERNATIONALDEACTIVE);
+                    Shipping_is_free.setChecked(false);
+                } else {
                     shibble_l.setVisibility(View.GONE);
                 }
             }
@@ -121,67 +173,131 @@ import com.langoor.blueshak.R;
         allow_international_shi_s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                {
+                if (isChecked) {
                     hideAndShow(ALLOWINTERNATIONALACTIVE);
-                }
-                else
-                {
+                } else {
                     hideAndShow(ALLOWINTERNATIONALDEACTIVE);
                 }
             }
         });
 
-        hideAndShow(SHIPPINGISFREEDEACTIVE);
+        hideAndShow(SHIPPINGISFREEACTIVE);
         hideAndShow(ALLOWINTERNATIONALDEACTIVE);
     }
-    public static void closeThisActivity(){
-        if(activity!=null)
-        {
+
+    public static void closeThisActivity() {
+        if (activity != null) {
             activity.finish();
         }
     }
 
 
-private void hideAndShow(int key)
-{
-   switch (key)
-   {
-       case SHIPPINGISFREEACTIVE:
-           local_shipping_l.setVisibility(View.VISIBLE);
-           allow_international_shi_l.setVisibility(View.VISIBLE);
-           local_shipping_l_v.setVisibility(View.VISIBLE);
-           allow_international_shi_l_v.setVisibility(View.VISIBLE);
-           intl_shipping_cost_l.setVisibility(View.GONE);
-           intl_shipping_cost_l_v.setVisibility(View.GONE);
-           allow_international_shi_s.setChecked(false);
-           break;
+    private void hideAndShow(int key) {
+        switch (key) {
+            case SHIPPINGISFREEACTIVE:
+                local_shipping_l.setVisibility(View.VISIBLE);
+                allow_international_shi_l.setVisibility(View.VISIBLE);
+                local_shipping_l_v.setVisibility(View.VISIBLE);
+                allow_international_shi_l_v.setVisibility(View.VISIBLE);
+                intl_shipping_cost_l.setVisibility(View.GONE);
+                intl_shipping_cost_l_v.setVisibility(View.GONE);
+                allow_international_shi_s.setChecked(false);
+                break;
 
 
-       case ALLOWINTERNATIONALACTIVE:
-           intl_shipping_cost_l.setVisibility(View.VISIBLE);
-           intl_shipping_cost_l_v.setVisibility(View.VISIBLE);
+            case ALLOWINTERNATIONALACTIVE:
+                intl_shipping_cost_l.setVisibility(View.VISIBLE);
+                intl_shipping_cost_l_v.setVisibility(View.VISIBLE);
 
-           break;
+                break;
 
-       case SHIPPINGISFREEDEACTIVE:
+            case SHIPPINGISFREEDEACTIVE:
 
-           local_shipping_l.setVisibility(View.GONE);
-           allow_international_shi_l.setVisibility(View.GONE);
-           intl_shipping_cost_l.setVisibility(View.GONE);
-           local_shipping_l_v.setVisibility(View.GONE);
-           allow_international_shi_l_v.setVisibility(View.GONE);
-           intl_shipping_cost_l_v.setVisibility(View.GONE);
-           break;
-
-
-       case ALLOWINTERNATIONALDEACTIVE:
-
-           intl_shipping_cost_l.setVisibility(View.GONE);
-           intl_shipping_cost_l_v.setVisibility(View.GONE);
-           break;
-   }
-}
+                local_shipping_l.setVisibility(View.GONE);
+                allow_international_shi_l.setVisibility(View.GONE);
+                intl_shipping_cost_l.setVisibility(View.GONE);
+                local_shipping_l_v.setVisibility(View.GONE);
+                allow_international_shi_l_v.setVisibility(View.GONE);
+                intl_shipping_cost_l_v.setVisibility(View.GONE);
+                break;
 
 
+            case ALLOWINTERNATIONALDEACTIVE:
+
+                intl_shipping_cost_l.setVisibility(View.GONE);
+                intl_shipping_cost_l_v.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    void confirmShipping()
+    {
+         if(Shippible_s.isChecked())
+         {
+             if (!(Shipping_is_free.isChecked()))
+             {
+                 if (!(local_shipping_cost.getText().length() > 0)) {
+                     Toast.makeText(this, "Please Enter Local Shiping Cost!", Toast.LENGTH_LONG).show();
+                     return;
+                 }
+                else if (allow_international_shi_s.isChecked())
+                 {
+                     if (!(intl_shipping_cost_e.getText().length() > 0))
+                     {
+                         Toast.makeText(this, "Please Enter Int Shipping Cost!", Toast.LENGTH_LONG).show();
+                         return;
+                     }
+                     else
+                     {
+                         if (!(time_to_deliver_e.getText().length() > 0)) {
+                             Toast.makeText(this, "Please Enter time to deliver!", Toast.LENGTH_LONG).show();
+                             return;
+                         }
+                         else if (!(time_to_deliver_e.getText().length() > 0))
+                         {
+                             Toast.makeText(this, "Please Enter time to deliver!", Toast.LENGTH_LONG).show();
+                         }
+                         else
+                         {
+                             Toast.makeText(this, "All Done aaa", Toast.LENGTH_LONG).show();
+                         }
+                     }
+                 }
+
+                 else if (!(time_to_deliver_e.getText().length() > 0)) {
+                     Toast.makeText(this, "Please Enter time to deliver!", Toast.LENGTH_LONG).show();
+                     return;
+                 }
+                 else if (!(time_to_deliver_e.getText().length() > 0))
+                 {
+                     Toast.makeText(this, "Please Enter time to deliver!", Toast.LENGTH_LONG).show();
+                 }
+                 else
+                 {
+                     Toast.makeText(this, "All Done q", Toast.LENGTH_LONG).show();
+                 }
+             }
+             else if (!(time_to_deliver_e.getText().length() > 0))
+             {
+                 Toast.makeText(this, "Please Enter time to deliver!", Toast.LENGTH_LONG).show();
+             } else
+             {
+                 Toast.makeText(this, "All Done", Toast.LENGTH_LONG).show();
+             }
+
+         }
+        else
+         {
+             Toast.makeText(this,"Please Select Shippable!",Toast.LENGTH_LONG).show();
+
+         }
+
+    }
+
+
+
+    public static boolean isNumeric(String str)
+    {
+        return str.matches("-?\\d+(.\\d+)?");
+    }
 }

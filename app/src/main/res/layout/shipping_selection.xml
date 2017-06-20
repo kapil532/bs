@@ -205,6 +205,8 @@
                     android:layout_gravity="left"
                     android:checked="true"
                     android:hint="AUD"
+
+                    android:inputType="number"
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"
                     />
@@ -300,6 +302,7 @@
                     android:layout_gravity="left"
                     android:checked="true"
                     android:hint="AUD"
+                    android:inputType="number"
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"
                     />
@@ -347,7 +350,9 @@
                     android:background="@drawable/rounded_shape"
                     android:layout_gravity="left"
                     android:checked="true"
-                    android:hint="1 .. 30"
+                    android:maxLength="2"
+                    android:hint="1to30"
+                    android:inputType="number"
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"
                     />
