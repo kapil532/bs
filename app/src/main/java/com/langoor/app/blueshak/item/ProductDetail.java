@@ -133,7 +133,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
     private ProgressActivity progressActivity;
     public static ProductModel productModel = new ProductModel();
     private CategoryListModel categoriesModels = null;
-    private TextView tab1,tab2,title,similarListing_label,sale_name_tv,sale_items_tv, sale_date_tv,sale_distance_tv,sale_time,close_button, read_reviews,pd_nagotiable,view_offers,image_counts,brand_new,location,pick_up_name,shippable_sale_name,garage_icon_name,item_seller_name,product_name,garage_sale_name,productName_tv, rating_count,product_retail_price, availability_tv, shipable_tv, negotabile_tv, inappropirate_tv, date_tv, category_tv, productDescriptionDetail_tv;
+    private TextView sold,listing, product_condition,tab1,tab2,title,similarListing_label,sale_name_tv,sale_items_tv, sale_date_tv,sale_distance_tv,sale_time,close_button, read_reviews,pd_nagotiable,view_offers,image_counts,brand_new,location,pick_up_name,shippable_sale_name,garage_icon_name,item_seller_name,product_name,garage_sale_name,productName_tv, rating_count,product_retail_price, availability_tv, shipable_tv, negotabile_tv, inappropirate_tv, date_tv, category_tv, productDescriptionDetail_tv;
     private ImageView bookmark,go_to_review_ratings;
     private Button report_listing;
     private Button messageButton,make_offer,edit;
@@ -313,6 +313,29 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             price_tv = (TextView) findViewById(R.id.product_detail_price_tv);
             date_tv = (TextView) findViewById(R.id.product_detail_date_tv);
             read_reviews= (TextView) findViewById(R.id.read_reviews);
+
+            product_condition =(TextView) findViewById(R.id.listing);
+
+            listing= (TextView) findViewById(R.id.listing);
+            sold= (TextView) findViewById(R.id.sold);
+           //Added in new build
+            listing.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent= ReviewsRatings.newInstance(activity,productModel,null,null,salesModel);
+                    startActivity(intent);
+                }
+            });
+          sold.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  Intent intent= ReviewsRatings.newInstance(activity,productModel,null,null,salesModel);
+                  startActivity(intent);
+              }
+          });
+
+
+
             go_to_review_ratings=(ImageView)findViewById(R.id.go_to_review_ratings);
             go_to_review_ratings.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -696,7 +719,8 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             item_seller_name.setText(GlobalFunctions.getSentenceFormat(productModel.getSellerName()));
 
 
-        read_reviews.setText("Read reviews"+"("+productModel.getReviews_count()+")");
+//        read_reviews.setText("Read reviews"+"("+productModel.getReviews_count()+")");
+        read_reviews.setText(productModel.getReviews_count()+" Reviews");
         /*offers.setText("Offers"+"("+productModel.getOffers()+")");*/
         /*productName_tv.setText(productModel.getName());*/
         String avatar=productModel.getSeller_image();
@@ -1096,7 +1120,8 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             similarListing_label.setText("Items for sale");
         else
             similarListing_label.setText("No items for sale");
-        read_reviews.setText("Read reviews"+"("+salesModel.getReviews_count()+")");
+//        read_reviews.setText("Read Reviews"+"("+salesModel.getReviews_count()+")");
+        read_reviews.setText(salesModel.getReviews_count()+"Reviews");
         seller_user_id=salesModel.getUserID();
         seller_name=salesModel.getSellerName();
         seller_phone_number=salesModel.getSellerNumber();

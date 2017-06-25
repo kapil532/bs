@@ -104,7 +104,7 @@
                         android:layout_height="match_parent"
                         android:background="@color/brand_background_color"
                         android:focusable="true"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:focusableInTouchMode="true">
 
                         <com.daimajia.slider.library.SliderLayout
@@ -165,7 +165,8 @@
                  <!--   <include layout="@layout/product_detail_content"
                         ></include>-->
 
-                    <include layout="@layout/product_detail_content_new"
+                    <include
+                        layout="@layout/product_detail_content_new"
                         ></include>
 
                 </LinearLayout>

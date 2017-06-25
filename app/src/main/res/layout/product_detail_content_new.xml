@@ -234,10 +234,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+                    <com.langoor.app.blueshak.text.MyTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/MediumText"
+                        android:singleLine="true"
+                        android:textSize="15sp"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="left"
+                        android:textColor="@color/black"
+                        android:layout_weight=".5"
+                        android:text="Condition">
+                    </com.langoor.app.blueshak.text.MyTextView>
+                    <com.langoor.app.blueshak.text.MyTextViewMediumBold
+                        android:layout_weight=".5"
+                        android:id="@+id/product_condition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:gravity="left|center_vertical"
+                        android:textColor="@color/black"
+                        android:text=""
+                        android:layout_centerHorizontal="true">
+                    </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
                     <com.langoor.app.blueshak.text.MyTextView
                         android:layout_width="match_parent"
@@ -513,6 +543,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
+                android:visibility="gone"
                 />
         </LinearLayout>
 
@@ -590,7 +621,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
@@ -624,15 +655,52 @@
                         android:progressTint="@color/tab_selected"
                         android:rating="0"
                         />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
                     <com.langoor.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Read reviews(0)"
+                        android:text="1 Reviews"
                         android:textColor="@color/brandColor"
                         android:textSize="14sp"
                         android:id="@+id/read_reviews"
                         >
+
+
                     </com.langoor.app.blueshak.text.MyTextView>
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:background="@color/grey_2"/>
+                        <com.langoor.app.blueshak.text.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1 Listing"
+                            android:textColor="@color/brandColor"
+                            android:textSize="14sp"
+                            android:id="@+id/listing"
+                            >
+                        </com.langoor.app.blueshak.text.MyTextView>
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:background="@color/grey_2"/>
+                        <com.langoor.app.blueshak.text.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1 Sold"
+                            android:textColor="@color/brandColor"
+                            android:textSize="14sp"
+                            android:id="@+id/sold"
+                            >
+                        </com.langoor.app.blueshak.text.MyTextView>
+
+                    </LinearLayout>
                 </LinearLayout>
 
             </RelativeLayout>
