@@ -44,7 +44,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
     private static final int VIEWTYPE_LOADER = 2;
     public String item_address;
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        protected TextView item_price,item_name,item_location;
+        protected TextView item_price,item_name,item_location,shipping_type;
         protected ImageView image_iv,favarite,is_sold,is_garage,shippable,pick_up;
         public View container;
 
@@ -59,7 +59,10 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
             item_name= (TextView) view.findViewById(R.id.item_name);
             shippable= (ImageView) view.findViewById(R.id.shippable);
             pick_up= (ImageView) view.findViewById(R.id.pick_up);
-            item_location= (TextView) view.findViewById(R.id.item_location);        }
+            item_location= (TextView) view.findViewById(R.id.item_location);
+            //change this value
+        shipping_type= (TextView) view.findViewById(R.id.shipping_type);
+        }
     }
 
     class VHLoader extends RecyclerView.ViewHolder{
