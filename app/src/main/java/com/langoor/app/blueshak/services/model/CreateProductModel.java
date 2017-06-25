@@ -66,6 +66,15 @@ public class CreateProductModel implements Serializable {
     private final String  CURRENCY = "currency";
     private final String  COUNTRY_SHORT = "country_short";
 
+    private final String  SHIPPING_FOC = "shipping_foc";
+    private final String  LOCAL_SHIPPING_COST = "local_shipping_cost";
+    private final String  IS_INTL_SHIPPING= "is_intl_shipping";
+    private final String  INTL_SHIPPING_COST= "intl_shipping_cost";
+    private final String  TIME_TO_DELIVER= "time_to_deliver";
+    private final String  HIDE_ITEM_PRICE = "hide_item_price";
+
+
+
 
     /*@@@@@@@@@@@@@@@@@@added by me@@@@@@@@@@@@@@@@*/
     private final String PRODUCT_ID="product_id";
@@ -89,6 +98,65 @@ public class CreateProductModel implements Serializable {
     String retailPrice=null;
     String description = null;
     String request_type=null;
+
+    public boolean isShipping_foc() {
+        return shipping_foc;
+    }
+
+    public void setShipping_foc(boolean shipping_foc) {
+        this.shipping_foc = shipping_foc;
+    }
+
+    public String getLocal_shipping_cost() {
+        return local_shipping_cost;
+    }
+
+    public void setLocal_shipping_cost(String local_shipping_cost) {
+        this.local_shipping_cost = local_shipping_cost;
+    }
+
+
+
+    public String getTime_to_deliver() {
+        return time_to_deliver;
+    }
+
+    public void setTime_to_deliver(String time_to_deliver) {
+        this.time_to_deliver = time_to_deliver;
+    }
+
+    public boolean isHide_item_price() {
+        return hide_item_price;
+    }
+
+    public void setHide_item_price(boolean hide_item_price) {
+        this.hide_item_price = hide_item_price;
+    }
+
+
+    public boolean is_intl_shipping() {
+        return is_intl_shipping;
+    }
+
+    public void setIs_intl_shipping(boolean is_intl_shipping) {
+        this.is_intl_shipping = is_intl_shipping;
+    }
+
+
+    boolean shipping_foc=false;
+    boolean is_intl_shipping=false;
+    String local_shipping_cost=null;
+    String intl_shipping_cost=null;
+    String time_to_deliver=null;
+    boolean hide_item_price=false;
+
+    public String getIntl_shipping_cost() {
+        return intl_shipping_cost;
+    }
+
+    public void setIntl_shipping_cost(String intl_shipping_cost) {
+        this.intl_shipping_cost = intl_shipping_cost;
+    }
 
     public String getCountry_short() {
         return country_short;
@@ -325,6 +393,15 @@ public class CreateProductModel implements Serializable {
             currency=productModel.getCurrency();
             saleType=productModel.getSaleType();
             sale_id=productModel.getSaleID();
+
+            // my changes 6/25/2017
+            shipping_foc=productModel.isShipping_foc();
+            local_shipping_cost=productModel.getLocal_shipping_cost();
+            is_intl_shipping=productModel.isIntl_shipping_cost();
+            intl_shipping_cost =productModel.getINTL_SHIPPING_COST();
+            time_to_deliver =productModel.getTime_to_deliver();
+            hide_item_price =productModel.isHide_item_price();
+            // ----- my changes 6/25/2017
            /* List<String> imageArray = productModel.getImage();
             for(int i=0;i<imageArray.size();i++){
                 CreateImageModel model = new CreateImageModel();
@@ -387,6 +464,15 @@ public class CreateProductModel implements Serializable {
             jsonMain.put(CITY,city);
             jsonMain.put(LONGITUDE, longitude);
             jsonMain.put(LATITUDE, latitude);
+            // my changes 6/25/2017
+            jsonMain.put(SHIPPING_FOC, shipping_foc);
+            jsonMain.put(LOCAL_SHIPPING_COST, local_shipping_cost);
+            jsonMain.put(IS_INTL_SHIPPING, is_intl_shipping);
+            jsonMain.put(INTL_SHIPPING_COST, intl_shipping_cost);
+            jsonMain.put(TIME_TO_DELIVER, time_to_deliver);
+            jsonMain.put(HIDE_ITEM_PRICE, hide_item_price);
+            // ----- my changes 6/25/2017
+
             if(saleType.equalsIgnoreCase(GlobalVariables.TYPE_GARAGE))
                 jsonMain.put(SALESID, saleID);
             /*added for updating sale*/

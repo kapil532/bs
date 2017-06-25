@@ -14,56 +14,92 @@ import java.util.ArrayList;
 public class ProductModel implements Serializable {
     private final String TAG = "ProductModel";
     private final String
-            CURRENCY = "currency",
-            SALE_ID = "sale_id",
-            SALE_NAME = "sale_name",
-            LATITUDE = "latitude",
-            LONGITUDE = "longitude",
-            START_TIME = "start_time",
-            END_TIME = "end_time",
-            START_DATE = "start_date",
-            END_DATE = "end_date",
-            POSTALCODES = "postcodes",
-            SALE_TYPE = "sale_type",
-            IS_SALE_ACTIVE = "is_sale_active",
-            SALE_UPDATED_AT = "sale_updated_at",
-            SALE_CREATED_AT = "sale_created_at",
-            ID = "product_id",
-            NAME = "product_name",
-            SALE_PRICE = "sale_price",
-            RETAIL_PRICE = "retail_price",
-            DESCRIPTION = "description",
-            IS_SHIPABLE = "is_shippable",
-            IS_PICKUP = "is_pickup",
-            IS_AVAILABLE = "is_available",
-            IS_NEGOTIABLE = "is_negotiable",
-            IS_ACTIVE = "is_active",
-            PRODUCT_UPDATED_AT = "product_updated_at",
-            PRODUCT_CREATED_AT = "product_created_at",
-            PRODUCT_IMAGE = "images",
-            PRODUCT_IMAGES="product_images",
-            IMAGE="image",
-            IS_DISPLAY_IMAGE = "is_display_image",
-            PRODUCT_CATEGORY = "product_category",
-            SHOP_NAME="shop_or_sale_name",
-            SELLER_NAME = "seller_name",
-            SELLER_PHONE="seller_phone",
-            SELLER_IMAGE="seller_image",
-            SELLER_ID="seller_user_id",
-            USER_ID = "user_id",
-            VIEWS="num_views",
-            OFFERS="num_offers",
-            CUMULATIVE_RATING= "avg_seller_rating",
-            IS_BOOKAMARK= "is_bookmarked",
-            REVIEWS_COUNT="num_reviews",
-            LAST_UPDATED= "last_updated",
-            IS_PRODUCT_NEW="is_product_new",
-            LINK="link",
-            ADDRESS = "product_address",
-            IS_NEW_FLAG="is_new_flag",
-            CITY="city",
-            SUBHURB="suburb",
-            IS_NEW="is_new";
+            CURRENCY = "currency";
+    private final String SALE_ID = "sale_id";
+    private final String SALE_NAME = "sale_name";
+    private final String LATITUDE = "latitude";
+    private final String LONGITUDE = "longitude";
+    private final String START_TIME = "start_time";
+    private final String END_TIME = "end_time";
+    private final String START_DATE = "start_date";
+    private final String END_DATE = "end_date";
+    private final String POSTALCODES = "postcodes";
+    private final String SALE_TYPE = "sale_type";
+    private final String IS_SALE_ACTIVE = "is_sale_active";
+    private final String SALE_UPDATED_AT = "sale_updated_at";
+    private final String SALE_CREATED_AT = "sale_created_at";
+    private final String ID = "product_id";
+    private final String NAME = "product_name";
+    private final String SALE_PRICE = "sale_price";
+    private final String RETAIL_PRICE = "retail_price";
+    private final String DESCRIPTION = "description";
+    private final String IS_SHIPABLE = "is_shippable";
+    private final String IS_PICKUP = "is_pickup";
+    private final String IS_AVAILABLE = "is_available";
+    private final String IS_NEGOTIABLE = "is_negotiable";
+    private final String IS_ACTIVE = "is_active";
+    private final String PRODUCT_UPDATED_AT = "product_updated_at";
+    private final String PRODUCT_CREATED_AT = "product_created_at";
+    private final String PRODUCT_IMAGE = "images";
+    private final String PRODUCT_IMAGES="product_images";
+    private final String IMAGE="image";
+    private final String IS_DISPLAY_IMAGE = "is_display_image";
+    private final String PRODUCT_CATEGORY = "product_category";
+    private final String SHOP_NAME="shop_or_sale_name";
+    private final String SELLER_NAME = "seller_name";
+    private final String SELLER_PHONE="seller_phone";
+    private final String SELLER_IMAGE="seller_image";
+    private final String SELLER_ID="seller_user_id";
+    private final String USER_ID = "user_id";
+    private final String VIEWS="num_views";
+    private final String OFFERS="num_offers";
+    private final String CUMULATIVE_RATING= "avg_seller_rating";
+    private final String IS_BOOKAMARK= "is_bookmarked";
+    private final String REVIEWS_COUNT="num_reviews";
+    private final String LAST_UPDATED= "last_updated";
+    private final String IS_PRODUCT_NEW="is_product_new";
+    private final String LINK="link";
+    private final String ADDRESS = "product_address";
+    private final String IS_NEW_FLAG="is_new_flag";
+    private final String CITY="city";
+
+    public String getLOCAL_SHIPPING_COST() {
+        return LOCAL_SHIPPING_COST;
+    }
+
+    public String getIS_INTL_SHIPPING() {
+        return IS_INTL_SHIPPING;
+    }
+
+    public String getINTL_SHIPPING_COST() {
+        return INTL_SHIPPING_COST;
+    }
+
+    public String getTIME_TO_DELIVER() {
+        return TIME_TO_DELIVER;
+    }
+
+    public String getHIDE_ITEM_PRICE() {
+        return HIDE_ITEM_PRICE;
+    }
+
+    public String getSHIPPING_FOC() {
+        return SHIPPING_FOC;
+    }
+
+    private final String SUBHURB="suburb";
+    private final String IS_NEW="is_new";
+
+    //changesss
+    private final String SHIPPING_FOC="shipping_foc";
+    private final String LOCAL_SHIPPING_COST = "local_shipping_cost";
+    private final String IS_INTL_SHIPPING= "is_intl_shipping";
+    private final String INTL_SHIPPING_COST= "intl_shipping_cost";
+    private final String TIME_TO_DELIVER= "time_to_deliver";
+    private final String HIDE_ITEM_PRICE = "hide_item_price";
+
+
+
 
     public String getViews() {
         return views;
@@ -121,6 +157,57 @@ public class ProductModel implements Serializable {
     String address=null;
     String city=null;
     String subhrub=null;
+    String local_shipping_cost=null;
+
+    public boolean isHide_item_price() {
+        return hide_item_price;
+    }
+
+    public void setHide_item_price(boolean hide_item_price) {
+        this.hide_item_price = hide_item_price;
+    }
+
+    public String getLocal_shipping_cost() {
+        return local_shipping_cost;
+    }
+
+    public void setLocal_shipping_cost(String local_shipping_cost) {
+        this.local_shipping_cost = local_shipping_cost;
+    }
+
+    public String getTime_to_deliver() {
+        return time_to_deliver;
+    }
+
+    public void setTime_to_deliver(String time_to_deliver) {
+        this.time_to_deliver = time_to_deliver;
+    }
+
+    public boolean isShipping_foc() {
+        return shipping_foc;
+    }
+
+    public void setShipping_foc(boolean shipping_foc) {
+        this.shipping_foc = shipping_foc;
+    }
+
+    public boolean is_intl_shipping() {
+        return is_intl_shipping;
+    }
+
+    public void setIs_intl_shipping(boolean is_intl_shipping) {
+        this.is_intl_shipping = is_intl_shipping;
+    }
+
+    public boolean isIntl_shipping_cost() {
+        return intl_shipping_cost;
+    }
+
+    public void setIntl_shipping_cost(boolean intl_shipping_cost) {
+        this.intl_shipping_cost = intl_shipping_cost;
+    }
+
+    String time_to_deliver=null;
 
     public String getAddress() {
         return address;
@@ -190,6 +277,16 @@ public class ProductModel implements Serializable {
     boolean active          = false;
     boolean sale_active  = false;
     boolean is_garage_item=false;
+
+
+    boolean shipping_foc=false;
+    boolean is_intl_shipping=false;
+    boolean intl_shipping_cost=false;
+    boolean hide_item_price=false;
+
+
+
+
 
     public boolean is_garage_item() {
         if(saleType!=null&&saleType.equalsIgnoreCase(GlobalVariables.TYPE_GARAGE))
@@ -668,6 +765,15 @@ public class ProductModel implements Serializable {
             jsonMain.put(PRODUCT_CREATED_AT, productCreatedAt);
             jsonMain.put(PRODUCT_CATEGORY, productCategory);
 
+
+
+            jsonMain.put(SHIPPING_FOC, shipping_foc);
+            jsonMain.put(LOCAL_SHIPPING_COST, local_shipping_cost);
+            jsonMain.put(IS_INTL_SHIPPING, is_intl_shipping);
+            jsonMain.put(INTL_SHIPPING_COST, intl_shipping_cost);
+            jsonMain.put(TIME_TO_DELIVER, time_to_deliver);
+            jsonMain.put(HIDE_ITEM_PRICE, hide_item_price);
+
             JSONArray imageArray =  new JSONArray();
             if(images!=null){
                 for(int i=0;i<images.size();i++){imageArray.put(images.get(i));}
@@ -680,6 +786,8 @@ public class ProductModel implements Serializable {
             if(active){temp = "1";}else{temp="0";}jsonMain.put(IS_ACTIVE, temp);temp = "0";
             if(negotiable){temp = "1";}else{temp="0";}jsonMain.put(IS_NEGOTIABLE, temp);temp = "0";
             if(displayImage){temp = "1";}else{temp="0";}jsonMain.put(IS_DISPLAY_IMAGE, temp);temp = "0";
+
+
             if(sale_active){temp = "1";}else{temp="0";}jsonMain.put(IS_SALE_ACTIVE, temp);
             returnString = jsonMain.toString();
         }

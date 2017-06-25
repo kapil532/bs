@@ -1,6 +1,7 @@
 package com.langoor.app.blueshak.garage;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -34,6 +35,12 @@ public class ShippingSelection extends RootActivity {
     EditText time_to_deliver_e;
     Switch Shippible_s;
     Switch Shipping_is_free;
+
+String localShippingCOst;
+String intShippingCost;
+String timeToDeliver;
+
+
 
 public static String price_default="";
     final int SHIPPINGISFREEACTIVE = 121;
@@ -112,6 +119,7 @@ public static String price_default="";
             @Override
             public void afterTextChanged(Editable s) {
 
+                timeToDeliver=""+s.toString();
             }
         });
         intl_shipping_cost_e = (EditText) findViewById(R.id.intl_shipping_cost_e);
@@ -130,6 +138,7 @@ public static String price_default="";
             }
 
             public void afterTextChanged(Editable arg0) {
+                intShippingCost=""+arg0.toString();
             }
         });
         local_shipping_cost = (EditText) findViewById(R.id.local_shipping_cost);
@@ -148,6 +157,8 @@ public static String price_default="";
             }
 
             public void afterTextChanged(Editable arg0) {
+
+                localShippingCOst=""+arg0.toString();
             }
         });
         allow_international_shi_s = (Switch) findViewById(R.id.allow_international_shi_s);
@@ -259,7 +270,9 @@ public static String price_default="";
                          }
                          else
                          {
-                             Toast.makeText(this, "All Done aaa", Toast.LENGTH_LONG).show();
+
+                             finalSubmit();
+//                             Toast.makeText(this, "All Done"+localShippingCOst+"--"+intShippingCost+"--"+timeToDeliver, Toast.LENGTH_LONG).show();
                          }
                      }
                  }
@@ -274,7 +287,9 @@ public static String price_default="";
                  }
                  else
                  {
-                     Toast.makeText(this, "All Done q", Toast.LENGTH_LONG).show();
+
+                     finalSubmit();
+//                     Toast.makeText(this, "All Done"+localShippingCOst+"--"+intShippingCost+"--"+timeToDeliver, Toast.LENGTH_LONG).show();
                  }
              }
              else if (!(time_to_deliver_e.getText().length() > 0))
@@ -282,7 +297,9 @@ public static String price_default="";
                  Toast.makeText(this, "Please Enter time to deliver!", Toast.LENGTH_LONG).show();
              } else
              {
-                 Toast.makeText(this, "All Done", Toast.LENGTH_LONG).show();
+
+                 finalSubmit();
+                // Toast.makeText(this, "All Done"+localShippingCOst+"--"+intShippingCost+"--"+timeToDeliver, Toast.LENGTH_LONG).show();
              }
 
          }
@@ -293,6 +310,24 @@ public static String price_default="";
          }
 
     }
+
+
+    void finalSubmit()
+    {
+        Intent intent = new Intent();
+        intent.putExtra("isShippable", Shippible_s.isChecked());
+        intent.putExtra("shipping_foc", Shipping_is_free.isChecked());
+        intent.putExtra("is_intl_shipping ", allow_international_shi_s.isChecked());
+
+        intent.putExtra("intl_shipping_cost ", intl_shipping_cost_e.getText().toString());
+        intent.putExtra("time_to_deliver ", time_to_deliver_e.getText().toString());
+        intent.putExtra("local_shipping_cost ", local_shipping_cost.getText().toString());
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+
+    }
+
+
 
 
 

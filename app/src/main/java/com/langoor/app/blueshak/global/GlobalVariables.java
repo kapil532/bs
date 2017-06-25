@@ -61,6 +61,10 @@ public class GlobalVariables {
     public static final int REQUEST_CODE_SELECT_CURRENCY= 164;
 
 
+    public static final int REQUEST_CODE_NEGOTIABLE= 165;
+    public static final int REQUEST_CODE_SHIPPING= 166;
+
+
     public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     public static final String
             TYPE_GARAGE = "garage",

@@ -210,7 +210,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 @Override
                 public void onClick(View v) {
                        Intent mIntent = new Intent(context, NegotiableSelection.class);
-                        startActivity(mIntent);
+                    startActivityForResult(mIntent,globalVariables.REQUEST_CODE_NEGOTIABLE);
                 }
             });
 
@@ -219,7 +219,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 @Override
                 public void onClick(View v) {
                     Intent mIntent = new Intent(context, ShippingSelection.class);
-                    startActivity(mIntent);
+                    startActivityForResult(mIntent,globalVariables.REQUEST_CODE_SHIPPING);
                 }
             });
             category_content.setOnClickListener(new View.OnClickListener() {
@@ -313,11 +313,33 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
     }
 
+    //Changes 6/25/2017
+    //item_negotiable =nagotiable
+    boolean item_negotiable =false;
+    boolean hide_item =false;
+    boolean isShippable =false;
+    boolean shipping_foc =false;
+    boolean is_intl_shipping =false;
+
+
+    String intl_shipping_cost="";
+    String time_to_deliver="";
+    String local_shipping_cost="";
+
     private void onClickProcessing() {
-        if (nagotiable.isChecked())
+        if (item_negotiable)
             productModel.setNegotiable(true);
+
         if (is_new_old.isChecked())
             productModel.setIs_pickup(true);
+
+        if (hide_item)
+            productModel.setHide_item_price(true);
+
+        if (shipping_foc)
+            productModel.setShipping_foc(true);
+
+
 
         postalCode = null;
         for (int i = 0; i < selectedAutoSuggesstionsList.size(); i++) {
@@ -377,18 +399,44 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                     productModel.setLongitude(locationModel.getLongitude() + "");
                 }
             }
-            if (nagotiable.isChecked())
+            if (item_negotiable)
                 productModel.setNegotiable(true);
             else
                 productModel.setNegotiable(false);
-            if (shippable.isChecked())
+
+
+            if (isShippable)
                 productModel.setShippable(true);
             else
                 productModel.setShippable(false);
+
+            if (hide_item)
+                productModel.setHide_item_price(true);
+            else
+                productModel.setHide_item_price(false);
+
+            if (shipping_foc)
+                productModel.setShipping_foc(true);
+            else
+                productModel.setShipping_foc(false);
+
+            if (is_intl_shipping)
+                productModel.setIs_intl_shipping(true);
+            else
+                productModel.setIs_intl_shipping(false);
+
+
+
             if (is_new_old.isChecked())
                 productModel.setIs_pickup(true);
             else
                 productModel.setIs_pickup(false);
+
+
+
+            productModel.setIntl_shipping_cost(intl_shipping_cost);
+            productModel.setTime_to_deliver(time_to_deliver);
+            productModel.setLocal_shipping_cost(local_shipping_cost);
 
             String token = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
             if (token != null) {
@@ -417,12 +465,14 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 hideProgressBar();
-                if (arg0 instanceof IDModel) {
+                if (arg0 instanceof IDModel)
+                {
                     IDModel idModel = (IDModel) arg0;
                     createProductModel.setProduct_id(idModel.getId());
                     Toast.makeText(context, "Item has been listed Successfully", Toast.LENGTH_LONG).show();
                     closeThisActivity();
-                } else if (arg0 instanceof ErrorModel) {
+                } else if (arg0 instanceof ErrorModel)
+                {
                     ErrorModel errorModel = (ErrorModel) arg0;
                     String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
@@ -719,6 +769,20 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                     GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_CURRENCY, currencyModel.getCurrency());
                  /*   select_sale.setText(salesModel.getName());
                     productModel.setSale_id(salesModel.getId());*/
+                } else if (requestCode == globalVariables.REQUEST_CODE_NEGOTIABLE) {
+                    Log.i(TAG, "REQUEST_CODE_SELECT_CATEGORY " + requestCode);
+
+                    item_negotiable = data.getExtras().getBoolean("item_negotiable");
+                    hide_item = data.getExtras().getBoolean("hide_item");
+
+                } else if (requestCode == globalVariables.REQUEST_CODE_SHIPPING) {
+
+                    isShippable = data.getExtras().getBoolean("isShippable");
+                    shipping_foc = data.getExtras().getBoolean("shipping_foc");
+                    is_intl_shipping = data.getExtras().getBoolean("is_intl_shipping");
+                    intl_shipping_cost = data.getExtras().getString("intl_shipping_cost");
+                    time_to_deliver = data.getExtras().getString("time_to_deliver");
+                    local_shipping_cost = data.getExtras().getString("local_shipping_cost");
                 }
             }
         } catch (NullPointerException e) {
@@ -735,6 +799,9 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             e.printStackTrace();
         }
     }
+
+
+
 
     class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
         @Override

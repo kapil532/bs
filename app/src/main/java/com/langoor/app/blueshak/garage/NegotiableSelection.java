@@ -1,6 +1,7 @@
 package com.langoor.app.blueshak.garage;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.CardView;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,20 +58,44 @@ import com.langoor.blueshak.R;
             @Override
             public void onClick(View v) {
 
-                if(item_negotiable.isChecked() || hide_item.isChecked())
+               // if(item_negotiable.isChecked() || hide_item.isChecked())
                 {
-
+                    Intent intent = new Intent();
+                    intent.putExtra("item_negotiable", item_negotiable.isChecked());
+                    intent.putExtra("hide_item", hide_item.isChecked());
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
                 }
-                else
-                {
-                    Toast.makeText(NegotiableSelection.this,"Please select one!",Toast.LENGTH_LONG).show();
-                }
+//                else
+//                {
+//                    Toast.makeText(NegotiableSelection.this,"Please select one!",Toast.LENGTH_LONG).show();
+//                }
 
             }
         });
 
         item_negotiable =(Switch)findViewById(R.id.item_negotiable);
+        item_negotiable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked)
+                {
+                    switchButton(hide_item_);
+                }
+            }
+        });
+
         hide_item =(Switch)findViewById(R.id.hide_item);
+        hide_item.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked)
+                {
+                    switchButton(item_negotiable_);
+                }
+            }
+        });
     }
     public static void closeThisActivity(){
         if(activity!=null)
@@ -77,5 +103,30 @@ import com.langoor.blueshak.R;
             activity.finish();
         }
     }
+
+
+final int item_negotiable_=1002;
+final int hide_item_=1003;
+    private void switchButton(int key)
+    {
+
+        switch (key)
+        {
+            case item_negotiable_:
+            item_negotiable.setChecked(true);
+
+            break;
+
+            case hide_item_:
+                hide_item.setChecked(false);
+
+                break;
+        }
+
+    }
+
+
+
+
 
 }
