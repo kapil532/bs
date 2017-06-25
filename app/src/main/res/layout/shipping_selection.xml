@@ -197,6 +197,7 @@
                     android:backgroundTint="@color/brandColor"
                     android:textColor="@color/brand_text_color" >
                 </com.langoor.app.blueshak.text.MyTextView>
+
                 <EditText
                     android:layout_width="80dp"
                     android:id="@+id/local_shipping_cost"
@@ -205,11 +206,12 @@
                     android:layout_gravity="left"
                     android:checked="true"
                     android:hint="AUD"
-
-                    android:inputType="number"
+                    android:maxLength="5"
+                    android:inputType="numberDecimal"
                     android:layout_height="25dp"
+                    android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    />
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
         </LinearLayout>
         <View
@@ -302,7 +304,8 @@
                     android:layout_gravity="left"
                     android:checked="true"
                     android:hint="AUD"
-                    android:inputType="number"
+                    android:maxLength="5"
+                    android:inputType="numberDecimal"
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"
                     />

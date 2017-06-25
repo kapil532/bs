@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.langoor.app.blueshak.root.RootActivity;
+import com.langoor.app.blueshak.util.InputFilterMinMax;
 import com.langoor.blueshak.R;
 
 /**
@@ -40,6 +43,14 @@ String localShippingCOst;
 String intShippingCost;
 String timeToDeliver;
 
+
+
+    public  static boolean isShippable=false;
+    public  static boolean shipping_foc=false;
+    public  static boolean is_intl_shipping=false;
+    public  static String intl_shipping_cost="";
+    public  static String time_to_deliver="";
+    public  static String local_shipping_cost_="";
 
 
 public static String price_default="";
@@ -104,6 +115,7 @@ public static String price_default="";
 
 
         time_to_deliver_e = (EditText) findViewById(R.id.time_to_deliver_e);
+        time_to_deliver_e.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "30")});
         time_to_deliver_e.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -194,6 +206,36 @@ public static String price_default="";
 
         hideAndShow(SHIPPINGISFREEACTIVE);
         hideAndShow(ALLOWINTERNATIONALDEACTIVE);
+
+
+        if(isShippable)
+        {
+
+            Shippible_s.setChecked(true);
+            hideAndShow(SHIPPINGISFREEACTIVE);
+
+
+
+
+
+        }
+
+
+
+
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isShippable=false;
+       shipping_foc=false;
+        is_intl_shipping=false;
+         intl_shipping_cost="";
+         time_to_deliver="";
+         local_shipping_cost_="";
+
     }
 
     public static void closeThisActivity() {
@@ -312,16 +354,37 @@ public static String price_default="";
     }
 
 
+
+
     void finalSubmit()
     {
         Intent intent = new Intent();
-        intent.putExtra("isShippable", Shippible_s.isChecked());
+
+        isShippable=Shippible_s.isChecked();
+        shipping_foc=Shipping_is_free.isChecked();
+        is_intl_shipping=allow_international_shi_s.isChecked();
+        intl_shipping_cost=intl_shipping_cost_e.getText().toString();
+        time_to_deliver=time_to_deliver_e.getText().toString();
+        local_shipping_cost_=local_shipping_cost.getText().toString();
+
+
+
+       /* intent.putExtra("isShippable", Shippible_s.isChecked());
         intent.putExtra("shipping_foc", Shipping_is_free.isChecked());
         intent.putExtra("is_intl_shipping ", allow_international_shi_s.isChecked());
 
-        intent.putExtra("intl_shipping_cost ", intl_shipping_cost_e.getText().toString());
-        intent.putExtra("time_to_deliver ", time_to_deliver_e.getText().toString());
-        intent.putExtra("local_shipping_cost ", local_shipping_cost.getText().toString());
+
+        Log.d("SET VALUES","SETALLVALUES" +
+                "--"+ intl_shipping_cost_e.getText().toString()+"" + "" +
+                "--"+Shipping_is_free.isChecked()+"" +
+                "---"+time_to_deliver_e.getText().toString()+"" +
+                "--"+ local_shipping_cost.getText().toString()+"" +
+                "---"+allow_international_shi_s.isChecked());
+
+        intent.putExtra("intl_shipping_cost ", ""+intl_shipping_cost_e.getText().toString());
+        intent.putExtra("time_to_deliver ", ""+time_to_deliver_e.getText().toString());
+        intent.putExtra("local_shipping_cost ", ""+local_shipping_cost.getText().toString());*/
+
         setResult(Activity.RESULT_OK, intent);
         finish();
 

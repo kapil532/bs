@@ -98,7 +98,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     private Toolbar toolbar;
     private TextView category;
     private EditText name, description, saleprice, address;
-    private Switch shippable, nagotiable, is_new_old;
+    private Switch shippable, nagotiable, is_new_old,is_product_new;
     private Button save;
     private boolean[] is_checked;
     static Activity activity;
@@ -241,6 +241,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             select_sale = (TextView) view.findViewById(R.id.select_sale);
             mAutocompleteTextView.setOnEditorActionListener(new DoneOnEditorActionListener());
             shippable = (Switch) view.findViewById(R.id.pd_shippable);
+            is_product_new = (Switch) view.findViewById(R.id.is_product_new);
             nagotiable = (Switch) view.findViewById(R.id.pd_nagotiable);
             is_new_old = (Switch) view.findViewById(R.id.is_new_old);
             productModel = (CreateProductModel) getArguments().getSerializable(CREATE_ITEM_BUNDLE_KEY);
@@ -432,6 +433,11 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             else
                 productModel.setIs_pickup(false);
 
+
+            if (is_product_new.isChecked())
+                productModel.setIs_product_new(true);
+            else
+                productModel.setIs_product_new(false);
 
 
             productModel.setIntl_shipping_cost(intl_shipping_cost);
@@ -777,12 +783,20 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
                 } else if (requestCode == globalVariables.REQUEST_CODE_SHIPPING) {
 
-                    isShippable = data.getExtras().getBoolean("isShippable");
-                    shipping_foc = data.getExtras().getBoolean("shipping_foc");
-                    is_intl_shipping = data.getExtras().getBoolean("is_intl_shipping");
-                    intl_shipping_cost = data.getExtras().getString("intl_shipping_cost");
-                    time_to_deliver = data.getExtras().getString("time_to_deliver");
-                    local_shipping_cost = data.getExtras().getString("local_shipping_cost");
+                    isShippable = ShippingSelection.isShippable;
+                    shipping_foc = ShippingSelection.shipping_foc;
+                    is_intl_shipping = ShippingSelection.is_intl_shipping;
+
+                    intl_shipping_cost = ShippingSelection.intl_shipping_cost;
+                    time_to_deliver =ShippingSelection.time_to_deliver;
+                    local_shipping_cost = ShippingSelection.local_shipping_cost_;
+
+                    Log.d("VALUES SET","SETALLVALUES"
+                            +shipping_foc+"" +
+                            "---"+intl_shipping_cost+"" +
+                            "---"+local_shipping_cost+"" +
+                            "---"+is_intl_shipping);
+
                 }
             }
         } catch (NullPointerException e) {

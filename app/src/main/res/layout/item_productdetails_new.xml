@@ -237,7 +237,7 @@
                                     </com.langoor.app.blueshak.text.MyTextView>
                                     <Switch
                                         android:layout_width="wrap_content"
-                                        android:id="@+id/item_condition_new"
+                                        android:id="@+id/is_product_new"
                                         android:gravity="center"
                                         android:layout_gravity="center"
                                         android:checked="true"
