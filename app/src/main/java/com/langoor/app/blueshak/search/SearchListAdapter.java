@@ -47,7 +47,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int VIEWTYPE_ITEM = 1;
     private static final int VIEWTYPE_LOADER = 2;
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        protected TextView item_price,item_location,item_name;
+        protected TextView item_price,item_location,item_name,shipping_type;
         private ImageView is_sold,shippable,pick_up;
         protected ImageView image_iv,favarite,is_garage;
         LinearLayout linearLayout;
@@ -64,6 +64,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             favarite= (ImageView) view.findViewById(R.id.item_favirate);
             item_location= (TextView) view.findViewById(R.id.item_location);
             item_name= (TextView) view.findViewById(R.id.item_name);
+            shipping_type= (TextView) view.findViewById(R.id.shipping_type);
         }
     }
     class VHLoader extends RecyclerView.ViewHolder{
@@ -100,8 +101,28 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
               /*  int price=0;
                 if(!TextUtils.isEmpty(obj.getSalePrice()))
                     price=(int)Float.parseFloat(obj.getSalePrice());*/
+                if(obj.isShipping_foc())
+                {
+                    holder.shipping_type.setText("Free Shipping");
+                }
+                else if(Float.parseFloat(obj.getLocal_shipping_cost()) == 0.00)
+                {
+                    holder.shipping_type.setText("Free Shipping");
+                }
+                else
+                {
+                    holder.shipping_type.setText(obj.getCurrency()+" "+obj.getLocal_shipping_cost());
+                }
+                if(obj.isHide_item_price())
+                {
 
-                holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(),obj.getSalePrice()));
+                    holder.item_price.setText("Negotiable");
+                }
+                else
+                {
+                    holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(),obj.getSalePrice()));
+                }
+              //  holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(),obj.getSalePrice()));
                 holder.item_name.setText(obj.getName());
                /* holder.item_price.setGravity(Gravity.CENTER_HORIZONTAL);*/
 

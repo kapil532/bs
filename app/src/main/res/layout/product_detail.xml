@@ -104,7 +104,7 @@
                         android:layout_height="match_parent"
                         android:background="@color/brand_background_color"
                         android:focusable="true"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:focusableInTouchMode="true">
 
                         <com.daimajia.slider.library.SliderLayout
@@ -149,7 +149,7 @@
                                 android:layout_marginRight="10dp"
                                 android:layout_height="wrap_content"
                                 android:text="1/5"
-                                android:visibility="gone"
+                                android:visibility="visible"
                                 android:textStyle="bold"
                                 android:textColor="@color/white"
                                 android:textSize="20sp"

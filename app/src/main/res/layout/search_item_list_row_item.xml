@@ -125,6 +125,31 @@
                             />S
                         </LinearLayout>
                 </LinearLayout>
+
+                     <RelativeLayout
+                         android:layout_width="match_parent"
+                         android:orientation="horizontal"
+                         android:layout_marginTop="5dp"
+                         android:layout_height="wrap_content"
+                         android:layout_gravity="center_vertical"
+                         android:layout_marginRight="5dp"
+                         >
+                         <com.langoor.app.blueshak.text.MyTextView
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:layout_marginRight="@dimen/contactlist_ctimestamp_margin_right"
+                             android:textSize="15sp"
+                             android:textStyle="bold"
+                             android:singleLine="false"
+                             android:layout_gravity="center_vertical"
+                             android:id="@+id/shipping_type"
+                             android:text="Free Shipping "
+                             android:textColor="@color/brand_text_color"
+                             android:layout_alignParentRight="true"
+                             android:layout_alignParentEnd="true" >
+                         </com.langoor.app.blueshak.text.MyTextView>
+
+                     </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
@@ -140,7 +165,7 @@
                     android:layout_marginRight="@dimen/contactlist_ctimestamp_margin_right"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:singleLine="false"
+                    android:singleLine="true"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/item_location"
                     android:text="new "

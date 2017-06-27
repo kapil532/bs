@@ -217,13 +217,11 @@ public static String price_default="";
             time_to_deliver_e.setText(time_to_deliver);
             local_shipping_cost.setText(local_shipping_cost_);
 
+            Log.d("LOGSSSS","SHIPPINGCOST ---%%%%^"+shipping_foc);
             if(shipping_foc)
             {
-                Shippible_s.setChecked(true);
-                shibble_l.setVisibility(View.VISIBLE);
-                hideAndShow(SHIPPINGISFREEACTIVE);
-                hideAndShow(ALLOWINTERNATIONALDEACTIVE);
-                Shipping_is_free.setChecked(false);
+                hideAndShow(SHIPPINGISFREEDEACTIVE);
+                Shipping_is_free.setChecked(true);
             }
              if(is_intl_shipping)
              {
@@ -361,7 +359,7 @@ public static String price_default="";
          }
         else
          {
-             Toast.makeText(this,"Please Select Shippable!",Toast.LENGTH_LONG).show();
+             finalSubmit();
 
          }
 
@@ -377,10 +375,33 @@ public static String price_default="";
         isShippable=Shippible_s.isChecked();
         shipping_foc=Shipping_is_free.isChecked();
         is_intl_shipping=allow_international_shi_s.isChecked();
+
         intl_shipping_cost=intl_shipping_cost_e.getText().toString();
-        time_to_deliver=time_to_deliver_e.getText().toString();
         local_shipping_cost_=local_shipping_cost.getText().toString();
 
+        if(shipping_foc)
+        {
+            intl_shipping_cost="";
+            local_shipping_cost_="";
+
+        }
+
+        if(!is_intl_shipping)
+        {
+            intl_shipping_cost="";
+        }
+        time_to_deliver=time_to_deliver_e.getText().toString();
+
+        if(isShippable)
+        {
+
+        }
+        else
+        {
+            intl_shipping_cost="";
+            local_shipping_cost_="";
+            time_to_deliver="";
+        }
 
 
        /* intent.putExtra("isShippable", Shippible_s.isChecked());

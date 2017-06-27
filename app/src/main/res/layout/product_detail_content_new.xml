@@ -122,7 +122,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/item_content"
-            android:visibility="gone"
+            android:visibility="visible"
             android:paddingTop="15dp"
             android:background="@color/white"
             android:layout_height="wrap_content"
@@ -321,6 +321,9 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+
+
             <LinearLayout
                 android:visibility="gone"
                 android:id="@+id/pick_up_content"
@@ -420,8 +423,94 @@
                 </LinearLayout>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
                 android:background="@color/bottom_bar_background_color"/>
+
+
+          <!-- this newchange -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_weight="1.5"
+               android:orientation="vertical"
+               >
+               <com.langoor.app.blueshak.text.MyTextView
+                   android:layout_width="match_parent"
+                   android:layout_marginTop="5dp"
+                   android:layout_height="wrap_content"
+                   android:textSize="18sp"
+                   android:gravity="center_horizontal"
+                   android:layout_gravity="center_horizontal"
+                   android:id="@+id/est"
+                   android:text="Est. Delivery"
+                   android:textColor="@color/black"
+                   >
+               </com.langoor.app.blueshak.text.MyTextView>
+               <com.langoor.app.blueshak.text.MyTextViewMediumBold
+                   android:layout_width="match_parent"
+                   android:layout_marginTop="5dp"
+                   android:layout_height="wrap_content"
+                   android:textSize="18sp"
+                   android:gravity="center_horizontal"
+                   android:layout_gravity="center_horizontal"
+                   android:id="@+id/estda"
+                   android:textStyle="bold"
+                   android:text="Garage"
+                   android:textColor="@color/black"
+                   >
+               </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+
+           </LinearLayout>
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/bottom_bar_background_color"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:orientation="vertical"
+                    >
+
+                    <com.langoor.app.blueshak.text.MyTextView
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ests"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="18sp"
+                        android:text="Shipping (approx)"
+                        android:textColor="@color/black"
+                        >
+                    </com.langoor.app.blueshak.text.MyTextView>
+                    <com.langoor.app.blueshak.text.MyTextViewMediumBold
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/shipping_aud"
+                        android:text="Garage"
+                        android:textColor="@color/brandColor"
+                        android:layout_marginBottom="5dp"
+                        >
+                    </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/bottom_bar_background_color"/>
+            <!-- this newchange -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

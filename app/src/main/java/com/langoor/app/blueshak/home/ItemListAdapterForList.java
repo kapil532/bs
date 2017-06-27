@@ -110,9 +110,30 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                 if(!TextUtils.isEmpty(obj.getSalePrice()))
                     price=(int)Float.parseFloat(obj.getSalePrice());*/
 
-                holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(),obj.getSalePrice()));
+
               holder.item_name.setText(obj.getName());
 
+              if(obj.isShipping_foc())
+              {
+    holder.shipping_type.setText("Free Shipping");
+              }
+              else if(Float.parseFloat(obj.getLocal_shipping_cost()) == 0.00)
+              {
+                  holder.shipping_type.setText("Free Shipping");
+              }
+              else
+              {
+                  holder.shipping_type.setText(obj.getCurrency()+" "+obj.getLocal_shipping_cost());
+              }
+  if(obj.isHide_item_price())
+  {
+
+      holder.item_price.setText("Negotiable");
+  }
+ else
+  {
+      holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(),obj.getSalePrice()));
+  }
 
               if(!TextUtils.isEmpty(obj.getAddress()))
                   holder.item_location.setText(obj.getAddress());

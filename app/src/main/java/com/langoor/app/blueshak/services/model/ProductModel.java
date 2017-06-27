@@ -61,7 +61,21 @@ public class ProductModel implements Serializable {
     private final String LINK="link";
     private final String ADDRESS = "product_address";
     private final String IS_NEW_FLAG="is_new_flag";
+
+    public String getShipping_delivery_date() {
+        return shipping_delivery_date;
+    }
+
+    public void setShipping_delivery_date(String shipping_delivery_date) {
+        this.shipping_delivery_date = shipping_delivery_date;
+    }
+
+    public String getSHIPPING_DELIVERY_DATE() {
+        return SHIPPING_DELIVERY_DATE;
+    }
+
     private final String CITY="city";
+    private final String SHIPPING_DELIVERY_DATE="shipping_delivery_date";
 
 
 
@@ -162,6 +176,7 @@ public class ProductModel implements Serializable {
     String city=null;
     String subhrub=null;
     String local_shipping_cost=null;
+    String shipping_delivery_date=null;
 
     public String getIntl_shipping_cost() {
         return intl_shipping_cost;
@@ -678,6 +693,7 @@ public class ProductModel implements Serializable {
             if(json.has(PRODUCT_UPDATED_AT))productUpdatedAt = json.getString(PRODUCT_UPDATED_AT);
             if(json.has(PRODUCT_CREATED_AT))productCreatedAt = json.getString(PRODUCT_CREATED_AT);
             if(json.has(SALE_CREATED_AT))saleCreatedAt = json.getString(SALE_CREATED_AT);
+            if(json.has(SHIPPING_DELIVERY_DATE))shipping_delivery_date = json.getString(SHIPPING_DELIVERY_DATE);
 
             //changes
             if(json.has(LOCAL_SHIPPING_COST))local_shipping_cost = json.getString(LOCAL_SHIPPING_COST);

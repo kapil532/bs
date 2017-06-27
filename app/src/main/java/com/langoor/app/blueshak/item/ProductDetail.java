@@ -133,7 +133,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
     private ProgressActivity progressActivity;
     public static ProductModel productModel = new ProductModel();
     private CategoryListModel categoriesModels = null;
-    private TextView sold,listing, product_condition,tab1,tab2,title,similarListing_label,sale_name_tv,sale_items_tv, sale_date_tv,sale_distance_tv,sale_time,close_button, read_reviews,pd_nagotiable,view_offers,image_counts,brand_new,location,pick_up_name,shippable_sale_name,garage_icon_name,item_seller_name,product_name,garage_sale_name,productName_tv, rating_count,product_retail_price, availability_tv, shipable_tv, negotabile_tv, inappropirate_tv, date_tv, category_tv, productDescriptionDetail_tv;
+    private TextView sold,listing,estda, shipping_aud,product_condition,tab1,tab2,title,similarListing_label,sale_name_tv,sale_items_tv, sale_date_tv,sale_distance_tv,sale_time,close_button, read_reviews,pd_nagotiable,view_offers,image_counts,brand_new,location,pick_up_name,shippable_sale_name,garage_icon_name,item_seller_name,product_name,garage_sale_name,productName_tv, rating_count,product_retail_price, availability_tv, shipable_tv, negotabile_tv, inappropirate_tv, date_tv, category_tv, productDescriptionDetail_tv;
     private ImageView bookmark,go_to_review_ratings;
     private Button report_listing;
     private Button messageButton,make_offer,edit;
@@ -314,7 +314,9 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             date_tv = (TextView) findViewById(R.id.product_detail_date_tv);
             read_reviews= (TextView) findViewById(R.id.read_reviews);
 
-            product_condition =(TextView) findViewById(R.id.listing);
+            product_condition =(TextView) findViewById(R.id.product_condition);
+            estda =(TextView) findViewById(R.id.estda);
+            shipping_aud =(TextView) findViewById(R.id.shipping_aud);
 
             listing= (TextView) findViewById(R.id.listing);
             sold= (TextView) findViewById(R.id.sold);
@@ -675,13 +677,37 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         }, "GetItemInfo onSuccess Response");
 
     }
-    private void setThisPage(ProductModel product){
+    private void setThisPage(ProductModel product) {
         item_content.setVisibility(View.VISIBLE);
         /*report_Listing_content.setVisibility(View.VISIBLE);*/
-        productModel=product;
-        String title_name="";
-        if(productModel.getName()!=null&&!TextUtils.isEmpty(productModel.getName()))
-             title_name=GlobalFunctions.getSentenceFormat(productModel.getName());
+        productModel = product;
+        String title_name = "";
+        if (productModel.getName() != null && !TextUtils.isEmpty(productModel.getName()))
+            title_name = GlobalFunctions.getSentenceFormat(productModel.getName());
+
+        if (productModel.is_product_new()) {
+            product_condition.setText("New");
+        } else {
+            product_condition.setText("Used");
+        }
+        shipping_aud = (TextView) findViewById(R.id.shipping_aud);
+        String s="";String ss=""; String sss="";
+        if ( productModel.isShipable())
+        {
+             s= productModel.getCurrency()+""+productModel.getLocal_shipping_cost()+"(Local)";
+             ss= productModel.getCurrency()+""+productModel.getIntl_shipping_cost()+"(Int'l)";
+            sss =productModel.getShipping_delivery_date();
+        }
+        else
+        {
+            s= "Not Available "+"(Local)";
+            ss= "Not Available "+"(Int'l)";
+            sss= "Not Available";
+        }
+
+       String ssss=s+"\n"+ss;
+        shipping_aud.setText(ssss);
+        estda.setText(sss);
 
         title.setText(title_name);
         product_name.setText(title_name);
