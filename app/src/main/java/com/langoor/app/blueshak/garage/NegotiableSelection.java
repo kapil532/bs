@@ -29,6 +29,10 @@ import com.langoor.blueshak.R;
     Switch hide_item;
     TextView activity_title,cancel;
    static Activity activity;
+
+    public static boolean bool_item_negotiable_=false;
+    public static boolean bool_hide_item_=false;
+    public static boolean comeFromScreen=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +100,22 @@ import com.langoor.blueshak.R;
                 }
             }
         });
+
+        if(bool_item_negotiable_)
+        {
+            item_negotiable.setChecked(true);
+        }
+        else
+        {
+            switchButton(hide_item_);
+        }
+        if(bool_hide_item_)
+        {
+            hide_item.setChecked(true);
+
+            switchButton(item_negotiable_);
+        }
+
     }
     public static void closeThisActivity(){
         if(activity!=null)
@@ -105,7 +125,17 @@ import com.langoor.blueshak.R;
     }
 
 
-final int item_negotiable_=1002;
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(!comeFromScreen)
+        {
+            bool_item_negotiable_=false;
+            bool_hide_item_=false;
+        }
+    }
+
+    final int item_negotiable_=1002;
 final int hide_item_=1003;
     private void switchButton(int key)
     {

@@ -213,11 +213,23 @@ public static String price_default="";
 
             Shippible_s.setChecked(true);
             hideAndShow(SHIPPINGISFREEACTIVE);
+            intl_shipping_cost_e.setText(intl_shipping_cost);
+            time_to_deliver_e.setText(time_to_deliver);
+            local_shipping_cost.setText(local_shipping_cost_);
 
-
-
-
-
+            if(shipping_foc)
+            {
+                Shippible_s.setChecked(true);
+                shibble_l.setVisibility(View.VISIBLE);
+                hideAndShow(SHIPPINGISFREEACTIVE);
+                hideAndShow(ALLOWINTERNATIONALDEACTIVE);
+                Shipping_is_free.setChecked(false);
+            }
+             if(is_intl_shipping)
+             {
+                 allow_international_shi_s.setChecked(true);
+                 hideAndShow(ALLOWINTERNATIONALACTIVE);
+             }
         }
 
 
@@ -229,13 +241,15 @@ public static String price_default="";
     @Override
     protected void onStop() {
         super.onStop();
-        isShippable=false;
-       shipping_foc=false;
-        is_intl_shipping=false;
-         intl_shipping_cost="";
-         time_to_deliver="";
-         local_shipping_cost_="";
 
+      if (!isShippable) {
+          isShippable = false;
+          shipping_foc = false;
+          is_intl_shipping = false;
+          intl_shipping_cost = "";
+          time_to_deliver = "";
+          local_shipping_cost_ = "";
+      }
     }
 
     public static void closeThisActivity() {

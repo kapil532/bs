@@ -209,6 +209,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             pd_nagotiable_l.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                        Intent mIntent = new Intent(context, NegotiableSelection.class);
                     startActivityForResult(mIntent,globalVariables.REQUEST_CODE_NEGOTIABLE);
                 }
@@ -244,11 +245,16 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             is_product_new = (Switch) view.findViewById(R.id.is_product_new);
             nagotiable = (Switch) view.findViewById(R.id.pd_nagotiable);
             is_new_old = (Switch) view.findViewById(R.id.is_new_old);
+
+           // Log.d("VALUESSS","SHIPPINGCOST"+(CreateProductModel)getArguments().getSerializable(CREATE_ITEM_BUNDLE_KEY));
             productModel = (CreateProductModel) getArguments().getSerializable(CREATE_ITEM_BUNDLE_KEY);
             locationModel = (LocationModel) getArguments().getSerializable(CREATE_ITEM_LOCATION_BUNDLE_KEY);
             if (productModel != null) {
+                Log.d("VALUESSS","SHIPPINGCOST NT NULLl");
                 setValues();
             } else {
+                ShippingSelection.isShippable=false;
+                NegotiableSelection.comeFromScreen=false;
                 productModel = new CreateProductModel();
             }
             from_key = getArguments().getInt(FROM_KEY);
@@ -574,8 +580,11 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         getChildFragmentManager().beginTransaction().replace(R.id.container_upload_image, aboutFragment, "uploadImage").commit();
     }
 
-    private void setValues() {
-        if (productModel != null) {
+    private void setValues()
+    {
+        Log.d("VALUESSS","SHIPPINGCOST VALUES INSIDE");
+        if (productModel != null)
+        {
             loading_label = "Updating Item...";
             save.setText("Update");
             type_edit_item = true;
@@ -585,9 +594,29 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                     type_garage = true;
                 }
             }
+
+            //Changes
+            isShippable=  ShippingSelection.isShippable=productModel.isShippable();
+            shipping_foc= ShippingSelection.shipping_foc=productModel.isShipping_foc();
+            is_intl_shipping=  ShippingSelection.is_intl_shipping=productModel.is_intl_shipping();
+
+            intl_shipping_cost= ShippingSelection.intl_shipping_cost=productModel.getIntl_shipping_cost();
+            time_to_deliver= ShippingSelection.time_to_deliver=productModel.getTime_to_deliver();
+            local_shipping_cost=ShippingSelection.local_shipping_cost_=productModel.getLocal_shipping_cost();
+
+            NegotiableSelection.comeFromScreen=true;
+            hide_item= NegotiableSelection.bool_hide_item_=productModel.isHide_item_price();
+            item_negotiable=  NegotiableSelection.bool_item_negotiable_=productModel.isNegotiable();
+            Log.d("SHIPPINGCOST","SHIPPINGCOST"+productModel.isNegotiable() +"&&&$$$$"+productModel.isHide_item_price());
+
+
+
+
+
             name.setText(productModel.getName());
             description.setText(productModel.getDescription());
 
+            Log.d("VALUESSS","SHIPPINGCOST"+productModel.getLocal_shipping_cost()+"--"+productModel.getDescription());
             saleprice.setText(productModel.getSalePrice());
             pd_salepricetype.setText(productModel.getCurrency());
             shippable.setChecked(productModel.isShippable() ? true : false);
@@ -780,6 +809,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
                     item_negotiable = data.getExtras().getBoolean("item_negotiable");
                     hide_item = data.getExtras().getBoolean("hide_item");
+                    Log.d("AAAA","&&&&&&&&&&"+item_negotiable+"--"+hide_item);
 
                 } else if (requestCode == globalVariables.REQUEST_CODE_SHIPPING) {
 

@@ -63,6 +63,8 @@ public class ProductModel implements Serializable {
     private final String IS_NEW_FLAG="is_new_flag";
     private final String CITY="city";
 
+
+
     public String getLOCAL_SHIPPING_COST() {
         return LOCAL_SHIPPING_COST;
     }
@@ -90,16 +92,18 @@ public class ProductModel implements Serializable {
     private final String SUBHURB="suburb";
     private final String IS_NEW="is_new";
 
-    //changesss
+    //changesss bool
     private final String SHIPPING_FOC="shipping_foc";
-    private final String LOCAL_SHIPPING_COST = "local_shipping_cost";
     private final String IS_INTL_SHIPPING= "is_intl_shipping";
-    private final String INTL_SHIPPING_COST= "intl_shipping_cost";
-    private final String TIME_TO_DELIVER= "time_to_deliver";
+
     private final String HIDE_ITEM_PRICE = "hide_item_price";
 
 
-
+    //string
+    private final String INTL_SHIPPING_COST= "intl_shipping_cost";
+    private final String LOCAL_SHIPPING_COST = "local_shipping_cost";
+    private final String TIME_TO_DELIVER= "time_to_deliver";
+   //Changes
 
     public String getViews() {
         return views;
@@ -159,6 +163,16 @@ public class ProductModel implements Serializable {
     String subhrub=null;
     String local_shipping_cost=null;
 
+    public String getIntl_shipping_cost() {
+        return intl_shipping_cost;
+    }
+
+    public void setIntl_shipping_cost(String intl_shipping_cost) {
+        this.intl_shipping_cost = intl_shipping_cost;
+    }
+
+    String intl_shipping_cost=null;
+
     public boolean isHide_item_price() {
         return hide_item_price;
     }
@@ -199,13 +213,7 @@ public class ProductModel implements Serializable {
         this.is_intl_shipping = is_intl_shipping;
     }
 
-    public boolean isIntl_shipping_cost() {
-        return intl_shipping_cost;
-    }
 
-    public void setIntl_shipping_cost(boolean intl_shipping_cost) {
-        this.intl_shipping_cost = intl_shipping_cost;
-    }
 
     String time_to_deliver=null;
 
@@ -281,7 +289,6 @@ public class ProductModel implements Serializable {
 
     boolean shipping_foc=false;
     boolean is_intl_shipping=false;
-    boolean intl_shipping_cost=false;
     boolean hide_item_price=false;
 
 
@@ -645,6 +652,8 @@ public class ProductModel implements Serializable {
     }
 
     public boolean toObject(String jsonObject){
+
+        Log.d("VALUESSS","SHIPPINGCOST--"+jsonObject.toString());
         try{
             JSONObject json = new JSONObject(jsonObject);
             if(json.has(SALE_ID))saleID = json.getString(SALE_ID);
@@ -670,6 +679,16 @@ public class ProductModel implements Serializable {
             if(json.has(PRODUCT_CREATED_AT))productCreatedAt = json.getString(PRODUCT_CREATED_AT);
             if(json.has(SALE_CREATED_AT))saleCreatedAt = json.getString(SALE_CREATED_AT);
 
+            //changes
+            if(json.has(LOCAL_SHIPPING_COST))local_shipping_cost = json.getString(LOCAL_SHIPPING_COST);
+            if(json.has(INTL_SHIPPING_COST)) {
+                intl_shipping_cost = json.getString(INTL_SHIPPING_COST);
+                Log.d("VALUESSS","SHIPPINGCOST-ssss-"+intl_shipping_cost);
+            }
+            if(json.has(TIME_TO_DELIVER))time_to_deliver = json.getString(TIME_TO_DELIVER);
+//changes
+
+
             if(json.has(SALE_UPDATED_AT))productUpdatedAt = json.getString(SALE_UPDATED_AT);
             if(json.has(VIEWS))views = json.getString(VIEWS);
             if(json.has(OFFERS))offers = json.getString(OFFERS);
@@ -684,6 +703,9 @@ public class ProductModel implements Serializable {
             if(json.has(SUBHURB)){subhrub = json.getString(SUBHURB);}
 
             if(json.has(CURRENCY)){currency = json.getString(CURRENCY);}
+
+
+
             if(json.has(PRODUCT_IMAGE)){
                 JSONArray imageArray = new JSONArray();
                 imageArray = json.getJSONArray(PRODUCT_IMAGE);
@@ -717,6 +739,10 @@ public class ProductModel implements Serializable {
                     images.add(imageArray.getString(i));
                 }
             }*/
+
+
+
+
             if(json.has(PRODUCT_CATEGORY))productCategory = json.getString(PRODUCT_CATEGORY);
             int temp = 0;
             try{temp = json.getInt(IS_SHIPABLE);}catch(Exception e){temp =0;}if(temp>0){shipable=true;}else{shipable=false;}temp=0;
@@ -729,6 +755,29 @@ public class ProductModel implements Serializable {
             try{temp = json.getInt(IS_PRODUCT_NEW);}catch(Exception e){temp =0;}if(temp>0){is_product_new=true;}else{is_product_new=false;}temp=0;
             try{temp = json.getInt(IS_NEW_FLAG);}catch(Exception e){temp =0;}if(temp>0){is_new=true;}else{is_new=false;}temp=0;
 
+
+            //changes
+            try{temp = json.getInt(IS_INTL_SHIPPING);}catch(Exception e){temp =0;}if(temp>0){is_intl_shipping=true;}else{is_intl_shipping=false;}temp=0;
+            try{temp = json.getInt(SHIPPING_FOC);}catch(Exception e){temp =0;}if(temp>0){shipping_foc=true;}else{shipping_foc=false;}temp=0;
+
+            try{
+                temp = json.getInt(HIDE_ITEM_PRICE);
+
+            }
+            catch(Exception e)
+            {
+                temp =0;
+            }
+            if(temp>0)
+            {
+                hide_item_price=true;
+            }
+            else
+            {
+                hide_item_price=false;
+            }
+            temp=0;
+          //ffff
             if(json.has(IS_DISPLAY_IMAGE))try{temp = json.getInt(IS_DISPLAY_IMAGE);}catch(Exception e){temp =0;}if(temp>0){displayImage=true;}else{displayImage=false;}
             if(json.has(IS_SALE_ACTIVE))try{temp = json.getInt(IS_SALE_ACTIVE);}catch(Exception e){temp =0;}if(temp>0){sale_active=true;}else{sale_active=false;}
             return true;
@@ -741,6 +790,7 @@ public class ProductModel implements Serializable {
     @Override
     public String toString(){
         String returnString = null;
+        Log.d("VALUESSS","SHIPPINGCOST 0000");
         try{
 
             JSONObject jsonMain = new JSONObject();

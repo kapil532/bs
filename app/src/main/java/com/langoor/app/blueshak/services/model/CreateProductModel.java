@@ -143,12 +143,7 @@ public class CreateProductModel implements Serializable {
     }
 
 
-    boolean shipping_foc=false;
-    boolean is_intl_shipping=false;
-    String local_shipping_cost=null;
-    String intl_shipping_cost=null;
-    String time_to_deliver=null;
-    boolean hide_item_price=false;
+
 
     public String getIntl_shipping_cost() {
         return intl_shipping_cost;
@@ -218,6 +213,14 @@ public class CreateProductModel implements Serializable {
 
     ArrayList<CreateImageModel> images = new ArrayList<CreateImageModel>();
     ArrayList<String> categories = new ArrayList<String>();
+
+    boolean shipping_foc=false;
+    boolean is_intl_shipping=false;
+    String local_shipping_cost=null;
+    String intl_shipping_cost=null;
+    String time_to_deliver=null;
+    boolean hide_item_price=false;
+
 
     boolean
             shippable        = false,
@@ -334,11 +337,22 @@ public class CreateProductModel implements Serializable {
     }
 
     public boolean toObject(String jsonObject){
+
+        Log.d("VALUESSS","SHIPPINGCOST"+jsonObject.toString());
         try{
             JSONObject json = new JSONObject(jsonObject);
             name = json.getString(NAME);
             salePrice = json.getString(SALE_PRICE);
             description = json.getString(DESCRIPTION);
+           //new changes
+            shipping_foc = json.getBoolean(SHIPPING_FOC);
+            is_intl_shipping = json.getBoolean(IS_INTL_SHIPPING);
+            hide_item_price = json.getBoolean(HIDE_ITEM_PRICE);
+
+            local_shipping_cost = json.getString(LOCAL_SHIPPING_COST);
+            intl_shipping_cost = json.getString(INTL_SHIPPING_COST);
+            time_to_deliver = json.getString(TIME_TO_DELIVER);
+          //new changes4
             JSONArray imageArray = json.getJSONArray(IMAGE);
             for(int i=0;i<imageArray.length();i++){
                 JSONObject imageObj = imageArray.getJSONObject(i);
@@ -353,6 +367,8 @@ public class CreateProductModel implements Serializable {
             shippable = json.getBoolean(IS_SHIPPABLE);
             negotiable = json.getBoolean(IS_NEGOTIABLE);
             is_product_new = json.getBoolean(IS_PRODUCT_NEW);
+
+
             if(json.has(ADDRESS)) address=json.getString(ADDRESS);
             if(json.has(LATITUDE)) latitude=json.getString(LATITUDE);
             if(json.has(LONGITUDE)) longitude=json.getString(LONGITUDE);
@@ -397,8 +413,9 @@ public class CreateProductModel implements Serializable {
             // my changes 6/25/2017
             shipping_foc=productModel.isShipping_foc();
             local_shipping_cost=productModel.getLocal_shipping_cost();
-            is_intl_shipping=productModel.isIntl_shipping_cost();
-            intl_shipping_cost =productModel.getINTL_SHIPPING_COST();
+            is_intl_shipping=productModel.is_intl_shipping();
+            intl_shipping_cost =productModel.getIntl_shipping_cost();
+            Log.d("VALUESSS","SHIPPINGCOST-ss&&ss-"+intl_shipping_cost);
             time_to_deliver =productModel.getTime_to_deliver();
             hide_item_price =productModel.isHide_item_price();
             // ----- my changes 6/25/2017
