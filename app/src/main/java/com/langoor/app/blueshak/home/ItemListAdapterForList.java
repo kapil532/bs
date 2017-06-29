@@ -123,7 +123,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
               }
               else
               {
-                  holder.shipping_type.setText(obj.getCurrency()+" "+obj.getLocal_shipping_cost());
+                  holder.shipping_type.setText("+"+obj.getCurrency()+" "+obj.getLocal_shipping_cost());
               }
   if(obj.isHide_item_price())
   {

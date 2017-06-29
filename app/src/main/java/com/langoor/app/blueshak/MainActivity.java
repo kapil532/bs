@@ -102,7 +102,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
         return mIntent;
     }
 
-    boolean is_list = true;
+    boolean is_list = false;
     int activeTab = 0;
 
 

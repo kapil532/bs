@@ -694,9 +694,22 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         String s="";String ss=""; String sss="";
         if ( productModel.isShipable())
         {
+
              s= productModel.getCurrency()+""+productModel.getLocal_shipping_cost()+"(Local)";
              ss= productModel.getCurrency()+""+productModel.getIntl_shipping_cost()+"(Int'l)";
             sss =productModel.getShipping_delivery_date();
+
+            if(productModel.isShipping_foc())
+            {
+                s= "Not Available "+"(Local)";
+                ss= "Not Available "+"(Int'l)";
+                sss= "Not Available";
+            }
+
+            if(!productModel.is_intl_shipping())
+            {
+                ss= "Not Available "+"(Int'l)";
+            }
         }
         else
         {
