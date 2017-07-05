@@ -110,12 +110,19 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 else
                     holder.new_flag_image.setVisibility(View.GONE);
                 */
-                if(!obj.isAvailable())
-                    holder.is_sold.setImageResource(R.drawable.ic_sold);
-                else{
-                    if(obj.is_new())
-                        holder.is_sold.setImageResource(R.drawable.ic_new);
-                }
+              if(!obj.isAvailable()) {
+                  holder.is_sold.setVisibility(View.VISIBLE);
+                  holder.is_sold.setImageResource(R.drawable.ic_sold);
+              }
+              else
+              {
+                  holder.is_sold.setVisibility(View.INVISIBLE);
+              }
+
+              if(obj.is_new()) {
+                  holder.is_sold.setImageResource(R.drawable.ic_new);
+              }
+
                 if(obj.is_garage_item())
                     holder.is_garage.setVisibility(View.VISIBLE);
                 else

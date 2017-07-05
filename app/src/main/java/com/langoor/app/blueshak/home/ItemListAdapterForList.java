@@ -152,12 +152,19 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
               if(obj.isPickup())holder.pick_up.setVisibility(View.VISIBLE);
               if(obj.isShipable())holder.shippable.setVisibility(View.VISIBLE);
 
-                if(!obj.isAvailable())
+                if(!obj.isAvailable()) {
+                    holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_sold.setImageResource(R.drawable.ic_sold);
-                else{
-                    if(obj.is_new())
-                        holder.is_sold.setImageResource(R.drawable.ic_new);
                 }
+              else
+                {
+                    holder.is_sold.setVisibility(View.INVISIBLE);
+                }
+
+                    if(obj.is_new()) {
+                        holder.is_sold.setImageResource(R.drawable.ic_new);
+                    }
+
                 if(obj.is_garage_item())
                     holder.is_garage.setVisibility(View.VISIBLE);
                 else

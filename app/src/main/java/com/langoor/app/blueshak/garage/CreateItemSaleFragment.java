@@ -163,6 +163,9 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             saleprice.addTextChangedListener(new TextWatcher() {
                 public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
                     String text = arg0.toString();
+
+
+
                     if (text.contains(".") && text.substring(text.indexOf(".") + 1).length() > 2) {
                         saleprice.setText(text.substring(0, text.length() - 1));
                         saleprice.setSelection(saleprice.getText().length());
