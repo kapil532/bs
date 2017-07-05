@@ -878,7 +878,7 @@ public class ServicesMethodsManager {
     }
     public  void getHomeList(Context context, FilterModel filterModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
-        String param="";/*= "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);*/
+        String param= "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
         if(!TextUtils.isEmpty(filterModel.getLatitude()) && !TextUtils.isEmpty(filterModel.getLongitude())){
             param += "&" + FilterModel.LATITUDE + "=" + filterModel.getLatitude();
             param += "&" + FilterModel.LONGITUDE + "=" + filterModel.getLongitude();
