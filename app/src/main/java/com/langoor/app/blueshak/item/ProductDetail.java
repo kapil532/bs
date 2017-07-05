@@ -797,7 +797,10 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         if(productModel.is_garage_item())garage_icon_content.setVisibility(View.VISIBLE);
         if(productModel.isShipable())shippable_content.setVisibility(View.VISIBLE);
         if(productModel.isPickup())pick_up_content.setVisibility(View.VISIBLE);
-        if(productModel.isNegotiable())pd_nagotiable.setVisibility(View.VISIBLE);
+
+        // negotiable should be hidden
+
+      //  if(productModel.isNegotiable())pd_nagotiable.setVisibility(View.VISIBLE);
        /* delivery_iv.setImageResource(productModel.isShipable()? R.drawable.shippingon : R.drawable.shippingoff);
         pick_iv.setImageResource(productModel.isPickup()? R.drawable.pickupon : R.drawable.pickupoff);
       */  shippable_sale_name.setTextColor(productModel.isShipable()? black:grey2);
