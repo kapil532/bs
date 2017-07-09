@@ -45,6 +45,7 @@ public class ViewActivity extends RootActivity {
     ViewPager  viewPager;
     FullScreenImageAdapter myPagerAdapter;
     public static ArrayList<String> displayImageURL = new ArrayList<String>();
+    public  static int selectedI=0;
     public static Intent newInstance(Context context, ImageModel product){
         Intent mIntent = new Intent(context, ViewActivity.class);
         Bundle bundle = new Bundle();
@@ -88,7 +89,15 @@ public class ViewActivity extends RootActivity {
         }
 
           viewPager = (ViewPager)findViewById(R.id.pager);
-        viewPager.setCurrentItem(1, false);
+        viewPager.postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                viewPager.setCurrentItem(selectedI, true);
+            }
+        }, 100);
+        //viewPager.setCurrentItem(1, false);
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
             myPagerAdapter = new FullScreenImageAdapter(this,displayImageURL);
        //  myPagerAdapter.set

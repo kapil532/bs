@@ -874,6 +874,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         }
 
         for(int i=0;i<displayImageURL.size()&&displayImageURL.get(i)!=null;i++){
+          final int id=i;
             final String url=displayImageURL.get(i).toString();
               final  Uri uri=getUriFromUrl(url);
             CustomSliderTextView textSliderView = new CustomSliderTextView(context);
@@ -887,6 +888,8 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                 @Override
                 public void onSliderClick(BaseSliderView slider) {
                     imageModel.setImage(url);
+                    Log.d("SELECTED ID","SELECTEDISSS"+id+"--"+url);
+                    ViewActivity.selectedI=id;
                    /* Intent intent=ImageViewActivty.newInstance(context,productModel);*/
                     Intent intent=ViewActivity.newInstance(context,imageModel);
                     startActivity(intent);
