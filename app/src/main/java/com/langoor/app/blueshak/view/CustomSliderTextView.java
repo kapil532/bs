@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.daimajia.slider.library.R.layout;
 import com.daimajia.slider.library.R.id;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.langoor.app.blueshak.image.TouchImageView;
 
 /**
  * Created by Manu on 13-10-2015.
@@ -26,6 +27,7 @@ public class CustomSliderTextView extends BaseSliderView {
     public View getView() {
         View v = LayoutInflater.from(getContext()).inflate(layout.render_type_text,null);
         ImageView target = (ImageView)v.findViewById(id.daimajia_slider_image);
+       // TouchImageView tou=  new TouchImageView(context);
         LinearLayout linearLayout = (LinearLayout) v.findViewById(id.description_layout);
         linearLayout.setBackgroundColor(Color.TRANSPARENT);
         this.bindEventAndShow(v, target);

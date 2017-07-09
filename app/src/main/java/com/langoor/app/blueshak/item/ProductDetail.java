@@ -856,12 +856,14 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
     }
 
 
-    private void setImageOnView(ArrayList<String> images){
+    private void setImageOnView(ArrayList<String> images)
+    {
         final ImageModel imageModel=new ImageModel();
         mProductSlider.removeAllSliders();
         final ArrayList<String> displayImageURL = new ArrayList<String>();
         displayImageURL.clear();
         displayImageURL.addAll(/*productModel.getImage()*/images);
+        ViewActivity.displayImageURL=displayImageURL;
         if(displayImageURL.size()>0){
             product_image=displayImageURL.get(0);
             user.setProduct_url(product_image);

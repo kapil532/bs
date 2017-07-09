@@ -68,6 +68,9 @@ import com.langoor.blueshak.R;
                     intent.putExtra("item_negotiable", item_negotiable.isChecked());
                     intent.putExtra("hide_item", hide_item.isChecked());
                     setResult(Activity.RESULT_OK, intent);
+                    comeFromScreen=true;
+                    bool_item_negotiable_=item_negotiable.isChecked();
+                    bool_hide_item_=hide_item.isChecked();
                     finish();
                 }
 //                else

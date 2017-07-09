@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
 import com.daimajia.slider.library.SliderLayout;
+import com.langoor.app.blueshak.util.FullScreenImageAdapter;
 import com.langoor.blueshak.R;
 import com.langoor.app.blueshak.root.RootActivity;
 import com.langoor.app.blueshak.services.model.ImageModel;
@@ -26,6 +28,10 @@ import com.langoor.app.blueshak.services.model.ProductModel;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
+import me.relex.circleindicator.CircleIndicator;
 
 public class ViewActivity extends RootActivity {
     private static final String TAG = "ImageViewActivty";
@@ -36,7 +42,9 @@ public class ViewActivity extends RootActivity {
     private ImageView image;
     private TextView close_button;
     private ImageView go_back;
-
+    ViewPager  viewPager;
+    FullScreenImageAdapter myPagerAdapter;
+    public static ArrayList<String> displayImageURL = new ArrayList<String>();
     public static Intent newInstance(Context context, ImageModel product){
         Intent mIntent = new Intent(context, ViewActivity.class);
         Bundle bundle = new Bundle();
@@ -51,7 +59,7 @@ public class ViewActivity extends RootActivity {
         try{
             context=this;
             activity=this;
-            image=(ImageView)findViewById(R.id.image);
+            //image=(ImageView)findViewById(R.id.image);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             LayoutInflater inflator = LayoutInflater.from(this);
@@ -69,17 +77,25 @@ public class ViewActivity extends RootActivity {
                 }
             });
 
-            if(getIntent().hasExtra(PRODUCTDETAIL_BUNDLE_KEY_POSITION))
+          /*  if(getIntent().hasExtra(PRODUCTDETAIL_BUNDLE_KEY_POSITION))
                 imageModel=(ImageModel)getIntent().getExtras().getSerializable(PRODUCTDETAIL_BUNDLE_KEY_POSITION);
             if(imageModel!=null)
-                setImageOnView();
+                setImageOnView();*/
         }catch (Exception e){
             e.printStackTrace();
             Crashlytics.log(e.getMessage());
             Log.d(TAG,e.getMessage());
         }
 
+          viewPager = (ViewPager)findViewById(R.id.pager);
+        viewPager.setCurrentItem(1, false);
+        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+            myPagerAdapter = new FullScreenImageAdapter(this,displayImageURL);
+       //  myPagerAdapter.set
+           viewPager.setAdapter(myPagerAdapter);
 
+        indicator.setViewPager(viewPager);
+        myPagerAdapter.registerDataSetObserver(indicator.getDataSetObserver());
     }
     private void setImageOnView(){
         String image_=imageModel.getImage();
@@ -92,4 +108,8 @@ public class ViewActivity extends RootActivity {
         //download and display image from url
         imageLoader.displayImage(image_,image, options);
     }
+
+
+
+
 }

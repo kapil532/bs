@@ -154,6 +154,8 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
         Log.d("stdCode", "stdCode" + stdCode);
         view = inflater.inflate(R.layout.item_productdetails_new, container, false);
+        NegotiableSelection.bool_hide_item_=false;
+        NegotiableSelection.bool_item_negotiable_=false;
         getUserDetailsPro(getActivity());
         try {
             progress_bar = (ProgressBar) view.findViewById(R.id.progress_bar);
@@ -688,10 +690,18 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         alertDialog.setPositiveButton("Yes", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (from_key == GlobalVariables.TYPE_AC_SIGN_UP)
+
+
+                if (from_key == GlobalVariables.TYPE_AC_SIGN_UP) {
                     startActivity(new Intent(getActivity(), MainActivity.class));
-                else
+                }
+                else {
                     getActivity().finish();
+                }
+
+
+
+
             }
         });
 
@@ -719,6 +729,8 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 startActivity(intent);*/
                 Intent i = CreateSaleActivity.newInstance(activity, null, null, null, GlobalVariables.TYPE_HOME, GlobalVariables.TYPE_ITEM);
                 startActivity(i);
+
+
                 alertDialog.dismiss();
                 closeThisActivity();
 
@@ -764,8 +776,11 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
     @Override
     public void onStop() {
+        //
         super.onStop();
+
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
