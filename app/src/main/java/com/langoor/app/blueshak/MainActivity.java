@@ -255,8 +255,8 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                         case R.id.list:
                             activeTab=2;
                             // for tab hidden just comment below 2 lines
-                           grid.setVisibility(View.GONE);
-                           go_to_search.setVisibility(View.VISIBLE);
+                           //grid.setVisibility(View.GONE);
+                          // go_to_search.setVisibility(View.VISIBLE);
                             View menuItemView = findViewById(R.id.list);
                      /*   menuItemView.setBackground(R.drawable.bt_add);*/
                             if (!((Activity) mainContext).isFinishing()) {
