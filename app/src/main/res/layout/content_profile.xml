@@ -29,7 +29,7 @@
             <com.langoor.app.blueshak.text.MyTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
+                android:text="@string/profile_edit"
                 android:textStyle="bold"
                 android:textColor="@color/brandColor"
                 android:textSize="18sp"
@@ -108,7 +108,7 @@
               android:layout_width="wrap_content"
               android:visibility="gone"
               android:layout_height="wrap_content"
-              android:text="(Your contact info is visible to others)"
+              android:text="@string/profile_your_contact"
               android:textStyle="bold"
               android:textColor="@color/brand_text_color"
               android:textSize="14sp"
@@ -141,7 +141,7 @@
     <com.langoor.app.blueshak.text.MyTextViewMediumBold
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Listings"
+        android:text="@string/profile_listing"
         android:padding="10dp"
         android:textStyle="bold"
         android:textColor="@color/brand_text_color"
@@ -173,7 +173,7 @@
           <com.langoor.app.blueshak.text.MyTextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="My Items"
+              android:text="@string/profile_my_items"
               android:drawableLeft="@drawable/ic_my_listings"
               android:drawablePadding="10dp"
               android:gravity="left"
@@ -216,7 +216,7 @@
                     <com.langoor.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="My Bookmarks"
+                        android:text="@string/profile_my_bookmarks"
                         android:drawableLeft="@drawable/ic_star_big_off"
                         android:drawablePadding="10dp"
                         android:gravity="left"
@@ -259,7 +259,7 @@
                     <com.langoor.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="My Shop"
+                        android:text="@string/profile_my_shops"
                         android:gravity="left"
                         android:textColor="@color/brand_text_color"
                         android:textSize="@dimen/sign_up_text_size"
@@ -289,7 +289,7 @@
     <com.langoor.app.blueshak.text.MyTextViewMediumBold
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="App"
+        android:text="@string/profile_app"
         android:padding="10dp"
         android:layout_marginTop="5dp"
         android:textStyle="bold"
@@ -320,7 +320,7 @@
                     <com.langoor.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Contact Support"
+                        android:text="@string/profile_contact_support"
                         android:gravity="left"
                         android:textColor="@color/brand_text_color"
                           android:textSize="@dimen/sign_up_text_size"
@@ -358,7 +358,7 @@
                     <com.langoor.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rate App"
+                        android:text="@string/profile_rate_app"
                         android:gravity="left"
                         android:textColor="@color/brand_text_color"
                           android:textSize="@dimen/sign_up_text_size"
@@ -400,7 +400,7 @@
                     <com.langoor.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Share"
+                        android:text="@string/profile_share"
                         android:gravity="left"
                         android:textColor="@color/brand_text_color"
                           android:textSize="@dimen/sign_up_text_size"
@@ -442,7 +442,7 @@
                     <com.langoor.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Privacy Policy"
+                        android:text="@string/profile_privacy_policy"
                         android:gravity="left"
                         android:textColor="@color/brand_text_color"
                         android:textSize="@dimen/sign_up_text_size"
@@ -484,7 +484,7 @@
                     <com.langoor.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Terms and conditions"
+                        android:text="@string/profile_term_condition"
                         android:gravity="left"
                         android:textColor="@color/brand_text_color"
                         android:textSize="@dimen/sign_up_text_size"
@@ -523,7 +523,7 @@
                     <com.langoor.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Logout"
+                        android:text="@string/profile_term_logout"
                         android:gravity="left"
                         android:textColor="@color/brand_text_color"
                         android:textSize="@dimen/sign_up_text_size"

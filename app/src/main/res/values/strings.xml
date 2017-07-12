@@ -81,12 +81,41 @@
     <string name="title_activity_my_listings">My Listings</string>
     <string name="title_activity_garage_sales_list">GarageSalesList</string>
     <string name="title_activity_currency">CurrencyActivity</string>
-    <string name="copy_right_text">Copyright Blueshak Pty Ltd. Version: 1.3</string>
+
     <string name="marked_inappropriate_success_message">Item marked as inappropriate. Thank you for your help. We will review your submission.</string>
 
     <string name="contact_permission_text">Get accounts and Read contacts Services Permission required for this app</string>
     <string name="settings">settings</string>
     <string name="otp_text">We have sent you verification code to verify your phone number</string>
     <string name="otp_resend_text">Didn\'t receive one? Resend verification code.</string>
+    <!-- UTIL-->
+    <string name="please_check_ur_internet">Please check your internet connection</string>
+    <!-- item_list_fragment_for_list-->
+    <string name="item_list_fragment_for_list_result_from_nearest">Results from nearest first</string>
+    <string name="item_list_fragment_for_list_result_in">Results in</string>
+
+    <!-- PROFILE-->
+    <string name="profile_edit">Edit</string>
+    <string name="profile_my_items">My Items</string>
+    <string name="profile_my_bookmarks">My Bookmarks</string>
+    <string name="profile_my_shops">My Shop</string>
+    <string name="profile_app">App</string>
+    <string name="profile_listing">Listings</string>
+    <string name="profile_contact_support">Contact Support</string>
+    <string name="profile_rate_app">Rate App</string>
+    <string name="profile_share">Share</string>
+    <string name="profile_privacy_policy">Privacy Policy</string>
+    <string name="profile_term_condition">Terms and conditions</string>
+    <string name="profile_term_logout">Logout</string>
+    <string name="profile_otp_sent_succ">OTP Send Successfully</string>
+    <string name="profile_already_authenticate">Already Authenticated</string>
+    <string name="profile_already_retry">Retry</string>
+    <string name="profile_read_review">Read reviews</string>
+    <string name="profile_ph">Ph:</string>
+    <string name="profile_are_ur_sure">Are you sure?</string>
+    <string name="profile_ok">Ok</string>
+    <string name="profile_cancel">Cancel</string>
+    <string name="profile_your_contact">(Your contact info is visible to others)</string>
+    <string name="copy_right_text">Copyright Blueshak Pty Ltd. Version: 1.3</string>
 
 </resources>

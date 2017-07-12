@@ -1,5 +1,7 @@
 package com.langoor.app.blueshak.Messaging.helper;
 
+import android.content.Context;
+
 /**
  * Created by Bryan Yang on 9/22/2015.
  */
@@ -20,4 +22,15 @@ public class Constants {
     public static final String PUSHWHOOSH_API_KEY = "pLFkGmP0VxOyzaHJmIdaEENX1bxJ6b2EgTzqdaa3n9uWvroYsB1IiJAkdHhgsu4AxeVouOQJ63ong4eAJcob";
     public static final String PUSHWHOOSH_APP_CODE = "8F8FF-9ED14";
    */
+
+
+
+
+      public static String  getTextFromId(Context ctx,int id)
+      {
+        return  ctx.getResources().getString(id);
+      }
+
+
+
 }

@@ -36,6 +36,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.langoor.app.blueshak.Messaging.helper.Constants;
 import com.langoor.app.blueshak.Messaging.util.CommonUtil;
 import com.langoor.app.blueshak.services.model.VerifyAliasModel;
 import com.langoor.blueshak.R;
@@ -215,7 +216,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 	@Override
 	public void onRefresh() {
 		if(!GlobalFunctions.isNetworkAvailable(context)){
-			Snackbar.make(name, "Please check your internet connection", Snackbar.LENGTH_LONG)
+			Snackbar.make(name, Constants.getTextFromId(context,R.string.please_check_ur_internet), Snackbar.LENGTH_LONG)
 					.setAction("Retry", new View.OnClickListener() {
 						@Override
 						@TargetApi(Build.VERSION_CODES.M)
@@ -233,8 +234,8 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 		try {
 			((AppCompatActivity) getActivity()).getSupportActionBar().show();
 			if (!GlobalFunctions.isNetworkAvailable(context)) {
-				Snackbar.make(name, "Please check your internet connection", Snackbar.LENGTH_LONG)
-						.setAction("Retry", new View.OnClickListener() {
+				Snackbar.make(name, Constants.getTextFromId(context,R.string.please_check_ur_internet), Snackbar.LENGTH_LONG)
+						.setAction(Constants.getTextFromId(context,R.string.profile_already_retry)+"", new View.OnClickListener() {
 							@Override
 							@TargetApi(Build.VERSION_CODES.M)
 							public void onClick(View v) {
@@ -322,9 +323,9 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 			user_id=model.getId();
 			name.setText(model.getName());
 			if(model.getReviews()!=null && !TextUtils.isEmpty(model.getReviews()))
-				read_reviews.setText("Read reviews"+"("+model.getReviews_count()+")");
+				read_reviews.setText(Constants.getTextFromId(context,R.string.profile_read_review)+"("+model.getReviews_count()+")");
 			if(model.getPhone()!=null && !TextUtils.isEmpty(model.getPhone()))
-				phone_no.setText("Ph: "+model.getIsd()+" "+model.getPhone());
+				phone_no.setText(Constants.getTextFromId(context,R.string.profile_ph)+" "+model.getIsd()+" "+model.getPhone());
 			else
 				phone_no.setVisibility(View.GONE);
 			address.setText(model.getAddress());
@@ -413,8 +414,8 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 	}
 	private void validateOTPResend(StatusModel statusModel){
 		if(statusModel.isStatus()){
-			Toast.makeText(context,"OTP Send Successfully", Toast.LENGTH_SHORT).show();
-		}else{Toast.makeText(context,"Already Authenticated", Toast.LENGTH_SHORT).show();}
+			Toast.makeText(context,Constants.getTextFromId(context,R.string.profile_otp_sent_succ)+"", Toast.LENGTH_SHORT).show();
+		}else{Toast.makeText(context,Constants.getTextFromId(context,R.string.profile_already_authenticate), Toast.LENGTH_SHORT).show();}
 	}
 
 	private void validateEmail(StatusModel statusModel){
@@ -496,8 +497,8 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 	}
 	public void showExitAlert(){
 		final com.langoor.app.blueshak.view.AlertDialog alertDialog = new com.langoor.app.blueshak.view.AlertDialog(context);
-		alertDialog.setTitle("Are you sure?");
-		alertDialog.setPositiveButton("OK", new View.OnClickListener() {
+		alertDialog.setTitle(Constants.getTextFromId(context,R.string.profile_are_ur_sure)+"");
+		alertDialog.setPositiveButton(Constants.getTextFromId(context,R.string.profile_ok), new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				logoutAndMove();
@@ -506,7 +507,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 		});
 
 		// on pressing cancel button
-		alertDialog.setNegativeButton("Cancel", new View.OnClickListener() {
+		alertDialog.setNegativeButton(Constants.getTextFromId(context,R.string.profile_cancel), new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				alertDialog.cancel();

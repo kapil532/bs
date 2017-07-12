@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.langoor.app.blueshak.MainActivity;
+import com.langoor.app.blueshak.Messaging.helper.Constants;
 import com.langoor.app.blueshak.PickLocation;
 import com.langoor.app.blueshak.filter.FilterActivity;
 import com.langoor.app.blueshak.global.GlobalFunctions;
@@ -245,7 +246,7 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                     results_all.setText("Results in "+"'"+model.getCategory_names()+"'");
                 else
                     results_all.setText("Results in "+"'"+"All"+"'");*/
-                results_all.setText("Results from nearest first");
+                results_all.setText(getResources().getString(R.string.item_list_fragment_for_list_result_from_nearest));
             }
             location = (TextView)view.findViewById(R.id.location);
             filter_tag = (TextView)view.findViewById(R.id.filter_tag);
@@ -315,7 +316,7 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                 }
             });
             if(!GlobalFunctions.isNetworkAvailable(context)){
-                Toast.makeText(context,"Please check your internet connection",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,getResources().getString(R.string.please_check_ur_internet),Toast.LENGTH_LONG).show();
             }else{
                 activity.runOnUiThread(new Runnable() {
                     @Override
@@ -629,9 +630,9 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                     item_address=model.getLocation();
                     String category_names=model.getCategory_names();
                     if(!TextUtils.isEmpty(model.getResults_text()))
-                        results_all.setText("Results in "+model.getResults_text());
+                        results_all.setText(Constants.getTextFromId(context,R.string.item_list_fragment_for_list_result_in)+" "+model.getResults_text());
                     else
-                        results_all.setText("Results from nearest first");
+                        results_all.setText(Constants.getTextFromId(context,R.string.item_list_fragment_for_list_result_from_nearest));
 
 
                     /*if(!TextUtils.isEmpty(category_names)&& category_names!=null)
