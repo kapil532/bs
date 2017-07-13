@@ -88,6 +88,9 @@
     <string name="settings">settings</string>
     <string name="otp_text">We have sent you verification code to verify your phone number</string>
     <string name="otp_resend_text">Didn\'t receive one? Resend verification code.</string>
+
+
+
     <!-- UTIL-->
     <string name="please_check_ur_internet">Please check your internet connection</string>
     <!-- item_list_fragment_for_list-->
@@ -117,5 +120,8 @@
     <string name="profile_cancel">Cancel</string>
     <string name="profile_your_contact">(Your contact info is visible to others)</string>
     <string name="copy_right_text">Copyright Blueshak Pty Ltd. Version: 1.3</string>
+
+
+
 
 </resources>

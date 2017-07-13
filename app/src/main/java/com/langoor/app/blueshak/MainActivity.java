@@ -154,31 +154,49 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                         public void onClick(View v) {
                             switch (activeTab) {
                                 case 0:
-
+                                    Log.d("STATE","STATE"+is_list);
+                                    if(!is_list)
+                                    {
+                                        is_list = true;
+                                    }
+                                    else
+                                    {
+                                        is_list =false;
+                                    }
                                     if (!is_list) {
                                         ItemListFragmentForList itemListFragment = ItemListFragmentForList.newInstance(new SalesListModel(), GlobalVariables.TYPE_MULTIPLE_ITEMS, filterModel, locationModel);
                                         mainActivityFM.beginTransaction().replace(R.id.container, itemListFragment, "").commit();
-                                        is_list = true;
+                                       // is_list = true;
                                         grid.setImageResource(R.drawable.ic_grid);
                                     } else {
                                         ItemListFragment itemListFragment = ItemListFragment.newInstance(new SalesListModel(), GlobalVariables.TYPE_MULTIPLE_ITEMS, filterModel, locationModel);
                                         mainActivityFM.beginTransaction().replace(R.id.container, itemListFragment, "").commit();
-                                        is_list = false;
+                                       // is_list = false;
                                         grid.setImageResource(R.drawable.ic_list);
                                     }
                                     break;
                                 case 1:
+
+                                    if(!is_map)
+                                    {
+                                        is_map = true;
+                                    }
+                                    else
+                                    {
+                                        is_map =false;
+                                    }
+
                                     if (is_map) {
 
                                         Fragment fragment = new MapFragmentSales().newInstance(locationModel, GlobalVariables.TYPE_GARAGE, null, null, false, filterModel);
                                         mainActivityFM.beginTransaction().replace(R.id.container, fragment, "").commit();
                                         grid.setImageResource(R.drawable.ic_grid);
-                                        is_map=false;
+                                       // is_map=false;
                                     } else {
                                         GarageSalesListFragment garageSalesListFragment = GarageSalesListFragment.newInstance(salesListModel, GlobalVariables.TYPE_GARAGE, filterModel, locationModel, false);
                                         mainActivityFM.beginTransaction().replace(R.id.container, garageSalesListFragment, "").commit();
                                         grid.setImageResource(R.drawable.pin_white);
-                                        is_map=true;
+                                      //  is_map=true;
                                     }
                                     break;
                                 case 2:
@@ -218,20 +236,23 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
             mBottomBar.setOnMenuTabClickListener(new OnMenuTabClickListener() {
                 @Override
                 public void onMenuTabSelected(@IdRes int menuItemId) {
-                    switch (menuItemId) {
+                    switch (menuItemId)
+                    {
                         case R.id.home:
                             activeTab=0;
                             grid.setVisibility(View.VISIBLE);
                             go_to_search.setVisibility(View.VISIBLE);
-                            if (!is_list) {
+                            Log.d("STATE","STATE--->"+is_list);
+                            if (!is_list)
+                            {
                                 ItemListFragmentForList itemListFragment = ItemListFragmentForList.newInstance(new SalesListModel(), GlobalVariables.TYPE_MULTIPLE_ITEMS, filterModel, locationModel);
                                 mainActivityFM.beginTransaction().replace(R.id.container, itemListFragment, "").commit();
-                                is_list = true;
+                           // is_list = false;
                                 grid.setImageResource(R.drawable.ic_grid);
                             } else {
                                 ItemListFragment itemListFragment = ItemListFragment.newInstance(new SalesListModel(), GlobalVariables.TYPE_MULTIPLE_ITEMS, filterModel, locationModel);
                                 mainActivityFM.beginTransaction().replace(R.id.container, itemListFragment, "").commit();
-                                is_list = false;
+                             //  is_list = true;
                                 grid.setImageResource(R.drawable.ic_list);
                             }
                             break;
@@ -244,12 +265,12 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                                 Fragment fragment = new MapFragmentSales().newInstance(locationModel, GlobalVariables.TYPE_GARAGE, null, null, false, filterModel);
                                 mainActivityFM.beginTransaction().replace(R.id.container, fragment, "").commit();
                                 grid.setImageResource(R.drawable.ic_grid);
-                                is_map=false;
+                             //  is_map=true;
                             } else {
                                 GarageSalesListFragment garageSalesListFragment = GarageSalesListFragment.newInstance(salesListModel, GlobalVariables.TYPE_GARAGE, filterModel, locationModel, false);
                                 mainActivityFM.beginTransaction().replace(R.id.container, garageSalesListFragment, "").commit();
                                 grid.setImageResource(R.drawable.pin_white);
-                                is_map=true;
+                         // is_map=false;
                             }
                             break;
                         case R.id.list:
@@ -294,6 +315,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                     switch (menuItemId) {
                         case R.id.home:
                             activeTab=0;
+                            Log.d("STATE","STATE###"+is_list);
                             grid.setVisibility(View.VISIBLE);
                       /*  ItemListFragment itemListFragment= ItemListFragment.newInstance(new SalesListModel(), GlobalVariables.TYPE_MULTIPLE_ITEMS,filterModel,locationModel);
                         mainActivityFM.beginTransaction().replace(R.id.container, itemListFragment, "").commit();
