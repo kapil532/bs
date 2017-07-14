@@ -107,11 +107,11 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
                 else if(Float.parseFloat(obj.getLocal_shipping_cost()) == 0.00)
                 {
-                    holder.shipping_type.setText("Free Shipping");
+                    holder.shipping_type.setText(" ");
                 }
                 else
                 {
-                    holder.shipping_type.setText("+"+obj.getCurrency()+" "+obj.getLocal_shipping_cost());
+                    holder.shipping_type.setText("+"+ GlobalFunctions.getFormatedAmount(obj.getCurrency(), obj.getLocal_shipping_cost()));
                 }
                 if(obj.isHide_item_price())
                 {

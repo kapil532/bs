@@ -186,48 +186,6 @@
                     android:layout_height="1dp"
                     android:background="@color/bottom_bar_background_color"/>
 
-                <LinearLayout
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@color/white"
-                    >
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="10dp"
-                        >
-
-                        <com.langoor.app.blueshak.text.MyTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="left"
-                            android:layout_gravity="center"
-
-                            android:textSize="@dimen/sign_up_text_size"
-                            android:text="Item Condition is New"
-                            android:backgroundTint="@color/brandColor"
-                            android:textColor="@color/brand_text_color" >
-                        </com.langoor.app.blueshak.text.MyTextView>
-                        <Switch
-                            android:layout_width="wrap_content"
-                            android:id="@+id/is_product_new"
-                            android:gravity="center"
-                            android:layout_gravity="center"
-                            android:checked="false"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true" />
-                    </RelativeLayout>
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/bottom_bar_background_color"/>
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -251,7 +209,8 @@
                         >
 
                         <com.langoor.app.blueshak.text.MyTextView
-                            android:layout_width="match_parent"
+                           android:id="@+id/ek"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="left"
                             android:layout_gravity="center"
@@ -260,6 +219,21 @@
                             android:backgroundTint="@color/brandColor"
                             android:textColor="@color/brand_text_color" >
                         </com.langoor.app.blueshak.text.MyTextView>
+                        <com.langoor.app.blueshak.text.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="left|center"
+                            android:layout_toRightOf="@+id/ek"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="2dp"
+                            android:textSize="15sp"
+                            android:layout_marginLeft="5dp"
+                            android:text=" (optional)"
+                            android:backgroundTint="@color/brandColor"
+                            android:textColor="@color/brand_text_color" >
+                        </com.langoor.app.blueshak.text.MyTextView>
+
+
                         <Switch
                             android:layout_width="wrap_content"
                             android:id="@+id/pd_nagotiable"
@@ -307,7 +281,8 @@
                         android:padding="10dp"
                         >
                         <com.langoor.app.blueshak.text.MyTextView
-                            android:layout_width="match_parent"
+                          android:id="@+id/two"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="left"
                             android:layout_gravity="center"
@@ -317,6 +292,21 @@
                             android:backgroundTint="@color/brandColor"
                             android:textColor="@color/brand_text_color" >
                         </com.langoor.app.blueshak.text.MyTextView>
+                        <com.langoor.app.blueshak.text.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="left|center"
+                            android:layout_toRightOf="@+id/two"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="2dp"
+                            android:textSize="15sp"
+                            android:layout_marginLeft="5dp"
+                            android:text=" (optional)"
+                            android:backgroundTint="@color/brandColor"
+                            android:textColor="@color/brand_text_color" >
+                        </com.langoor.app.blueshak.text.MyTextView>
+
+
                         <Switch
                             android:layout_width="wrap_content"
                             android:id="@+id/pd_shippable"
@@ -332,6 +322,50 @@
                             style="@style/image_setting"
                             >
                         </ImageView>
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bottom_bar_background_color"/>
+
+                <LinearLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        >
+
+                        <com.langoor.app.blueshak.text.MyTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_gravity="center"
+
+                            android:textSize="@dimen/sign_up_text_size"
+                            android:text="Item Condition is New"
+                            android:backgroundTint="@color/brandColor"
+                            android:textColor="@color/brand_text_color" >
+                        </com.langoor.app.blueshak.text.MyTextView>
+                        <Switch
+                            android:layout_width="wrap_content"
+                            android:id="@+id/is_product_new"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:checked="false"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
                     </RelativeLayout>
                 </LinearLayout>
                 <View
