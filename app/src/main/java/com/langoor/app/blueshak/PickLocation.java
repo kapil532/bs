@@ -137,7 +137,9 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
                 if (i.hasExtra(WORLD_WIDE_BUNDLE_KEY)) {
                     world_wide = getIntent().getExtras().getBoolean(WORLD_WIDE_BUNDLE_KEY);
                 }
-                if(from==GlobalVariables.TYPE_GARAGE_SALE || from==GlobalVariables.TYPE_ADD_TEMS)
+
+
+                if( from==GlobalVariables.TYPE_ADD_TEMS)
                     locationModel=(LocationModel)i.getSerializableExtra(LOCATION_MODEL_BUNDLE_KEY);
                     if(locationModel==null)
                         locationModel=new LocationModel();
@@ -286,7 +288,7 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
             }else if(from==GlobalVariables.TYPE_GARAGE_SALE){
                 seporater.setVisibility(View.GONE);
                 current_location.setVisibility(View.GONE);
-                street_number.setVisibility(View.VISIBLE);
+                street_number.setVisibility(View.GONE);
                 if(locationModel!=null){
                     street_number.setText(locationModel.getStree_number()!=null?locationModel.getStree_number():"");
                     mAutocompleteTextView.setText(locationModel.getAutocomplete_address());

@@ -193,6 +193,9 @@ public class CreateGarageSaleFragment extends Fragment{
                 }
             });
             publish=(Button) view.findViewById(R.id.publish);
+            publish.setAlpha(.5f);
+            publish.setEnabled(false);
+
             publish.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -595,7 +598,8 @@ public class CreateGarageSaleFragment extends Fragment{
                         // scrolling to bottom of the recycler view
                         recycler_view.getLayoutManager().smoothScrollToPosition(recycler_view, null, adapter.getItemCount() - 1);
                     }
-                    if(select_items!=null && product_list.size()>0){
+                    if(select_items!=null && product_list.size()>0)
+                    {
                         String label="";
                         if(product_list.size()==1)
                             label="1 Item added";
@@ -603,10 +607,16 @@ public class CreateGarageSaleFragment extends Fragment{
                             label=product_list.size()+" Items added";
                         select_items.setText(label);
                         select_items.setTextColor(context.getResources().getColor(R.color.brand_text_color));
+                        publish.setAlpha(1f);
+                        publish.setEnabled(true);
                       /*  Drawable img = getContext().getResources().getDrawable( R.drawable.ic_create_white_24dp );
                         img.setBounds( 0, 0, 60, 60 );
                         select_items.setCompoundDrawables( null, null, img, null );*/
-                    }else{
+                    }
+                    else
+                    {
+                        publish.setAlpha(.5f);
+                        publish.setEnabled(false);
                         select_items.setText("Add Items");
                     }
 
