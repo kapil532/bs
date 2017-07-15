@@ -72,7 +72,7 @@
     <!--<string name="profile_edit_text_next_line">Blueshak will only use your phone number or facebook details to verify your identity and we will not share them with anyone else.</string>-->
     <!-- <string name="zipcode_code">Use a Zipcode to confirm your location</string>-->
     <string name="list_item">Sell An Item</string>
-    <string name="create_sale">Create Garage Sale</string>
+    <string name="create_sale">Create a Sale</string>
     <string name="item_updated_message">Item has been updated Successfully.</string>
     <string name="title_activity_my_items">Add Items</string>
     <string name="title_activity_chat_activty">ChatActivty</string>
