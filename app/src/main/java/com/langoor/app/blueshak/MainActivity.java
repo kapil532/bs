@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -534,6 +535,13 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
         super.onStop();
         /*setDeFaultTabAsHome();*/
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
 
     public static void moveToHome(Activity activity) {
         if (!activity.isFinishing()) {

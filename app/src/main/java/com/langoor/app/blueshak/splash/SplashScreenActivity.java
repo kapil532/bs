@@ -28,6 +28,8 @@ public class SplashScreenActivity extends RootActivity {
 		super.onCreate(savedInstanceState);
 		activity=this;
 		context=this;
+		GlobalFunctions.removeSharedPreferenceKey(this, GlobalVariables.FILTER_MODEL_FOR_MAP);
+		GlobalFunctions.removeSharedPreferenceKey(this, GlobalVariables.FILTER_MODEL);
 		setContentView(R.layout.activity_splash_screen);
 		new BackgroundSplashTask().execute();
 

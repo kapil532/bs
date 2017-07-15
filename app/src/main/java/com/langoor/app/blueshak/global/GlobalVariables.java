@@ -40,6 +40,7 @@ public class GlobalVariables {
     public static final String FREE = "Free";
     public static final String CURRENT_LOCATION = "current_location";
     public static final String FILTER_MODEL = "filtermodel";
+    public static final String FILTER_MODEL_FOR_MAP = "filtermodelmap";
     public static final String OTP_CHECK_MODEL = "otpcheckmodel";
     public static final String LATITUDE = "lattitude";
     public static final String LONGITUDE = "lattitude";

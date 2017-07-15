@@ -33,6 +33,7 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.langoor.app.blueshak.filter.FilterActivityForMap;
 import com.langoor.app.blueshak.global.GlobalFunctions;
 import com.langoor.app.blueshak.search.SearchActivity;
 import com.langoor.app.blueshak.services.model.LocationModel;
@@ -677,7 +678,7 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
         }
     };
     public void addFilter(){
-        Intent filter_intent= FilterActivity.newInstance(context,locationModel,GlobalVariables.TYPE_GARAGE_SALE);
+        Intent filter_intent= FilterActivityForMap.newInstance(context,locationModel,GlobalVariables.TYPE_GARAGE_SALE);
         startActivityForResult(filter_intent,globalVariables.REQUEST_CODE_FILTER_MODEL_LOCATION);
     }
     @Override

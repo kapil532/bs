@@ -42,6 +42,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.langoor.app.blueshak.filter.FilterActivityForMap;
 import com.langoor.app.blueshak.search.SearchActivity;
 import com.langoor.blueshak.R;
 import com.langoor.app.blueshak.AppController;
@@ -586,7 +587,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
         });
     }
         public void addFilter(){
-            Intent filter_intent=FilterActivity.newInstance(context,locationModel,GlobalVariables.TYPE_GARAGE_SALE);
+            Intent filter_intent= FilterActivityForMap.newInstance(context,locationModel,GlobalVariables.TYPE_GARAGE_SALE);
             startActivityForResult(filter_intent,globalVariables.REQUEST_CODE_FILTER_MODEL_LOCATION);
         }
     @Override
