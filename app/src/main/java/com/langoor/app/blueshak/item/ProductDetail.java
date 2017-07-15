@@ -70,6 +70,7 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.Transformers.BaseTransformer;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.langoor.app.blueshak.services.model.ImageModel;
 import com.langoor.blueshak.R;
@@ -915,6 +916,16 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         mProductSlider.setCustomAnimation(new DescriptionAnimation());
         mProductSlider.setDuration(4000);
         mProductSlider.addOnPageChangeListener(this);
+
+        if (productModel.getImage().size() < 2) {
+            mProductSlider.stopAutoCycle();
+            mProductSlider.setPagerTransformer(false, new BaseTransformer() {
+                @Override
+                protected void onTransform(View view, float v) {
+                }
+            });
+            //TODO: disable indicator
+        }
     }
 
     @Override

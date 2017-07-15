@@ -132,7 +132,8 @@ public class NextSplashScreen  extends RootActivity implements BaseSliderView.On
 	}
 
 	@Override
-	public void onPageScrollStateChanged(int i) {
+	public void onPageScrollStateChanged(int i)
+	{
 	}
 
 	@Override
