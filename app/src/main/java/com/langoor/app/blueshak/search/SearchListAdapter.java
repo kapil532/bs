@@ -101,18 +101,30 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
               /*  int price=0;
                 if(!TextUtils.isEmpty(obj.getSalePrice()))
                     price=(int)Float.parseFloat(obj.getSalePrice());*/
+                Log.d(TAG,"1");
+               try {
+
+
                 if(obj.isShipping_foc())
                 {
+                    Log.d(TAG,"2");
                     holder.shipping_type.setText("Free Shipping");
                 }
                 else if(Float.parseFloat(obj.getLocal_shipping_cost()) == 0.00)
                 {
+                    Log.d(TAG,"3");
                     holder.shipping_type.setText(" ");
                 }
                 else
                 {
+                    Log.d(TAG,"5");
                     holder.shipping_type.setText("+"+ GlobalFunctions.getFormatedAmount(obj.getCurrency(), obj.getLocal_shipping_cost()));
                 }
+               }catch (Exception e)
+               {
+                   holder.shipping_type.setText("");
+               }
+                Log.d(TAG,"6");
                 if(obj.isHide_item_price())
                 {
 
@@ -120,12 +132,14 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
                 else
                 {
+                    Log.d(TAG,"7");
                     holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(),obj.getSalePrice()));
                 }
+                Log.d(TAG,"10");
               //  holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(),obj.getSalePrice()));
                 holder.item_name.setText(obj.getName());
                /* holder.item_price.setGravity(Gravity.CENTER_HORIZONTAL);*/
-
+                Log.d(TAG,"8");
                 if(!TextUtils.isEmpty(obj.getCity()))
                     holder.item_location.setText(obj.getAddress());
                 else
@@ -137,7 +151,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 if(obj.is_bookmark())
                     holder.favarite.setImageResource(R.drawable.like_full);
-
+                Log.d(TAG,"9");
                 if(!obj.isAvailable()) {
                     holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_sold.setImageResource(R.drawable.ic_sold);
@@ -212,13 +226,13 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
         } catch (NullPointerException e){
-            Log.d(TAG,"NullPointerException");
+            Log.d(TAG,"NullPointerException"+e.getMessage());
             e.printStackTrace();
         }catch (NumberFormatException e) {
-            Log.d(TAG,"NumberFormatException");
+            Log.d(TAG,"NumberFormatException"+e.getMessage());
             e.printStackTrace();
         }catch (Exception e){
-            Log.d(TAG,"Exception");
+            Log.d(TAG,"Exception"+e.getMessage());
             e.printStackTrace();
         }
     }

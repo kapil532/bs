@@ -157,6 +157,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                 }
 
                 if (obj.is_new()) {
+                    holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_sold.setImageResource(R.drawable.ic_new);
                 }
 

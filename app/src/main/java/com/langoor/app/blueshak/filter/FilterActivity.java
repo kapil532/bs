@@ -970,7 +970,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
     }
 
     public void setupGarageFilter() {
-        title_tv.setText("Garage Filter");
+        title_tv.setText("Sale Filter");
         sorting_main_content.setVisibility(View.VISIBLE);
         sorting_content.setVisibility(View.VISIBLE);
         nearest_content.setVisibility(View.VISIBLE);

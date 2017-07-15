@@ -691,45 +691,42 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             product_condition.setText("Used");
         }
         shipping_aud = (TextView) findViewById(R.id.shipping_aud);
-        String s="";String ss=""; String sss="";
-        if ( productModel.isShipable())
-        {
+        String s = "";
+        String ss = "";
+        String sss = "";
+        if (productModel.isShipable()) {
 
-             s= productModel.getCurrency()+""+productModel.getLocal_shipping_cost()+"(Local)";
-             ss= productModel.getCurrency()+""+productModel.getIntl_shipping_cost()+"(Int'l)";
-            sss =productModel.getShipping_delivery_date();
+            s = productModel.getCurrency() + "" + productModel.getLocal_shipping_cost() + "(Local)";
+            ss = productModel.getCurrency() + "" + productModel.getIntl_shipping_cost() + "(Int'l)";
+            sss = productModel.getShipping_delivery_date();
 
-            if(productModel.isShipping_foc())
-            {
-                s= "Not Available "+"(Local)";
-                ss= "Not Available "+"(Int'l)";
-                sss= "Not Available";
+            if (productModel.isShipping_foc()) {
+                s = "Not Available " + "(Local)";
+                ss = "Not Available " + "(Int'l)";
+                sss = "Not Available";
             }
 
-            if(!productModel.is_intl_shipping())
-            {
-                ss= "Not Available "+"(Int'l)";
+            if (!productModel.is_intl_shipping()) {
+                ss = "Not Available " + "(Int'l)";
             }
-        }
-        else
-        {
-            s= "Not Available "+"(Local)";
-            ss= "Not Available "+"(Int'l)";
-            sss= "Not Available";
+        } else {
+            s = "Not Available " + "(Local)";
+            ss = "Not Available " + "(Int'l)";
+            sss = "Not Available";
         }
 
-       String ssss=s+"\n"+ss;
+        String ssss = s + "\n" + ss;
         shipping_aud.setText(ssss);
         estda.setText(sss);
 
         title.setText(title_name);
         product_name.setText(title_name);
-        item_name=productModel.getName();
-        item_price=productModel.getSalePrice();
-        seller_name=productModel.getSellerName();
-        seller_phone_number=productModel.getSeller_phone();
-        seller_profile_image=productModel.getSeller_image();
-        seller_user_id=productModel.getSeller_id();
+        item_name = productModel.getName();
+        item_price = productModel.getSalePrice();
+        seller_name = productModel.getSellerName();
+        seller_phone_number = productModel.getSeller_phone();
+        seller_profile_image = productModel.getSeller_image();
+        seller_user_id = productModel.getSeller_id();
         user.setName(seller_name);
         user.setCurrency(productModel.getCurrency());
         user.setIs_sale(false);
@@ -741,44 +738,52 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         user.setProduct_id(productModel.getId());
         user.setProduct_url(product_image);
         user.setActive_tab(GlobalVariables.TYPE_BUYER_TAB);
-        String signed_user_user_id=GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_USERID);
-        if(signed_user_user_id!=null && seller_user_id!=null){
-            if(Integer.parseInt(seller_user_id) == Integer.parseInt(signed_user_user_id)) {
-                self_user=true;
+        String signed_user_user_id = GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_USERID);
+        if (signed_user_user_id != null && seller_user_id != null) {
+            if (Integer.parseInt(seller_user_id) == Integer.parseInt(signed_user_user_id)) {
+                self_user = true;
                 make_offer.setVisibility(View.GONE);
                 make_offer.setVisibility(View.GONE);
                 messageButton.setVisibility(View.GONE);
                 edit.setVisibility(View.VISIBLE);
             }
         }
-        if(!TextUtils.isEmpty(productModel.getName()))
+        if (!TextUtils.isEmpty(productModel.getName()))
             productName_tv.setText(GlobalFunctions.getSentenceFormat(productModel.getName()));
 
-        if(!TextUtils.isEmpty(productModel.getSellerName()))
+        if (!TextUtils.isEmpty(productModel.getSellerName()))
             item_seller_name.setText(GlobalFunctions.getSentenceFormat(productModel.getSellerName()));
 
 
 //        read_reviews.setText("Read reviews"+"("+productModel.getReviews_count()+")");
-        read_reviews.setText(productModel.getReviews_count()+" Reviews");
+        read_reviews.setText(productModel.getReviews_count() + " Reviews");
         /*offers.setText("Offers"+"("+productModel.getOffers()+")");*/
         /*productName_tv.setText(productModel.getName());*/
-        String avatar=productModel.getSeller_image();
+        String avatar = productModel.getSeller_image();
         //download and display image from url
         /*imageLoader.displayImage(avatar,seller_image, options);*/
-        if(!TextUtils.isEmpty(avatar)){
+        if (!TextUtils.isEmpty(avatar)) {
             Picasso.with(context)
                     .load(avatar)
                     .placeholder(R.drawable.squareplaceholder)
                     .fit().centerCrop()
                     .into(seller_image);
-        }else{
+        } else {
             seller_image.setImageResource(R.drawable.squareplaceholder);
         }
-        if(productModel.isAvailable())
-            price_tv.setText(GlobalFunctions.getFormatedAmount(productModel.getCurrency(),productModel.getSalePrice()));
+        if (productModel.isAvailable())
+        {
+            if (productModel.isHide_item_price()) {
+                price_tv.setText("Negotiable");
+            }
+            else {
+                price_tv.setText(GlobalFunctions.getFormatedAmount(productModel.getCurrency(), productModel.getSalePrice()));
+            }
+    }
         else{
             price_tv.setText("Sold");
-            if(!self_user){
+            if(!self_user)
+            {
                 /*messageButton.setEnabled(false);
                 messageButton.setAlpha(.5f);*/
                 make_offer.setAlpha(.5f);
@@ -815,8 +820,8 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         category_tv.setText(category);
         productDescriptionDetail_tv.setText(productModel.getDescription());
         /*If the line are more than show view more or else not needed*/
-        if(productDescriptionDetail_tv.getLineCount()>3)
-            makeTextViewResizable(productDescriptionDetail_tv, 3, "View More", true);
+//        if(productDescriptionDetail_tv.getLineCount()>3)
+//            makeTextViewResizable(productDescriptionDetail_tv, 3, "View More", true);
         setImageOnView(productModel.getImages());
         if(productModel.getCummalative_rating()!=null&&!TextUtils.isEmpty(productModel.getCummalative_rating())){
             ratingBar1.setRating(Float.parseFloat(productModel.getCummalative_rating()));
@@ -905,6 +910,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 
         mProductSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOutSlide);
         mProductSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+       // mProductSlider.set
       /*  if(mPagerIndicator!=null){mProductSlider.setCustomIndicator(mPagerIndicator);}*/
         mProductSlider.setCustomAnimation(new DescriptionAnimation());
         mProductSlider.setDuration(4000);
@@ -1498,8 +1504,10 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
     private void setValues(List<ProductModel> products){
             relatedList.clear();
             relatedList.addAll(products);
+        Log.d("REFRESH LIST","REFRESH LIST"+relatedList.size());
             if(relatedList!=null){
                 if(relatedList.size()>0&&recyclerView!=null&&relatedList!=null&&adapter!=null){
+
                     refreshList();
                     no_items.setVisibility(View.GONE);
                 }else{
