@@ -101,7 +101,8 @@ public class CreateSaleActivity extends RootActivity {
             cancel=(TextView)v.findViewById(R.id.cancel);
             cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
                     if(!((Activity)mainContext ).isFinishing()){
                         Log.d(TAG,"isFinishing###################");
                         showExitAlert();
@@ -149,6 +150,7 @@ public class CreateSaleActivity extends RootActivity {
     @Override
     public void onResume() {
         super.onResume();
+        activity=this;
     }
 
     @Override
