@@ -214,7 +214,68 @@ public class GlobalFunctions {
             }
         }
     }
+
     public static Bitmap lessResolution (String filePath, int width, int height) {
+        int reqHeight = height;
+        int reqWidth = width;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        options.inJustDecodeBounds = true;
+        Bitmap   bitmap=  BitmapFactory.decodeFile(filePath, options);
+        ExifInterface exif = null;
+        int rotate = 0;
+        try {
+            exif = new ExifInterface(filePath);
+            int exifOrientation = exif.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL);
+
+
+
+            switch (exifOrientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotate = 90;
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotate = 180;
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotate = 270;
+                    break;
+            }
+        }
+        catch (Exception e)
+        {
+
+        }
+        if (rotate != 0) {
+            int w = bitmap.getWidth();
+            int h = bitmap.getHeight();
+
+// Setting pre rotate
+            Matrix mtx = new Matrix();
+            mtx.preRotate(rotate);
+
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+            // Rotating Bitmap & convert to ARGB_8888, required by tess
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, w, h, mtx, false);
+            bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+            Log.d(TAG,"GETBITMAP ORI"+bitmap);
+        }
+        else {
+            options.inJustDecodeBounds = false;
+            bitmap=   BitmapFactory.decodeFile(filePath, options);
+            Log.d(TAG,"GETBITMAP"+bitmap);
+        }
+        return bitmap;
+    }
+
+    public static Bitmap lessResolutionOLD (String filePath, int width, int height) {
         int reqHeight = height;
         int reqWidth = width;
         BitmapFactory.Options options = new BitmapFactory.Options();

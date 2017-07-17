@@ -37,7 +37,7 @@ public class MyListings extends RootActivity {
     public static final String TAG = "MyListings";
     private ViewPager mViewPager;
     private TabHost mTabHost;
-    private String[] tabs = {"Items", "Garage Sales" };
+    private String[] tabs = {"Items", "My Sale" };
     private Toolbar toolbar;
     private ActionBar actionBar;
     private static Context context;
@@ -86,8 +86,8 @@ public class MyListings extends RootActivity {
         mainActivityFM.beginTransaction().replace(R.id.container, itemMyListFragment, "").commit();
         tab1=(TextView)findViewById(R.id.tab1);
         tab2=(TextView)findViewById(R.id.tab2);
-        tab1.setText("Items");
-        tab2.setText("Garage Sales");
+        tab1.setText(tabs[0]);
+        tab2.setText(tabs[1]);
         tab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

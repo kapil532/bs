@@ -902,6 +902,11 @@ public class ServicesMethodsManager {
         if(filterModel.isPrice_h_2_l())
             param += "&" + FilterModel.PRICE_HIGH_TO_LOW + "=" + (filterModel.isPrice_h_2_l() ? 1 : 0);
 
+        if(filterModel.isNegotiable_items())
+            param += "&" + FilterModel.NEGOTIABLE_ITEMS + "=" + (filterModel.isNegotiable_items() ? 1 : 0);
+
+        if(filterModel.isNew_items())
+            param += "&" + FilterModel.NEW_ITEMS + "=" + (filterModel.isNew_items() ? 1 : 0);
     /*    param += "&" + FilterModel.IS_SHIPABLE + "=" + (filterModel.isShipable() ? 1 : 0);
         param += "&" + FilterModel.IS_PICKUP + "=" + (filterModel.isPickup() ? 1 : 0);
         param += "&" + FilterModel.IS_AVAILABLE + "=" + (filterModel.isAvailable() ? 1 : 0);*/

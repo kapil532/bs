@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -75,7 +76,6 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
         View view = inflater.inflate(R.layout.photos_add_main_fragment,null,false);
         context = getActivity();
         activity=getActivity();
-       // checkIfAlreadyhavePermission();
         title_tv = (TextView) view.findViewById(R.id.photos_add_main_fragment_title_textview);
         addIcon = (ImageView) view.findViewById(R.id.photos_add_main_fragment_add_imageView);
         listView = (TwoWayView) view.findViewById(R.id.photos_add_main_fragment_photos_list);
@@ -125,8 +125,7 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
     }
     private Dialog alert;
 
-    private void selectImage()
-    {
+    private void selectImage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final CharSequence[] charSequences= new CharSequence[]{"Click a picture from camera", "Choose from gallery"};
         builder.setItems(R.array.select_dialog_items, new DialogInterface.OnClickListener() {
@@ -187,7 +186,7 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
         imageUri = Uri.fromFile(photoFile);
         Log.d(TAG,"##################imageUri############# = "+imageUri);
-        startActivityForResult(cameraIntent, globalVariables.REQUEST_FOR_CAMERA);
+        this.startActivityForResult(cameraIntent, globalVariables.REQUEST_FOR_CAMERA);
     }
 
 
@@ -242,7 +241,7 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("ONACTIVITYRESULT","ONACTIVITYRESULTTT"+resultCode);
+        Log.d("ONACTIVITYRESULT","ONACTIVITYRESULTTT"+getActivity());
         if(resultCode !=getActivity().RESULT_OK) {
             return;
         }
@@ -268,6 +267,8 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
                 Uri selectedImageUri = imageUri;//data.getData();
                 System.out.println("#############REQUEST_FOR_CAMERA###############");
                 picUri=selectedImageUri;
+
+
              /*   CropImage.activity(imageUri)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .start(getActivity());*/
@@ -406,48 +407,40 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
             return false;
         }
     }
-    public void checkCameraPermission()
-    {
-                int permissionCheck_location_coarse = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
-                int permissionCheck_write_coarse = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                int permissionCheck_camera = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
-                if(permissionCheck_location_coarse != PackageManager.PERMISSION_GRANTED ||
-                        permissionCheck_write_coarse!=PackageManager.PERMISSION_GRANTED
-                        || permissionCheck_camera!=PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CHECK_CAMERA);
-                }
-
-
-            }
-        private boolean checkIfAlreadyhavePermission() {
-            Log.d(TAG,"checkIfReadExternalStorageAlreadyhavePermission######################");
-            int coarse_location = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
-            int result = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            int camera = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
-            if (coarse_location == PackageManager.PERMISSION_GRANTED && result == PackageManager.PERMISSION_GRANTED
-                    && camera == PackageManager.PERMISSION_GRANTED ) {
-                return true;
-            } else {
-                return false;
-            }
+    public void checkCameraPermission() {
+        int permissionCheck_location_coarse = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionCheck_write_coarse = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permissionCheck_camera = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
+        if(permissionCheck_location_coarse != PackageManager.PERMISSION_GRANTED ||
+                permissionCheck_write_coarse!=PackageManager.PERMISSION_GRANTED
+                || permissionCheck_camera!=PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CHECK_CAMERA);
         }
-        @Override
-        public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-            Log.d(TAG,"onRequestPermissionsResult ##########@@@@@@@@@@@@@@@@@@@@@@@@@");
-            switch (requestCode) {
-                case REQUEST_CHECK_CAMERA   :
-                    Log.d(TAG,"onRequestPermissionsResult ############REQUEST_CHECK_CAMERA");
-                    // If request is cancelled, the result arrays are empty.
-                    if (grantResults.length > 0
-                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                        Log.d(TAG,"onRequestPermissionsResult ############REQUEST_CHECK_CAMERA aaaa");
 
 
-                       invokeCamera();
-
-
-
+    }
+    private boolean checkIfAlreadyhavePermission() {
+        Log.d(TAG,"checkIfReadExternalStorageAlreadyhavePermission######################");
+        int coarse_location = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int result = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int camera = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
+        if (coarse_location == PackageManager.PERMISSION_GRANTED && result == PackageManager.PERMISSION_GRANTED
+                && camera == PackageManager.PERMISSION_GRANTED ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        Log.d(TAG,"onRequestPermissionsResult ##########@@@@@@@@@@@@@@@@@@@@@@@@@");
+        switch (requestCode) {
+            case REQUEST_CHECK_CAMERA   :
+                Log.d(TAG,"onRequestPermissionsResult ############REQUEST_CHECK_CAMERA");
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                   invokeCamera();
                 } else {
                     checkCameraPermission();
                 }

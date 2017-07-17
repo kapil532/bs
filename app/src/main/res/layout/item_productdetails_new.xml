@@ -431,7 +431,7 @@
                             android:id="@+id/select_sale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Add to garage sale"
+                            android:text="Add to sale"
                             android:gravity="left"
                             android:textColor="@color/brand_text_color"
                             android:textSize="@dimen/sign_up_text_size"

@@ -149,6 +149,7 @@ android:id="@+id/detail_content"
                 android:layout_height="match_parent"
                 android:layout_width="1dp"
                 android:background="#808080"
+                android:visibility="gone"
                 />
             <com.langoor.app.blueshak.text.MyTextView
                 android:id="@+id/sales_item_row_list_time"
@@ -159,6 +160,7 @@ android:id="@+id/detail_content"
                 android:textSize="17sp"
                 android:layout_weight=".5"
                 android:gravity="right"
+                android:visibility="gone"
                 android:textColor="#808080"
                 android:text="1st August">
                 </com.langoor.app.blueshak.text.MyTextView>

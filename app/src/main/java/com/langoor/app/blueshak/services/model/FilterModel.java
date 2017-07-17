@@ -31,7 +31,10 @@ public class FilterModel implements Serializable {
                    PRICE_HIGH_TO_LOW="price_h_2_l",
                    PRICE_LOW_TO_HIGH="price_l_2_h",
                    CURRENT_COUNTRY_CODE="current_country_code",
-            CATEGORIES = "categories";
+            CATEGORIES = "categories",
+            NEW_ITEMS = "new_items",
+            NEGOTIABLE_ITEMS = "negotiable_items"
+    ;
 
     String latitude =/* GlobalVariables.Sydney_latitude*/null;
     String longitude = /* GlobalVariables.Sydney_longitude*/null;
@@ -92,18 +95,37 @@ public class FilterModel implements Serializable {
 
     boolean
 
-            shipable        = false,
-            pickup          = false,
-            distance_enabled        = false,
-            sortByRecent=false,
-            sortByRecent_garage=false,
-            available       = false,
-            ending_soon=false,
-            is_current_country=false,
-            sorting_enabled=false,
-            price_h_2_l=false,
-            price_l_2_h=false,
-            garage_items=false;
+            shipable        = false;
+    boolean pickup          = false;
+    boolean distance_enabled        = false;
+    boolean sortByRecent=false;
+    boolean sortByRecent_garage=false;
+    boolean available       = false;
+    boolean ending_soon=false;
+    boolean is_current_country=false;
+
+    public boolean isNew_items() {
+        return new_items;
+    }
+
+    public void setNew_items(boolean new_items) {
+        this.new_items = new_items;
+    }
+
+    public boolean isNegotiable_items() {
+        return negotiable_items;
+    }
+
+    public void setNegotiable_items(boolean negotiable_items) {
+        this.negotiable_items = negotiable_items;
+    }
+
+    boolean sorting_enabled=false;
+    boolean price_h_2_l=false;
+    boolean price_l_2_h=false;
+    boolean garage_items=false;
+    boolean new_items=false;
+    boolean negotiable_items=false;
 
     public boolean isPrice_l_2_h() {
         return price_l_2_h;
@@ -265,6 +287,8 @@ public class FilterModel implements Serializable {
             try{temp = json.getInt(GARAGE_ITEMS);}catch(Exception e){temp =0;}if(temp>0){garage_items=true;}else{garage_items=false;}temp=0;
             try{temp = json.getInt(PRICE_HIGH_TO_LOW);}catch(Exception e){temp =0;}if(temp>0){price_h_2_l=true;}else{price_h_2_l=false;}temp=0;
             try{temp = json.getInt(PRICE_LOW_TO_HIGH);}catch(Exception e){temp =0;}if(temp>0){price_l_2_h=true;}else{price_l_2_h=false;}temp=0;
+            try{temp = json.getInt(NEW_ITEMS);}catch(Exception e){temp =0;}if(temp>0){new_items=true;}else{new_items=false;}temp=0;
+            try{temp = json.getInt(NEGOTIABLE_ITEMS);}catch(Exception e){temp =0;}if(temp>0){negotiable_items=true;}else{negotiable_items=false;}temp=0;
 
             return true;
 
@@ -324,6 +348,8 @@ public class FilterModel implements Serializable {
             jsonMain.put(CURRENT_COUNTRY_CODE, current_country_code);
             String temp = "0";
             if(sortByRecent_garage){temp = "1";}else{temp="0";}jsonMain.put(SORT_BY_RECENT_GARAGE, temp);temp = "0";
+            if(negotiable_items){temp = "1";}else{temp="0";}jsonMain.put(NEGOTIABLE_ITEMS, temp);temp = "0";
+            if(new_items){temp = "1";}else{temp="0";}jsonMain.put(NEW_ITEMS, temp);temp = "0";
             if(sortByRecent){temp = "1";}else{temp="0";}jsonMain.put(SORT_BY_RECENT, temp);temp = "0";
             if(distance_enabled){temp = "1";}else{temp="0";}jsonMain.put(DISTANCE_ENABLED, temp);temp = "0";
             if(shipable){temp = "1";}else{temp="0";}jsonMain.put(IS_SHIPABLE, temp);temp = "0";

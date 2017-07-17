@@ -1171,7 +1171,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             title="No Items Available";
 
         sale_items_tv.setText(title);
-        sale_date_tv.setText(salesModel.getStart_date());
+        sale_date_tv.setText(""+salesModel.getListedDate());
         sale_time.setText(salesModel.getStart_time()+"-"+salesModel.getEnd_time());
        /* holder.distance_tv.setText(obj.getDistanceAway()+" "+getContext().getString(R.string.milesAway));*/
         sale_distance_tv.setText(salesModel.getDistanceAway()/*+" "+context.getString(R.string.milesAway)*/);

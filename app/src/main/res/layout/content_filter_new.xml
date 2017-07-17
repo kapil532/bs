@@ -469,11 +469,84 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
         </LinearLayout>
+
         <View
+
             android:layout_width="match_parent"
             android:background="@color/bottom_bar_background_color"
             android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/negotial_l"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.langoor.app.blueshak.text.MyTextView
+                android:layout_weight=".3"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Only Negotiable Items"
+                android:textSize="@dimen/sign_up_text_size"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:padding="10dp">
+            </com.langoor.app.blueshak.text.MyTextView>
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight=".7"
+                android:id="@+id/nly_negotiable_item_s"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:checked="false"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
 
+
+        <View
+
+            android:layout_width="match_parent"
+            android:background="@color/bottom_bar_background_color"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/only_new_item_l"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.langoor.app.blueshak.text.MyTextView
+                android:layout_weight=".3"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Only New Items"
+                android:textSize="@dimen/sign_up_text_size"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:padding="10dp">
+            </com.langoor.app.blueshak.text.MyTextView>
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight=".7"
+                android:id="@+id/nly_new_items_s"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:checked="false"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:id="@+id/view_forhide_one"
+            android:background="@color/bottom_bar_background_color"
+            android:layout_height="1dp"/>
 
 
         <RelativeLayout
@@ -507,6 +580,7 @@
                 >
             </ImageView>
         </RelativeLayout>
+
         <com.langoor.app.blueshak.text.MyTextView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"

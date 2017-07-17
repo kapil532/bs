@@ -133,6 +133,8 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
             /*priceRangeBar = (RangeBar) findViewById(R.id.price_range_bar);*/
 
             nearest_content = (LinearLayout) findViewById(R.id.nearest_content);
+         View   view_forhide_one=(View)findViewById(R.id.view_forhide_one);
+            view_forhide_one.setVisibility(View.GONE);
 
             ending_soon_content = (LinearLayout) findViewById(R.id.ending_soon_content);
             h_to_l_content = (LinearLayout) findViewById(R.id.h_to_l_content);

@@ -100,11 +100,13 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
     public static final String FROM = "from";
     boolean[] is_checked;
     private Switch search_radius, nearest_first, sort_by_recent, ending_soon, only_garage_items,/*sorting*/
-            current_country, h_to_l, l_to_h;
+            current_country, h_to_l, l_to_h,nly_new_items_s,nly_negotiable_item_s;
     private FilterModel detail = new FilterModel();
     private CategoryListModel categoryListModel = null;
     private ArrayList<String> selectedCategoryString = new ArrayList<String>();
-    private LinearLayout location_content, nearest_content, distance_content, sorting_main_content, sorting_content, only_garage_item_content, ending_soon_content, h_to_l_content, l_to_h_content;
+    private LinearLayout location_content, nearest_content, distance_content, sorting_main_content,
+            sorting_content, only_garage_item_content, ending_soon_content,
+            h_to_l_content, l_to_h_content,negotial_l,only_new_item_l;
     private List<CategoryModel> category_list = new ArrayList<CategoryModel>();
     private String type = GlobalVariables.TYPE_SHOP;
     private CategoryListModel clm;
@@ -168,10 +170,19 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
             l_to_h_content = (LinearLayout) findViewById(R.id.l_to_h_content);
             sorting_main_content = (LinearLayout) findViewById(R.id.sorting_main_content);
             only_garage_item_content = (LinearLayout) findViewById(R.id.only_garage_item_content);
+            negotial_l = (LinearLayout) findViewById(R.id.negotial_l);
+            only_new_item_l = (LinearLayout) findViewById(R.id.only_new_item_l);
+
+
             sorting_content = (LinearLayout) findViewById(R.id.sorting_content);
             all_categories_content = (RelativeLayout) findViewById(R.id.all_categories_content);
             only_garage_items = (Switch) findViewById(R.id.nly_garage_sale_items);
             nearest_first = (Switch) findViewById(R.id.nearest_first);
+
+
+            nly_new_items_s = (Switch) findViewById(R.id.nly_new_items_s);
+
+            nly_negotiable_item_s = (Switch) findViewById(R.id.nly_negotiable_item_s);
   /*  sorting=(Switch)findViewById(R.id.sorting);*/
             current_country = (Switch) findViewById(R.id.current_country);
             h_to_l = (Switch) findViewById(R.id.h_to_l);
@@ -532,6 +543,9 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
         is_all = true;
         categoryText = "Category - All";
         category.setText(categoryText);
+        nly_negotiable_item_s.setChecked(false);
+        nly_new_items_s.setChecked(false);
+
         all_categories.setTextColor(context.getResources().getColor(R.color.brandColor));
         ic_check.setVisibility(View.VISIBLE);
         if (search_radius.isChecked()) {
@@ -572,6 +586,18 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
                 current_country.setChecked(true);
             else
                 current_country.setChecked(false);
+
+
+            if (detail.isNew_items())
+                nly_new_items_s.setChecked(true);
+            else
+                nly_new_items_s.setChecked(false);
+
+            if (detail.isNegotiable_items())
+                nly_negotiable_item_s.setChecked(true);
+            else
+                nly_negotiable_item_s.setChecked(false);
+
           /*  if(detail.isSortByRecent())
                 sort_by_recent.setChecked(true);
             else
@@ -700,6 +726,17 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
             detail.setDistance_enabled(true);
         else
             detail.setDistance_enabled(false);
+
+        if (nly_new_items_s.isChecked())
+            detail.setNew_items(true);
+        else
+            detail.setNew_items(false);
+
+
+        if (nly_negotiable_item_s.isChecked())
+            detail.setNegotiable_items(true);
+        else
+            detail.setNegotiable_items(false);
 
         if (from == GlobalVariables.TYPE_GARAGE_SALE) {
             if (sort_by_recent.isChecked()) {
@@ -988,6 +1025,8 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
             title_tv.setText("Item Filter");
         }
         only_garage_item_content.setVisibility(View.VISIBLE);
+        negotial_l.setVisibility(View.VISIBLE);
+        only_new_item_l.setVisibility(View.VISIBLE);
         only_garage_items.setVisibility(View.VISIBLE);
         sorting_main_content.setVisibility(View.VISIBLE);
         sorting_content.setVisibility(View.VISIBLE);

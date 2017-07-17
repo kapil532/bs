@@ -261,7 +261,7 @@ public class CreateGarageSaleFragment extends Fragment{
     public void onResume() {
         super.onResume();
       /* activity.setActionBarTitle("Your title");*/
-        ((CreateSaleActivity)getActivity()).setActionBarTitle("Garage Sale");
+        ((CreateSaleActivity)getActivity()).setActionBarTitle("Create a Sale");
       //  uploadImageFragment();
         /*is_items_available(context);*/
     }

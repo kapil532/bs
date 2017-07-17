@@ -43,7 +43,8 @@ public class SalesModel implements Serializable {
             SALE_ADDRESS = "sale_address",
             UTC_START_DATE = "utc_start_date",
             READ_REVIEWS_COUNT = "reviews_count",
-            PRODUCTS = "products";
+            PRODUCTS = "products",
+            LISTED_DATE = "listed_date";
 
     public String getReviews_count() {
         return reviews_count;
@@ -121,7 +122,16 @@ public class SalesModel implements Serializable {
     }
 
     String views=null;
+    String listedDate = null;
     String distanceAway = null;
+
+    public String getListedDate() {
+        return listedDate;
+    }
+
+    public void setListedDate(String listedDate) {
+        this.listedDate = listedDate;
+    }
 
     List<ProductModel> products = new ArrayList<ProductModel>();
 
@@ -364,6 +374,8 @@ public class SalesModel implements Serializable {
             if(json.has(START_TIME))start_time = json.getString(START_TIME);
             if(json.has(END_TIME)) end_time = json.getString(END_TIME);
             if(json.has(START_DATE))  start_date = json.getString(START_DATE);
+            if(json.has(LISTED_DATE))  listedDate = json.getString(LISTED_DATE);
+
             if(json.has(END_DATE)) end_date = json.getString(END_DATE);
             if(json.has(POSTCODES))  postcodes = json.getString(POSTCODES);
             if(json.has(SALE_TYPE))   saleType = json.getString(SALE_TYPE);
