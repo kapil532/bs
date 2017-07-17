@@ -277,13 +277,16 @@ public class CreateGarageSaleFragment extends Fragment{
         startstr = starttime.getText().toString();
         endstr = endtime.getText().toString();
         locstr = mAutocompleteTextView.getText().toString();
-        if(createSalesModel.getImages().size()==0){
+
+
+       /* if(createSalesModel.getImages().size()==0){
             Toast.makeText(activity,"Please select a photo",Toast.LENGTH_LONG).show();
-        }else if(TextUtils.isEmpty(namestr)){
+        }else */
+        if(TextUtils.isEmpty(namestr)){
             Toast.makeText(activity,"Please enter the sale name",Toast.LENGTH_LONG).show();
         }else if(TextUtils.isEmpty(descriptionstr)){
             Toast.makeText(activity,"Please enter the sale description",Toast.LENGTH_LONG).show();
-        }else if(datestr.length()==0){
+        }/*else if(datestr.length()==0){
             Toast.makeText(activity,"Please fill the sale start date",Toast.LENGTH_LONG).show();
         }else if(startstr.length()==0){
             Toast.makeText(activity,"Please fill sale start time",Toast.LENGTH_LONG).show();
@@ -291,16 +294,16 @@ public class CreateGarageSaleFragment extends Fragment{
             Toast.makeText(activity,"Please fill sale end time",Toast.LENGTH_LONG).show();
         }else if(!isEndTimeGstartTime(startstr,endstr)){
             Toast.makeText(activity,"End time should be minimum 15 minutes greater than start time",Toast.LENGTH_LONG).show();
-        }else if(TextUtils.isEmpty(locstr)){
+        }else*/ if(TextUtils.isEmpty(locstr)){
             Toast.makeText(activity,"Please enter sale location",Toast.LENGTH_LONG).show();
         }else{
             /*String country=GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_COUNTRY);
             createSalesModel.setCountry_short(country);
            */ createSalesModel.setName(namestr);
-            createSalesModel.setStart_date(datestr);
-            createSalesModel.setEnd_date(/*getEndDate(datestr)*/datestr);
-            createSalesModel.setStart_time(startstr);
-            createSalesModel.setEnd_time(endstr);
+           // createSalesModel.setStart_date(datestr);
+         //   createSalesModel.setEnd_date(/*getEndDate(datestr)*/datestr);
+          //  createSalesModel.setStart_time(startstr);
+           // createSalesModel.setEnd_time(endstr);
             createSalesModel.setAddress(locstr);
             createSalesModel.setSale_address(locstr);
             createSalesModel.setSaleType(GlobalVariables.TYPE_GARAGE);
@@ -321,7 +324,7 @@ public class CreateGarageSaleFragment extends Fragment{
                 /*jsonArray.put(new JSONObject(productModelList.get(i).toString()));*/
             }
             Log.d("Create Sale#######", "####old_jsonArray########"+old_jsonArray);
-            createSalesModel.setOld_array(old_jsonArray);
+            //createSalesModel.setOld_array(old_jsonArray);
            /* createSalesModel.setOld_item_list(old_list);*/
             Log.d("Create Sale#######", "####old_list########"+old_list.size());
             refresh_the_list();

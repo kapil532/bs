@@ -1041,7 +1041,7 @@ public class ServicesMethodsManager {
                         }
                     }
                 }
-        salesModel.setImages(images);
+       salesModel.setImages(images);
         Log.d("Create Sale", salesModel.toString());
         setCallbacks(mCallInterface);
         if(salesModel.getRequest_type().equalsIgnoreCase(GlobalVariables.TYPE_CREATE_REQUEST) ||

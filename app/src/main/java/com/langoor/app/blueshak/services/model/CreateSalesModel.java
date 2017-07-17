@@ -352,10 +352,10 @@ public class CreateSalesModel implements Serializable {
             jsonMain.put(SALE_TYPE, saleType);
             jsonMain.put(LATITUDE, latitude);
             jsonMain.put(LONGITUDE, longitude);
-            jsonMain.put(START_TIME, start_time);
-            jsonMain.put(END_TIME, end_time);
-            jsonMain.put(START_DATE, start_date);
-            jsonMain.put(END_DATE, end_date);
+           // jsonMain.put(START_TIME, start_time);
+            //jsonMain.put(END_TIME, end_time);
+           // jsonMain.put(START_DATE, start_date);
+//            jsonMain.put(END_DATE, end_date);
             jsonMain.put(POSTCODES, postcodes);
             jsonMain.put(SALE_ADDRESS, sale_address);
             jsonMain.put(SALE_ADDRESS, address);
@@ -398,9 +398,11 @@ public class CreateSalesModel implements Serializable {
                         new_imageArray.put(new JSONObject(model.toString()));
                 }
                 Log.d(TAG,"################## final new_imageArray : "+new_imageArray);
-                jsonMain.put(NEW_IMAGE,new_imageArray);
+                //jsonMain.put(NEW_IMAGE,new_imageArray);
             }else
-                jsonMain.put(IMAGE, imageArray);
+               // jsonMain.put(IMAGE, imageArray);
+
+
             if(request_type.equalsIgnoreCase(GlobalVariables.TYPE_CREATE_REQUEST) || request_type.equalsIgnoreCase(GlobalVariables.TYPE_UPDATE_REQUEST) )
                 returnString = jsonMain.toString();
             else if(request_type.equalsIgnoreCase(GlobalVariables.TYPE_PUBLISH_REQUEST)){

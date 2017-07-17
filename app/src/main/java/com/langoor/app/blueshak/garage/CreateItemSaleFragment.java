@@ -352,7 +352,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             productModel.setShipping_foc(true);
 
 
-
+Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
         postalCode = null;
         for (int i = 0; i < selectedAutoSuggesstionsList.size(); i++) {
             postalCode = postalCode == null ? selectedAutoSuggesstionsList.get(i).getId() : postalCode + "," + selectedAutoSuggesstionsList.get(i).getId();
@@ -375,16 +375,16 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             Toast.makeText(activity, "Please enter the valid product price", Toast.LENGTH_LONG).show();
         } else if (selectedCategoryIDs.isEmpty()) {
             Toast.makeText(activity, "Please fill the product Category", Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(str_desc)) {
+        } else if (TextUtils.isEmpty(str_desc))
+        {
             Toast.makeText(activity, "Please enter the product description", Toast.LENGTH_LONG).show();
-        }/*else if(shippable.isChecked() && TextUtils.isEmpty(mAutocompleteTextView.getText().toString())){
-            *//*zipcode_actv.setError("Please enter the product zip code");*//*
-            Toast.makeText(activity,"Please enter the product zip code",Toast.LENGTH_LONG).show();
-        }*/ else if (TextUtils.isEmpty(mAutocompleteTextView.getText().toString())) {
+        } else if (TextUtils.isEmpty(mAutocompleteTextView.getText().toString())) {
             Toast.makeText(activity, "Please fill the product location", Toast.LENGTH_LONG).show();
-        } else if (!shippable.isChecked() && !is_new_old.isChecked()) {
+        } else if (!isShippable && !is_new_old.isChecked()) {
             Toast.makeText(activity, "Item should be either shippable or pick up", Toast.LENGTH_LONG).show();
-        } else {
+        }
+
+        else {
             /*String country=GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_COUNTRY);
             productModel.setCountry_short(country);
           */
