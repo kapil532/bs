@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,6 +26,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.langoor.app.blueshak.profile.AttachedFragment;
 import com.langoor.blueshak.R;
 import com.langoor.app.blueshak.AppController;
 import com.langoor.app.blueshak.garage.CreateGarageSaleFragment;
@@ -35,6 +38,7 @@ import com.langoor.app.blueshak.services.model.CreateImageModel;
 import org.lucasr.twowayview.TwoWayView;
 import java.io.File;
 import java.util.ArrayList;
+
 
 public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
 
@@ -53,6 +57,7 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
     PhotosAddListAdapter adapter;
     Uri imageUri;
     //PhotosAddListener listener;
+    public static AttachedFragment handle;
     final int CROP_PIC = 2;
     private Uri picUri;
     GlobalFunctions globalFunctions = new GlobalFunctions();
@@ -126,26 +131,33 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
     private Dialog alert;
 
     private void selectImage() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        final CharSequence[] charSequences= new CharSequence[]{"Click a picture from camera", "Choose from gallery"};
-        builder.setItems(R.array.select_dialog_items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(which==0){
-                    if(checkIfAlreadyhavePermission())
-                        invokeCamera();
-                    else
-                        checkCameraPermission();
-                }else{
-                    if(checkIfReadExternalStorageAlreadyhavePermission())
-                        openGallery();
-                    else
-                        checkReadExternalStoragePermission();
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            final CharSequence[] charSequences = new CharSequence[]{"Click a picture from camera", "Choose from gallery"};
+            builder.setItems(R.array.select_dialog_items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (which == 0) {
+                        if (checkIfAlreadyhavePermission())
+                            invokeCamera();
+                        else
+                            checkCameraPermission();
+                    } else {
+                        if (checkIfReadExternalStorageAlreadyhavePermission())
+                            openGallery();
+                        else
+                            checkReadExternalStoragePermission();
+                    }
                 }
-            }
-        });
-        alert = builder.create();
-        alert.show();
+            });
+            alert = builder.create();
+            alert.show();
+       /* }
+        else
+        {
+            checkCameraPermission();
+        }*/
     }
 
     private void setValues(){
@@ -173,6 +185,7 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
         startActivityForResult(Intent.createChooser(intent, "Select File"),globalVariables.REQUEST_FOR_SELECTFILE);
     }
     private void invokeCamera(){
+
         Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
         String fileName;
         if(globalFunctions.getProfile(context)!=null)
@@ -185,10 +198,32 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
         Log.d(TAG,"##################photoFile############# = "+photoFile);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
         imageUri = Uri.fromFile(photoFile);
+        GlobalFunctions.setSharedPreferenceString(getActivity(),"IMAGEURI",""+imageUri);
         Log.d(TAG,"##################imageUri############# = "+imageUri);
-        this.startActivityForResult(cameraIntent, globalVariables.REQUEST_FOR_CAMERA);
+        try {
+            PhotosAddFragmentMain.this.startActivityForResult(cameraIntent, globalVariables.REQUEST_FOR_CAMERA);
+        }
+        catch (Exception e)
+        {  Log.d(TAG,"##################imageUri############# = -->"+e.getMessage());
+
+            handle.addFragment();
+            invokeCamera();
+        }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        Log.d(TAG,"CREATE-->ONDETATCH");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(TAG,"CREATE-->ONATTAC");
+
+    }
 
     public void refreshCameraImageList(){
         if(listView!=null&&adapter!=null&&object_photosAdd!=null){
@@ -265,14 +300,19 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
      }else if (requestCode == globalVariables.REQUEST_FOR_CAMERA) {
                 //File photo = (File) data.getExtras().get("data");
                 Uri selectedImageUri = imageUri;//data.getData();
+            Log.d(TAG,"#############REQUEST_FOR_CAMERA############### "+selectedImageUri);
                 System.out.println("#############REQUEST_FOR_CAMERA###############");
                 picUri=selectedImageUri;
 
-
+            if(selectedImageUri ==null) {
+                selectedImageUri=   Uri.parse(GlobalFunctions.getSharedPreferenceString(getActivity(), "IMAGEURI"));
+            }
              /*   CropImage.activity(imageUri)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .start(getActivity());*/
                 if(selectedImageUri!=null){
+
+
                     String selectedImagePath = globalFunctions.getRealPathFromURI(context, selectedImageUri);
                     Log.d(TAG,"##############Path###### = "+selectedImagePath);
                     File imagePath = new File(selectedImagePath);
@@ -440,7 +480,11 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                   invokeCamera();
+                   //invokeCamera();
+                 handle.addFragment();
+//                    PhotosAddFragmentMain.this.
+                invokeCamera();
+                    //selectImage();
                 } else {
                     checkCameraPermission();
                 }
@@ -448,8 +492,8 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
             case REQUEST_CHECK_GALLARY:
                 Log.d(TAG,"onRequestPermissionsResult ############REQUEST_CHECK_GALLARY");
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    handle.addFragment();
                     openGallery();
                 } else {
                     checkReadExternalStoragePermission();

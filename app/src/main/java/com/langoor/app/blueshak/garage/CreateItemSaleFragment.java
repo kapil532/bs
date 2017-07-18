@@ -38,6 +38,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.langoor.app.blueshak.currency.CurrencyActivity;
+import com.langoor.app.blueshak.profile.AttachedFragment;
 import com.langoor.app.blueshak.services.model.CurrencyListModel;
 import com.langoor.app.blueshak.services.model.CurrencyModel;
 import com.langoor.app.blueshak.services.model.ProfileDetailsModel;
@@ -580,10 +581,21 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
     }
 
     private void uploadImageFragment() {
+        PhotosAddFragmentMain.handle=new AttachedFragment() {
+            @Override
+            public void addFragment() {
+                objectUploadPhoto.setAvailablePhotos(productModel.getImages());
+                Fragment aboutFragment = PhotosAddFragmentMain.newInstance(activity, objectUploadPhoto, GlobalVariables.TYPE_CREATE_REQUEST);
+                getChildFragmentManager().beginTransaction().replace(R.id.container_upload_image, aboutFragment, "uploadImage").commit();
+
+            }
+        };
         objectUploadPhoto.setAvailablePhotos(productModel.getImages());
         Fragment aboutFragment = PhotosAddFragmentMain.newInstance(activity, objectUploadPhoto, GlobalVariables.TYPE_CREATE_REQUEST);
         getChildFragmentManager().beginTransaction().replace(R.id.container_upload_image, aboutFragment, "uploadImage").commit();
     }
+
+
 
     private void setValues()
     {
