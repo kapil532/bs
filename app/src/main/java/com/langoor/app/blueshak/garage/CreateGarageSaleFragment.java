@@ -147,6 +147,7 @@ public class CreateGarageSaleFragment extends Fragment{
        /* setHasOptionsMenu(true);*/
         context= getActivity();
         activity=getActivity();
+        GlobalFunctions.removeSharedPreferenceKey(context,GlobalVariables.SELECTED_ITEMS_LIST);
         View view = inflater.inflate(R.layout.list_create_garrage, container, false);
         try{
             progress_bar=(ProgressBar)view.findViewById(R.id.progress_bar);
@@ -515,8 +516,11 @@ public class CreateGarageSaleFragment extends Fragment{
 
 
     public static void closeThisActivity(){
+
         if(activity!=null){
-            activity.finish();}
+            activity.finish();
+
+        }
     }
     public void showSettingsAlert(){
         final AlertDialog alertDialog = new AlertDialog(context);
