@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.langoor.app.blueshak.abhs.Imageutils;
 import com.langoor.app.blueshak.profile.AttachedFragment;
 import com.langoor.blueshak.R;
 import com.langoor.app.blueshak.AppController;
@@ -35,12 +37,16 @@ import com.langoor.app.blueshak.garage.CreateItemSaleFragment;
 import com.langoor.app.blueshak.global.GlobalFunctions;
 import com.langoor.app.blueshak.global.GlobalVariables;
 import com.langoor.app.blueshak.services.model.CreateImageModel;
+import com.mvc.imagepicker.ImagePicker;
+import com.mvc.imagepicker.ImageUtils;
+
 import org.lucasr.twowayview.TwoWayView;
 import java.io.File;
 import java.util.ArrayList;
 
 
-public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
+public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture
+{
 
     private static String TAG = "PhotosAddFragmentMain";
     Object_PhotosAdd object_photosAdd = null;
@@ -65,6 +71,7 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
     String edit_key="";
     protected static final int REQUEST_CHECK_CAMERA = 115;
     protected static final int REQUEST_CHECK_GALLARY = 118;
+    Imageutils imageutill;
     public static PhotosAddFragmentMain newInstance(Context context, Object_PhotosAdd obj,String type_Edit){
         PhotosAddFragmentMain photosAddFragmentMain = new PhotosAddFragmentMain();
         Bundle bundle = new Bundle();
@@ -81,6 +88,8 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
         View view = inflater.inflate(R.layout.photos_add_main_fragment,null,false);
         context = getActivity();
         activity=getActivity();
+        ImagePicker.setMinQuality(600, 600);
+//        imageutill= new Imageutils(getActivity(),this,true);
         title_tv = (TextView) view.findViewById(R.id.photos_add_main_fragment_title_textview);
         addIcon = (ImageView) view.findViewById(R.id.photos_add_main_fragment_add_imageView);
         listView = (TwoWayView) view.findViewById(R.id.photos_add_main_fragment_photos_list);
@@ -130,9 +139,15 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
     }
     private Dialog alert;
 
-    private void selectImage() {
+    private void selectImage()
+    {
 
+        if (checkIfAlreadyhavePermission())
+            ImagePicker.pickImage(PhotosAddFragmentMain.this, "Select your image");
+        else
+            checkCameraPermission();
 
+/*
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             final CharSequence[] charSequences = new CharSequence[]{"Click a picture from camera", "Choose from gallery"};
             builder.setItems(R.array.select_dialog_items, new DialogInterface.OnClickListener() {
@@ -153,7 +168,7 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
             });
             alert = builder.create();
             alert.show();
-       /* }
+       *//* }
         else
         {
             checkCameraPermission();
@@ -280,6 +295,18 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
         if(resultCode !=getActivity().RESULT_OK) {
             return;
         }
+
+        String imagePatha=   System.currentTimeMillis()+"11";
+        Bitmap bit_=ImagePicker.getImageFromResult(getActivity(),requestCode,resultCode,data);
+        String bitmap=     ImageUtils.savePicture(getActivity(),bit_,imagePatha);
+       // String bitmap = ImagePicker.getImagePathFromResult(getActivity(),requestCode,resultCode,data);
+        Log.d("IMAGE PATH","IMAGE PATH"+bitmap);
+        CreateImageModel modela = new CreateImageModel();
+        modela.setImage(bitmap);
+        modela.setDisplay(false);
+        object_photosAdd.getAvailablePhotos().add(modela);
+        refreshCameraImageList();
+
         if(requestCode ==GlobalVariables.REQUEST_FOR_CROP_IMAGE) {
               //   Toast.makeText(context,"Coming inside the Crop Image in activity result",Toast.LENGTH_LONG).show();
               /*  //Create an instance of bundle and get the returned data
@@ -481,10 +508,11 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                    //invokeCamera();
-                 handle.addFragment();
+//                    ImagePicker.pickImage(PhotosAddFragmentMain.this, GlobalVariables.REQUEST_FOR_CAMERA);
+                /* handle.addFragment();
 //                    PhotosAddFragmentMain.this.
-                invokeCamera();
-                    //selectImage();
+                invokeCamera();*/
+                    selectImage();
                 } else {
                     checkCameraPermission();
                 }
@@ -505,6 +533,7 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture{
             // permissions this app might request
         }
     }
+
 
 
 }

@@ -1,13 +1,17 @@
 package com.langoor.app.blueshak.garage;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +33,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -38,7 +43,10 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.langoor.app.blueshak.currency.CurrencyActivity;
+import com.langoor.app.blueshak.photos_add.OnDeletePicture;
+import com.langoor.app.blueshak.photos_add.PhotosAddListAdapter;
 import com.langoor.app.blueshak.profile.AttachedFragment;
+import com.langoor.app.blueshak.services.model.CreateImageModel;
 import com.langoor.app.blueshak.services.model.CurrencyListModel;
 import com.langoor.app.blueshak.services.model.CurrencyModel;
 import com.langoor.app.blueshak.services.model.ProfileDetailsModel;
@@ -78,14 +86,19 @@ import com.langoor.app.blueshak.services.model.StatusModel;
 import com.langoor.app.blueshak.util.LocationListener;
 import com.langoor.app.blueshak.util.LocationService;
 import com.langoor.app.blueshak.view.MultiAutoCompletionView;
+import com.mvc.imagepicker.ImagePicker;
+import com.mvc.imagepicker.ImageUtils;
 import com.tokenautocomplete.TokenCompleteTextView;
 
+import org.lucasr.twowayview.TwoWayView;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
-public class CreateItemSaleFragment extends Fragment implements TokenCompleteTextView.TokenListener {
+public class CreateItemSaleFragment extends Fragment implements TokenCompleteTextView.TokenListener, OnDeletePicture {
 
     String TAG = "CreateItemSaleFragment";
     String[] ary;
@@ -99,7 +112,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     private Toolbar toolbar;
     private TextView category;
     private EditText name, description, saleprice, address;
-    private Switch shippable, nagotiable, is_new_old,is_product_new;
+    private Switch shippable, nagotiable, is_new_old, is_product_new;
     private Button save;
     private boolean[] is_checked;
     static Activity activity;
@@ -127,7 +140,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     private Boolean type_edit_item = false;
     private Boolean type_garage = false;
     private String loading_label = "Publishing Item...";
-    private LinearLayout category_content, add_to_garage_sale_content,pd_nagotiable_l,shipping_l;
+    private LinearLayout category_content, add_to_garage_sale_content, pd_nagotiable_l, shipping_l;
     private ProgressBar progress_bar;
 
     public static CreateItemSaleFragment newInstance(Context context, CreateProductModel sales, LocationModel locationModel, String type, int from) {
@@ -150,13 +163,13 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
        /* setHasOptionsMenu(true);*/
         context = getActivity();
         activity = getActivity();
-
+        objectUploadPhoto= new Object_PhotosAdd();
         stdCode = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
 
         Log.d("stdCode", "stdCode" + stdCode);
         view = inflater.inflate(R.layout.item_productdetails_new, container, false);
-        NegotiableSelection.bool_hide_item_=false;
-        NegotiableSelection.bool_item_negotiable_=false;
+        NegotiableSelection.bool_hide_item_ = false;
+        NegotiableSelection.bool_item_negotiable_ = false;
         getUserDetailsPro(getActivity());
         try {
             progress_bar = (ProgressBar) view.findViewById(R.id.progress_bar);
@@ -166,7 +179,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             saleprice.addTextChangedListener(new TextWatcher() {
                 public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
                     String text = arg0.toString();
-
 
 
                     if (text.contains(".") && text.substring(text.indexOf(".") + 1).length() > 2) {
@@ -216,8 +228,8 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 @Override
                 public void onClick(View v) {
 
-                       Intent mIntent = new Intent(context, NegotiableSelection.class);
-                    startActivityForResult(mIntent,globalVariables.REQUEST_CODE_NEGOTIABLE);
+                    Intent mIntent = new Intent(context, NegotiableSelection.class);
+                    startActivityForResult(mIntent, globalVariables.REQUEST_CODE_NEGOTIABLE);
                 }
             });
 
@@ -226,7 +238,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 @Override
                 public void onClick(View v) {
                     Intent mIntent = new Intent(context, ShippingSelection.class);
-                    startActivityForResult(mIntent,globalVariables.REQUEST_CODE_SHIPPING);
+                    startActivityForResult(mIntent, globalVariables.REQUEST_CODE_SHIPPING);
                 }
             });
             category_content.setOnClickListener(new View.OnClickListener() {
@@ -252,15 +264,15 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             nagotiable = (Switch) view.findViewById(R.id.pd_nagotiable);
             is_new_old = (Switch) view.findViewById(R.id.is_new_old);
 
-           // Log.d("VALUESSS","SHIPPINGCOST"+(CreateProductModel)getArguments().getSerializable(CREATE_ITEM_BUNDLE_KEY));
+            // Log.d("VALUESSS","SHIPPINGCOST"+(CreateProductModel)getArguments().getSerializable(CREATE_ITEM_BUNDLE_KEY));
             productModel = (CreateProductModel) getArguments().getSerializable(CREATE_ITEM_BUNDLE_KEY);
             locationModel = (LocationModel) getArguments().getSerializable(CREATE_ITEM_LOCATION_BUNDLE_KEY);
             if (productModel != null) {
-                Log.d("VALUESSS","SHIPPINGCOST NT NULLl");
+                Log.d("VALUESSS", "SHIPPINGCOST NT NULLl");
                 setValues();
             } else {
-                ShippingSelection.isShippable=false;
-                NegotiableSelection.comeFromScreen=false;
+                ShippingSelection.isShippable = false;
+                NegotiableSelection.comeFromScreen = false;
                 productModel = new CreateProductModel();
             }
             from_key = getArguments().getInt(FROM_KEY);
@@ -328,16 +340,16 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
     //Changes 6/25/2017
     //item_negotiable =nagotiable
-    boolean item_negotiable =false;
-    boolean hide_item =false;
-    boolean isShippable =false;
-    boolean shipping_foc =false;
-    boolean is_intl_shipping =false;
+    boolean item_negotiable = false;
+    boolean hide_item = false;
+    boolean isShippable = false;
+    boolean shipping_foc = false;
+    boolean is_intl_shipping = false;
 
 
-    String intl_shipping_cost="";
-    String time_to_deliver="";
-    String local_shipping_cost="";
+    String intl_shipping_cost = "";
+    String time_to_deliver = "";
+    String local_shipping_cost = "";
 
     private void onClickProcessing() {
         if (item_negotiable)
@@ -353,7 +365,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             productModel.setShipping_foc(true);
 
 
-Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
+        Log.d(TAG, "SHIPPPABLE" + shippable.isChecked() + "--" + is_new_old.isChecked());
         postalCode = null;
         for (int i = 0; i < selectedAutoSuggesstionsList.size(); i++) {
             postalCode = postalCode == null ? selectedAutoSuggesstionsList.get(i).getId() : postalCode + "," + selectedAutoSuggesstionsList.get(i).getId();
@@ -376,16 +388,13 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
             Toast.makeText(activity, "Please enter the valid product price", Toast.LENGTH_LONG).show();
         } else if (selectedCategoryIDs.isEmpty()) {
             Toast.makeText(activity, "Please fill the product Category", Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(str_desc))
-        {
+        } else if (TextUtils.isEmpty(str_desc)) {
             Toast.makeText(activity, "Please enter the product description", Toast.LENGTH_LONG).show();
         } else if (TextUtils.isEmpty(mAutocompleteTextView.getText().toString())) {
             Toast.makeText(activity, "Please fill the product location", Toast.LENGTH_LONG).show();
         } else if (!isShippable && !is_new_old.isChecked()) {
             Toast.makeText(activity, "Item should be either shippable or pick up", Toast.LENGTH_LONG).show();
-        }
-
-        else {
+        } else {
             /*String country=GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_COUNTRY);
             productModel.setCountry_short(country);
           */
@@ -439,7 +448,6 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
                 productModel.setIs_intl_shipping(false);
 
 
-
             if (is_new_old.isChecked())
                 productModel.setIs_pickup(true);
             else
@@ -483,14 +491,12 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 hideProgressBar();
-                if (arg0 instanceof IDModel)
-                {
+                if (arg0 instanceof IDModel) {
                     IDModel idModel = (IDModel) arg0;
                     createProductModel.setProduct_id(idModel.getId());
                     Toast.makeText(context, "Item has been listed Successfully", Toast.LENGTH_LONG).show();
                     closeThisActivity();
-                } else if (arg0 instanceof ErrorModel)
-                {
+                } else if (arg0 instanceof ErrorModel) {
                     ErrorModel errorModel = (ErrorModel) arg0;
                     String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
@@ -538,6 +544,20 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
     public void onResume() {
         super.onResume();
 
+
+        setValuesA();
+     //   Log.d("IMAGES","GETPHOTOTS"+objectUploadPhoto.getAvailablePhotos().size());
+        try {
+            if (objectUploadPhoto.getAvailablePhotos().size() > 0) {
+                addIcon_one.setVisibility(View.VISIBLE);
+                addIcon.setVisibility(View.GONE);
+            }
+        }
+        catch (Exception e)
+        {
+
+        }
+
         uploadImageFragment();
         ((CreateSaleActivity) getActivity()).setActionBarTitle("New Item");
 
@@ -580,8 +600,12 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
 
     }
 
-    private void uploadImageFragment() {
-        PhotosAddFragmentMain.handle=new AttachedFragment() {
+    private void uploadImageFragment()
+
+    {
+
+        scrollImageForTheItems();
+        /*PhotosAddFragmentMain.handle = new AttachedFragment() {
             @Override
             public void addFragment() {
                 objectUploadPhoto.setAvailablePhotos(productModel.getImages());
@@ -593,15 +617,14 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
         objectUploadPhoto.setAvailablePhotos(productModel.getImages());
         Fragment aboutFragment = PhotosAddFragmentMain.newInstance(activity, objectUploadPhoto, GlobalVariables.TYPE_CREATE_REQUEST);
         getChildFragmentManager().beginTransaction().replace(R.id.container_upload_image, aboutFragment, "uploadImage").commit();
+   */
+
     }
 
 
-
-    private void setValues()
-    {
-        Log.d("VALUESSS","SHIPPINGCOST VALUES INSIDE");
-        if (productModel != null)
-        {
+    private void setValues() {
+        Log.d("VALUESSS", "SHIPPINGCOST VALUES INSIDE");
+        if (productModel != null) {
             loading_label = "Updating Item...";
             save.setText("Update");
             type_edit_item = true;
@@ -613,27 +636,24 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
             }
 
             //Changes
-            isShippable=  ShippingSelection.isShippable=productModel.isShippable();
-            shipping_foc= ShippingSelection.shipping_foc=productModel.isShipping_foc();
-            is_intl_shipping=  ShippingSelection.is_intl_shipping=productModel.is_intl_shipping();
+            isShippable = ShippingSelection.isShippable = productModel.isShippable();
+            shipping_foc = ShippingSelection.shipping_foc = productModel.isShipping_foc();
+            is_intl_shipping = ShippingSelection.is_intl_shipping = productModel.is_intl_shipping();
 
-            intl_shipping_cost= ShippingSelection.intl_shipping_cost=productModel.getIntl_shipping_cost();
-            time_to_deliver= ShippingSelection.time_to_deliver=productModel.getTime_to_deliver();
-            local_shipping_cost=ShippingSelection.local_shipping_cost_=productModel.getLocal_shipping_cost();
+            intl_shipping_cost = ShippingSelection.intl_shipping_cost = productModel.getIntl_shipping_cost();
+            time_to_deliver = ShippingSelection.time_to_deliver = productModel.getTime_to_deliver();
+            local_shipping_cost = ShippingSelection.local_shipping_cost_ = productModel.getLocal_shipping_cost();
 
-            NegotiableSelection.comeFromScreen=true;
-            hide_item= NegotiableSelection.bool_hide_item_=productModel.isHide_item_price();
-            item_negotiable=  NegotiableSelection.bool_item_negotiable_=productModel.isNegotiable();
-            Log.d("SHIPPINGCOST","SHIPPINGCOST"+productModel.isNegotiable() +"&&&$$$$"+productModel.isHide_item_price());
-
-
-
+            NegotiableSelection.comeFromScreen = true;
+            hide_item = NegotiableSelection.bool_hide_item_ = productModel.isHide_item_price();
+            item_negotiable = NegotiableSelection.bool_item_negotiable_ = productModel.isNegotiable();
+            Log.d("SHIPPINGCOST", "SHIPPINGCOST" + productModel.isNegotiable() + "&&&$$$$" + productModel.isHide_item_price());
 
 
             name.setText(productModel.getName());
             description.setText(productModel.getDescription());
 
-            Log.d("VALUESSS","SHIPPINGCOST"+productModel.getLocal_shipping_cost()+"--"+productModel.getDescription());
+            Log.d("VALUESSS", "SHIPPINGCOST" + productModel.getLocal_shipping_cost() + "--" + productModel.getDescription());
             saleprice.setText(productModel.getSalePrice());
             pd_salepricetype.setText(productModel.getCurrency());
             shippable.setChecked(productModel.isShippable() ? true : false);
@@ -706,12 +726,9 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
 
                 if (from_key == GlobalVariables.TYPE_AC_SIGN_UP) {
                     startActivity(new Intent(getActivity(), MainActivity.class));
-                }
-                else {
+                } else {
                     getActivity().finish();
                 }
-
-
 
 
             }
@@ -783,6 +800,7 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
         if (activity != null) {
             activity.finish();
         }
+        objectUploadPhoto = new Object_PhotosAdd();
     }
 
 
@@ -799,6 +817,22 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
         try {
             Log.i(TAG, "on activity result");
             if (resultCode == activity.RESULT_OK) {
+
+
+                try {
+                    String imagePatha = System.currentTimeMillis() + "11";
+                    Bitmap bit_ = ImagePicker.getImageFromResult(getActivity(), requestCode, resultCode, data);
+                    String bitmap = ImageUtils.savePicture(getActivity(), bit_, imagePatha);
+                    // String bitmap = ImagePicker.getImagePathFromResult(getActivity(),requestCode,resultCode,data);
+                    Log.d("IMAGE PATH", "IMAGE PATH" + bitmap);
+                    CreateImageModel modela = new CreateImageModel();
+                    modela.setImage(bitmap);
+                    modela.setDisplay(false);
+                    objectUploadPhoto.getAvailablePhotos().add(modela);
+                    refreshCameraImageList();
+                } catch (Exception e) {
+
+                }
                 Log.i(TAG, "result ok ");
                 Log.i(TAG, "request code " + requestCode);
                 if (requestCode == globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION) {
@@ -839,7 +873,7 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
 
                     item_negotiable = data.getExtras().getBoolean("item_negotiable");
                     hide_item = data.getExtras().getBoolean("hide_item");
-                    Log.d("AAAA","&&&&&&&&&&"+item_negotiable+"--"+hide_item);
+                    Log.d("AAAA", "&&&&&&&&&&" + item_negotiable + "--" + hide_item);
 
                 } else if (requestCode == globalVariables.REQUEST_CODE_SHIPPING) {
 
@@ -848,14 +882,14 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
                     is_intl_shipping = ShippingSelection.is_intl_shipping;
 
                     intl_shipping_cost = ShippingSelection.intl_shipping_cost;
-                    time_to_deliver =ShippingSelection.time_to_deliver;
+                    time_to_deliver = ShippingSelection.time_to_deliver;
                     local_shipping_cost = ShippingSelection.local_shipping_cost_;
 
-                    Log.d("VALUES SET","SETALLVALUES"
-                            +shipping_foc+"" +
-                            "---"+intl_shipping_cost+"" +
-                            "---"+local_shipping_cost+"" +
-                            "---"+is_intl_shipping);
+                    Log.d("VALUES SET", "SETALLVALUES"
+                            + shipping_foc + "" +
+                            "---" + intl_shipping_cost + "" +
+                            "---" + local_shipping_cost + "" +
+                            "---" + is_intl_shipping);
 
                 }
             }
@@ -873,8 +907,6 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
             e.printStackTrace();
         }
     }
-
-
 
 
     class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
@@ -1008,7 +1040,7 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
                         stdCode = product_list.get(i).getCurrency();
                         Log.d("stdCode", "stdCode11" + stdCode);
                         GlobalFunctions.setSharedPreferenceString(getActivity(), GlobalVariables.SHARED_PREFERENCE_USER_CURRENCY, stdCode);
-                        ShippingSelection.price_default=stdCode;
+                        ShippingSelection.price_default = stdCode;
                         pd_salepricetype.setText(stdCode);
                         return;
                     }
@@ -1016,6 +1048,183 @@ Log.d(TAG,"SHIPPPABLE"+shippable.isChecked()+"--"+is_new_old.isChecked());
 
             }
         }
+
+    }
+
+
+    ArrayList<CreateImageModel> removed_photos = new ArrayList<CreateImageModel>();
+    TextView title_tv;
+    ImageView addIcon;
+    ImageView addIcon_one;
+    TwoWayView listView;
+    PhotosAddListAdapter adapter;
+    protected static final int REQUEST_CHECK_CAMERA = 115;
+    protected static final int REQUEST_CHECK_GALLARY = 118;
+
+    void scrollImageForTheItems() {
+        ImagePicker.setMinQuality(600, 600);
+//        imageutill= new Imageutils(getActivity(),this,true);
+        title_tv = (TextView) view.findViewById(R.id.photos_add_main_fragment_title_textview);
+        addIcon = (ImageView) view.findViewById(R.id.photos_add_main_fragment_add_imageView);
+        listView = (TwoWayView) view.findViewById(R.id.photos_add_main_fragment_photos_list);
+        addIcon_one = (ImageView) view.findViewById(R.id.photos_add_main_fragment_add_imageView_add);
+        adapter = new PhotosAddListAdapter(getActivity(), objectUploadPhoto.getAvailablePhotos(),true,this,false);
+
+        //listener = (PhotosAddListener) getArguments().getSerializable(PHOTOS_ADD_FRAGMENT_MAIN_LISTENER_KEY);
+
+        listView.setAdapter(adapter);
+
+        addIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (objectUploadPhoto != null) {
+                    if (objectUploadPhoto.getAvailablePhotos().size() >= 5) {
+                        addIcon_one.setVisibility(View.GONE);
+                        Toast.makeText(context, "You can not add more than five images", Toast.LENGTH_SHORT).show();
+                    } else
+                        selectImage();
+                } else
+                    selectImage();
+
+            }
+        });
+        addIcon_one.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (objectUploadPhoto != null) {
+                    if (objectUploadPhoto.getAvailablePhotos().size() >= 5) {
+                        Toast.makeText(context, "You can not add more than five images", Toast.LENGTH_SHORT).show();
+                        addIcon_one.setVisibility(View.GONE);
+                    } else
+                        selectImage();
+                } else
+                    selectImage();
+
+            }
+        });
+
+    }
+
+    private void selectImage() {
+
+        if (checkIfAlreadyhavePermission())
+            ImagePicker.pickImage(CreateItemSaleFragment.this, "Select your image");
+        else
+            checkCameraPermission();
+    }
+
+    public void checkCameraPermission() {
+        int permissionCheck_location_coarse = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionCheck_write_coarse = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permissionCheck_camera = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
+        if (permissionCheck_location_coarse != PackageManager.PERMISSION_GRANTED ||
+                permissionCheck_write_coarse != PackageManager.PERMISSION_GRANTED
+                || permissionCheck_camera != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CHECK_CAMERA);
+        }
+
+
+    }
+
+    private boolean checkIfAlreadyhavePermission() {
+        Log.d(TAG, "checkIfReadExternalStorageAlreadyhavePermission######################");
+        int coarse_location = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int result = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int camera = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
+        if (coarse_location == PackageManager.PERMISSION_GRANTED && result == PackageManager.PERMISSION_GRANTED
+                && camera == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        Log.d(TAG, "onRequestPermissionsResult ##########@@@@@@@@@@@@@@@@@@@@@@@@@");
+        switch (requestCode) {
+            case REQUEST_CHECK_CAMERA:
+                Log.d(TAG, "onRequestPermissionsResult ############REQUEST_CHECK_CAMERA");
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    selectImage();
+                } else {
+                    checkCameraPermission();
+                }
+                return;
+
+        }
+    }
+
+
+    private void setValuesA() {
+        try {
+            if (context != null && objectUploadPhoto != null) {
+                title_tv.setText(context.getString(R.string.app_name));//object_photosAdd.getTitle());
+                addIcon.setImageResource(objectUploadPhoto.getAddIconResID());
+            }
+        } catch (Exception e)
+        {
+
+        }
+    }
+
+    public void refreshCameraImageList()
+    {
+
+        Log.d("IMAGES","GETPHOTOTS"+objectUploadPhoto.getAvailablePhotos().size());
+        if (listView != null && adapter != null && objectUploadPhoto != null) {
+            if (objectUploadPhoto.getAvailablePhotos().size() > 0) {
+                listView.setVisibility(View.VISIBLE);
+                if (objectUploadPhoto.getAvailablePhotos().size() < 5)
+                    if (addIcon_one.getVisibility() == View.GONE)
+                        addIcon_one.setVisibility(View.VISIBLE);
+            } else {
+                listView.setVisibility(View.GONE);
+            }
+            synchronized (adapter) {
+                adapter.notifyDataSetChanged();
+            }
+            //listener.onRecreate(object_photosAdd);
+            setRefreshData();
+        }
+    }
+
+    public void deleteCameraViewfromFile(Context context, int position) {
+        try {
+            String fileString = objectUploadPhoto.getAvailablePhotos().get(position).getImage();
+            removed_photos.add(objectUploadPhoto.getAvailablePhotos().get(position));
+            File file = new File(fileString);
+            if (file.exists()) {
+                file.delete();
+                file.getAbsoluteFile().delete();
+                if (file.exists()) {
+                    context.getApplicationContext().deleteFile(file.getPath());
+                }
+                if (!file.exists()) {
+                    Toast.makeText(context, "File Deleted Successfully", Toast.LENGTH_SHORT).show();
+                }
+            }
+            objectUploadPhoto.getAvailablePhotos().remove(position);
+            objectUploadPhoto.setRemoved_photos(removed_photos);
+            refreshCameraImageList();
+        } catch (Exception e) {
+            Log.d(TAG, "Exception on Deleting Image : " + e);
+
+        }
+
+    }
+
+    @Override
+    public void ondeleting(int position) {
+        deleteCameraViewfromFile(context, position);
+    }
+
+    private void setRefreshData() {
+       /*call the outer function to refresh list*/
+        setImages();
 
     }
 }

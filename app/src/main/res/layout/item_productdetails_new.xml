@@ -64,8 +64,11 @@
                 <FrameLayout
                     android:id="@+id/container_upload_image"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    >
+                    <include layout="@layout/photos_add_main_fragment"/>
 
+                </FrameLayout>
             <com.langoor.app.blueshak.text.MyEditTextView
                 android:singleLine="true"
                 android:layout_width="match_parent"
