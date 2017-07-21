@@ -114,7 +114,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
                 title="No Items Available";
 
             holder.items_tv.setText(title);
-            holder.date_tv.setText(""+obj.getListedDate());
+            holder.date_tv.setText("Listed "+obj.getListedDate());
             holder.sale_time.setText(obj.getStart_time()+"-"+obj.getEnd_time());
        /* holder.distance_tv.setText(obj.getDistanceAway()+" "+getContext().getString(R.string.milesAway));*/
             holder.distance_tv.setText(obj.getDistanceAway()/*+" "+context.getString(R.string.milesAway)*/);
