@@ -774,8 +774,12 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         }
         if (productModel.isAvailable())
         {
-            if (productModel.isHide_item_price()) {
+            if (productModel.isHide_item_price() && productModel.isNegotiable()) {
                 price_tv.setText("Negotiable");
+            }
+            else if(productModel.isNegotiable()) {
+                price_tv.setText(GlobalFunctions.getFormatedAmount(productModel.getCurrency(), productModel.getSalePrice()));
+                pd_nagotiable.setVisibility(View.VISIBLE);
             }
             else {
                 price_tv.setText(GlobalFunctions.getFormatedAmount(productModel.getCurrency(), productModel.getSalePrice()));
@@ -806,7 +810,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 
         // negotiable should be hidden
 
-      //  if(productModel.isNegotiable())pd_nagotiable.setVisibility(View.VISIBLE);
+      //
        /* delivery_iv.setImageResource(productModel.isShipable()? R.drawable.shippingon : R.drawable.shippingoff);
         pick_iv.setImageResource(productModel.isPickup()? R.drawable.pickupon : R.drawable.pickupoff);
       */  shippable_sale_name.setTextColor(productModel.isShipable()? black:grey2);
@@ -1171,7 +1175,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             title="No Items Available";
 
         sale_items_tv.setText(title);
-        sale_date_tv.setText(""+salesModel.getListedDate());
+        sale_date_tv.setText("Listed "+salesModel.getListedDate());
         sale_time.setText(salesModel.getStart_time()+"-"+salesModel.getEnd_time());
        /* holder.distance_tv.setText(obj.getDistanceAway()+" "+getContext().getString(R.string.milesAway));*/
         sale_distance_tv.setText(salesModel.getDistanceAway()/*+" "+context.getString(R.string.milesAway)*/);
