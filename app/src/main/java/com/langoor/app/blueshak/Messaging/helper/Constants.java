@@ -1,6 +1,8 @@
 package com.langoor.app.blueshak.Messaging.helper;
 
+import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageInfo;
 
 /**
  * Created by Bryan Yang on 9/22/2015.
@@ -23,7 +25,21 @@ public class Constants {
     public static final String PUSHWHOOSH_APP_CODE = "8F8FF-9ED14";
    */
 
+   static PackageInfo packageInfo;
 
+    public  static String getVersionName(Context ctx)
+    {
+        try
+        {
+            packageInfo = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(),0);
+          return   packageInfo.versionName;
+        }
+        catch (Exception w)
+        {
+
+        }
+        return "1.3.2";
+    }
 
 
       public static String  getTextFromId(Context ctx,int id)

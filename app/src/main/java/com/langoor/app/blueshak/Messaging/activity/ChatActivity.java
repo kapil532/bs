@@ -415,16 +415,21 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
 
     public void createMessage(final  String message) {
         showProgressBar();
+        Log.d(TAG,"SENDMESAAGE"+message);
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.sendMessage(context, createMessageModel, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
+
+                Log.d(TAG,"SENDMESAAGE-hide->"+message);
                 hideProgressBar();
                 /*GlobalFunctions.hideProgress();*/
                 if (arg0 instanceof StatusModel) {
+                    Log.d(TAG,"SENDMESAAGE-->"+message);
                     StatusModel statusModel = (StatusModel) arg0;
                 } else if (arg0 instanceof MessageModel) {
                     Log.d(TAG,"OnSuccessFromServer");
+                    Log.d(TAG,"SENDMESAAGE-MESSGAE->"+message);
                     hideProgressBar();
                     MessageModel messageModel=(MessageModel)arg0;
                     messageModel.setIs_sent_by_you(true);

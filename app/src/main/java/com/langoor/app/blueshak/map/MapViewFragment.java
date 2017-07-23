@@ -1,14 +1,17 @@
 package com.langoor.app.blueshak.map;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
@@ -20,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.langoor.blueshak.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -58,14 +62,14 @@ import com.squareup.picasso.Target;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapViewFragment extends Fragment implements OnMapReadyCallback,LocationListener {
+public class MapViewFragment extends Fragment implements OnMapReadyCallback, LocationListener {
     public static final String TAG = "MapFragmentSales";
     public static final String MAP_FRAGMENT_SALES_BUNDLE_TYPE_STRING = "MapFragmentSalesBundleTypeString";
     public static final String MAP_FRAGMENT_SALES_PRODUCT_ID_STRING = "MapFragmentProductIdTypeString";
     public static final String MAP_FRAGMENT_SALES_FROM_ACTIVITY_ID_STRING = "MapFragmentFromActivitypeString";
     public static final String SHOP = "shop";
-    public FilterModel model=new FilterModel();
-    private GlobalVariables globalVariables=new GlobalVariables();
+    public FilterModel model = new FilterModel();
+    private GlobalVariables globalVariables = new GlobalVariables();
     // Declare a variable for <></>he cluster manager.
     private ClusterManager<MyItem> mClusterManager;
     Activity activity;
@@ -75,21 +79,22 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback,Loca
     private SupportMapFragment fragment;
     private SalesListModelNew salesListModel = new SalesListModelNew();
     private String type = GlobalVariables.TYPE_GARAGE;
-    TextView sale_header_name,results_all;
+    TextView sale_header_name, results_all;
     LocationService locServices;
-    private String product_id=null;
-    private ProductModel productModel=null;
-    private Shop shop=null;
+    private String product_id = null;
+    private ProductModel productModel = null;
+    private Shop shop = null;
     private Double lat;
-    private  Double lng;
-    private  String shop_name="";
-    private  String icon_name="";
+    private Double lng;
+    private String shop_name = "";
+    private String icon_name = "";
     private static View view;
-    private  boolean from_activity=false;
-    private ImageView en_large,go_to_filter;
+    private boolean from_activity = false;
+    private ImageView en_large, go_to_filter;
     private LinearLayout header_content;
-    int minPriceValue=0, maxPriceValue=GlobalVariables.PRICE_MAX_VALUE, minDistanceValue=0, maxDistanceValue=GlobalVariables.DISTANCE_MAX_VALUE;
-    public static MapViewFragment newInstance(String type, ProductModel product_id, Shop shop, boolean from_activity ){
+    int minPriceValue = 0, maxPriceValue = GlobalVariables.PRICE_MAX_VALUE, minDistanceValue = 0, maxDistanceValue = GlobalVariables.DISTANCE_MAX_VALUE;
+
+    public static MapViewFragment newInstance(String type, ProductModel product_id, Shop shop, boolean from_activity) {
         MapViewFragment mapFragmentSales = new MapViewFragment();
         Bundle bundle = new Bundle();
         bundle.putString(MAP_FRAGMENT_SALES_BUNDLE_TYPE_STRING, type);
@@ -111,31 +116,33 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback,Loca
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-         activity = getActivity();
-        context=getActivity();
+        activity = getActivity();
+        context = getActivity();
         if (view != null) {
             ViewGroup parent = (ViewGroup) view.getParent();
             if (parent != null)
                 parent.removeView(view);
         }
+
+
         try {
             view = inflater.inflate(R.layout.map_fragment_item, container, false);
         } catch (InflateException e) {
         /* map is already there, just return view as it is */
 
         }
-        try{
+        try {
             //View view = inflater.inflate(R.layout.map_fragment, container, false);
-            en_large=(ImageView)view.findViewById(R.id.en_large);
-            go_to_filter=(ImageView)view.findViewById(R.id.go_to_filter);
+            en_large = (ImageView) view.findViewById(R.id.en_large);
+            go_to_filter = (ImageView) view.findViewById(R.id.go_to_filter);
             go_to_filter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     addFilter();
                 }
             });
-            results_all=(TextView)view.findViewById(R.id.results_all);
-            header_content=(LinearLayout)view.findViewById(R.id.header_content);
+            results_all = (TextView) view.findViewById(R.id.results_all);
+            header_content = (LinearLayout) view.findViewById(R.id.header_content);
             header_content.setVisibility(View.GONE);
             header_content.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -147,74 +154,67 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback,Loca
             locServices.setListener(this);
             final FragmentManager fm = getChildFragmentManager();
             fragment = (SupportMapFragment) fm.findFragmentById(R.id.map);
-            listFAB = (FloatingActionButton) view.findViewById(R.id.map_fragment_list_fab);
-            sale_header_name= (TextView) view.findViewById(R.id.sale_header_name);
+//            listFAB = (FloatingActionButton) view.findViewById(R.id.map_fragment_list_fab);
+            sale_header_name = (TextView) view.findViewById(R.id.sale_header_name);
 
             if (fragment == null) {
                 fragment = SupportMapFragment.newInstance();
                 fm.beginTransaction().replace(R.id.map, fragment).commit();
                 fragment.getMapAsync(this);
-            }else{
+            } else {
                 fragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
                 fragment.getMapAsync(this);
             }
             from_activity = getArguments().getBoolean(MAP_FRAGMENT_SALES_FROM_ACTIVITY_ID_STRING);
             type = getArguments().getString(MAP_FRAGMENT_SALES_BUNDLE_TYPE_STRING);
-            if(!from_activity)
+            if (!from_activity)
                 en_large.setVisibility(View.VISIBLE);
             else
                 en_large.setVisibility(View.GONE);
             en_large.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!from_activity){
-                        ProductModel productModel=new ProductModel();
+                    if (!from_activity) {
+                        ProductModel productModel = new ProductModel();
                         productModel.setName(shop_name);
                         productModel.setLongitude(Double.toString(lng));
                         productModel.setLatitude(Double.toString(lat));
-                        Intent i= MapActivity.newInstance(activity,GlobalVariables.TYPE_SHOP,productModel);
+                        Intent i = MapActivity.newInstance(activity, GlobalVariables.TYPE_SHOP, productModel);
                         startActivity(i);
                     }
                 }
             });
 
-            if(type.equalsIgnoreCase(GlobalVariables.TYPE_SHOP)){
-                shop=(Shop)getArguments().getSerializable(SHOP);
-                productModel=(ProductModel) getArguments().getSerializable(MAP_FRAGMENT_SALES_PRODUCT_ID_STRING);
-                if(shop!=null){
-                    shop_name=shop.getName();
-                    icon_name=shop_name;
-                    lat=Double.parseDouble(shop.getLatitude());
-                    lng=Double.parseDouble(shop.getLongitude());
+            if (type.equalsIgnoreCase(GlobalVariables.TYPE_SHOP)) {
+                shop = (Shop) getArguments().getSerializable(SHOP);
+                productModel = (ProductModel) getArguments().getSerializable(MAP_FRAGMENT_SALES_PRODUCT_ID_STRING);
+                if (shop != null) {
+                    shop_name = shop.getName();
+                    icon_name = shop_name;
+                    lat = Double.parseDouble(shop.getLatitude());
+                    lng = Double.parseDouble(shop.getLongitude());
                 }
-                if(productModel!=null){
-                    icon_name=productModel.getName();
-                    shop_name=productModel.getName();
-                    lat=Double.parseDouble(productModel.getLatitude());
-                    lng=Double.parseDouble(productModel.getLongitude());
+                if (productModel != null) {
+                    icon_name = productModel.getName();
+                    shop_name = productModel.getName();
+                    lat = Double.parseDouble(productModel.getLatitude());
+                    lng = Double.parseDouble(productModel.getLongitude());
                 }
-            }else{
+            } else {
                 Location loc = locServices.getLocation();
-                if(loc!=null){
-                    model.setLatitude(loc.getLatitude()+"");
-                    model.setLongitude(loc.getLongitude()+"");
+                if (loc != null) {
+                    model.setLatitude(loc.getLatitude() + "");
+                    model.setLongitude(loc.getLongitude() + "");
                     model.setRange(maxDistanceValue);
                     model.setAvailable(true);
                     model.setPickup(true);
                     model.setShipable(true);
                     model.setType(GlobalVariables.TYPE_GARAGE);
-                    model.setPriceRange(minPriceValue+","+maxPriceValue);
-                    getLists(getContext(),model);
+                    model.setPriceRange(minPriceValue + "," + maxPriceValue);
+                    getLists(getContext(), model);
                     locServices.removeListener();
                 }
             }
-            listFAB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                  /*  if(salesListModel.getSalesList().size()>0){
-                        MainActivity.replaceFragment(SalesList.newInstance(salesListModel, type,null,false), SalesList.TAG);}
-     */           }
-            });
            /* sale_header_name.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -233,26 +233,27 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback,Loca
                     return false;
                 }
             });*/
-        } catch (NullPointerException e){
-            Log.d(TAG,"NullPointerException");
+        } catch (NullPointerException e) {
+            Log.d(TAG, "NullPointerException");
             e.printStackTrace();
-        }catch (NumberFormatException e) {
-            Log.d(TAG,"NumberFormatException");
+        } catch (NumberFormatException e) {
+            Log.d(TAG, "NumberFormatException");
             e.printStackTrace();
-        }catch (Exception e){
-            Log.d(TAG,"Exception");
+        } catch (Exception e) {
+            Log.d(TAG, "Exception");
             e.printStackTrace();
         }
 
-    return view;
+        return view;
     }
+
     @Override
     public void onResume() {
-        MainActivity.setTitle(getString(R.string.garageSale),0);
+        MainActivity.setTitle(getString(R.string.garageSale), 0);
         super.onResume();
     }
 
-    private void getLists(Context context, FilterModel filterModel){
+    private void getLists(Context context, FilterModel filterModel) {
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getListDetails(context, filterModel, new ServerResponseInterface() {
             @Override
@@ -277,34 +278,44 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback,Loca
 
     }
 
-   /* private void getLists(Context context){
-        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getMySalesList(context, new ServerResponseInterface() {
-            @Override
-            public void OnSuccessFromServer(Object arg0) {
-                Log.d(TAG, "onSuccess Response");
-                salesListModel = (SalesListModelNew) arg0;
-                String str = salesListModel.toString();
-                Log.d(TAG, str);
-                addItems();
-            }
+    /* private void getLists(Context context){
+         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+         servicesMethodsManager.getMySalesList(context, new ServerResponseInterface() {
+             @Override
+             public void OnSuccessFromServer(Object arg0) {
+                 Log.d(TAG, "onSuccess Response");
+                 salesListModel = (SalesListModelNew) arg0;
+                 String str = salesListModel.toString();
+                 Log.d(TAG, str);
+                 addItems();
+             }
 
-            @Override
-            public void OnFailureFromServer(String msg) {
-                Log.d(TAG, msg);
-            }
+             @Override
+             public void OnFailureFromServer(String msg) {
+                 Log.d(TAG, msg);
+             }
 
-            @Override
-            public void OnError(String msg) {
-                Log.d(TAG, msg);
-            }
-        }, "List Sales");
+             @Override
+             public void OnError(String msg) {
+                 Log.d(TAG, msg);
+             }
+         }, "List Sales");
 
-    }*/
+     }*/
     @Override
     public void onMapReady(GoogleMap googleMap) {
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         /*googleMap.setMyLocationEnabled(true);*/
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         googleMap.setMyLocationEnabled(true);
         googleMap.setTrafficEnabled(true);
         googleMap.setIndoorEnabled(true);

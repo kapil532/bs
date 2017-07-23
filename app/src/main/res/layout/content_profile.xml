@@ -549,6 +549,7 @@
                 android:background="@color/bottom_bar_background_color"/>
             <com.langoor.app.blueshak.text.MyTextView
                 android:padding="10dp"
+                android:id="@+id/content_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/copy_right_text"

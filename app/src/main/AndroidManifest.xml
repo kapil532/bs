@@ -67,10 +67,12 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+      <!--  <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBNV4_3GEbM3Pc08ifm7mKIBoC9k-842tg" />-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBNV4_3GEbM3Pc08ifm7mKIBoC9k-842tg" />
-
+            android:value="AIzaSyAZvPsCg4TwMX11ESk7HHXd8AbnKW2l2B0" />
         <!-- FaceBook App Id -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

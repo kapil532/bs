@@ -98,6 +98,8 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 		go_to_filter=(ImageView)toolbar.findViewById(R.id.go_to_filter);
 		go_to_filter.setVisibility(View.GONE);
 		read_reviews = (TextView) rootView.findViewById(R.id.read_reviews);
+		TextView content_profile = (TextView) rootView.findViewById(R.id.content_profile);
+		content_profile.setText("Copyright Blueshak Pty Ltd. Version: "+Constants.getVersionName(getActivity()));
 		read_reviews.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

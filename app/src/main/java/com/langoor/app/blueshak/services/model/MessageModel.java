@@ -198,22 +198,36 @@ public class MessageModel implements Serializable {
             if(isJSONValid(created_at)){
                 JSONObject date_obj=json.getJSONObject(CREATED_AT);
                 if(date_obj.has(DATE)) created_at = date_obj.getString(DATE);
-            }else
+            }else {
                 created_at = json.getString(CREATED_AT);
+            }
 
 
             int temp = 0;
             try{temp = json.getInt(IS_SEND_BY_YOU);}catch(Exception e){temp =0;}if(temp>0){is_sent_by_you=true;}else{is_sent_by_you=false;}temp=0;
-            if(json.has(PRODUCT_DETAILS)){
-                JSONObject jsonObject1=json.getJSONObject(PRODUCT_DETAILS);
-                if(jsonObject1.has(PRODUCT_IMAGE)) product_image = jsonObject1.getString(PRODUCT_IMAGE);
-                if(jsonObject1.has(PRODUCT_ID)) offered_product_id = jsonObject1.getString(PRODUCT_ID);
-                if(jsonObject1.has(PRODUCT_NAME)) product_name = jsonObject1.getString(PRODUCT_NAME);
+
+           try {
+               if (json.has(PRODUCT_DETAILS)) {
+                   JSONObject jsonObject1 = json.getJSONObject(PRODUCT_DETAILS);
+                   if (jsonObject1.has(PRODUCT_IMAGE))
+                       product_image = jsonObject1.getString(PRODUCT_IMAGE);
+                   if (jsonObject1.has(PRODUCT_ID))
+                       offered_product_id = jsonObject1.getString(PRODUCT_ID);
+                   if (jsonObject1.has(PRODUCT_NAME))
+                       product_name = jsonObject1.getString(PRODUCT_NAME);
+               }
+           }catch (Exception e)
+           {
+           }
+            try {
+                productModel.toObject(product_details);
+            }catch (Exception e)
+            {
+
             }
-            productModel.toObject(product_details);
             return true;
         }catch(Exception ex){
-            Log.d(TAG, "Json Exception : " + ex);
+            Log.d(TAG, "Json Exception --->: " + ex.getMessage());
            }
         return false;
 

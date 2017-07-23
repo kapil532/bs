@@ -147,6 +147,8 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
             if (parent != null)
                 parent.removeView(view);
         }
+
+
         try {
             view = inflater.inflate(R.layout.map_fragment, container, false);
         } catch (InflateException e) {
@@ -192,7 +194,7 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
             locServices.setListener(this);
             final FragmentManager fm = getChildFragmentManager();
             fragment = (SupportMapFragment) fm.findFragmentById(R.id.map);
-            listFAB = (FloatingActionButton) view.findViewById(R.id.map_fragment_list_fab);
+//            listFAB = (FloatingActionButton) view.findViewById(R.id.map_fragment_list_fab);
             sale_header_name= (TextView) view.findViewById(R.id.sale_header_name);
 
             if (fragment == null) {
