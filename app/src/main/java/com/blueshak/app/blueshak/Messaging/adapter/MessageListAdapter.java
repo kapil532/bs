@@ -25,7 +25,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.squareup.picasso.Picasso;
+import com.vdurmont.emoji.EmojiParser;
 
+import java.security.spec.ECField;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -219,7 +221,12 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             if(view_holder instanceof SenderHolder){
                 SenderHolder senderHolder=(SenderHolder)view_holder;
                 senderHolder.messagTimestamp.setText(time_stamp);
-                senderHolder.messageBody.setText(messageModel.getMessage());
+                try {
+                    senderHolder.messageBody.setText(EmojiParser.parseToUnicode(messageModel.getMessage()));
+                }
+                catch (Exception ee1) {
+                    senderHolder.messageBody.setText((messageModel.getMessage()));
+                }
                        //download and display image from url
                /* imageLoader.displayImage(chat_user_image,senderHolder.profilePic, options);*/
                 if(!TextUtils.isEmpty(chat_user_image)&&chat_user_image!=null){
@@ -234,7 +241,12 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }else if(view_holder instanceof ReceiverHolder){
                 ReceiverHolder receiverHolder=(ReceiverHolder)view_holder;
                 receiverHolder.messagTimestamp.setText(time_stamp);
-                receiverHolder.messageBody.setText(messageModel.getMessage());
+                try {
+                    receiverHolder.messageBody.setText(EmojiParser.parseToUnicode(messageModel.getMessage()));
+                }
+                catch (Exception e) {
+                    receiverHolder.messageBody.setText(messageModel.getMessage());
+                }
                 String image=messageModel.getContact_image();
                 //download and display image from url
                /* imageLoader.displayImage(image,receiverHolder.profilePic, options);*/
@@ -302,7 +314,16 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }else if(view_holder instanceof SenderOfferHolder){
                 SenderOfferHolder senderHolder=(SenderOfferHolder)view_holder;
                 senderHolder.messagTimestamp.setText(time_stamp);
-                senderHolder.messageBody.setText(messageModel.getMessage());
+                try {
+                    senderHolder.messageBody.setText(EmojiParser.parseToUnicode(messageModel.getMessage()));
+                }
+                catch (Exception eee)
+                {
+                    senderHolder.messageBody.setText(messageModel.getMessage());
+                }
+
+
+
                 if(!TextUtils.isEmpty(chat_user_image)&&chat_user_image!=null){
                     Picasso.with(context)
                             .load(chat_user_image)
@@ -325,10 +346,20 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         context.startActivity(intent);
                     }
                 });
-            }else if(view_holder instanceof ReceiverOfferHolder){
-                ReceiverOfferHolder senderHolder=(ReceiverOfferHolder)view_holder;
+            }else if(view_holder instanceof ReceiverOfferHolder) {
+                ReceiverOfferHolder senderHolder = (ReceiverOfferHolder) view_holder;
                 senderHolder.messagTimestamp.setText(time_stamp);
-                senderHolder.messageBody.setText(messageModel.getMessage());
+
+                try {
+                    senderHolder.messageBody.setText(EmojiParser.parseToUnicode(messageModel.getMessage()));
+                } catch (Exception e)
+                {
+                    senderHolder.messageBody.setText(messageModel.getMessage());
+                }
+
+
+
+
                 //download and display image from url
                /* imageLoader.displayImage(chat_user_image,senderHolder.profilePic, options);*/
                 String image=messageModel.getContact_image();

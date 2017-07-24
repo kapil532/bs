@@ -71,6 +71,7 @@ import com.blueshak.app.blueshak.services.model.SalesModel;
 import com.blueshak.app.blueshak.services.model.StatusModel;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.vdurmont.emoji.EmojiParser;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -480,7 +481,13 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
         if (GlobalFunctions.isNetworkAvailable(this)) {
             createMessageModel.setConversation_id(conversation_id);
             createMessageModel.setMessage_type(GlobalVariables.TYPE_TEXT);
-            createMessageModel.setMessage(message);
+           try {
+               createMessageModel.setMessage(EmojiParser.parseToAliases(message));
+           }
+           catch (Exception eee)
+           {
+               createMessageModel.setMessage(message);
+           }
             createMessageModel.setSend_to(user.getBs_id());
             createMessageModel.setProduct_id(user.getProduct_id());
             createMessage(message);
