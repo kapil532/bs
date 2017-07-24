@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/white"
-    tools:context="com.langoor.app.blueshak.search.SearchActivity"
+    tools:context="com.blueshak.app.blueshak.search.SearchActivity"
     tools:showIn="@layout/activity_search"
     >
 <RelativeLayout
@@ -72,7 +72,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <com.langoor.app.blueshak.text.MyEditTextView
+    <com.blueshak.app.blueshak.text.MyEditTextView
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:id="@+id/searchViewResult"
@@ -91,8 +91,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
-    </com.langoor.app.blueshak.text.MyEditTextView>
-    <com.langoor.app.blueshak.text.MyTextViewMediumBold
+    </com.blueshak.app.blueshak.text.MyEditTextView>
+    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
         android:visibility="gone"
         android:background="@color/white"
         android:padding="10dp"
@@ -109,11 +109,11 @@
         android:ellipsize="none"
         android:textSize="@dimen/results_all_textsize"
         >
-        </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+        </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
     </LinearLayout>
 
 
-    <com.langoor.app.blueshak.text.MyTextView
+    <com.blueshak.app.blueshak.text.MyTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/brand_text_color"
@@ -122,7 +122,7 @@
         android:textSize="16sp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
-        </com.langoor.app.blueshak.text.MyTextView>
+        </com.blueshak.app.blueshak.text.MyTextView>
 <!--    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/search_bar" />
 
-    <com.langoor.app.blueshak.text.MyTextView
+    <com.blueshak.app.blueshak.text.MyTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/brand_text_color"
@@ -159,7 +159,7 @@
         android:id="@+id/no_search"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
-        </com.langoor.app.blueshak.text.MyTextView>
+        </com.blueshak.app.blueshak.text.MyTextView>
     <fr.castorflex.android.circularprogressbar.CircularProgressBar
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"

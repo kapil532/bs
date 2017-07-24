@@ -18,7 +18,7 @@
             android:background="@color/sub_header"
             android:visibility="gone"
             android:id="@+id/linearLayout3">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -27,7 +27,7 @@
                 android:padding="10dp"
 
                 >
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
         </LinearLayout>
 
 
@@ -41,7 +41,7 @@
             android:divider="@color/white"
             android:layout_below="@+id/linearLayout3" />
 
-       <com.langoor.app.blueshak.text.MyTextView
+       <com.blueshak.app.blueshak.text.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No Notifications Found"

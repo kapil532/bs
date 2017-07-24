@@ -10,7 +10,7 @@
     android:layout_height="match_parent"
     android:layout_weight="1"
     android:background="@color/white"
-    tools:context="com.langoor.app.blueshak.report.ReportListing"
+    tools:context="com.blueshak.app.blueshak.report.ReportListing"
     tools:showIn="@layout/activity_report_listing"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
 
         >
-        <com.langoor.app.blueshak.text.MyRadioButton
+        <com.blueshak.app.blueshak.text.MyRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Prohibited item"
@@ -47,8 +47,8 @@
             android:textSize="18sp"
             android:id="@+id/radioButton"
            >
-            </com.langoor.app.blueshak.text.MyRadioButton>
-        <com.langoor.app.blueshak.text.MyRadioButton
+            </com.blueshak.app.blueshak.text.MyRadioButton>
+        <com.blueshak.app.blueshak.text.MyRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
                   android:layout_marginTop="10dp"
@@ -56,7 +56,7 @@
             android:id="@+id/radioButton1"
             android:textSize="18sp"
             >
-            </com.langoor.app.blueshak.text.MyRadioButton>
+            </com.blueshak.app.blueshak.text.MyRadioButton>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             android:textSize="18sp"
             android:id="@+id/radioButton2"
             />
-        <com.langoor.app.blueshak.text.MyRadioButton
+        <com.blueshak.app.blueshak.text.MyRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
                   android:layout_marginTop="10dp"
@@ -73,8 +73,8 @@
             android:textSize="18sp"
             android:id="@+id/radioButton3"
             >
-            </com.langoor.app.blueshak.text.MyRadioButton>
-        <com.langoor.app.blueshak.text.MyRadioButton
+            </com.blueshak.app.blueshak.text.MyRadioButton>
+        <com.blueshak.app.blueshak.text.MyRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
                   android:layout_marginTop="10dp"
@@ -82,8 +82,8 @@
             android:textSize="18sp"
             android:id="@+id/radioButton4"
             >
-            </com.langoor.app.blueshak.text.MyRadioButton>
-        <com.langoor.app.blueshak.text.MyRadioButton
+            </com.blueshak.app.blueshak.text.MyRadioButton>
+        <com.blueshak.app.blueshak.text.MyRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
                   android:layout_marginTop="10dp"
@@ -91,7 +91,7 @@
             android:text="Counterfeit items"
             android:id="@+id/radioButton5"
         >
-            </com.langoor.app.blueshak.text.MyRadioButton>
+            </com.blueshak.app.blueshak.text.MyRadioButton>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                   android:layout_marginTop="10dp"
             android:id="@+id/radioButton6"
         />
-        <com.langoor.app.blueshak.text.MyRadioButton
+        <com.blueshak.app.blueshak.text.MyRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Include Links/Phone Numbers/Emails"
@@ -108,8 +108,8 @@
             android:textSize="18sp"
             android:id="@+id/radioButton7"
             >
-            </com.langoor.app.blueshak.text.MyRadioButton>
-        <com.langoor.app.blueshak.text.MyRadioButton
+            </com.blueshak.app.blueshak.text.MyRadioButton>
+        <com.blueshak.app.blueshak.text.MyRadioButton
             android:layout_width="wrap_content"
                   android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
@@ -117,8 +117,8 @@
             android:id="@+id/radioButton8"
             android:textSize="18sp"
             >
-            </com.langoor.app.blueshak.text.MyRadioButton>
-        <com.langoor.app.blueshak.text.MyRadioButton
+            </com.blueshak.app.blueshak.text.MyRadioButton>
+        <com.blueshak.app.blueshak.text.MyRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
                   android:layout_marginTop="10dp"
@@ -126,9 +126,9 @@
             android:textSize="18sp"
             android:id="@+id/radioButton9"
             >
-            </com.langoor.app.blueshak.text.MyRadioButton>
+            </com.blueshak.app.blueshak.text.MyRadioButton>
     </RadioGroup>
-    <com.langoor.app.blueshak.text.MyEditTextView
+    <com.blueshak.app.blueshak.text.MyEditTextView
         android:id="@+id/pd_description"
         android:layout_margin="5dp"
         android:padding="10dp"
@@ -144,7 +144,7 @@
         android:minLines="3"
         android:gravity="start|left"
         android:background="@android:drawable/editbox_background_normal">
-        </com.langoor.app.blueshak.text.MyEditTextView>
+        </com.blueshak.app.blueshak.text.MyEditTextView>
 
 
 </LinearLayout>

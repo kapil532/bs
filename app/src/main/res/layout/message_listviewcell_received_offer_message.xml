@@ -11,7 +11,7 @@
          android:layout_alignParentLeft="true"
          android:layout_marginRight="@dimen/chatview_target_profilepic_rightmargin"
          />-->
-    <com.langoor.app.blueshak.helper.RoundedImageView
+    <com.blueshak.app.blueshak.helper.RoundedImageView
         android:id="@+id/profile_pic"
         android:layout_width="@dimen/chatview_target_profilepic_size"
         android:layout_height="@dimen/chatview_target_profilepic_size"
@@ -20,7 +20,7 @@
         android:src="@drawable/profile_pic"
 
         >
-    </com.langoor.app.blueshak.helper.RoundedImageView>
+    </com.blueshak.app.blueshak.helper.RoundedImageView>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             android:orientation="vertical"
             >
 
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/message_body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,9 +46,9 @@
                 android:maxWidth="@dimen/received_message_layout_maxwidth"
                 android:textColor="@color/white"
                 >
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
 
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/message_timestamp"
                 android:layout_width="wrap_content"
                 android:text="5:15pm"
@@ -57,7 +57,7 @@
                 android:maxWidth="@dimen/received_message_layout_maxwidth"
                 android:textColor="@color/white"
                 >
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
 
         </LinearLayout>
         <android.support.v7.widget.CardView
@@ -90,7 +90,7 @@
 
                     />-->
 
-                <com.langoor.app.blueshak.text.MyTextView
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:id="@+id/product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                     android:maxWidth="@dimen/received_message_layout_maxwidth"
                     android:textColor="@color/brand_text_color"
                     >
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
                 <ImageView
 
                     android:layout_width="20dp"

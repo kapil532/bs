@@ -67,7 +67,7 @@
 
 
 
-            <com.langoor.app.blueshak.text.MyTextViewMediumBold
+            <com.blueshak.app.blueshak.text.MyTextViewMediumBold
                 android:id="@+id/item_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                 android:layout_toEndOf="@+id/profile_pic" >
 
 
-            </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+            </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
 
 
             </RelativeLayout>
@@ -95,7 +95,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_height="wrap_content">
 
-                <com.langoor.app.blueshak.text.MyTextViewBold
+                <com.blueshak.app.blueshak.text.MyTextViewBold
                     android:layout_weight=".5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                     android:layout_alignBottom="@+id/profile_pic"
                     android:layout_alignLeft="@+id/contact_name"
                     android:layout_alignStart="@+id/contact_name" >
-                </com.langoor.app.blueshak.text.MyTextViewBold>
+                </com.blueshak.app.blueshak.text.MyTextViewBold>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -167,7 +167,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp"
                 >
-                <com.langoor.app.blueshak.text.MyTextView
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/contactlist_ctimestamp_margin_right"
@@ -180,7 +180,7 @@
                     android:textColor="@color/brand_text_color"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" >
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
 
                 </RelativeLayout>
             <RelativeLayout
@@ -191,7 +191,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp"
                 >
-                <com.langoor.app.blueshak.text.MyTextView
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:layout_width="match_parent"
                     android:layout_weight=".80"
                     android:layout_height="wrap_content"
@@ -207,7 +207,7 @@
 
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" >
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
                 <ImageView
                     android:id="@+id/item_favirate"
                     android:layout_width="22dp"

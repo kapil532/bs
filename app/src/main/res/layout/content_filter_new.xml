@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/brand_background_color"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.langoor.app.blueshak.filter.FilterActivity"
+    tools:context="com.blueshak.app.blueshak.filter.FilterActivity"
     android:focusableInTouchMode="true"
     android:descendantFocusability="beforeDescendants"
     android:paddingTop="20dp">
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_weight=".3"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:padding="10dp">
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
             <Switch
                 android:layout_width="match_parent"
                 android:layout_marginRight="5dp"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/bottom_bar_background_color"/>
-        <com.langoor.app.blueshak.text.MyTextView
+        <com.blueshak.app.blueshak.text.MyTextView
             android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -73,7 +73,7 @@
             android:gravity="center_vertical"
             android:textColor="@color/black"
             android:padding="10dp">
-        </com.langoor.app.blueshak.text.MyTextView>
+        </com.blueshak.app.blueshak.text.MyTextView>
 
       <View
             android:layout_width="match_parent"
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.langoor.app.blueshak.text.MyTextView
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:background="@android:drawable/editbox_background_normal"
@@ -107,7 +107,7 @@
                     android:textSize="@dimen/sign_up_text_size"
                     android:layout_centerHorizontal="true"
                     android:hint="My location">
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <com.langoor.app.blueshak.text.MyTextView
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:layout_weight=".3"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
@@ -134,7 +134,7 @@
                     android:gravity="center_vertical"
                     android:textColor="@color/black"
                     android:padding="10dp">
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
                 <Switch
                     android:visibility="gone"
                     android:layout_width="match_parent"
@@ -168,7 +168,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-                        <com.langoor.app.blueshak.text.MyTextView
+                        <com.blueshak.app.blueshak.text.MyTextView
                             android:layout_weight=".3"
                             android:layout_height="wrap_content"
                             android:layout_width="match_parent"
@@ -177,7 +177,7 @@
                             android:gravity="center_vertical"
                             android:textColor="@color/black"
                             android:padding="10dp">
-                        </com.langoor.app.blueshak.text.MyTextView>
+                        </com.blueshak.app.blueshak.text.MyTextView>
                         <Switch
                             android:layout_width="match_parent"
                             android:layout_marginRight="5dp"
@@ -197,7 +197,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-                        <com.langoor.app.blueshak.text.MyTextView
+                        <com.blueshak.app.blueshak.text.MyTextView
                             android:layout_weight=".3"
                             android:layout_height="wrap_content"
                             android:layout_width="match_parent"
@@ -206,7 +206,7 @@
                             android:gravity="center_vertical"
                             android:textColor="@color/black"
                             android:padding="10dp">
-                        </com.langoor.app.blueshak.text.MyTextView>
+                        </com.blueshak.app.blueshak.text.MyTextView>
                         <Switch
                             android:layout_width="match_parent"
                             android:layout_marginRight="5dp"
@@ -226,7 +226,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-                        <com.langoor.app.blueshak.text.MyTextView
+                        <com.blueshak.app.blueshak.text.MyTextView
                             android:layout_weight=".3"
                             android:layout_height="wrap_content"
                             android:layout_width="match_parent"
@@ -235,7 +235,7 @@
                             android:gravity="center_vertical"
                             android:textColor="@color/black"
                             android:padding="10dp">
-                        </com.langoor.app.blueshak.text.MyTextView>
+                        </com.blueshak.app.blueshak.text.MyTextView>
                         <Switch
                             android:layout_width="match_parent"
                             android:layout_marginRight="5dp"
@@ -254,7 +254,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:padding="10dp"
                         android:layout_weight=".3"
                         android:layout_height="wrap_content"
@@ -264,7 +264,7 @@
                         android:gravity="center_vertical"
                         android:textColor="@color/black"
                         >
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
                     <Switch
                         android:layout_width="match_parent"
                         android:layout_marginRight="5dp"
@@ -284,7 +284,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:padding="10dp"
                         android:layout_weight=".3"
                         android:layout_height="wrap_content"
@@ -294,7 +294,7 @@
                         android:gravity="center_vertical"
                         android:textColor="@color/black"
                         >
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
                     <Switch
                         android:layout_width="match_parent"
                         android:layout_marginRight="5dp"
@@ -324,7 +324,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_weight=".5"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -333,7 +333,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:padding="10dp">
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
             <Switch
                 android:layout_width="match_parent"
                 android:layout_marginRight="5dp"
@@ -354,7 +354,7 @@
         android:visibility="gone"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <com.langoor.app.blueshak.text.MyTextView
+        <com.blueshak.app.blueshak.text.MyTextView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="Distance"
@@ -362,7 +362,7 @@
             android:gravity="center_vertical"
             android:textColor="@color/black"
             android:padding="10dp">
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -375,7 +375,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_weight="2.5">
-                    <com.langoor.app.blueshak.text.MyTextViewBold
+                    <com.blueshak.app.blueshak.text.MyTextViewBold
                         android:id="@+id/distance_start_tv"
                         android:textColor="@color/brandColor"
                         android:backgroundTint="@color/brandColor"
@@ -388,7 +388,7 @@
                         android:visibility="gone"
                         android:ems="10"
                         android:hint="1 Km">
-                        </com.langoor.app.blueshak.text.MyTextViewBold>
+                        </com.blueshak.app.blueshak.text.MyTextViewBold>
                    <!-- <com.langoor.app.blueshak.text.MyTextViewBold
                         android:id="@+id/distance_end_tv"
                         android:visibility="gone"
@@ -416,7 +416,7 @@
 
                         android:indeterminate="false" />
                 </RelativeLayout>
-                <com.langoor.app.blueshak.text.MyTextViewBold
+                <com.blueshak.app.blueshak.text.MyTextViewBold
                     android:id="@+id/distance_end_tv"
                     android:textColor="@color/brandColor"
                     android:backgroundTint="@color/brandColor"
@@ -429,7 +429,7 @@
                     android:layout_alignParentRight="true"
                     android:ems="10"
                     android:hint="60 Km">
-                </com.langoor.app.blueshak.text.MyTextViewBold>
+                </com.blueshak.app.blueshak.text.MyTextViewBold>
             </LinearLayout>
 
         </LinearLayout>
@@ -446,7 +446,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_weight=".3"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -455,7 +455,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:padding="10dp">
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
             <Switch
                 android:layout_width="match_parent"
                 android:layout_marginRight="5dp"
@@ -482,7 +482,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_weight=".3"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -491,7 +491,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:padding="10dp">
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
             <Switch
                 android:layout_width="match_parent"
                 android:layout_marginRight="5dp"
@@ -519,7 +519,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_weight=".3"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -528,7 +528,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:padding="10dp">
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
             <Switch
                 android:layout_width="match_parent"
                 android:layout_marginRight="5dp"
@@ -557,7 +557,7 @@
             android:layout_weight=".5"
             android:padding="10dp"
             >
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/pd_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -567,7 +567,7 @@
                 android:textSize="@dimen/sign_up_text_size"
                 android:layout_marginRight="20dp"
                 >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
 
             <ImageView
                 android:layout_width="24dp"
@@ -581,7 +581,7 @@
             </ImageView>
         </RelativeLayout>
 
-        <com.langoor.app.blueshak.text.MyTextView
+        <com.blueshak.app.blueshak.text.MyTextView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
@@ -592,7 +592,7 @@
             android:textColor="@color/black"
             android:visibility="gone"
             android:padding="10dp">
-        </com.langoor.app.blueshak.text.MyTextView>
+        </com.blueshak.app.blueshak.text.MyTextView>
         <View
             android:layout_width="match_parent"
             android:background="@color/bottom_bar_background_color"
@@ -605,7 +605,7 @@
             android:layout_margin="10dp"
             android:visibility="gone"
             android:orientation="vertical" >
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/all_categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -619,7 +619,7 @@
                 android:layout_toRightOf="@+id/profile_pic"
                 android:layout_toLeftOf="@+id/profile_pic"
                 android:layout_toEndOf="@+id/profile_pic" >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
 
             <ImageView
                 android:layout_width="@dimen/product_list_row_item_icon_size"
@@ -736,7 +736,7 @@
         app:cardElevation="3dp"
         android:id="@+id/user_commu_content"
         >
-    <com.langoor.app.blueshak.text.MyButton
+    <com.blueshak.app.blueshak.text.MyButton
 
         android:id="@+id/applyButton"
         android:layout_width="match_parent"
@@ -751,6 +751,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
-        </com.langoor.app.blueshak.text.MyButton>
+        </com.blueshak.app.blueshak.text.MyButton>
 </android.support.v7.widget.CardView>
 </RelativeLayout>

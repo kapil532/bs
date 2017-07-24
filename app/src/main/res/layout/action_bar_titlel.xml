@@ -6,7 +6,7 @@
     android:background="@color/brandColor"
     >
 
-        <com.langoor.app.blueshak.text.MyTextViewBold
+        <com.blueshak.app.blueshak.text.MyTextViewBold
             android:id="@+id/title"
             android:layout_weight=".20"
             android:layout_marginLeft="30dp"
@@ -24,9 +24,9 @@
             android:layout_toLeftOf="@+id/cancel"
             android:layout_toStartOf="@+id/cancel">
 
-        </com.langoor.app.blueshak.text.MyTextViewBold>
+        </com.blueshak.app.blueshak.text.MyTextViewBold>
 
-    <com.langoor.app.blueshak.text.MyTextView
+    <com.blueshak.app.blueshak.text.MyTextView
         android:id="@+id/cancel"
         android:layout_marginRight="5dp"
         android:layout_weight=".80"
@@ -43,7 +43,7 @@
         android:layout_alignTop="@+id/title"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
-    </com.langoor.app.blueshak.text.MyTextView>
+    </com.blueshak.app.blueshak.text.MyTextView>
 
     <ImageView
         android:layout_width="30dp"

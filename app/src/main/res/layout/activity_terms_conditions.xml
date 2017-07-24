@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.langoor.app.blueshak.register.TermsConditions">
+    tools:context="com.blueshak.app.blueshak.register.TermsConditions">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

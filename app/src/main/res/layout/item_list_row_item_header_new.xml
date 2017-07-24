@@ -6,7 +6,7 @@
     android:id="@+id/header_content"
     android:orientation="horizontal">
 
-    <com.langoor.app.blueshak.text.MyTextViewBold
+    <com.blueshak.app.blueshak.text.MyTextViewBold
         android:layout_margin="10dp"
         android:layout_weight=".75"
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/view2"
         android:layout_toStartOf="@+id/view2" >
-        </com.langoor.app.blueshak.text.MyTextViewBold>
+        </com.blueshak.app.blueshak.text.MyTextViewBold>
     <ImageView
         android:layout_marginRight="10dp"
         android:layout_gravity="center_vertical"

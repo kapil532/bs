@@ -7,7 +7,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-tools:context="com.langoor.app.blueshak.bookmarks.BookMarkActivty"
+tools:context="com.blueshak.app.blueshak.bookmarks.BookMarkActivty"
 tools:showIn="@layout/activity_book_mark_activty"
     >
     <RelativeLayout
@@ -21,7 +21,7 @@ tools:showIn="@layout/activity_book_mark_activty"
             android:layout_height="wrap_content"
             android:background="@color/sub_header"
             android:id="@+id/linearLayout3">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -32,7 +32,7 @@ tools:showIn="@layout/activity_book_mark_activty"
                 android:textSize="16sp"
                 android:padding="10dp"
                 >
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
         </LinearLayout>
 
         <!--<ListView
@@ -60,7 +60,7 @@ tools:showIn="@layout/activity_book_mark_activty"
             android:paddingRight="@dimen/space"/>
 
 
-        <com.langoor.app.blueshak.text.MyTextView
+        <com.blueshak.app.blueshak.text.MyTextView
             android:layout_width="wrap_content"
             android:layout_margin="5dp"
             android:layout_height="wrap_content"
@@ -73,7 +73,7 @@ tools:showIn="@layout/activity_book_mark_activty"
             android:id="@+id/no_bookmarks"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
         <fr.castorflex.android.circularprogressbar.CircularProgressBar
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"

@@ -7,7 +7,7 @@
     android:background="@color/brand_background_color"
     android:fitsSystemWindows="true"
 
-    tools:context="com.langoor.app.blueshak.login.LoginActivity"
+    tools:context="com.blueshak.app.blueshak.login.LoginActivity"
     >
 
     <android.support.design.widget.AppBarLayout
@@ -59,7 +59,7 @@
             android:orientation="vertical"
             android:padding="20dp"
             android:layout_above="@+id/test">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_width="match_parent"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
@@ -68,7 +68,7 @@
                 android:backgroundTint="@color/black"
                 android:textColor="@color/brand_text_color"
                 android:textSize="@dimen/sign_up_text_size" >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
             <!-- <ImageView
                    android:layout_width="70dp"
                    android:layout_height="70dp"
@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
               >
-                <com.langoor.app.blueshak.text.MyEditTextView
+                <com.blueshak.app.blueshak.text.MyEditTextView
                     android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:background="@android:drawable/editbox_background_normal"
@@ -99,7 +99,7 @@
                     android:textColor="@color/brand_text_color"
                     android:textColorHint="@color/brand_text_color"
                     android:textStyle="normal" >
-                </com.langoor.app.blueshak.text.MyEditTextView>
+                </com.blueshak.app.blueshak.text.MyEditTextView>
               <!--  android:drawableLeft="@drawable/ic_mail_outline_black_24dp"
                 android:drawablePadding="@dimen/edittext_drawable_padding"
                 android:paddingLeft="@dimen/edittext_drawable_padding"-->
@@ -108,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                >
-                <com.langoor.app.blueshak.text.MyEditTextView
+                <com.blueshak.app.blueshak.text.MyEditTextView
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:background="@android:drawable/editbox_background_normal"
@@ -127,13 +127,13 @@
                     android:textColorHint="@color/brand_text_color"
 
                     android:textStyle="normal" >
-                </com.langoor.app.blueshak.text.MyEditTextView>
+                </com.blueshak.app.blueshak.text.MyEditTextView>
             <!--    android:drawableLeft="@drawable/ic_https_black_24dp"
                 android:drawablePadding="@dimen/edittext_drawable_padding"
                 android:paddingLeft="@dimen/edittext_drawable_padding"-->
             </android.support.design.widget.TextInputLayout>
 
-            <com.langoor.app.blueshak.text.MyButton
+            <com.blueshak.app.blueshak.text.MyButton
                 android:id="@+id/login"
                 android:layout_width="match_parent"
                 android:background="@drawable/round_corner_btn__style"
@@ -143,7 +143,7 @@
                 android:textSize="@dimen/login_btn_textsize"
                 android:textAllCaps="false"
                 android:textColor="#ffffff" >
-            </com.langoor.app.blueshak.text.MyButton>
+            </com.blueshak.app.blueshak.text.MyButton>
 
             <com.facebook.login.widget.LoginButton
                 android:visibility="gone"
@@ -153,7 +153,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp" />
-            <com.langoor.app.blueshak.text.MyButton
+            <com.blueshak.app.blueshak.text.MyButton
                 android:id="@+id/face_book_login"
                 android:layout_width="match_parent"
                 android:background="@drawable/round_corner_btn__style_blue"
@@ -163,8 +163,8 @@
                 android:textSize="@dimen/login_btn_textsize"
                 android:textAllCaps="false"
                 android:textColor="#ffffff" >
-            </com.langoor.app.blueshak.text.MyButton>
-            <com.langoor.app.blueshak.text.MyTextView
+            </com.blueshak.app.blueshak.text.MyButton>
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/forgot_password"
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
@@ -174,9 +174,9 @@
                 android:backgroundTint="@color/brand_text_color"
                 android:textColor="@color/brand_text_color"
                 android:textSize="14sp" >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
         </LinearLayout>
-        <com.langoor.app.blueshak.text.MyTextView
+        <com.blueshak.app.blueshak.text.MyTextView
             android:id="@+id/test"
             android:layout_margin="5dp"
             android:layout_width="match_parent"
@@ -188,7 +188,7 @@
             android:textSize="@dimen/sign_up_text_size"
             android:layout_above="@+id/sign_up"
             android:layout_centerHorizontal="true" >
-        </com.langoor.app.blueshak.text.MyTextView>
+        </com.blueshak.app.blueshak.text.MyTextView>
 
        <!-- <com.langoor.app.blueshak.text.MyButton
             android:layout_marginLeft="20dp"
@@ -206,7 +206,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" >
         </com.langoor.app.blueshak.text.MyButton>-->
-        <com.langoor.app.blueshak.text.MyButton
+        <com.blueshak.app.blueshak.text.MyButton
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:id="@+id/sign_up"
@@ -220,7 +220,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
             android:layout_centerHorizontal="true">
-            </com.langoor.app.blueshak.text.MyButton>
+            </com.blueshak.app.blueshak.text.MyButton>
         <fr.castorflex.android.circularprogressbar.CircularProgressBar
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"

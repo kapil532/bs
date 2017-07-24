@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
        >
-        <com.langoor.app.blueshak.splash.StretchyImageView
+        <com.blueshak.app.blueshak.splash.StretchyImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/splash_screen"/>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.langoor.app.blueshak.category.CategoryActivity"
+    tools:context="com.blueshak.app.blueshak.category.CategoryActivity"
     tools:showIn="@layout/activity_category">
 
     <android.support.v7.widget.RecyclerView
@@ -21,7 +21,7 @@
             android:layout_alignParentStart="true"
             android:layout_above="@+id/done"
         android:layout_alignParentTop="true" />
-        <com.langoor.app.blueshak.text.MyTextView
+        <com.blueshak.app.blueshak.text.MyTextView
             android:layout_width="wrap_content"
             android:layout_margin="5dp"
             android:layout_height="wrap_content"
@@ -32,9 +32,9 @@
             android:id="@+id/no_sales"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" >
-        </com.langoor.app.blueshak.text.MyTextView>
+        </com.blueshak.app.blueshak.text.MyTextView>
 
-        <com.langoor.app.blueshak.text.MyButton
+        <com.blueshak.app.blueshak.text.MyButton
             android:layout_width="wrap_content"
             android:id="@+id/done"
             android:layout_height="wrap_content"
@@ -51,5 +51,5 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" >
-        </com.langoor.app.blueshak.text.MyButton>
+        </com.blueshak.app.blueshak.text.MyButton>
     </RelativeLayout>

@@ -9,7 +9,7 @@
             android:visibility="gone"
             android:background="@color/sub_header"
             android:id="@+id/linearLayout3">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/sale_header_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
                 android:textSize="16sp"
                 android:padding="10dp"
                 >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
     </LinearLayout>
 
     <ImageView
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:background="@color/brand_secondary_color"
         android:orientation="vertical">
-        <com.langoor.app.blueshak.text.MyTextView
+        <com.blueshak.app.blueshak.text.MyTextView
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:id="@+id/searchViewResult"
@@ -108,8 +108,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
-        </com.langoor.app.blueshak.text.MyTextView>
-        <com.langoor.app.blueshak.text.MyTextViewMediumBold
+        </com.blueshak.app.blueshak.text.MyTextView>
+        <com.blueshak.app.blueshak.text.MyTextViewMediumBold
             android:background="@color/white"
             android:padding="10dp"
             android:layout_width="match_parent"
@@ -124,7 +124,7 @@
             android:scrollHorizontally="true"
             android:ellipsize="none"
             android:textSize="@dimen/results_all_textsize"
-            ></com.langoor.app.blueshak.text.MyTextViewMediumBold>
+            ></com.blueshak.app.blueshak.text.MyTextViewMediumBold>
     </LinearLayout>
 
     <fr.castorflex.android.circularprogressbar.CircularProgressBar

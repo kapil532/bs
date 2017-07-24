@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/brand_background_color"
     android:fitsSystemWindows="true"
-    tools:context="com.langoor.app.blueshak.Messaging.activity.ChatActivity">
+    tools:context="com.blueshak.app.blueshak.Messaging.activity.ChatActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
         app:cardElevation="3dp"
         android:id="@+id/user_confirm"
         >
-        <com.langoor.app.blueshak.text.MyButton
+        <com.blueshak.app.blueshak.text.MyButton
             android:layout_width="match_parent"
             android:id="@+id/pd_publish"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" >
-        </com.langoor.app.blueshak.text.MyButton>
+        </com.blueshak.app.blueshak.text.MyButton>
     </android.support.v7.widget.CardView>
 </RelativeLayout>
 <LinearLayout
@@ -84,7 +84,7 @@
             android:padding="10dp"
             >
 
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -94,7 +94,7 @@
                 android:text="Item Negotiable"
                 android:backgroundTint="@color/brandColor"
                 android:textColor="@color/brand_text_color" >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
             <Switch
                 android:layout_width="wrap_content"
                 android:id="@+id/item_negotiable"
@@ -129,7 +129,7 @@
             android:padding="10dp"
             >
 
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -139,7 +139,7 @@
                 android:text="Hide Item Price"
                 android:backgroundTint="@color/brandColor"
                 android:textColor="@color/brand_text_color" >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
             <Switch
                 android:layout_width="wrap_content"
                 android:id="@+id/hide_item"
@@ -157,13 +157,6 @@
         android:layout_height="1dp"
         android:background="@color/bottom_bar_background_color"/>
 </LinearLayout>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+
 
 </android.support.design.widget.CoordinatorLayout>

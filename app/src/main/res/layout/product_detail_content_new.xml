@@ -33,7 +33,7 @@
         android:layout_marginTop="10dp"
         android:id="@+id/garage_content"
        >
-        <com.langoor.app.blueshak.text.MyTextViewMediumBold
+        <com.blueshak.app.blueshak.text.MyTextViewMediumBold
             android:id="@+id/sale_item_row_list_name_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,13 +44,13 @@
             android:textColor="@color/black"
             android:layout_weight=".5"
             android:text="">
-        </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+        </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:orientation="horizontal">
-            <com.langoor.app.blueshak.text.MyTextViewMediumBold
+            <com.blueshak.app.blueshak.text.MyTextViewMediumBold
                 android:id="@+id/sale_item_row_list_items_no_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,8 +63,8 @@
                 android:textColor="@color/brandColor"
                 android:layout_weight=".50"
                 android:text="">
-            </com.langoor.app.blueshak.text.MyTextViewMediumBold>
-            <com.langoor.app.blueshak.text.MyTextView
+            </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/sales_item_row_list_distance_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,14 +78,14 @@
                 android:textColor="@color/brandColor"
                 android:textSize="15sp"
                 android:text="">
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:orientation="horizontal">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/sales_item_row_list_date_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,14 +95,14 @@
                 android:layout_weight=".5"
                 android:textColor="#808080"
                 android:text="">
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
             <View
                 android:layout_height="match_parent"
                 android:layout_width="1dp"
                 android:background="#808080"
                 android:visibility="gone"
                 />
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/sales_item_row_list_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
                 android:gravity="right"
                 android:textColor="#808080"
                 android:text="">
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
         </LinearLayout>
 
 
@@ -148,7 +148,7 @@
                     android:layout_alignParentEnd="true"
                     android:gravity="center|end"
                     />
-                <com.langoor.app.blueshak.text.MyTextViewMediumBold
+                <com.blueshak.app.blueshak.text.MyTextViewMediumBold
                     android:id="@+id/product_detail_name_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -159,7 +159,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight=".5"
                     android:text="">
-                    </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+                    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
                 <ImageView
                     android:id="@+id/bookmark_this"
                     android:layout_gravity="center_vertical"
@@ -180,7 +180,7 @@
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <com.langoor.app.blueshak.text.MyTextViewBold
+            <com.blueshak.app.blueshak.text.MyTextViewBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -191,9 +191,9 @@
                 android:layout_gravity="center"
                 android:id="@+id/product_detail_price_tv"
               >
-            </com.langoor.app.blueshak.text.MyTextViewBold>
+            </com.blueshak.app.blueshak.text.MyTextViewBold>
 
-            <com.langoor.app.blueshak.text.MyButton
+            <com.blueshak.app.blueshak.text.MyButton
                 android:layout_marginLeft="15dp"
                 android:layout_width="wrap_content"
                 android:visibility="gone"
@@ -209,7 +209,7 @@
                 android:textSize="13sp"
                 android:id="@+id/pd_nagotiable"
               >
-            </com.langoor.app.blueshak.text.MyButton>
+            </com.blueshak.app.blueshak.text.MyButton>
 
             </LinearLayout>
             <View
@@ -234,7 +234,7 @@
                     android:layout_height="wrap_content"
 
                     android:orientation="horizontal">
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/MediumText"
@@ -245,8 +245,8 @@
                         android:textColor="@color/black"
                         android:layout_weight=".5"
                         android:text="Condition">
-                    </com.langoor.app.blueshak.text.MyTextView>
-                    <com.langoor.app.blueshak.text.MyTextViewMediumBold
+                    </com.blueshak.app.blueshak.text.MyTextView>
+                    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
                         android:layout_weight=".5"
                         android:id="@+id/product_condition"
                         android:layout_width="match_parent"
@@ -256,7 +256,7 @@
                         android:textColor="@color/black"
                         android:text=""
                         android:layout_centerHorizontal="true">
-                    </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+                    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
                 </LinearLayout>
 
                 <LinearLayout
@@ -264,7 +264,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/MediumText"
@@ -275,8 +275,8 @@
                         android:textColor="@color/black"
                         android:layout_weight=".5"
                         android:text="Listed">
-                    </com.langoor.app.blueshak.text.MyTextView>
-                    <com.langoor.app.blueshak.text.MyTextViewMediumBold
+                    </com.blueshak.app.blueshak.text.MyTextView>
+                    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
                         android:layout_weight=".5"
                         android:id="@+id/product_detail_date_tv"
                         android:layout_width="match_parent"
@@ -286,7 +286,7 @@
                         android:textColor="@color/black"
                         android:text=""
                         android:layout_centerHorizontal="true">
-                    </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+                    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
                 </LinearLayout>
 
                 <LinearLayout
@@ -295,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/category_content"
                     android:orientation="horizontal">
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:id="@+id/pd_category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -307,8 +307,8 @@
                         android:textColor="@color/black"
                         android:layout_weight=".5"
                         android:text="Category">
-                    </com.langoor.app.blueshak.text.MyTextView>
-                    <com.langoor.app.blueshak.text.MyTextViewMediumBold
+                    </com.blueshak.app.blueshak.text.MyTextView>
+                    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
                         android:layout_weight=".5"
                         android:id="@+id/product_detail_category_tv"
                         android:layout_width="match_parent"
@@ -318,7 +318,7 @@
                         android:textColor="@color/black"
                         android:text=""
                         android:layout_centerHorizontal="true" >
-                    </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+                    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
                 </LinearLayout>
 
             </LinearLayout>
@@ -344,7 +344,7 @@
                     android:src="@drawable/ic_pickable"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
-                <com.langoor.app.blueshak.text.MyTextView
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:layout_width="wrap_content"
                     android:layout_marginTop="1dp"
                     android:layout_height="wrap_content"
@@ -355,7 +355,7 @@
                     android:text="Pick Up"
                     android:textColor="@color/brandColor"
                     >
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
 
 
             </LinearLayout>
@@ -375,7 +375,7 @@
                     android:layout_height="30dp"
                     android:src="@drawable/ic_shippable" />
 
-                <com.langoor.app.blueshak.text.MyTextView
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:layout_width="wrap_content"
                     android:layout_marginTop="1dp"
                     android:layout_height="wrap_content"
@@ -385,7 +385,7 @@
                     android:text="Shippable"
                     android:textColor="@color/brandColor"
                     >
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
             </LinearLayout>
                 <LinearLayout
                     android:visibility="gone"
@@ -406,7 +406,7 @@
                         android:src="@drawable/ic_garage_on"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true" />
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_height="wrap_content"
@@ -414,10 +414,10 @@
                         android:gravity="center_horizontal"
                         android:layout_gravity="center_horizontal"
                         android:id="@+id/garage_icon_name"
-                        android:text="Garage"
+                        android:text="Sale"
                         android:textColor="@color/brandColor"
                         >
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
 
 
                 </LinearLayout>
@@ -440,7 +440,7 @@
                android:layout_weight="1.5"
                android:orientation="vertical"
                >
-               <com.langoor.app.blueshak.text.MyTextView
+               <com.blueshak.app.blueshak.text.MyTextView
                    android:layout_width="match_parent"
                    android:layout_marginTop="5dp"
                    android:layout_height="wrap_content"
@@ -452,8 +452,8 @@
                    android:text="Est. Delivery"
                    android:textColor="@color/black"
                    >
-               </com.langoor.app.blueshak.text.MyTextView>
-               <com.langoor.app.blueshak.text.MyTextViewMediumBold
+               </com.blueshak.app.blueshak.text.MyTextView>
+               <com.blueshak.app.blueshak.text.MyTextViewMediumBold
                    android:layout_width="match_parent"
                    android:layout_marginTop="5dp"
                    android:layout_height="wrap_content"
@@ -466,7 +466,7 @@
                    android:text="Garage"
                    android:textColor="@color/black"
                    >
-               </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+               </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
 
            </LinearLayout>
                 <View
@@ -480,7 +480,7 @@
                     android:orientation="vertical"
                     >
 
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="match_parent"
                         android:layout_marginTop="5dp"
                         android:layout_height="wrap_content"
@@ -492,8 +492,8 @@
                         android:text="Shipping (approx)"
                         android:textColor="@color/black"
                         >
-                    </com.langoor.app.blueshak.text.MyTextView>
-                    <com.langoor.app.blueshak.text.MyTextViewMediumBold
+                    </com.blueshak.app.blueshak.text.MyTextView>
+                    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
                         android:layout_width="match_parent"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="6dp"
@@ -506,7 +506,7 @@
                         android:textColor="@color/brandColor"
                         android:layout_marginBottom="5dp"
                         >
-                    </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+                    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
 
                 </LinearLayout>
 
@@ -522,7 +522,7 @@
                 android:background="@color/brand_background_color"
                 android:orientation="horizontal">
 
-                <com.langoor.app.blueshak.text.MyTextView
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:id="@+id/brand_new"
                     android:visibility="gone"
                     android:paddingLeft="10dp"
@@ -538,7 +538,7 @@
                     android:textColor="@color/black"
                     android:text="Brand new"
                     android:layout_centerHorizontal="true">
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
             </LinearLayout>
 
         </LinearLayout>
@@ -549,7 +549,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
             android:orientation="vertical">
-            <com.langoor.app.blueshak.text.MyTextViewBold
+            <com.blueshak.app.blueshak.text.MyTextViewBold
                 android:id="@+id/pd_description"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
@@ -562,8 +562,8 @@
                 android:textColor="@color/black"
                 android:layout_weight=".5"
                 android:text="Seller's Description">
-            </com.langoor.app.blueshak.text.MyTextViewBold>
-            <com.langoor.app.blueshak.text.MyTextView
+            </com.blueshak.app.blueshak.text.MyTextViewBold>
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_weight=".5"
                 android:id="@+id/product_detail_description_tv"
                 android:layout_marginTop="5dp"
@@ -574,7 +574,7 @@
                 android:textColor="@color/black"
                 android:text=""
                 android:layout_centerHorizontal="true" >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
         </LinearLayout>
 
 
@@ -596,7 +596,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <com.langoor.app.blueshak.text.MyTextViewBold
+                <com.blueshak.app.blueshak.text.MyTextViewBold
                     android:id="@+id/location"
                     android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
@@ -607,7 +607,7 @@
                     android:layout_gravity="left"
                     android:textColor="@color/black"
                     android:text="">
-                </com.langoor.app.blueshak.text.MyTextViewBold>
+                </com.blueshak.app.blueshak.text.MyTextViewBold>
               <!--  <com.langoor.app.blueshak.text.MyTextViewBold
                     android:id="@+id/location"
                     android:layout_marginLeft="10dp"
@@ -636,7 +636,7 @@
         </LinearLayout>
 
 <!--    </android.support.v7.widget.CardView>-->
-    <com.langoor.app.blueshak.text.MyTextViewBold
+    <com.blueshak.app.blueshak.text.MyTextViewBold
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
@@ -648,7 +648,7 @@
         android:layout_gravity="left|center_vertical"
         android:textColor="@color/black"
         android:text="Seller">
-    </com.langoor.app.blueshak.text.MyTextViewBold>
+    </com.blueshak.app.blueshak.text.MyTextViewBold>
     <View
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
@@ -680,7 +680,7 @@
                     android:layout_height="wrap_content"
 
                     >
-                    <com.langoor.app.blueshak.helper.RoundedImageView
+                    <com.blueshak.app.blueshak.helper.RoundedImageView
                         android:id="@+id/seller_image"
                         android:layout_width="75dp"
                         android:layout_height="75dp"
@@ -690,7 +690,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                          >
-                    </com.langoor.app.blueshak.helper.RoundedImageView>
+                    </com.blueshak.app.blueshak.helper.RoundedImageView>
 
 
 
@@ -716,7 +716,7 @@
                     android:orientation="vertical"
                     android:layout_toRightOf="@+id/profile_pic_content"
                     android:layout_toEndOf="@+id/profile_pic_content" >
-                    <com.langoor.app.blueshak.text.MyTextViewMediumBold
+                    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
                         android:layout_width="wrap_content"
                         android:textStyle="bold"
                         android:layout_height="wrap_content"
@@ -725,15 +725,15 @@
                         android:textSize="@dimen/item_detail_title_text_size"
                         android:id="@+id/item_seller_name"
                         >
-                        </com.langoor.app.blueshak.text.MyTextViewMediumBold>
-                    <com.langoor.app.blueshak.text.MyTextView
+                        </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
                         android:text="Online"
                         android:textColor="@color/tab_selected"
                         android:textSize="12sp">
-                        </com.langoor.app.blueshak.text.MyTextView>
+                        </com.blueshak.app.blueshak.text.MyTextView>
                     <RatingBar
                         style="?android:attr/ratingBarStyleSmall"
                         android:id="@+id/ratingBar1"
@@ -747,7 +747,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1 Reviews"
@@ -757,13 +757,13 @@
                         >
 
 
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
                         <View
                             android:layout_width="2dp"
                             android:layout_height="10dp"
                             android:layout_margin="4dp"
                             android:background="@color/grey_2"/>
-                        <com.langoor.app.blueshak.text.MyTextView
+                        <com.blueshak.app.blueshak.text.MyTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1 Listing"
@@ -771,14 +771,14 @@
                             android:textSize="14sp"
                             android:id="@+id/listing"
                             >
-                        </com.langoor.app.blueshak.text.MyTextView>
+                        </com.blueshak.app.blueshak.text.MyTextView>
 
                         <View
                             android:layout_width="2dp"
                             android:layout_height="10dp"
                             android:layout_margin="4dp"
                             android:background="@color/grey_2"/>
-                        <com.langoor.app.blueshak.text.MyTextView
+                        <com.blueshak.app.blueshak.text.MyTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1 Sold"
@@ -786,7 +786,7 @@
                             android:textSize="14sp"
                             android:id="@+id/sold"
                             >
-                        </com.langoor.app.blueshak.text.MyTextView>
+                        </com.blueshak.app.blueshak.text.MyTextView>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -821,7 +821,7 @@
 
             android:id="@+id/report_Listing_content"
             android:orientation="vertical">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:drawablePadding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -833,8 +833,8 @@
                 android:textColor="@color/brand_text_color"
                 android:layout_weight=".5"
                 android:text="Was this inappropriate?">
-                </com.langoor.app.blueshak.text.MyTextView>
-            <com.langoor.app.blueshak.text.MyButtonNormal
+                </com.blueshak.app.blueshak.text.MyTextView>
+            <com.blueshak.app.blueshak.text.MyButtonNormal
                 android:id="@+id/report_listing"
                 android:background="@drawable/round_corner_thin_brand_background_border_bg"
                 android:layout_width="match_parent"
@@ -848,7 +848,7 @@
                 android:textColor="@color/brand_text_color"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true">
-            </com.langoor.app.blueshak.text.MyButtonNormal>
+            </com.blueshak.app.blueshak.text.MyButtonNormal>
 
 
         </LinearLayout>
@@ -943,7 +943,7 @@
         android:layout_margin="10dp"
         android:orientation="horizontal">
 
-        <com.langoor.app.blueshak.text.MyTextViewBold
+        <com.blueshak.app.blueshak.text.MyTextViewBold
             android:id="@+id/tab1"
             android:layout_weight=".5"
             android:layout_gravity="center"
@@ -956,7 +956,7 @@
             android:layout_margin="1dp"
             android:gravity="center_horizontal"
             android:text="Similar Listings"/>
-        <com.langoor.app.blueshak.text.MyTextViewBold
+        <com.blueshak.app.blueshak.text.MyTextViewBold
             android:layout_margin="1dp"
             android:background="@color/brand_background_color"
             android:textSize="@dimen/sign_up_text_size"
@@ -978,7 +978,7 @@
         android:visibility="gone"
         android:layout_marginLeft="10dp"
         android:orientation="vertical">
-        <com.langoor.app.blueshak.text.MyTextViewBold
+        <com.blueshak.app.blueshak.text.MyTextViewBold
             android:id="@+id/SimilarListing"
             android:drawablePadding="5dp"
             android:layout_width="match_parent"
@@ -988,7 +988,7 @@
             android:textSize="@dimen/item_detail_title_text_size"
             android:textColor="@color/black"
             android:text="Item For Sale">
-        </com.langoor.app.blueshak.text.MyTextViewBold>
+        </com.blueshak.app.blueshak.text.MyTextViewBold>
         <View
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
@@ -1009,7 +1009,7 @@
         android:paddingLeft="@dimen/space"
         android:paddingRight="@dimen/space"
         />
-    <com.langoor.app.blueshak.text.MyTextView
+    <com.blueshak.app.blueshak.text.MyTextView
         android:layout_width="wrap_content"
         android:layout_margin="5dp"
         android:layout_height="wrap_content"
@@ -1022,7 +1022,7 @@
         android:id="@+id/no_items"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" >
-    </com.langoor.app.blueshak.text.MyTextView>
+    </com.blueshak.app.blueshak.text.MyTextView>
 
 
 </RelativeLayout>

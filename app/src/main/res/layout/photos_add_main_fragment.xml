@@ -10,7 +10,7 @@
         android:padding="5dp"
         android:weightSum="10"
         android:id="@+id/linearLayout2">
-        <com.langoor.app.blueshak.text.MyTextView
+        <com.blueshak.app.blueshak.text.MyTextView
             android:id="@+id/photos_add_main_fragment_title_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             android:visibility="gone"
             android:layout_weight="3"
             >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
 
         <ImageView
             android:id="@+id/photos_add_main_fragment_add_imageView"

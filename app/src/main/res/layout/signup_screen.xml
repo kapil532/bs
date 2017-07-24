@@ -7,7 +7,7 @@
     android:background="@color/brand_background_color"
     android:fitsSystemWindows="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.langoor.app.blueshak.register.SignUpSCreenActivity"
+    tools:context="com.blueshak.app.blueshak.register.SignUpSCreenActivity"
     >
 
     <android.support.design.widget.AppBarLayout
@@ -59,21 +59,21 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="20dp" >
-                <com.langoor.app.blueshak.text.MyTextView
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:layout_width="match_parent"
                     android:layout_marginTop="5dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textColor="@color/brand_text_color"
                     android:text="Please fill in the fields to sign up" >
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:gravity="center"
                     android:layout_height="wrap_content"
                     >
-                    <com.langoor.app.blueshak.text.MyEditTextView
+                    <com.blueshak.app.blueshak.text.MyEditTextView
                         android:id="@+id/etUserName"
                         android:layout_width="match_parent"
                         android:background="@android:drawable/editbox_background_normal"
@@ -88,7 +88,7 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/brand_text_hint_color"
                         android:textStyle="normal" >
-                    </com.langoor.app.blueshak.text.MyEditTextView>
+                    </com.blueshak.app.blueshak.text.MyEditTextView>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -96,7 +96,7 @@
                     android:gravity="center"
                     android:layout_height="wrap_content"
                     >
-                    <com.langoor.app.blueshak.text.MyEditTextView
+                    <com.blueshak.app.blueshak.text.MyEditTextView
                         android:id="@+id/last_name"
                         android:layout_width="match_parent"
                         android:background="@android:drawable/editbox_background_normal"
@@ -111,13 +111,13 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/brand_text_hint_color"
                         android:textStyle="normal" >
-                    </com.langoor.app.blueshak.text.MyEditTextView>
+                    </com.blueshak.app.blueshak.text.MyEditTextView>
                 </android.support.design.widget.TextInputLayout><android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:gravity="center"
                     android:layout_height="wrap_content"
                     >
-                    <com.langoor.app.blueshak.text.MyEditTextView
+                    <com.blueshak.app.blueshak.text.MyEditTextView
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:background="@android:drawable/editbox_background_normal"
@@ -132,14 +132,14 @@
                         android:textColor="@color/brand_text_color"
                         android:textColorHint="@color/brand_text_hint_color"
                         android:textStyle="normal" >
-                    </com.langoor.app.blueshak.text.MyEditTextView>
+                    </com.blueshak.app.blueshak.text.MyEditTextView>
                 </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     >
-                    <com.langoor.app.blueshak.text.MyEditTextView
+                    <com.blueshak.app.blueshak.text.MyEditTextView
                         android:id="@+id/etCOnfPass"
                         android:layout_width="match_parent"
                         android:background="@android:drawable/editbox_background_normal"
@@ -156,7 +156,7 @@
                         android:textColor="@color/brand_text_color"
                         android:textColorHint="@color/brand_text_hint_color"
                         android:textStyle="normal" >
-                    </com.langoor.app.blueshak.text.MyEditTextView>
+                    </com.blueshak.app.blueshak.text.MyEditTextView>
                 </android.support.design.widget.TextInputLayout>
 
                 <!-- <net.rimoto.intlphoneinput.IntlPhoneInput
@@ -223,7 +223,7 @@
 
                         >
 
-                        <com.langoor.app.blueshak.text.MyEditTextView
+                        <com.blueshak.app.blueshak.text.MyEditTextView
                             android:padding="15dp"
                             android:id="@+id/etMobileNUmber"
                             android:layout_width="match_parent"
@@ -241,7 +241,7 @@
                             android:textColor="@color/brand_text_color"
                             android:textColorHint="@color/brand_text_hint_color"
                             android:textStyle="normal" >
-                        </com.langoor.app.blueshak.text.MyEditTextView>
+                        </com.blueshak.app.blueshak.text.MyEditTextView>
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
                 <!--<com.hbb20.CountryCodePicker
@@ -258,7 +258,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:id="@+id/location"
                         android:layout_width="match_parent"
                         android:background="@android:drawable/editbox_background_normal"
@@ -273,14 +273,14 @@
                         android:textSize="@dimen/sign_up_text_size"
                         android:layout_centerHorizontal="true"
                         android:hint="Select location">
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
                 </LinearLayout>
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:gravity="center"
                     android:layout_height="wrap_content"
                     >
-                    <com.langoor.app.blueshak.text.MyEditTextView
+                    <com.blueshak.app.blueshak.text.MyEditTextView
                         android:id="@+id/userid"
                         android:layout_width="match_parent"
                         android:background="@android:drawable/editbox_background_normal"
@@ -295,7 +295,7 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/brand_text_hint_color"
                         android:textStyle="normal" >
-                    </com.langoor.app.blueshak.text.MyEditTextView>
+                    </com.blueshak.app.blueshak.text.MyEditTextView>
                 </android.support.design.widget.TextInputLayout>
      <!--           <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -338,7 +338,7 @@
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/brand_text_color"
                         />
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:id="@+id/termsOfAgreement"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
@@ -347,9 +347,9 @@
                         android:text="I agree to the Terms and Conditions."
                         android:textColor="@color/brand_text_color"
                         >
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
                 </LinearLayout>
-                <com.langoor.app.blueshak.text.MyButton
+                <com.blueshak.app.blueshak.text.MyButton
                     android:id="@+id/btnSignUp"
                     android:layout_height="@dimen/login_btn_height"
                     android:layout_width="match_parent"
@@ -362,9 +362,9 @@
                     android:textSize="@dimen/login_btn_textsize"
                     android:textStyle=""
                     android:text="Sign Up" >
-                </com.langoor.app.blueshak.text.MyButton>
+                </com.blueshak.app.blueshak.text.MyButton>
 
-                <com.langoor.app.blueshak.text.MyTextView
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:layout_width="329dp"
                     android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
@@ -372,8 +372,8 @@
                     android:textColor="@color/brand_text_color"
                     android:text="Account will be verified via phone and email" >
                    <!-- android:text="Account will be verified via your mobile number" >-->
-                </com.langoor.app.blueshak.text.MyTextView>
-                <com.langoor.app.blueshak.text.MyTextView
+                </com.blueshak.app.blueshak.text.MyTextView>
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:layout_marginBottom="10dp"
                     android:layout_width="329dp"
                     android:layout_marginTop="10dp"
@@ -382,8 +382,8 @@
                     android:gravity="center"
                     android:text="Already have a account? Sign In"
                     android:id="@+id/login_page_link" >
-                </com.langoor.app.blueshak.text.MyTextView>
-                <com.langoor.app.blueshak.text.MyButton
+                </com.blueshak.app.blueshak.text.MyTextView>
+                <com.blueshak.app.blueshak.text.MyButton
                     android:visibility="gone"
                     android:id="@+id/go_to_sing_in"
                     android:layout_width="match_parent"
@@ -394,7 +394,7 @@
                     android:textSize="@dimen/login_btn_textsize"
                     android:textAllCaps="false"
                     android:textColor="@color/white" >
-                </com.langoor.app.blueshak.text.MyButton>
+                </com.blueshak.app.blueshak.text.MyButton>
                 <com.facebook.login.widget.LoginButton
                     android:visibility="gone"
                     android:id="@+id/login_button"

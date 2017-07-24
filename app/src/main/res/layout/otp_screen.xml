@@ -7,7 +7,7 @@
     android:background="@color/brand_background_color"
     android:fitsSystemWindows="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.langoor.app.blueshak.otp.OTPActivity"
+    tools:context="com.blueshak.app.blueshak.otp.OTPActivity"
     >
 
     <android.support.design.widget.AppBarLayout
@@ -51,7 +51,7 @@
             android:orientation="vertical"
             android:padding="20dp" >
 
-        <com.langoor.app.blueshak.text.MyTextView
+        <com.blueshak.app.blueshak.text.MyTextView
             android:id="@+id/titile"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
@@ -60,7 +60,7 @@
             android:gravity="center"
           android:textColor="@color/brand_text_color"
             android:text="@string/otp_text">
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
         <LinearLayout
             android:id="@+id/resend_otp_content"
             android:visibility="gone"
@@ -95,7 +95,7 @@
                     android:layout_weight=".4"
                     >
 
-                    <com.langoor.app.blueshak.text.MyEditTextView
+                    <com.blueshak.app.blueshak.text.MyEditTextView
                         android:padding="15dp"
                         android:id="@+id/etMobileNUmber"
                         android:layout_width="match_parent"
@@ -113,11 +113,11 @@
                         android:textColor="@color/brand_text_color"
                         android:textColorHint="@color/brand_text_hint_color"
                         android:textStyle="normal" >
-                    </com.langoor.app.blueshak.text.MyEditTextView>
+                    </com.blueshak.app.blueshak.text.MyEditTextView>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
-            <com.langoor.app.blueshak.text.MyButton
+            <com.blueshak.app.blueshak.text.MyButton
                 android:id="@+id/resend_otp"
                 android:layout_width="match_parent"
                 android:layout_marginTop="12dp"
@@ -128,7 +128,7 @@
                 android:textSize="@dimen/sign_up_text_size"
                 android:background="@drawable/round_corner_btn__style"
                 android:text="Resend Otp">
-            </com.langoor.app.blueshak.text.MyButton>
+            </com.blueshak.app.blueshak.text.MyButton>
 
         </LinearLayout>
             <!--<ImageView
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 >
-                <com.langoor.app.blueshak.text.MyEditTextView
+                <com.blueshak.app.blueshak.text.MyEditTextView
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:background="@android:drawable/editbox_background_normal"
@@ -165,7 +165,7 @@
                     android:textColor="@color/brand_text_color"
                     android:textColorHint="@color/brand_text_hint_color"
                     android:textStyle="normal" >
-                </com.langoor.app.blueshak.text.MyEditTextView>
+                </com.blueshak.app.blueshak.text.MyEditTextView>
             </android.support.design.widget.TextInputLayout>
             <!--  <com.langoor.app.blueshak.text.MyEditTextView
                   android:layout_marginTop="10dp"
@@ -182,7 +182,7 @@
                   android:textColorHint="@color/brand_text_hint_color"
                   android:textStyle="normal">
                   </com.langoor.app.blueshak.text.MyEditTextView>-->
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
@@ -192,8 +192,8 @@
                 android:text="@string/otp_resend_text"
                 android:id="@+id/otp_get_another">
 
-            </com.langoor.app.blueshak.text.MyTextView>
-            <com.langoor.app.blueshak.text.MyTextView
+            </com.blueshak.app.blueshak.text.MyTextView>
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
@@ -202,8 +202,8 @@
                 android:textColor="@color/brand_text_color"
                 android:text="Entered the wrong Phone number? Edit."
                 android:id="@+id/otp_try_again">
-            </com.langoor.app.blueshak.text.MyTextView>
-            <com.langoor.app.blueshak.text.MyButton
+            </com.blueshak.app.blueshak.text.MyTextView>
+            <com.blueshak.app.blueshak.text.MyButton
                 android:id="@+id/btnSignIn"
                 android:layout_width="match_parent"
                 android:layout_marginTop="12dp"
@@ -214,7 +214,7 @@
                 android:textSize="@dimen/sign_up_text_size"
                 android:background="@drawable/round_corner_btn__style"
                 android:text="Verify">
-            </com.langoor.app.blueshak.text.MyButton>
+            </com.blueshak.app.blueshak.text.MyButton>
 
 
         </LinearLayout>

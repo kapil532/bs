@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
 
                 >
-                <com.langoor.app.blueshak.helper.RoundedImageView
+                <com.blueshak.app.blueshak.helper.RoundedImageView
                     android:id="@+id/profile_pic"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
@@ -34,7 +34,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     >
-                </com.langoor.app.blueshak.helper.RoundedImageView>
+                </com.blueshak.app.blueshak.helper.RoundedImageView>
 
 
 
@@ -59,7 +59,7 @@
                 android:orientation="vertical"
                 android:layout_toRightOf="@+id/profile_pic_content"
                 android:layout_toEndOf="@+id/profile_pic_content" >
-                <com.langoor.app.blueshak.text.MyTextView
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:layout_width="wrap_content"
                     android:textStyle="bold"
                     android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                     android:textSize="@dimen/item_detail_title_text_size"
                     android:id="@+id/contact_name"
                     >
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
                 <ImageView
                     android:id="@+id/image_type"
                     android:layout_width="@dimen/unreadcount_width"
@@ -76,7 +76,7 @@
                     android:gravity="center"
                     android:src="@drawable/ic_camera_alt_grey_24dp"
                     />
-                <com.langoor.app.blueshak.text.MyTextView
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -86,8 +86,8 @@
                     android:textSize="@dimen/item_detail_title_text_size"
                     android:id="@+id/last_text_message"
                     >
-                </com.langoor.app.blueshak.text.MyTextView>
-                <com.langoor.app.blueshak.text.MyTextViewBold
+                </com.blueshak.app.blueshak.text.MyTextView>
+                <com.blueshak.app.blueshak.text.MyTextViewBold
                     android:textStyle="bold"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
                     android:textSize="@dimen/item_detail_title_text_size"
                     android:id="@+id/last_text_message_not_read"
                     >
-                </com.langoor.app.blueshak.text.MyTextViewBold>
+                </com.blueshak.app.blueshak.text.MyTextViewBold>
 
             </LinearLayout>
 

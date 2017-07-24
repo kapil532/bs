@@ -17,7 +17,7 @@
                             android:layout_marginLeft="5dp"
                             android:orientation="vertical" >
 
-                                <com.langoor.app.blueshak.text.MyTextView
+                                <com.blueshak.app.blueshak.text.MyTextView
                                     android:id="@+id/name_tv"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                                     android:layout_toRightOf="@+id/profile_pic"
                                     android:layout_toLeftOf="@+id/profile_pic"
                                     android:layout_toEndOf="@+id/profile_pic" >
-                                    </com.langoor.app.blueshak.text.MyTextView>
+                                    </com.blueshak.app.blueshak.text.MyTextView>
                         </LinearLayout>
 
     <LinearLayout

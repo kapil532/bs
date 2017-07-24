@@ -7,7 +7,7 @@
 
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
-    tools:context="com.langoor.app.blueshak.garage.MyItems">
+    tools:context="com.blueshak.app.blueshak.garage.MyItems">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

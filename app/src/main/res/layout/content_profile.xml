@@ -26,7 +26,7 @@
 
           android:layout_height="wrap_content"
           android:orientation="vertical">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_edit"
@@ -35,8 +35,8 @@
                 android:textSize="18sp"
                 android:id="@+id/edit"
                 android:layout_gravity="right">
-            </com.langoor.app.blueshak.text.MyTextView>
-          <com.langoor.app.blueshak.helper.RoundedImageView
+            </com.blueshak.app.blueshak.text.MyTextView>
+          <com.blueshak.app.blueshak.helper.RoundedImageView
               android:id="@+id/rounde_image"
               android:layout_width="100dp"
               android:layout_height="100dp"
@@ -46,7 +46,7 @@
               android:layout_alignParentLeft="true"
               android:layout_alignParentStart="true"
               android:layout_gravity="center_horizontal">
-          </com.langoor.app.blueshak.helper.RoundedImageView>
+          </com.blueshak.app.blueshak.helper.RoundedImageView>
           <ImageView
               android:id="@+id/online_status"
               android:layout_width="20dp"
@@ -59,7 +59,7 @@
               android:visibility="gone"
               android:background="@drawable/online_status"
               />
-          <com.langoor.app.blueshak.text.MyTextViewMediumBold
+          <com.blueshak.app.blueshak.text.MyTextViewMediumBold
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text=""
@@ -69,8 +69,8 @@
               android:textSize="18sp"
               android:id="@+id/profile_name"
               android:layout_gravity="center_horizontal">
-              </com.langoor.app.blueshak.text.MyTextViewMediumBold>
-          <com.langoor.app.blueshak.text.MyTextViewBold
+              </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+          <com.blueshak.app.blueshak.text.MyTextViewBold
               android:layout_width="wrap_content"
               android:layout_marginTop="3dp"
               android:layout_height="wrap_content"
@@ -80,8 +80,8 @@
               android:textSize="16sp"
               android:id="@+id/email_id"
               android:layout_gravity="center_horizontal">
-          </com.langoor.app.blueshak.text.MyTextViewBold>
-          <com.langoor.app.blueshak.text.MyTextView
+          </com.blueshak.app.blueshak.text.MyTextViewBold>
+          <com.blueshak.app.blueshak.text.MyTextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginTop="3dp"
@@ -91,8 +91,8 @@
               android:textSize="18sp"
               android:id="@+id/phone_no"
               android:layout_gravity="center_horizontal">
-          </com.langoor.app.blueshak.text.MyTextView>
-          <com.langoor.app.blueshak.text.MyTextView
+          </com.blueshak.app.blueshak.text.MyTextView>
+          <com.blueshak.app.blueshak.text.MyTextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginTop="3dp"
@@ -103,8 +103,8 @@
               android:id="@+id/address"
               android:visibility="gone"
               android:layout_gravity="center_horizontal">
-          </com.langoor.app.blueshak.text.MyTextView>
-          <com.langoor.app.blueshak.text.MyTextView
+          </com.blueshak.app.blueshak.text.MyTextView>
+          <com.blueshak.app.blueshak.text.MyTextView
               android:layout_width="wrap_content"
               android:visibility="gone"
               android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
               android:textColor="@color/brand_text_color"
               android:textSize="14sp"
               android:layout_gravity="center_horizontal">
-          </com.langoor.app.blueshak.text.MyTextView>
+          </com.blueshak.app.blueshak.text.MyTextView>
             <RatingBar
                   android:progressTint="@color/tab_selected"
                   style="?android:attr/ratingBarStyleSmall"
@@ -125,7 +125,7 @@
                   android:layout_height="wrap_content"
                   android:rating="0"
                   />
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="Read reviews(0)"
@@ -134,11 +134,11 @@
                   android:textSize="14sp"
                   android:id="@+id/read_reviews"
                   >
-              </com.langoor.app.blueshak.text.MyTextView>
+              </com.blueshak.app.blueshak.text.MyTextView>
 
       </LinearLayout>
 
-    <com.langoor.app.blueshak.text.MyTextViewMediumBold
+    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/profile_listing"
@@ -147,7 +147,7 @@
         android:textColor="@color/brand_text_color"
         android:textSize="18sp"
         android:layout_gravity="center_vertical">
-    </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -170,7 +170,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-          <com.langoor.app.blueshak.text.MyTextView
+          <com.blueshak.app.blueshak.text.MyTextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="@string/profile_my_items"
@@ -181,7 +181,7 @@
               android:textSize="@dimen/sign_up_text_size"
               android:layout_marginRight="20dp"
               >
-              </com.langoor.app.blueshak.text.MyTextView>
+              </com.blueshak.app.blueshak.text.MyTextView>
               <ImageView
               android:layout_width="24dp"
               android:layout_marginTop="1dp"
@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     >
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/profile_my_bookmarks"
@@ -224,7 +224,7 @@
                           android:textSize="@dimen/sign_up_text_size"
                         android:layout_marginRight="20dp"
                         >
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
 
                     <ImageView
                         android:layout_width="24dp"
@@ -256,7 +256,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     >
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/profile_my_shops"
@@ -265,7 +265,7 @@
                         android:textSize="@dimen/sign_up_text_size"
                         android:layout_marginRight="20dp"
                         >
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_marginTop="1dp"
@@ -286,7 +286,7 @@
         android:layout_height="1dp"
         android:background="@color/bottom_bar_background_color"/>
 
-    <com.langoor.app.blueshak.text.MyTextViewMediumBold
+    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/profile_app"
@@ -296,7 +296,7 @@
         android:textColor="@color/brand_text_color"
         android:textSize="18sp"
         android:layout_gravity="center_vertical">
-    </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -317,7 +317,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     >
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/profile_contact_support"
@@ -326,7 +326,7 @@
                           android:textSize="@dimen/sign_up_text_size"
                         android:layout_marginRight="20dp"
                         >
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_marginTop="1dp"
@@ -355,7 +355,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     >
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/profile_rate_app"
@@ -364,7 +364,7 @@
                           android:textSize="@dimen/sign_up_text_size"
                         android:layout_marginRight="20dp"
                         >
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
 
                     <ImageView
                         android:layout_width="24dp"
@@ -397,7 +397,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     >
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/profile_share"
@@ -406,7 +406,7 @@
                           android:textSize="@dimen/sign_up_text_size"
                         android:layout_marginRight="20dp"
                         >
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
 
                     <ImageView
                         android:layout_width="24dp"
@@ -439,7 +439,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     >
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/profile_privacy_policy"
@@ -448,7 +448,7 @@
                         android:textSize="@dimen/sign_up_text_size"
                         android:layout_marginRight="20dp"
                         >
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
 
                     <ImageView
                         android:layout_width="24dp"
@@ -481,7 +481,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     >
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/profile_term_condition"
@@ -490,7 +490,7 @@
                         android:textSize="@dimen/sign_up_text_size"
                         android:layout_marginRight="20dp"
                         >
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
 
                     <ImageView
                         android:layout_width="24dp"
@@ -520,7 +520,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     >
-                    <com.langoor.app.blueshak.text.MyTextView
+                    <com.blueshak.app.blueshak.text.MyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/profile_term_logout"
@@ -529,7 +529,7 @@
                         android:textSize="@dimen/sign_up_text_size"
                         android:layout_marginRight="20dp"
                         >
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
 
                     <ImageView
                         android:layout_width="24dp"
@@ -547,7 +547,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/bottom_bar_background_color"/>
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:padding="10dp"
                 android:id="@+id/content_profile"
                 android:layout_width="match_parent"
@@ -558,7 +558,7 @@
                 android:textSize="@dimen/profile_text_size"
 
                 >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

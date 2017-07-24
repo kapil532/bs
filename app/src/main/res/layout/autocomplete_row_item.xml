@@ -6,7 +6,7 @@
     android:background="@color/brandColor"
     android:layout_height="match_parent">
 
-    <com.langoor.app.blueshak.text.MyTextView
+    <com.blueshak.app.blueshak.text.MyTextView
         android:id="@+id/autoCompleteLabel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,6 +15,6 @@
         android:textColor="@color/white"
         android:background="@drawable/text_background"
         >
-        </com.langoor.app.blueshak.text.MyTextView>
+        </com.blueshak.app.blueshak.text.MyTextView>
 
 </LinearLayout>

@@ -55,7 +55,7 @@
 
         </RelativeLayout>
 
-        <com.langoor.app.blueshak.text.MyButton
+        <com.blueshak.app.blueshak.text.MyButton
             android:id="@+id/tutorial_skip_text"
             android:background="@drawable/round_corner_thin_blue_border_bg"
             android:layout_width="match_parent"
@@ -69,8 +69,8 @@
             android:textColor="@color/brandColor"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true">
-        </com.langoor.app.blueshak.text.MyButton>
-        <com.langoor.app.blueshak.text.MyButton
+        </com.blueshak.app.blueshak.text.MyButton>
+        <com.blueshak.app.blueshak.text.MyButton
             android:layout_margin="10dp"
             android:id="@+id/go_to_main_page"
             android:visibility="gone"
@@ -84,7 +84,7 @@
             android:textColor="#ffffff"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" >
-        </com.langoor.app.blueshak.text.MyButton>
+        </com.blueshak.app.blueshak.text.MyButton>
     </RelativeLayout>
 
 </LinearLayout>

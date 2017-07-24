@@ -6,7 +6,7 @@
     android:background="@color/brandColor"
     >
 
-        <com.langoor.app.blueshak.text.MyTextViewBold
+        <com.blueshak.app.blueshak.text.MyTextViewBold
             android:id="@+id/title"
             android:layout_weight=".20"
             android:textColor="@color/white"
@@ -23,7 +23,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
 
-        </com.langoor.app.blueshak.text.MyTextViewBold>
+        </com.blueshak.app.blueshak.text.MyTextViewBold>
 
 
     <ImageView

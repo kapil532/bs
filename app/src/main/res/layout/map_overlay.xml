@@ -78,7 +78,7 @@
                     android:orientation="vertical"
                     android:layout_toRightOf="@+id/profile_pic_content"
                     android:layout_toEndOf="@+id/profile_pic_content" >
-                    <com.langoor.app.blueshak.text.MyTextViewMediumBold
+                    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
                         android:layout_width="wrap_content"
                         android:textStyle="bold"
                         android:layout_height="wrap_content"
@@ -88,9 +88,9 @@
                         android:textSize="@dimen/item_detail_title_text_size"
                         android:id="@+id/sale_name"
                         >
-                    </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+                    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
 
-                    <com.langoor.app.blueshak.text.MyTextViewMediumBold
+                    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2 Items"
@@ -98,7 +98,7 @@
                         android:textSize="14sp"
                         android:id="@+id/sale_items"
                         >
-                    </com.langoor.app.blueshak.text.MyTextViewMediumBold>
+                    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
                 </LinearLayout>
 
             </RelativeLayout>

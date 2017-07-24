@@ -82,7 +82,7 @@
 android:id="@+id/detail_content"
         android:layout_below="@+id/slider">
 
-                <com.langoor.app.blueshak.text.MyTextView
+                <com.blueshak.app.blueshak.text.MyTextView
                     android:id="@+id/sale_item_row_list_name_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -93,13 +93,13 @@ android:id="@+id/detail_content"
                     android:textColor="@color/black"
                     android:layout_weight=".5"
                     android:text="Andy's Garrage Sale">
-                    </com.langoor.app.blueshak.text.MyTextView>
+                    </com.blueshak.app.blueshak.text.MyTextView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:orientation="horizontal">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/sale_item_row_list_items_no_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,8 +112,8 @@ android:id="@+id/detail_content"
                 android:textColor="@color/brandColor"
                 android:layout_weight=".40"
                 android:text="7 Items">
-                </com.langoor.app.blueshak.text.MyTextView>
-            <com.langoor.app.blueshak.text.MyTextView
+                </com.blueshak.app.blueshak.text.MyTextView>
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/sales_item_row_list_distance_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,14 +127,14 @@ android:id="@+id/detail_content"
                 android:textColor="@color/brandColor"
                 android:textSize="15sp"
                 android:text="333332 km Away">
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:orientation="horizontal">
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/sales_item_row_list_date_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,14 +144,14 @@ android:id="@+id/detail_content"
                 android:layout_weight=".5"
                 android:textColor="#808080"
                 android:text="1st August">
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
             <View
                 android:layout_height="match_parent"
                 android:layout_width="1dp"
                 android:background="#808080"
                 android:visibility="gone"
                 />
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/sales_item_row_list_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -163,7 +163,7 @@ android:id="@+id/detail_content"
                 android:visibility="gone"
                 android:textColor="#808080"
                 android:text="1st August">
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
         </LinearLayout>
 
 

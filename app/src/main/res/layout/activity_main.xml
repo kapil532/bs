@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/brand_background_color"
     android:fitsSystemWindows="true"
-    tools:context="com.langoor.app.blueshak.garage.CreateSaleActivity">
+    tools:context="com.blueshak.app.blueshak.garage.CreateSaleActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

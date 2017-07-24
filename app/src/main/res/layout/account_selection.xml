@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.langoor.app.blueshak.text.MyTextView
+    <com.blueshak.app.blueshak.text.MyTextView
         android:id="@+id/dialog_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tv_selection_fragment_title_height"
@@ -16,7 +16,7 @@
         android:gravity="center_vertical"
         android:textSize="@dimen/tv_selection_fragment_title_textsize"
         >
-        </com.langoor.app.blueshak.text.MyTextView>
+        </com.blueshak.app.blueshak.text.MyTextView>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -49,7 +49,7 @@
         android:layout_below="@+id/dialog_title"
         android:background="@drawable/vertical_shadow"
         />
-      <com.langoor.app.blueshak.text.MyTextView
+      <com.blueshak.app.blueshak.text.MyTextView
         android:id="@+id/none"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tv_selection_fragment_title_height"
@@ -62,6 +62,6 @@
         android:layout_below="@+id/relativeLayout"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" >
-          </com.langoor.app.blueshak.text.MyTextView>
+          </com.blueshak.app.blueshak.text.MyTextView>
 
 </RelativeLayout>

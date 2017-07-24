@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.langoor.app.blueshak.item.ViewActivity"
+    tools:context="com.blueshak.app.blueshak.item.ViewActivity"
     android:background="@color/black"
     tools:showIn="@layout/activity_view">
-    <com.langoor.app.blueshak.image.TouchImageView
+    <com.blueshak.app.blueshak.image.TouchImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/image"

@@ -13,7 +13,7 @@
       android:layout_height="wrap_content"
       android:orientation="horizontal">
 
-  <com.langoor.app.blueshak.text.MyTextViewBold
+  <com.blueshak.app.blueshak.text.MyTextViewBold
       android:id="@+id/tab1"
       android:layout_weight=".5"
       android:layout_gravity="center"
@@ -26,7 +26,7 @@
       android:layout_margin="1dp"
       android:gravity="center_horizontal"
       android:text="Garage"/>
-    <com.langoor.app.blueshak.text.MyTextViewBold
+    <com.blueshak.app.blueshak.text.MyTextViewBold
         android:layout_margin="1dp"
         android:background="@color/brand_secondary_color"
         android:textSize="@dimen/sign_up_text_size"

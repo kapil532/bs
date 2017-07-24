@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
-    <com.langoor.app.blueshak.helper.RoundedImageView
+    <com.blueshak.app.blueshak.helper.RoundedImageView
         android:id="@+id/profile_pic"
         android:layout_width="@dimen/chatview_target_profilepic_size"
         android:layout_height="@dimen/chatview_target_profilepic_size"
@@ -13,7 +13,7 @@
 
         >
 
-    </com.langoor.app.blueshak.helper.RoundedImageView>
+    </com.blueshak.app.blueshak.helper.RoundedImageView>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/profile_pic"
         android:layout_toStartOf="@+id/profile_pic">
-        <com.langoor.app.blueshak.text.MyTextView
+        <com.blueshak.app.blueshak.text.MyTextView
             android:id="@+id/message_body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,9 +33,9 @@
             android:inputType="textMultiLine"
             android:textColor="@color/brandColor"
             >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
 
-        <com.langoor.app.blueshak.text.MyTextView
+        <com.blueshak.app.blueshak.text.MyTextView
             android:id="@+id/message_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             android:maxWidth="@dimen/sent_message_layout_maxwidth"
             android:textColor="@color/black"
             >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
 
     </LinearLayout>
 

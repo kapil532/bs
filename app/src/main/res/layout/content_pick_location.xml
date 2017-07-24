@@ -51,7 +51,7 @@
        >
 
 
-        <com.langoor.app.blueshak.text.MyButton
+        <com.blueshak.app.blueshak.text.MyButton
             android:id="@+id/current_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
             android:layout_margin="2dp"
             android:background="@drawable/round_corner_btn__style"
             android:text="Current location">
-            </com.langoor.app.blueshak.text.MyButton>
+            </com.blueshak.app.blueshak.text.MyButton>
         <LinearLayout
             android:id="@+id/seporater"
             android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
             android:layout_height="1dp"
                 android:layout_gravity="center_vertical"
             android:background="@android:color/black" />
-            <com.langoor.app.blueshak.text.MyTextView
+            <com.blueshak.app.blueshak.text.MyTextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:textSize="16sp"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/black">
-                </com.langoor.app.blueshak.text.MyTextView>
+                </com.blueshak.app.blueshak.text.MyTextView>
             <View
                 android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
@@ -116,7 +116,7 @@
             android:id="@+id/editText"
             android:layout_gravity="center_horizontal" />-->
 
-        <com.langoor.app.blueshak.text.MyAutoCompleteTextView
+        <com.blueshak.app.blueshak.text.MyAutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
             android:layout_width="match_parent"
             android:padding="15dp"
@@ -131,8 +131,8 @@
             android:textColor="@color/black"
             android:hint="Enter location"
           >
-            </com.langoor.app.blueshak.text.MyAutoCompleteTextView>
-        <com.langoor.app.blueshak.text.MyTextView
+            </com.blueshak.app.blueshak.text.MyAutoCompleteTextView>
+        <com.blueshak.app.blueshak.text.MyTextView
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_width="match_parent"
@@ -141,7 +141,7 @@
             android:gravity="center_vertical"
             android:textColor="#808080"
             >
-            </com.langoor.app.blueshak.text.MyTextView>
+            </com.blueshak.app.blueshak.text.MyTextView>
 
        <!-- <com.langoor.app.blueshak.text.MyButtonNormal
             android:layout_width="wrap_content"
@@ -173,7 +173,7 @@
 
                     android:layout_height="wrap_content"
                     >
-                    <com.langoor.app.blueshak.text.MyEditTextView
+                    <com.blueshak.app.blueshak.text.MyEditTextView
                         android:visibility="gone"
                         android:id="@+id/street_number"
                         android:layout_width="match_parent"
@@ -188,9 +188,9 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/brand_text_hint_color"
                         android:textStyle="normal" >
-                    </com.langoor.app.blueshak.text.MyEditTextView>
+                    </com.blueshak.app.blueshak.text.MyEditTextView>
                 </android.support.design.widget.TextInputLayout>
-                <com.langoor.app.blueshak.text.MyButton
+                <com.blueshak.app.blueshak.text.MyButton
                     android:layout_marginBottom="5dp"
                     android:id="@+id/save"
                     android:background="@drawable/round_corner_btn__style"
@@ -204,7 +204,7 @@
                     android:textColor="@color/white"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true">
-                </com.langoor.app.blueshak.text.MyButton>
+                </com.blueshak.app.blueshak.text.MyButton>
             <!--</LinearLayout>-->
 
         </RelativeLayout>
