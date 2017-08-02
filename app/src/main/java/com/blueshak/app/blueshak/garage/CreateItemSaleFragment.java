@@ -30,6 +30,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blueshak.app.blueshak.Messaging.helper.Constants;
 import com.blueshak.app.blueshak.abhs.emojiParser;
 import com.crashlytics.android.Crashlytics;
 import com.blueshak.app.blueshak.currency.CurrencyActivity;
@@ -63,7 +64,6 @@ import com.blueshak.app.blueshak.services.model.StatusModel;
 import com.mvc.imagepicker.ImagePicker;
 import com.mvc.imagepicker.ImageUtils;
 import com.tokenautocomplete.TokenCompleteTextView;
-import com.vdurmont.emoji.EmojiParser;
 
 import org.lucasr.twowayview.TwoWayView;
 
@@ -350,14 +350,14 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             postalCode = postalCode == null ? selectedAutoSuggesstionsList.get(i).getId() : postalCode + "," + selectedAutoSuggesstionsList.get(i).getId();
         }
         try {
-            str_name =  EmojiParser.parseToAliases(name.getText().toString());
+            str_name =  Constants.parseTo(name.getText().toString());
         }
         catch (Exception e)
         {
             str_name = name.getText().toString();
         }
       try {
-          str_desc = EmojiParser.parseToAliases(description.getText().toString());
+          str_desc = Constants.parseTo(description.getText().toString());
       }
       catch (Exception e)
       {
@@ -645,8 +645,8 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
 try
 {
-    name.setText(EmojiParser.parseToUnicode(productModel.getName()));
-    description.setText(EmojiParser.parseToUnicode(productModel.getDescription()));
+    name.setText(Constants.getConv(productModel.getName()));
+    description.setText(Constants.getConv(productModel.getDescription()));
 }
 catch (Exception ee)
 {

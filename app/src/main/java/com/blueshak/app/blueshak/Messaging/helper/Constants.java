@@ -3,6 +3,10 @@ package com.blueshak.app.blueshak.Messaging.helper;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
+import java.net.URLDecoder;
+
 /**
  * Created by Bryan Yang on 9/22/2015.
  */
@@ -45,7 +49,37 @@ public class Constants {
       {
         return  ctx.getResources().getString(id);
       }
+ static    String unicode = "";
+static String s="";
+    public static String getEmoticon(String encodedComment) {
+
+        for (int i = 0; i < encodedComment.length(); i++)
+        {
+            unicode = unicode + unicodeEscaped(encodedComment.charAt(i));
+        }
+        return unicode;
+    }
 
 
+  public static String parseTo(String s)
+    {
+       return StringEscapeUtils.escapeJava(s);
+    }
 
+    public static String getConv(String s)
+    {
+        return  StringEscapeUtils.unescapeJava(s);
+    }
+
+    public static String unicodeEscaped(char ch)
+    {
+        if (ch < 0x10) {
+            return "\\u000" + Integer.toHexString(ch);
+        } else if (ch < 0x100) {
+            return "\\u00" + Integer.toHexString(ch);
+        } else if (ch < 0x1000) {
+            return "\\u0" + Integer.toHexString(ch);
+        }
+        return "\\u" + Integer.toHexString(ch);
+    }
 }

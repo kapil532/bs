@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.blueshak.app.blueshak.Messaging.helper.Constants;
 import com.blueshak.blueshak.R;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.blueshak.app.blueshak.PickLocation;
@@ -53,7 +54,6 @@ import com.blueshak.app.blueshak.services.model.ProductModel;
 import com.blueshak.app.blueshak.services.model.SalesModel;
 import com.blueshak.app.blueshak.services.model.StatusModel;
 import com.blueshak.app.blueshak.view.AlertDialog;
-import com.vdurmont.emoji.EmojiParser;
 
 import org.json.JSONArray;
 
@@ -258,14 +258,14 @@ public class CreateGarageSaleFragment extends Fragment{
 
         Log.d(TAG,"GALAGELMODEL 1"+createSalesModel);
         try {
-            namestr = EmojiParser.parseToAliases(name.getText().toString());
+            namestr = Constants.parseTo(name.getText().toString());
         }
         catch (Exception eee)
         {
             namestr =name.getText().toString();
         }
         try {
-            descriptionstr = EmojiParser.parseToAliases(description.getText().toString());
+            descriptionstr =Constants.parseTo(description.getText().toString());
         }
         catch (Exception e)
         {
@@ -405,8 +405,8 @@ public class CreateGarageSaleFragment extends Fragment{
           /*  select_items.setVisibility(View.GONE);*/
             old_list=createSalesModel.getItem_list();
             try {
-                name.setText(EmojiParser.parseToUnicode(createSalesModel.getName()));
-                description.setText(EmojiParser.parseToUnicode(createSalesModel.getDescription()));
+                name.setText(Constants.getConv(createSalesModel.getName()));
+                description.setText(Constants.getConv(createSalesModel.getDescription()));
             }catch (Exception e)
             {
                 name.setText((createSalesModel.getName()));

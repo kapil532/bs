@@ -49,6 +49,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.blueshak.app.blueshak.Messaging.helper.Constants;
 import com.crashlytics.android.Crashlytics;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
@@ -92,8 +93,10 @@ import com.blueshak.app.blueshak.view_sales.MapActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
-import com.vdurmont.emoji.EmojiParser;
 import com.vlonjatg.progressactivity.ProgressActivity;
+
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -807,7 +810,8 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         else
             category="Electronics and Computers";
         category_tv.setText(category);
-        productDescriptionDetail_tv.setText(EmojiParser.parseToUnicode(productModel.getDescription()));
+       // productDescriptionDetail_tv.setText("PRODU-1a->  "+EmojiParser.parseToUnicode(/*Constants.getEmoticon*/(productModel.getDescription())));
+        productDescriptionDetail_tv.setText( StringEscapeUtils.unescapeJava(productModel.getDescription()));
         /*If the line are more than show view more or else not needed*/
 //        if(productDescriptionDetail_tv.getLineCount()>3)
 //            makeTextViewResizable(productDescriptionDetail_tv, 3, "View More", true);
@@ -1223,7 +1227,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         if(!salesModel.is_own_sale())
             make_offer.setVisibility(View.GONE);
         try {
-            productDescriptionDetail_tv.setText(EmojiParser.parseToUnicode(salesModel.getDescription()));
+            productDescriptionDetail_tv.setText(StringEscapeUtils.unescapeJava(salesModel.getDescription()));
         }
         catch (Exception e)
         {

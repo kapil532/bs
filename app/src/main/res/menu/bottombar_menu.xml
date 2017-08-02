@@ -12,7 +12,7 @@
     <item
         android:id="@+id/garage"
         android:icon="@drawable/ic_garage_off"
-        android:title="Sale" />
+        android:title="Sales" />
 
     <item
         android:id="@+id/list"

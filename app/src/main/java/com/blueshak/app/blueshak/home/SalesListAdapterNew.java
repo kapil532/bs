@@ -17,6 +17,7 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.Transformers.BaseTransformer;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.global.GlobalFunctions;
@@ -159,6 +160,16 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
             holder.mProductSlider.setDuration(4000);
             holder.mProductSlider.addOnPageChangeListener(this);
             holder.mProductSlider.stopAutoCycle();
+
+            if (displayImageURL.size() < 2) {
+                holder.mProductSlider.stopAutoCycle();
+                holder.mProductSlider.setPagerTransformer(false, new BaseTransformer() {
+                    @Override
+                    protected void onTransform(View view, float v) {
+                    }
+                });
+                //TODO: disable indicator
+            }
         }else  if (view_holder instanceof VHLoader) {
             VHLoader loaderViewHolder = (VHLoader)view_holder;
             if (showLoader) {

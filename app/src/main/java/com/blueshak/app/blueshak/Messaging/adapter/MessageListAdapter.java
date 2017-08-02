@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blueshak.app.blueshak.Messaging.helper.Constants;
 import com.crashlytics.android.Crashlytics;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.global.GlobalFunctions;
@@ -25,7 +26,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.squareup.picasso.Picasso;
-import com.vdurmont.emoji.EmojiParser;
 
 import java.security.spec.ECField;
 import java.text.ParseException;
@@ -222,7 +222,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 SenderHolder senderHolder=(SenderHolder)view_holder;
                 senderHolder.messagTimestamp.setText(time_stamp);
                 try {
-                    senderHolder.messageBody.setText(EmojiParser.parseToUnicode(messageModel.getMessage()));
+                    senderHolder.messageBody.setText(Constants.getConv(messageModel.getMessage()));
                 }
                 catch (Exception ee1) {
                     senderHolder.messageBody.setText((messageModel.getMessage()));
@@ -242,7 +242,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ReceiverHolder receiverHolder=(ReceiverHolder)view_holder;
                 receiverHolder.messagTimestamp.setText(time_stamp);
                 try {
-                    receiverHolder.messageBody.setText(EmojiParser.parseToUnicode(messageModel.getMessage()));
+                    receiverHolder.messageBody.setText(Constants.getConv(messageModel.getMessage()));
                 }
                 catch (Exception e) {
                     receiverHolder.messageBody.setText(messageModel.getMessage());
@@ -315,7 +315,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 SenderOfferHolder senderHolder=(SenderOfferHolder)view_holder;
                 senderHolder.messagTimestamp.setText(time_stamp);
                 try {
-                    senderHolder.messageBody.setText(EmojiParser.parseToUnicode(messageModel.getMessage()));
+                    senderHolder.messageBody.setText(Constants.getConv(messageModel.getMessage()));
                 }
                 catch (Exception eee)
                 {
@@ -351,7 +351,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 senderHolder.messagTimestamp.setText(time_stamp);
 
                 try {
-                    senderHolder.messageBody.setText(EmojiParser.parseToUnicode(messageModel.getMessage()));
+                    senderHolder.messageBody.setText(Constants.getConv(messageModel.getMessage()));
                 } catch (Exception e)
                 {
                     senderHolder.messageBody.setText(messageModel.getMessage());

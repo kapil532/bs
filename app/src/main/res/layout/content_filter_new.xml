@@ -283,7 +283,8 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
                     <com.blueshak.app.blueshak.text.MyTextView
                         android:padding="10dp"
                         android:layout_weight=".3"
@@ -437,6 +438,7 @@
         <View
 
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:background="@color/bottom_bar_background_color"
             android:layout_height="1dp"/>
         <LinearLayout

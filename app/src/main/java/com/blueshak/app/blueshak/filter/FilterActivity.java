@@ -159,6 +159,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
             h_to_l = (Switch) findViewById(R.id.h_to_l);
             l_to_h = (Switch) findViewById(R.id.l_to_h);
             ending_soon = (Switch) findViewById(R.id.ending_soon);
+            ending_soon.setVisibility(View.GONE);
             sort_by_recent = (Switch) findViewById(R.id.sort_by_recent);
             category_layout = (RelativeLayout) findViewById(R.id.category_layout);
             category_layout.setOnClickListener(new View.OnClickListener() {

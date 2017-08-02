@@ -44,6 +44,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueshak.app.blueshak.MainActivity;
+import com.blueshak.app.blueshak.Messaging.helper.Constants;
 import com.blueshak.app.blueshak.reviews_rating.ReviewsRatings;
 import com.blueshak.app.blueshak.services.model.ProfileDetailsModel;
 import com.blueshak.blueshak.R;
@@ -71,7 +72,6 @@ import com.blueshak.app.blueshak.services.model.SalesModel;
 import com.blueshak.app.blueshak.services.model.StatusModel;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.vdurmont.emoji.EmojiParser;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -482,7 +482,7 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
             createMessageModel.setConversation_id(conversation_id);
             createMessageModel.setMessage_type(GlobalVariables.TYPE_TEXT);
            try {
-               createMessageModel.setMessage(EmojiParser.parseToAliases(message));
+               createMessageModel.setMessage(Constants.parseTo(message));
            }
            catch (Exception eee)
            {
