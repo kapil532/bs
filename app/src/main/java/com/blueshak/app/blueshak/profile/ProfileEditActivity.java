@@ -687,7 +687,7 @@ public class ProfileEditActivity extends RootActivity {
     }
     public void showExitAlert(){
         final com.blueshak.app.blueshak.view.AlertDialog alertDialog = new com.blueshak.app.blueshak.view.AlertDialog(context);
-        alertDialog.setTitle("Blueshak");
+        alertDialog.setTitle("BlueShak");
         alertDialog.setMessage("You are sure you want to reset your password? You will be logged out and will receive a new password in your email.");
         alertDialog.setPositiveButton("OK", new View.OnClickListener() {
             @Override

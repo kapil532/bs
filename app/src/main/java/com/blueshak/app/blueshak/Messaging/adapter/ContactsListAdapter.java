@@ -27,6 +27,8 @@ import com.blueshak.app.blueshak.global.GlobalVariables;
 import com.blueshak.app.blueshak.helper.RoundedImageView;
 import com.blueshak.app.blueshak.services.model.ContactModel;
 import com.squareup.picasso.Picasso;
+import com.vdurmont.emoji.EmojiParser;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -107,8 +109,8 @@ public class ContactsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         myViewHolder.is_read.setChecked(true);
                     }
                 }else{
-                    myViewHolder.lastTextMessage.setText(contactModel.getMessage());
-                    myViewHolder.last_text_message_not_read.setText(contactModel.getMessage());
+                    myViewHolder.lastTextMessage.setText(EmojiParser.parseToUnicode(contactModel.getMessage()));
+                    myViewHolder.last_text_message_not_read.setText(EmojiParser.parseToUnicode(contactModel.getMessage()));
                     if(myViewHolder.image_type.getVisibility()==View.VISIBLE)
                         myViewHolder.image_type.setVisibility(View.GONE);
                     if(!contactModel.is_read()){
@@ -119,7 +121,7 @@ public class ContactsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         myViewHolder.lastTextMessage.setVisibility(View.VISIBLE);
                     }
                 }
-                myViewHolder.name.setText(contactModel.getContact_name());
+                myViewHolder.name.setText(EmojiParser.parseToUnicode(contactModel.getContact_name()));
                 String profilePic=contactModel.getContact_image();
              /*   ImageLoader imageLoader = ImageLoader.getInstance();
                 DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)

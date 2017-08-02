@@ -25,7 +25,7 @@ public class MyListings extends RootActivity {
     public static final String TAG = "MyListings";
     private ViewPager mViewPager;
     private TabHost mTabHost;
-    private String[] tabs = {"Items", "my sales" };
+    private String[] tabs = {"Items", "My Sales" };
     private Toolbar toolbar;
     private ActionBar actionBar;
     private static Context context;

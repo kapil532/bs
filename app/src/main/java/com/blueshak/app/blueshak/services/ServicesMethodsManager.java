@@ -1041,11 +1041,10 @@ public class ServicesMethodsManager {
                         }
                     }
                 }
-       salesModel.setImages(images);
+      // salesModel.setImages(images);
        // Log.d("Create Sale", salesModel.toString());
         setCallbacks(mCallInterface);
-        if(salesModel.getRequest_type().equalsIgnoreCase(GlobalVariables.TYPE_CREATE_REQUEST) ||
-                salesModel.getRequest_type().equalsIgnoreCase(GlobalVariables.TYPE_UPDATE_REQUEST)    )
+        if(salesModel.getRequest_type().equalsIgnoreCase(GlobalVariables.TYPE_CREATE_REQUEST) ||salesModel.getRequest_type().equalsIgnoreCase(GlobalVariables.TYPE_UPDATE_REQUEST))
             postData(context, salesModel, ServerConstants.URL_CreateSale, TAG);
         else if(salesModel.getRequest_type().equalsIgnoreCase(GlobalVariables.TYPE_PUBLISH_REQUEST))
             postData(context, salesModel, ServerConstants.URL_PublishSale, TAG);

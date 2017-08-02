@@ -371,6 +371,10 @@ public class CreateSalesModel implements Serializable {
                 CreateImageModel model = images.get(i);
                 imageArray.put(new JSONObject(model.toString()));
             }
+
+            if(request_type.equalsIgnoreCase(GlobalVariables.TYPE_UPDATE_REQUEST)){
+                jsonMain.put(OLD_PRODUCTS,old_array);
+            }
            /* JSONArray old_jsonArray = new JSONArray();
             List<ProductModel> old_productModelList = old_item_list;
             for(int j=0;j<old_productModelList.size();j++){

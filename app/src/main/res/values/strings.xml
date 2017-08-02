@@ -19,7 +19,7 @@
     <string name="support">Support</string>
 
 
-    <string name="garageSale">Garage Sale</string>
+    <string name="garageSale">My Sale</string>
     <string name="item">Item</string>
 
     <string name="sales_left">You can add up to 10 products per sale, 50 product left overall.</string>
@@ -50,9 +50,9 @@
     <string name="mark_as_sold">Mark as sold</string>
     <string name="edit">Edit</string>
     <string name="delete_sale">Delete</string>
-    <string name="edit_Sale">Edit Garage Sale</string>
-    <string name="end_sale">Close Garage Sale</string>
-    <string name="reschedule_sale">Reschedule Garage Sale</string>
+    <string name="edit_Sale">Edit My Sale</string>
+    <string name="end_sale">Close My Sale</string>
+    <string name="reschedule_sale">Reschedule My Sale</string>
     <string name="title_activity_terms_conditions">Help Center</string>
     <string name="title_activity_profile_edit">Profile Edit</string>
     <string name="title_activity_profile">Profile</string>

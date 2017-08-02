@@ -309,6 +309,7 @@ public class CreateGarageSaleFragment extends Fragment{
             createSalesModel.setAddress(mAutocompleteTextView.getText().toString());
             if(!type_edit_sale)
                 createSalesModel.setRequest_type(GlobalVariables.TYPE_CREATE_REQUEST);
+
             if(locationModel!=null){
                 if(TextUtils.isEmpty(createSalesModel.getLatitude())){
                     createSalesModel.setLatitude(locationModel.getLatitude()+"");
@@ -322,7 +323,8 @@ public class CreateGarageSaleFragment extends Fragment{
                 /*jsonArray.put(new JSONObject(productModelList.get(i).toString()));*/
             }
             Log.d("Create Sale#######", "####old_jsonArray########"+old_jsonArray);
-            //createSalesModel.setOld_array(old_jsonArray);
+           createSalesModel.setOld_array(old_jsonArray);
+            createSalesModel.setOld_item_list(old_list);
            /* createSalesModel.setOld_item_list(old_list);*/
             Log.d("Create Sale#######", "####old_list########"+old_list.size());
             refresh_the_list();
@@ -424,12 +426,19 @@ public class CreateGarageSaleFragment extends Fragment{
             else
                 label=product_list.size()+" Items added";
 
+
+            Log.d("ITEMSSS0","ITEMS ADDED"+label);
             select_items.setText(label);
+
             for(ProductModel productModel:product_list){
                 productModel.setIs_selected(true);
                 data=data+productModel.getId()+ ",";
 
             }
+
+  LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) recycler_view.getLayoutParams();
+            params.height=product_list.size()*255;
+            recycler_view.setLayoutParams(params);
             adapter=new MyItemListAdapter(context,product_list,false);
             recycler_view.setAdapter(adapter);
             synchronized (adapter){adapter.notifyDataSetChanged();}
@@ -604,6 +613,10 @@ public class CreateGarageSaleFragment extends Fragment{
                         }else
                             product_list=homeListModel.getItem_list();
                     }
+
+                    LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) recycler_view.getLayoutParams();
+                    params.height=product_list.size()*255;
+                    recycler_view.setLayoutParams(params);
                     adapter=new MyItemListAdapter(context,product_list,false);
                     recycler_view.setAdapter(adapter);
                     synchronized (adapter){adapter.notifyDataSetChanged();}
