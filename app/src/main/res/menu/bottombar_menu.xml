@@ -11,7 +11,7 @@
         <!--android:title="Search" />-->
     <item
         android:id="@+id/garage"
-        android:icon="@drawable/ic_grage_new"
+        android:icon="@drawable/ic_garage_off"
         android:title="Sale" />
 
     <item
