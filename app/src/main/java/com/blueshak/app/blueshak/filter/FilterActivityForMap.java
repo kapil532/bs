@@ -949,7 +949,7 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
         nearest_content.setVisibility(View.VISIBLE);
         h_to_l_content.setVisibility(View.GONE);
         l_to_h_content.setVisibility(View.GONE);
-        ending_soon_content.setVisibility(View.VISIBLE);
+        ending_soon_content.setVisibility(View.GONE);
 
 
     }
