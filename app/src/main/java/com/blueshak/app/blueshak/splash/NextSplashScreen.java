@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 
+import com.blueshak.app.blueshak.util.FullScreenImageAdapter;
+import com.blueshak.app.blueshak.util.FullScreenImageAdapterNextSplash;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
@@ -19,6 +22,8 @@ import com.blueshak.app.blueshak.global.GlobalVariables;
 import com.blueshak.app.blueshak.root.RootActivity;
 import com.blueshak.app.blueshak.view.CustomSliderTextView;
 
+import me.relex.circleindicator.CircleIndicator;
+
 public class NextSplashScreen  extends RootActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
 
 
@@ -28,7 +33,8 @@ public class NextSplashScreen  extends RootActivity implements BaseSliderView.On
 	Context context;
 	static Activity activity;
 	Button go_to_main_page;
-
+ ViewPager viewPager;
+	FullScreenImageAdapterNextSplash myPagerAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{// TODO Auto-generated method stub
@@ -38,10 +44,10 @@ public class NextSplashScreen  extends RootActivity implements BaseSliderView.On
 			context = this;
 			setContentView(R.layout.next_splash_screen);
 			skipText = (Button) findViewById(R.id.tutorial_skip_text);
-			mProductSlider = (SliderLayout) findViewById(R.id.splash_slider);
+			//mProductSlider = (SliderLayout) findViewById(R.id.splash_slider);
 			go_to_main_page=(Button)findViewById(R.id.go_to_main_page);
-			mPagerIndicator = (PagerIndicator) findViewById(R.id.splash_custom_indicator);
-			setImageOnView(this);
+			//mPagerIndicator = (PagerIndicator) findViewById(R.id.splash_custom_indicator);
+			//setImageOnView(this);
 			go_to_main_page.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -58,6 +64,38 @@ public class NextSplashScreen  extends RootActivity implements BaseSliderView.On
 			e.printStackTrace();
 
 		}
+
+
+		viewPager = (ViewPager)findViewById(R.id.pager);
+
+		//viewPager.setCurrentItem(1, false);
+		CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+		myPagerAdapter = new FullScreenImageAdapterNextSplash(this);
+		//  myPagerAdapter.set
+		viewPager.setAdapter(myPagerAdapter);
+		viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+			}
+
+			@Override
+			public void onPageSelected(int i) {
+				if(i==2){
+					go_to_main_page.setVisibility(View.VISIBLE);
+				}
+
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int state) {
+
+			}
+		});
+
+		indicator.setViewPager(viewPager);
+
+		myPagerAdapter.registerDataSetObserver(indicator.getDataSetObserver());
 	}
 
 	public void setImageOnView(Context context){
@@ -102,7 +140,7 @@ public class NextSplashScreen  extends RootActivity implements BaseSliderView.On
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
-        mProductSlider.stopAutoCycle();
+       // mProductSlider.stopAutoCycle();
 		super.onStop();
 	}
 
