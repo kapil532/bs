@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class FullScreenImageAdapterNextSplash extends PagerAdapter {
     String[] titleA={"Find Stuff. Fast.","Sell stuff,for free.","Talk"};
-    String subTitleA[]={"Find new sales and stuff close to you.","Easily add your own items or create a sale. It’s Free!","Don’t change this for the meantime. Ertan had in mind to have theme of “Fire Sale”, but the graphics do not match?"};
+    String subTitleA[]={"Find new sales and stuff close to you.","Easily add your own items or create a sale. It’s Free!","Talk directly to buyers and sellers for easy transactions."};
     int[] displaypictures = {R.drawable.splash_1,R.drawable.splash_2, R.drawable.splash_3};
     private Activity _activity;
     private LayoutInflater inflater;
