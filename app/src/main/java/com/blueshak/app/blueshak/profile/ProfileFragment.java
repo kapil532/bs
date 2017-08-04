@@ -475,7 +475,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 		shareIntent.setType("text/plain");
 		shareIntent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id="+context.getPackageName());
 		try {
-			context.startActivity(Intent.createChooser(shareIntent, "Share Blueshak using"));
+			context.startActivity(Intent.createChooser(shareIntent, "Share BlueShak using"));
 		} catch (ActivityNotFoundException e) {
 			/*UtilityClass.showAlertDialog(context, ERROR, "Couldn't launch the market", null, 0);*/
 		}
