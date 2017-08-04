@@ -384,9 +384,9 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             Toast.makeText(activity, "Please enter the product description", Toast.LENGTH_LONG).show();
         } else if (TextUtils.isEmpty(mAutocompleteTextView.getText().toString())) {
             Toast.makeText(activity, "Please fill the product location", Toast.LENGTH_LONG).show();
-        } else if (!isShippable && !is_new_old.isChecked()) {
+        }/* else if (!isShippable && !is_new_old.isChecked()) {
             Toast.makeText(activity, "Item should be either shippable or pick up", Toast.LENGTH_LONG).show();
-        } else {
+        } */else {
             /*String country=GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_COUNTRY);
             productModel.setCountry_short(country);
           */
