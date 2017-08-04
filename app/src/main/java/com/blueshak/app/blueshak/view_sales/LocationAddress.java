@@ -50,7 +50,7 @@ public class LocationAddress {
                     } else {
                         message.what = 1;
                         Bundle bundle = new Bundle();
-                        result = "Unable to find Blueshak location..";
+                        result = "Unable to find BlueShak location..";
                         bundle.putString("address", result);
                         message.setData(bundle);
                     }

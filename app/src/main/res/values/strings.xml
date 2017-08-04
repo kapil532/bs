@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Blueshak</string>
+    <string name="app_name">BlueShak</string>
 
     <!--Network Static messages-->
     <string name="NetworkError">No Network Available</string>
@@ -119,7 +119,7 @@
     <string name="profile_ok">Ok</string>
     <string name="profile_cancel">Cancel</string>
     <string name="profile_your_contact">(Your contact info is visible to others)</string>
-    <string name="copy_right_text">Copyright Blueshak Pty Ltd. Version: 1.3</string>
+    <string name="copy_right_text">Copyright BlueShak Pty Ltd. Version: 1.3</string>
 
 
 

@@ -315,7 +315,7 @@ public class ShopActivity extends RootActivity {
         super.onResume();
     }
     private void shareProduct(){
-        final String product_="Family and freinds,please follow me on Blueshak everyone.";
+        final String product_="Family and freinds,please follow me on BlueShak everyone.";
         final String product_name="Shop Name :"+profileDetailsModel.getName();
         final String product_description="Shop Description :"+profileDetailsModel.getShop().getDescription();
         String image_url=null;

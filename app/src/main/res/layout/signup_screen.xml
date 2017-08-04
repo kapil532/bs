@@ -354,6 +354,7 @@
                     android:layout_height="@dimen/login_btn_height"
                     android:layout_width="match_parent"
                     android:padding="5dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="15dp"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/white"

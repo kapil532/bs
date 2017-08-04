@@ -988,7 +988,7 @@ public class GlobalFunctions {
     public static void showEmailVerificatiomAlert(Context context){
         String message=context.getResources().getString(R.string.ErrorEmailVerification);
         final com.blueshak.app.blueshak.view.AlertDialog alertDialog = new com.blueshak.app.blueshak.view.AlertDialog(context);
-        alertDialog.setTitle("Blueshak");
+        alertDialog.setTitle("BlueShak");
         alertDialog.setMessage(message);
         alertDialog.setPositiveButton("OK", new View.OnClickListener() {
             @Override
