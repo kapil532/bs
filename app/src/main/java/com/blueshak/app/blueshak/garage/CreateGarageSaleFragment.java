@@ -343,19 +343,33 @@ public class CreateGarageSaleFragment extends Fragment{
             }
         }
     }
-    private void createSale(final Context context, final CreateSalesModel createSalesModel){
+    private void createSale(final Context context, final CreateSalesModel createSalesModel)
+    {
         final String email_verification_error=context.getResources().getString(R.string.ErrorEmailVerification);
       /*  showProgressBar();*/
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.createSale(context, createSalesModel, new ServerResponseInterface() {
             @Override
-            public void OnSuccessFromServer(Object arg0) {
+            public void OnSuccessFromServer(Object arg0)
+            {
                hideProgressBar();
-                if(arg0 instanceof IDModel){
+                if(arg0 instanceof IDModel)
+                {
                     IDModel idModel = (IDModel) arg0;
+
                     createSalesModel.setSaleID(idModel.getId());
-                    Toast.makeText(context, "Sale has been Published Successfully",Toast.LENGTH_LONG).show();
-                    closeThisActivity();
+                    Log.d("id Modelec","saleIDDD"+createSalesModel.toString());
+                    if(!type_edit_sale)
+                    {
+                        showProgressBar();
+                        createSalesModel.setRequest_type(GlobalVariables.TYPE_UPDATE_REQUEST);
+                        publishSale(context,createSalesModel);
+                    }
+                    else {
+                        Toast.makeText(context, "Sale has been Published Successfully", Toast.LENGTH_LONG).show();
+                        closeThisActivity();
+                    }
+                    //closeThisActivity();
                 }else if(arg0 instanceof ErrorModel){
                     ErrorModel errorModel = (ErrorModel) arg0;
                     String msg = errorModel.getError()!=null ? errorModel.getError() : errorModel.getMessage();
@@ -396,6 +410,60 @@ public class CreateGarageSaleFragment extends Fragment{
         }, "Create Sale");
 
     }
+
+
+    private void publishSale(final Context context, final CreateSalesModel createSalesModel)
+    {
+        final String email_verification_error=context.getResources().getString(R.string.ErrorEmailVerification);
+      /*  showProgressBar();*/
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.createSale(context, createSalesModel, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0)
+            {
+                hideProgressBar();
+                if(arg0 instanceof IDModel)
+                {
+                    IDModel idModel = (IDModel) arg0;
+                    createSalesModel.setSaleID(idModel.getId());
+                    Toast.makeText(context, "Sale has been Published Successfully",Toast.LENGTH_LONG).show();
+                    closeThisActivity();
+                }else if(arg0 instanceof ErrorModel){
+                    ErrorModel errorModel = (ErrorModel) arg0;
+                    String msg = errorModel.getError()!=null ? errorModel.getError() : errorModel.getMessage();
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+                }else if(arg0 instanceof StatusModel){
+                    Toast.makeText(context, "Sale has been Published Successfully",Toast.LENGTH_LONG).show();
+                  closeThisActivity();
+                }
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                hideProgressBar();
+                if(msg!=null){
+                    if(msg.equalsIgnoreCase(email_verification_error))
+                        GlobalFunctions.showEmailVerificatiomAlert(context);
+                    else
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void OnError(String msg) {
+                hideProgressBar();
+                if(msg!=null){
+                    if(msg.equalsIgnoreCase(email_verification_error))
+                        GlobalFunctions.showEmailVerificatiomAlert(context);
+                    else
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+                }
+            }
+        }, "Create Sale");
+
+    }
+
+
     private void setValues(){
         if(createSalesModel != null){
             loading_label="Updating Sale...";
