@@ -28,135 +28,134 @@
 <!--    <?xml version="1.0" encoding="utf-8"?>-->
     <ScrollView
 
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/brand_background_color"
-       >
+        android:layout_marginTop="60dp"
+        android:background="@color/brand_background_color">
 
         <RelativeLayout
-            android:layout_marginTop="?attr/actionBarSize"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/brand_background_color"
             android:layout_gravity="center"
-            android:orientation="vertical" >
+            android:layout_marginTop="?attr/actionBarSize"
+            android:background="@color/brand_background_color"
+            android:orientation="vertical">
+
             <ImageView
+                android:id="@+id/close_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/close_button"
-                android:layout_gravity="right"
-                android:visibility="gone"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
+                android:layout_gravity="right"
                 android:background="@drawable/ic_clear_black_24dp"
-                android:layout_alignParentRight="true"/>
+                android:visibility="gone" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="20dp" >
+                android:padding="20dp">
+
                 <com.blueshak.app.blueshak.text.MyTextView
                     android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:textColor="@color/brand_text_color"
-                    android:text="Please fill in the fields to sign up" >
-                </com.blueshak.app.blueshak.text.MyTextView>
+                    android:text="Please fill in the fields to sign up"
+                    android:textColor="@color/brand_text_color"></com.blueshak.app.blueshak.text.MyTextView>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:gravity="center"
                     android:layout_height="wrap_content"
-                    >
+                    android:layout_marginTop="5dp"
+                    android:gravity="center">
+
                     <com.blueshak.app.blueshak.text.MyEditTextView
                         android:id="@+id/etUserName"
                         android:layout_width="match_parent"
-                        android:background="@android:drawable/editbox_background_normal"
                         android:layout_height="@dimen/login_edit_text_height"
                         android:layout_margin="5dp"
                         android:layout_marginTop="@dimen/username_edittext_topmargin"
+                        android:background="@android:drawable/editbox_background_normal"
                         android:hint="First Name"
                         android:imeOptions="actionNext"
-                        android:textSize="@dimen/sign_up_text_size"
                         android:inputType="textPersonName|textCapWords"
                         android:singleLine="true"
                         android:textColor="@color/black"
                         android:textColorHint="@color/brand_text_hint_color"
-                        android:textStyle="normal" >
-                    </com.blueshak.app.blueshak.text.MyEditTextView>
+                        android:textSize="@dimen/sign_up_text_size"
+                        android:textStyle="normal"></com.blueshak.app.blueshak.text.MyEditTextView>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:gravity="center"
                     android:layout_height="wrap_content"
-                    >
+                    android:gravity="center">
+
                     <com.blueshak.app.blueshak.text.MyEditTextView
                         android:id="@+id/last_name"
                         android:layout_width="match_parent"
-                        android:background="@android:drawable/editbox_background_normal"
                         android:layout_height="@dimen/login_edit_text_height"
                         android:layout_margin="5dp"
                         android:layout_marginTop="@dimen/username_edittext_topmargin"
+                        android:background="@android:drawable/editbox_background_normal"
                         android:hint="Last Name"
                         android:imeOptions="actionNext"
-                        android:textSize="@dimen/sign_up_text_size"
                         android:inputType="textPersonName|textCapWords"
                         android:singleLine="true"
                         android:textColor="@color/black"
                         android:textColorHint="@color/brand_text_hint_color"
-                        android:textStyle="normal" >
-                    </com.blueshak.app.blueshak.text.MyEditTextView>
-                </android.support.design.widget.TextInputLayout><android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"
-                    >
-                    <com.blueshak.app.blueshak.text.MyEditTextView
-                        android:id="@+id/etEmail"
-                        android:layout_width="match_parent"
-                        android:background="@android:drawable/editbox_background_normal"
-                        android:layout_height="@dimen/login_edit_text_height"
-                        android:drawablePadding="@dimen/edittext_drawable_padding"
-                        android:layout_margin="5dp"
-                        android:hint="Email"
-                        android:inputType="textEmailAddress"
-                        android:imeOptions="actionNext"
                         android:textSize="@dimen/sign_up_text_size"
-                        android:singleLine="true"
-                        android:textColor="@color/brand_text_color"
-                        android:textColorHint="@color/brand_text_hint_color"
-                        android:textStyle="normal" >
-                    </com.blueshak.app.blueshak.text.MyEditTextView>
+                        android:textStyle="normal"></com.blueshak.app.blueshak.text.MyEditTextView>
                 </android.support.design.widget.TextInputLayout>
+
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    >
+                    android:gravity="center">
+
+                    <com.blueshak.app.blueshak.text.MyEditTextView
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/login_edit_text_height"
+                        android:layout_margin="5dp"
+                        android:background="@android:drawable/editbox_background_normal"
+                        android:drawablePadding="@dimen/edittext_drawable_padding"
+                        android:hint="Email"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true"
+                        android:textColor="@color/brand_text_color"
+                        android:textColorHint="@color/brand_text_hint_color"
+                        android:textSize="@dimen/sign_up_text_size"
+                        android:textStyle="normal"></com.blueshak.app.blueshak.text.MyEditTextView>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
                     <com.blueshak.app.blueshak.text.MyEditTextView
                         android:id="@+id/etCOnfPass"
                         android:layout_width="match_parent"
-                        android:background="@android:drawable/editbox_background_normal"
                         android:layout_height="@dimen/login_edit_text_height"
                         android:layout_margin="5dp"
-                        android:padding="10dp"
                         android:layout_marginTop="@dimen/margin_top"
-                       android:hint="Password"
-                        android:textSize="@dimen/sign_up_text_size"
+                        android:background="@android:drawable/editbox_background_normal"
                         android:drawablePadding="@dimen/edittext_drawable_padding"
+                        android:hint="Password"
                         android:imeOptions="actionDone"
+                        android:padding="10dp"
                         android:password="true"
                         android:singleLine="true"
                         android:textColor="@color/brand_text_color"
                         android:textColorHint="@color/brand_text_hint_color"
-                        android:textStyle="normal" >
-                    </com.blueshak.app.blueshak.text.MyEditTextView>
+                        android:textSize="@dimen/sign_up_text_size"
+                        android:textStyle="normal"></com.blueshak.app.blueshak.text.MyEditTextView>
                 </android.support.design.widget.TextInputLayout>
 
                 <!-- <net.rimoto.intlphoneinput.IntlPhoneInput
@@ -167,24 +166,25 @@
                      android:id="@+id/my_phozne_input" />-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp">
+
                     <com.hbb20.CountryCodePicker
+                        android:id="@+id/ccp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginTop="5dp"
                         android:layout_weight=".6"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="center_vertical"
                         android:background="@android:drawable/editbox_background_normal"
-                        android:id="@+id/ccp"
-                        app:defaultCode="61"
-                        app:hideNameCode="true"
+                        android:gravity="center_vertical"
                         app:contentColor="@color/brand_text_color"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                   <!-- <android.support.design.widget.TextInputLayout
+                        app:defaultCode="61"
+                        app:hideNameCode="true" />
+                    <!-- <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -216,32 +216,31 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-
                         android:layout_weight=".4"
+
+                        android:gravity="center"
 
 
                         >
 
                         <com.blueshak.app.blueshak.text.MyEditTextView
-                            android:padding="15dp"
                             android:id="@+id/etMobileNUmber"
                             android:layout_width="match_parent"
-                            android:background="@android:drawable/editbox_background_normal"
                             android:layout_height="@dimen/login_edit_text_height"
-                            android:drawablePadding="@dimen/edittext_drawable_padding"
-                            android:imeOptions="actionNext"
-                            android:textSize="@dimen/sign_up_text_size"
-                            android:maxLength="12"
-                            android:digits="0123456789"
                             android:layout_marginTop="@dimen/margin_top"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:digits="0123456789"
+                            android:drawablePadding="@dimen/edittext_drawable_padding"
                             android:hint="Phone Number"
-                            android:singleLine="true"
+                            android:imeOptions="actionNext"
                             android:inputType="numberDecimal"
+                            android:maxLength="12"
+                            android:padding="15dp"
+                            android:singleLine="true"
                             android:textColor="@color/brand_text_color"
                             android:textColorHint="@color/brand_text_hint_color"
-                            android:textStyle="normal" >
-                        </com.blueshak.app.blueshak.text.MyEditTextView>
+                            android:textSize="@dimen/sign_up_text_size"
+                            android:textStyle="normal"></com.blueshak.app.blueshak.text.MyEditTextView>
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
                 <!--<com.hbb20.CountryCodePicker
@@ -250,54 +249,53 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />-->
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/location_content"
                     android:layout_width="match_parent"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:visibility="gone">
 
                     <com.blueshak.app.blueshak.text.MyTextView
                         android:id="@+id/location"
                         android:layout_width="match_parent"
-                        android:background="@android:drawable/editbox_background_normal"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:imeOptions="actionNext"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/brand_text_color"
-                        android:singleLine="true"
                         android:layout_height="wrap_content"
-                        android:drawableRight="@drawable/ic_pick_location"
-                        android:textSize="@dimen/sign_up_text_size"
                         android:layout_centerHorizontal="true"
-                        android:hint="Select location">
-                    </com.blueshak.app.blueshak.text.MyTextView>
+                        android:layout_margin="5dp"
+                        android:background="@android:drawable/editbox_background_normal"
+                        android:drawableRight="@drawable/ic_pick_location"
+                        android:gravity="center_vertical"
+                        android:hint="Select location"
+                        android:imeOptions="actionNext"
+                        android:padding="15dp"
+                        android:singleLine="true"
+                        android:textColor="@color/brand_text_color"
+                        android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
                 </LinearLayout>
+
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:gravity="center"
                     android:layout_height="wrap_content"
-                    >
+                    android:gravity="center">
+
                     <com.blueshak.app.blueshak.text.MyEditTextView
                         android:id="@+id/userid"
                         android:layout_width="match_parent"
-                        android:background="@android:drawable/editbox_background_normal"
                         android:layout_height="@dimen/login_edit_text_height"
                         android:layout_margin="5dp"
                         android:layout_marginTop="@dimen/username_edittext_topmargin"
+                        android:background="@android:drawable/editbox_background_normal"
                         android:hint="User Name"
                         android:imeOptions="actionDone"
-                        android:textSize="@dimen/sign_up_text_size"
                         android:inputType="textPersonName|textCapWords"
                         android:singleLine="true"
                         android:textColor="@color/black"
                         android:textColorHint="@color/brand_text_hint_color"
-                        android:textStyle="normal" >
-                    </com.blueshak.app.blueshak.text.MyEditTextView>
+                        android:textSize="@dimen/sign_up_text_size"
+                        android:textStyle="normal"></com.blueshak.app.blueshak.text.MyEditTextView>
                 </android.support.design.widget.TextInputLayout>
-     <!--           <android.support.design.widget.TextInputLayout
+                <!--           <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
@@ -331,39 +329,38 @@
                     android:layout_marginTop="15dp"
                     android:clickable="true"
                     android:orientation="horizontal">
+
                     <CheckBox
                         android:id="@+id/checkBox"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:textColor="@color/brand_text_color"
-                        />
+                        android:textColor="@color/brand_text_color" />
+
                     <com.blueshak.app.blueshak.text.MyTextView
                         android:id="@+id/termsOfAgreement"
-                        android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
                         android:text="I agree to the Terms and Conditions."
-                        android:textColor="@color/brand_text_color"
-                        >
-                    </com.blueshak.app.blueshak.text.MyTextView>
+                        android:textColor="@color/brand_text_color"></com.blueshak.app.blueshak.text.MyTextView>
                 </LinearLayout>
+
                 <com.blueshak.app.blueshak.text.MyButton
                     android:id="@+id/btnSignUp"
-                    android:layout_height="@dimen/login_btn_height"
                     android:layout_width="match_parent"
-                    android:padding="5dp"
+                    android:layout_height="@dimen/login_btn_height"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="15dp"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="@color/white"
                     android:background="@drawable/round_corner_btn__style"
+                    android:padding="5dp"
+                    android:text="Sign Up"
                     android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/login_btn_textsize"
-                    android:textStyle=""
-                    android:text="Sign Up" >
-                </com.blueshak.app.blueshak.text.MyButton>
+                    android:textStyle=""></com.blueshak.app.blueshak.text.MyButton>
 
                 <com.blueshak.app.blueshak.text.MyTextView
                     android:id="@+id/myTextView2"
@@ -371,65 +368,68 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:text="Account will be verified via phone and email"
+                    android:layout_marginBottom="40dp"
+                    android:text="Your account will be verified via a SMS codeto your mobile device."
                     android:textColor="@color/brand_text_color">
                     <!-- android:text="Account will be verified via your mobile number" >-->
                 </com.blueshak.app.blueshak.text.MyTextView>
 
                 <com.blueshak.app.blueshak.text.MyTextView
-                    android:layout_marginBottom="40dp"
+                    android:id="@+id/login_page_link"
                     android:layout_width="329dp"
-                    android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/brand_text_color"
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:text="Already have a account? Sign In"
-                    android:id="@+id/login_page_link" >
-                </com.blueshak.app.blueshak.text.MyTextView>
-                <com.blueshak.app.blueshak.text.MyButton
                     android:visibility="gone"
+                    android:text="Already have a account? Sign In"
+                    android:textColor="@color/brand_text_color"></com.blueshak.app.blueshak.text.MyTextView>
+
+                <com.blueshak.app.blueshak.text.MyButton
                     android:id="@+id/go_to_sing_in"
                     android:layout_width="match_parent"
-                    android:background="@drawable/round_corner_btn__style_blue"
-                    android:layout_marginTop="15dp"
                     android:layout_height="@dimen/login_btn_height"
+                    android:layout_marginTop="15dp"
+
+                    android:background="@drawable/round_corner_btn__style_blue"
                     android:text="Sign In"
-                    android:textSize="@dimen/login_btn_textsize"
                     android:textAllCaps="false"
-                    android:textColor="@color/white" >
-                </com.blueshak.app.blueshak.text.MyButton>
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/login_btn_textsize"
+                    android:visibility="gone"></com.blueshak.app.blueshak.text.MyButton>
+
                 <com.facebook.login.widget.LoginButton
-                    android:visibility="gone"
                     android:id="@+id/login_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="30dp"
                     android:layout_marginTop="30dp"
-                    android:layout_marginBottom="30dp" />
+                    android:visibility="gone" />
             </LinearLayout>
-            <fr.castorflex.android.circularprogressbar.CircularProgressBar
-                xmlns:android="http://schemas.android.com/apk/res/android"
+
+            <fr.castorflex.android.circularprogressbar.CircularProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/progress_bar"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:layout_gravity="center"
+                android:background="@drawable/bg_circle_unread_count"
                 android:indeterminate="true"
+                android:indeterminateTint="@color/tab_selected"
+                android:indeterminateTintMode="src_atop"
+                android:padding="10dp"
+                android:visibility="gone"
                 app:cpb_color="#F00"
                 app:cpb_colors="@array/color_array"
                 app:cpb_max_sweep_angle="300"
                 app:cpb_min_sweep_angle="10"
-                android:visibility="gone"
                 app:cpb_rotation_speed="1.0"
-                android:padding="10dp"
-                app:cpb_stroke_width="4dp"
-                android:background="@drawable/bg_circle_unread_count"
-                app:cpb_sweep_speed="1.0"
-                android:id="@+id/progress_bar"
-                android:indeterminateTintMode="src_atop"
-                android:indeterminateTint="@color/tab_selected"
 
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                app:cpb_stroke_width="4dp"
+                app:cpb_sweep_speed="1.0" />
         </RelativeLayout>
     </ScrollView>
     <!--
