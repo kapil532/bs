@@ -1234,8 +1234,8 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             productDescriptionDetail_tv.setText((salesModel.getDescription()));
         }
         /*If the line are more than show view more or else not needed*/
-        if(productDescriptionDetail_tv.getLineCount()>3)
-            makeTextViewResizable(productDescriptionDetail_tv, 3, "View More", true);
+//        if(productDescriptionDetail_tv.getLineCount()>3)
+//            makeTextViewResizable(productDescriptionDetail_tv, 3, "View More", true);
 
        /* makeTextViewResizable(productDescriptionDetail_tv, 3, "More", true);*/
         sales_listing=salesModel.getProducts();

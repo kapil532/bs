@@ -437,7 +437,7 @@ public class CreateGarageSaleFragment extends Fragment{
             }
 
   LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) recycler_view.getLayoutParams();
-            params.height=product_list.size()*255;
+            params.height=product_list.size()*292;
             recycler_view.setLayoutParams(params);
             adapter=new MyItemListAdapter(context,product_list,false);
             recycler_view.setAdapter(adapter);
@@ -615,7 +615,7 @@ public class CreateGarageSaleFragment extends Fragment{
                     }
 
                     LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) recycler_view.getLayoutParams();
-                    params.height=product_list.size()*255;
+                    params.height=product_list.size()*292;
                     recycler_view.setLayoutParams(params);
                     adapter=new MyItemListAdapter(context,product_list,false);
                     recycler_view.setAdapter(adapter);
