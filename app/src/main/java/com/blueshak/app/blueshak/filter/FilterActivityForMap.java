@@ -720,6 +720,81 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        onBackSaveValues();
+    }
+
+    void onBackSaveValues()
+    {
+        String country = null;
+
+        if (minDistanceValue == 0)
+            minDistanceValue = GlobalVariables.DISTANCE_MAX_VALUE;
+        if (maxPriceValue == 0)
+            maxPriceValue = GlobalVariables.PRICE_MAX_VALUE;
+
+        detail.setRange(minDistanceValue);
+        detail.setPriceRange(minPriceValue + "," + maxPriceValue);
+        detail.setType(type);
+        if (current_country.isChecked()) {
+            detail.setIs_current_country(true);
+           /* if(GlobalFunctions.is_loggedIn(context)){
+                 country=GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_COUNTRY);
+            }else{
+                *//*Needed when device data is cleared or not logged in*//*
+                country= context.getResources().getConfiguration().locale.getCountry();
+            }*/
+            country = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
+
+            detail.setCurrent_country_code(country);
+        } else
+            detail.setIs_current_country(false);
+
+        if (search_radius.isChecked())
+            detail.setDistance_enabled(true);
+        else
+            detail.setDistance_enabled(false);
+
+        if (from == GlobalVariables.TYPE_GARAGE_SALE) {
+            if (sort_by_recent.isChecked()) {
+                detail.setResults_text("most recent");
+                detail.setSortByRecent_garage(true);
+            } else
+                detail.setSortByRecent_garage(false);
+
+            if (ending_soon.isChecked()) {
+                detail.setResults_text("ending first");
+                detail.setEnding_soon(true);
+            } else
+                detail.setEnding_soon(false);
+        } else if (from == GlobalVariables.TYPE_SEARCH || from == GlobalVariables.TYPE_ITEMS) {
+            if (sort_by_recent.isChecked()) {
+                detail.setResults_text("most recent");
+                detail.setSortByRecent(true);
+            } else
+                detail.setSortByRecent(false);
+
+            if (h_to_l.isChecked()) {
+                detail.setPrice_h_2_l(true);
+                detail.setResults_text("highest to lowest price");
+            } else
+                detail.setPrice_h_2_l(false);
+            if (l_to_h.isChecked()) {
+                detail.setResults_text("lowest to highest price");
+                detail.setPrice_l_2_h(true);
+            } else
+                detail.setPrice_l_2_h(false);
+            if (only_garage_items.isChecked())
+                detail.setGarage_items(true);
+            else
+                detail.setGarage_items(false);
+        }
+        detail.setSorting_enabled(true);
+        GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.FILTER_MODEL_FOR_MAP, detail.toString());
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         categoryListModel = GlobalFunctions.getCategories(activity);
