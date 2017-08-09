@@ -54,11 +54,17 @@ public class OTPActivity extends RootActivity {
     private CountryCodePicker ccp;
     private ProgressBar progress_bar;
     public static Intent newInstance(Context context,OTPCheckerModel otpCheckerModel){
-        Intent mIntent = new Intent(context, OTPActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(OTP_BUNDLE_KEY, otpCheckerModel);
-        mIntent.putExtras(bundle);
-        return mIntent;
+      try {
+          Intent mIntent = new Intent(context, OTPActivity.class);
+          Bundle bundle = new Bundle();
+          bundle.putSerializable(OTP_BUNDLE_KEY, otpCheckerModel);
+          mIntent.putExtras(bundle);
+          return mIntent;
+      }
+      catch (Exception e)
+      {
+          return null;
+      }
     }
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -87,7 +93,6 @@ public class OTPActivity extends RootActivity {
             }
         });
         etEmail =(EditText)findViewById(R.id.etEmail);
-		btnSignIn = (Button)findViewById(R.id.btnSignIn);
         otp_get_another=(TextView) findViewById(R.id.otp_get_another);
         ccp=(CountryCodePicker)findViewById(R.id.isd_code);
         etPhone_number=(EditText)findViewById(R.id.etMobileNUmber);
@@ -125,7 +130,7 @@ public class OTPActivity extends RootActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                etPhone_number.setError("Please enter a Mobile Number");
                 if(etPhone_number.getText().length() == 0) {
                     etPhone_number.setError("Please enter a Mobile Number");
                     return;
@@ -148,10 +153,11 @@ public class OTPActivity extends RootActivity {
             }
         });
       /*  if(email!=null){etEmail.setText(email);}*/
-        btnSignIn.setOnClickListener(new OnClickListener() {
+      /*  btnSignIn.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+                etPhone_number.setError("Please enter a Mobile Number");
                 if(etPhone_number.getText().length() == 0) {
                     etPhone_number.setError("Please enter a Mobile Number");
                     return;
@@ -166,7 +172,7 @@ public class OTPActivity extends RootActivity {
                 }
 
 			}
-		});
+		});*/
         if(intent!=null && intent.hasExtra(OTP_BUNDLE_KEY)){
             otpCheckerModel=(OTPCheckerModel) intent.getSerializableExtra(OTP_BUNDLE_KEY);
             if(otpCheckerModel!=null){
@@ -407,7 +413,7 @@ public class OTPActivity extends RootActivity {
             etPhone_number.setError("Please enter a valid Mobile Number");
         }/*else if(!phone.startsWith("+")){
 			etMobileNUmber.setError("Please enter a valid 9 digit Mobile Number");
-		}*/else if(CommonUtil.getPhone(phone).startsWith("0")){
+		}*/else if(CommonUtil.getPhone(phone).startsWith("00")){
             Log.d(TAG,"######e(phone).startsWith(\"0\"> 15");
             etPhone_number.setError("Please enter a valid Mobile Number");
         }else {

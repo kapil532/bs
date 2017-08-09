@@ -729,7 +729,7 @@ public class ProfileEditActivity extends RootActivity {
             edit_mobile.setError("Please enter a valid Mobile Number");
         }/*else if(!phone.startsWith("+")){
 			etMobileNUmber.setError("Please enter a valid 9 digit Mobile Number");
-		}*/else if(phone.startsWith("0")){
+		}*/else if(phone.startsWith("00")){
             Log.d(TAG,"######e(phone).startsWith(\"0\"> 15");
             edit_mobile.setError("Please enter a valid Mobile Number");
         }else {

@@ -369,7 +369,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:layout_marginBottom="40dp"
-                    android:text="Your account will be verified via a SMS codeto your mobile device."
+                    android:text="Your account will be verified via a SMS code to your mobile device."
                     android:textColor="@color/brand_text_color">
                     <!-- android:text="Account will be verified via your mobile number" >-->
                 </com.blueshak.app.blueshak.text.MyTextView>
