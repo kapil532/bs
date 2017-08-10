@@ -78,6 +78,10 @@ public class SearchActivity extends RootActivity implements LocationListener,Swi
     private LinearLayout header_content;
     private ImageView go_to_filter,go_back;
     private ProgressBar progress_bar;
+   public static String TYPE_SEARCH=GlobalVariables.TYPE_MULTIPLE_ITEMS;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -554,7 +558,7 @@ public class SearchActivity extends RootActivity implements LocationListener,Swi
         }
     }
     public void setDefaultFilter(){
-        searchModel.setType(GlobalVariables.TYPE_SHOP);
+        searchModel.setType(TYPE_SEARCH);
         searchModel.setLatitude(lat);
         searchModel.setLongitude(lng);
         searchModel.setPage(1);

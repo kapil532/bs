@@ -1,5 +1,6 @@
 package com.blueshak.app.blueshak.services;
-public class ServerConstants {
+public class ServerConstants
+{
 //   public static final String BASE_URL_LINK = "http://52.34.5.124/api";
     public static final String BASE_URL_LINK = "http://dev.blueshak.com/api";
     public static final String BASE_URL = BASE_URL_LINK+"/";

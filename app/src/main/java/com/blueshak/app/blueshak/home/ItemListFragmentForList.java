@@ -142,7 +142,9 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
             searchViewResult=(TextView)view.findViewById(R.id.searchViewResult);
             searchViewResult.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
+                    SearchActivity.TYPE_SEARCH=GlobalVariables.TYPE_SHOP;
                     startActivity(new Intent(activity, SearchActivity.class));
                 }
             });

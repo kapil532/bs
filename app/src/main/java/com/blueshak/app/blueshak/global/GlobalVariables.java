@@ -95,7 +95,7 @@ public class GlobalVariables {
             PRICE_OFFSET_VALUE = 500;
 
     public static final int
-            DISTANCE_MIN_VALUE = 5,
+            DISTANCE_MIN_VALUE = 3,
             DISTANCE_MAX_VALUE = 250,
             DISTANCE_SEARCH_MAX_VALUE = 50000,
             DISTANCE_OFFSET_VALUE = 1;

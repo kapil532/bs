@@ -204,14 +204,14 @@ public class ShopActivity extends RootActivity {
         if (getIntent().hasExtra(PRODUCTDETAIL_SHOP_BUNDLE_KEY_FLAG)){
             user_id=getIntent().getExtras().getString(PRODUCTDETAIL_SHOP_BUNDLE_KEY_FLAG);
         }
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+     /*   fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= ProfileEditActivity.newInstance(context,profileDetailsModel);
                 startActivity(intent);
             }
-        });
+        });*/
 
         email_verified.setOnClickListener(new View.OnClickListener() {
             @Override

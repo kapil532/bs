@@ -63,7 +63,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
     private RelativeLayout all_categories_content;
     private TextView all_categories, close_button/*,priceMinRange_tv, priceMaxRange_tv*/, distanceMinRange_tv, distanceMaxRaange_tv, location;
     /*RadioButton shippable_rb, pickupable_rb, available_rb, sold_rb;*/
-    int minPriceValue = 0, maxPriceValue = 0, minDistanceValue = 0, maxDistanceValue = 0;
+    int minPriceValue = 0, maxPriceValue = 0, minDistanceValue =3, maxDistanceValue = 0;
     private LocationModel locationModel = null;
     private int from = 0;
     private Button applyButton;
@@ -464,8 +464,8 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
                     } else {
                         minDistanceValue = progress;
                     }
-                    if (minDistanceValue == 0) {
-                        distanceMaxRaange_tv.setText(1 + " Km");
+                    if (minDistanceValue <=3) {
+                        distanceMaxRaange_tv.setText(3 + " Km");
                     } else {
                         distanceMaxRaange_tv.setText(minDistanceValue + " Kms");
                     }
@@ -510,7 +510,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
 
     public void resetValues() {
         Log.d(TAG, "Resetting the values");
-        setDistanceRangeBar(GlobalVariables.DISTANCE_MAX_VALUE);
+        setDistanceRangeBar(GlobalVariables.DISTANCE_MIN_VALUE);
         GlobalFunctions.removeSharedPreferenceKey(context, GlobalVariables.FILTER_MODEL);
         is_all = true;
         categoryText = "Category - All";
@@ -652,8 +652,8 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
 
     private void setDistanceRangeBar(int val) {
         distanceRangeBar.setProgress(val);
-        if (val == 0 || val == 1) {
-            distanceMaxRaange_tv.setText(1 + " Km");
+        if (val == 0 || val == 1|| val == 2|| val == 3) {
+            distanceMaxRaange_tv.setText(3 + " Km");
         } else {
             distanceMaxRaange_tv.setText(val + " Kms");
         }
@@ -678,8 +678,8 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
     private void onClickFunction() {
         String country = null;
 
-        if (minDistanceValue == 0)
-            minDistanceValue = GlobalVariables.DISTANCE_MAX_VALUE;
+//        if (minDistanceValue == 0)
+//            minDistanceValue = GlobalVariables.DISTANCE_MAX_VALUE;
         if (maxPriceValue == 0)
             maxPriceValue = GlobalVariables.PRICE_MAX_VALUE;
 
@@ -768,8 +768,8 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
     {
         String country = null;
 
-        if (minDistanceValue == 0)
-            minDistanceValue = GlobalVariables.DISTANCE_MAX_VALUE;
+//        if (minDistanceValue == 0)
+//            minDistanceValue = GlobalVariables.DISTANCE_MAX_VALUE;
         if (maxPriceValue == 0)
             maxPriceValue = GlobalVariables.PRICE_MAX_VALUE;
 

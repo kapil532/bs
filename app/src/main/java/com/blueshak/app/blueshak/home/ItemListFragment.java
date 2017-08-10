@@ -142,6 +142,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
             searchViewResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    SearchActivity.TYPE_SEARCH=GlobalVariables.TYPE_SHOP;
                     startActivity(new Intent(activity, SearchActivity.class));
                 }
             });

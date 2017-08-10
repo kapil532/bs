@@ -113,6 +113,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
             searchViewResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    SearchActivity.TYPE_SEARCH=GlobalVariables.TYPE_GARAGE;
                     startActivity(new Intent(activity, SearchActivity.class));
                 }
             });
