@@ -45,6 +45,8 @@ import com.blueshak.app.blueshak.services.model.FilterModel;
 import com.blueshak.app.blueshak.services.model.LocationModel;
 import com.blueshak.app.blueshak.util.LocationListener;
 import com.blueshak.app.blueshak.util.LocationService;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +91,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
     TextView category;
     public static String categoryText = "Category - All";
     RelativeLayout category_layout;
+
 
     public static Intent newInstance(Context context, LocationModel locationModel, int from) {
         System.out.println("########newInstance#######" + Integer.toString(from));

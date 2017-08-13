@@ -89,6 +89,9 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
     private EditText street_number;
     private String country;
     String address;
+
+    private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW_n = new LatLngBounds(
+            new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090));
     public static Intent newInstance(Context context,int from,boolean world_wide,LocationModel locationModel){
         Intent mIntent = new Intent(context,PickLocation.class);
         Bundle bundle = new Bundle();
@@ -150,7 +153,8 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
                 if(isGpsEnabled()){
                     Log.d(TAG,"isGpsEnabled is dere#########");
                     locServices = new LocationService(activity);
-                    lat=locServices.getLatitude();lng=locServices.getLongitude();
+                    lat=locServices.getLatitude();
+                    lng=locServices.getLongitude();
                     Log.d(TAG,"##############isGpsEnabled lat: "+lat+"Lng :"+lng);
                     double radiusDegrees = 1.0;
                     LatLng northEast = new LatLng(lat+ radiusDegrees,lng + radiusDegrees);
@@ -185,7 +189,8 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
                         startActivity(i);
                     }else{*/
                     if(locServices!=null){
-                        lat=locServices.getLatitude();lng=locServices.getLongitude();
+                        lat=locServices.getLatitude();
+                        lng=locServices.getLongitude();
                         getAddressFromLatLng();
                     }
 
@@ -212,7 +217,11 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
                     setCountry(context,lat,lng);
                 }
             }
-            if(world_wide){
+
+
+
+            if(world_wide)
+            {
                 Log.d(TAG,"world_wide###################");
                  if(from==GlobalVariables.TYPE_FILTER_ACTIVITY){
                      Log.d(TAG,"#########world_wide from Filter Activity##########");
@@ -221,7 +230,7 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
                             .build();
                  }
                 mPlaceArrayAdapter = new PlaceArrayAdapter(activity, android.R.layout.simple_list_item_1,
-                        BOUNDS_MOUNTAIN_VIEW,typeFilter);
+                        BOUNDS_MOUNTAIN_VIEW_n,typeFilter);
 
             }else{
                 Log.d(TAG,"Country###################"+country);
@@ -240,6 +249,10 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
 
 
             }
+
+
+
+
             mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
 
             save=(Button) findViewById(R.id.save);
