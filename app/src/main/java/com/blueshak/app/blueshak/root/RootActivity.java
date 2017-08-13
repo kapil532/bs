@@ -1,9 +1,15 @@
 package com.blueshak.app.blueshak.root;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 import com.blueshak.blueshak.R;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by admin on 11/10/2016.
@@ -39,6 +45,13 @@ public class RootActivity extends AppCompatActivity {
             onStartCount++;
         }
 
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "profile", null);
+        return Uri.parse(path);
     }
 
 }

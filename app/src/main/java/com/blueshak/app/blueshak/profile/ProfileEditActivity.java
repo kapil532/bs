@@ -31,6 +31,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blueshak.app.blueshak.garage.CreateItemSaleFragment;
+import com.blueshak.app.blueshak.services.model.CreateImageModel;
 import com.hbb20.CountryCodePicker;
 import com.blueshak.app.blueshak.otp.OTPActivity;
 import com.blueshak.app.blueshak.services.model.OTPCheckerModel;
@@ -51,6 +53,8 @@ import com.blueshak.app.blueshak.services.model.OTPResendModel;
 import com.blueshak.app.blueshak.services.model.ProfileDetailsModel;
 import com.blueshak.app.blueshak.services.model.Shop;
 import com.blueshak.app.blueshak.services.model.StatusModel;
+import com.mvc.imagepicker.ImagePicker;
+import com.mvc.imagepicker.ImageUtils;
 import com.pushwoosh.PushManager;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
@@ -115,6 +119,7 @@ public class ProfileEditActivity extends RootActivity {
       /*  requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
      */   setContentView(R.layout.activity_profile_edit);
+        ImagePicker.setMinQuality(600, 600);
         try{
             progress_bar=(ProgressBar)findViewById(R.id.progress_bar);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -271,7 +276,8 @@ public class ProfileEditActivity extends RootActivity {
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     //sendThaData();
-                    showAlert();
+//                    showAlert();
+                    selectImage();
                 }
             });
         } catch (NullPointerException e){
@@ -286,6 +292,14 @@ public class ProfileEditActivity extends RootActivity {
         }
 
 
+    }
+
+    private void selectImage() {
+
+        if (checkIfAlreadyhavePermission())
+            ImagePicker.pickImage(activity, "Select your image");
+        else
+            checkCameraPermission();
     }
     @Override
     public void onResume() {
@@ -431,20 +445,45 @@ public class ProfileEditActivity extends RootActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_PHOTO_FOR_AVATAR && resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             if (data == null) {
                 return;
             }
+
+
             try {
+                String imagePatha = "profile";
+                Bitmap bit_ = ImagePicker.getImageFromResult(activity, requestCode, resultCode, data);
+               // String bitmap = ImageUtils.savePicture(activity, bit_, imagePatha);
+                String base64_image= CommonUtil.encodeToBase64(bit_, Bitmap.CompressFormat.JPEG,100);
+                setImage_bmp(base64_image);
+                // String bitmap = ImagePicker.getImagePathFromResult(getActivity(),requestCode,resultCode,data);
+                if(!TextUtils.isEmpty(base64_image)){
+
+                    Picasso.with(activity)
+                            .load(getImageUri(activity,bit_))
+                            .placeholder(R.drawable.squareplaceholder)
+                            .memoryPolicy(MemoryPolicy.NO_CACHE)
+                            .networkPolicy(NetworkPolicy.NO_CACHE)
+                            .fit().centerCrop()
+                            .into(rounde_image);
+//                    rounde_image.setImageBitmap(bmp);
+                }else{
+                    Toast.makeText(context,"Your profile pic is empty can't update the your profile",Toast.LENGTH_LONG).show();
+                }
+            } catch (Exception e) {
+
+            }
+           /* try {
                 InputStream inputStream = context.getContentResolver().openInputStream(data.getData());
                 BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
                 Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
                 String base64_image= CommonUtil.encodeToBase64(bmp, Bitmap.CompressFormat.JPEG,100);
                 setImage_bmp(base64_image);
 
-              /*  if(bmp!=null)
+              *//*  if(bmp!=null)
                     bmp.recycle();
-*/
+*//*
                 if(!TextUtils.isEmpty(base64_image)){
 
                 Picasso.with(activity)
@@ -461,7 +500,7 @@ public class ProfileEditActivity extends RootActivity {
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            }
+            }*/
         }else if(requestCode == REQUEST_CAMERA){
 
             onCaptureImageResult(data);
@@ -477,12 +516,7 @@ public class ProfileEditActivity extends RootActivity {
         }
     }
 
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "profile", null);
-        return Uri.parse(path);
-    }
+
     private void cameraIntent(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
@@ -561,9 +595,30 @@ public class ProfileEditActivity extends RootActivity {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+
+        {
+            Log.d(TAG, "onRequestPermissionsResult ##########@@@@@@@@@@@@@@@@@@@@@@@@@");
+            switch (requestCode) {
+                case REQUEST_CHECK_CAMERA:
+                    Log.d(TAG, "onRequestPermissionsResult ############REQUEST_CHECK_CAMERA");
+                    // If request is cancelled, the result arrays are empty.
+                    if (grantResults.length > 0
+                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                        selectImage();
+                    } else {
+                        checkCameraPermission();
+                    }
+                    return;
+
+            }
+        }
+
+        /*
         Log.d(TAG,"onRequestPermissionsResult##############");
         switch (requestCode) {
-            case REQUEST_CHECK_CAMERA:{
+            case REQUEST_CHECK_CAMERA:
+                {
                 Log.d(TAG,"onRequestPermissionsResult##############REQUEST_CAMERA");
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
@@ -589,7 +644,7 @@ public class ProfileEditActivity extends RootActivity {
 
             // other 'case' lines to check for other
             // permissions this app might request
-        }
+        }*/
     }
     public void checkReadExternalStoragePermission() {
         Log.d(TAG,"checkReadExternalStoragePermission######################");
