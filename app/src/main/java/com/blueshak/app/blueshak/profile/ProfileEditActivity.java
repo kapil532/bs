@@ -447,7 +447,14 @@ public class ProfileEditActivity extends RootActivity {
 */
                 if(!TextUtils.isEmpty(base64_image)){
 
-                    rounde_image.setImageBitmap(bmp);
+                Picasso.with(activity)
+                            .load(getImageUri(activity,bmp))
+                            .placeholder(R.drawable.squareplaceholder)
+                            .memoryPolicy(MemoryPolicy.NO_CACHE)
+                            .networkPolicy(NetworkPolicy.NO_CACHE)
+                            .fit().centerCrop()
+                            .into(rounde_image);
+//                    rounde_image.setImageBitmap(bmp);
                 }else{
                     Toast.makeText(context,"Your profile pic is empty can't update the your profile",Toast.LENGTH_LONG).show();
                 }
@@ -469,6 +476,13 @@ public class ProfileEditActivity extends RootActivity {
 
         }
     }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "profile", null);
+        return Uri.parse(path);
+    }
     private void cameraIntent(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
@@ -478,7 +492,16 @@ public class ProfileEditActivity extends RootActivity {
             if(data.hasExtra("data")){
                 Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
                 String base64_image= CommonUtil.encodeToBase64(thumbnail, Bitmap.CompressFormat.JPEG,100);
-                rounde_image.setImageBitmap(thumbnail);
+                Picasso.with(activity)
+                        .load(getImageUri(activity,thumbnail))
+                        .placeholder(R.drawable.squareplaceholder)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE)
+                        .fit().centerCrop()
+                        .into(rounde_image);
+//                rounde_image.setImageBitmap(thumbnail);
+
+
       /*  if(thumbnail!=null)
            thumbnail.recycle();
       */
