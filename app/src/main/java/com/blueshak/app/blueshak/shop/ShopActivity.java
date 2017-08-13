@@ -217,7 +217,7 @@ public class ShopActivity extends RootActivity {
             @Override
             public void onClick(View v) {
                 if(!mail_verified)
-                    verifyEmail();
+                    verifyEmail();   
             }
         });
         phone_number_verified.setOnClickListener(new View.OnClickListener() {

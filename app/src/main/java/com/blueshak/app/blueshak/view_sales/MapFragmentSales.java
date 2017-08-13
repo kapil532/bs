@@ -324,6 +324,7 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
         googleMap.setTrafficEnabled(false);
         googleMap.setIndoorEnabled(false);
         googleMap.setBuildingsEnabled(true);
+        googleMap.getUiSettings().setMapToolbarEnabled(false);
         /*if(from_activity))
             googleMap.getUiSettings().setZoomControlsEnabled(true);*/
         map = googleMap;
