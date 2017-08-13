@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
 
             />-->
-        <ImageView
+        <com.blueshak.app.blueshak.image.RoundedCornerImageView
             android:id="@+id/message_body"
             android:adjustViewBounds="true"
             android:layout_height="@dimen/chatview_image_height_size"

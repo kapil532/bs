@@ -26,6 +26,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.security.spec.ECField;
@@ -212,6 +214,9 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     .showImageForEmptyUri(R.drawable.placeholder_background)
                     .showImageOnFail(R.drawable.placeholder_background)
                     .showImageOnLoading(R.drawable.placeholder_background).build();
+
+
+
             String time_stamp="";
             if(!messageModel.isLocal_message())
                 time_stamp=getTimeStamp(messageModel.getCreated_at());
@@ -266,9 +271,17 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 receiverHolder.messagTimestamp.setText(time_stamp);
                 String message_body=messageModel.getImage();
                 //download and display image from url
-                imageLoader.displayImage(message_body,receiverHolder.messageBody, options_rounded);
+               // imageLoader.displayImage(message_body,receiverHolder.messageBody, options_rounded);
+                Picasso.with(context)
+                        .load(message_body)
+                        .placeholder(R.drawable.squareplaceholder)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE)
+                        .fit().centerCrop()
+                        .into(receiverHolder.messageBody);
                 String image=messageModel.getContact_image();
                 imageModel.setImage(message_body);
+
                 if(!TextUtils.isEmpty(image)){
                     Picasso.with(context)
                             .load(image)
@@ -292,7 +305,15 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 imageModel.setImage(message_body);
                 if(!messageModel.isLocal_message()){
                     //download and display image from url
-                    imageLoader.displayImage(message_body,receiverHolder.messageBody, options_rounded);
+                 //   imageLoader.displayImage(message_body,receiverHolder.messageBody, options_rounded);
+
+
+                    Picasso.with(context)
+                            .load(message_body)
+                            .placeholder(R.drawable.squareplaceholder)
+                            .fit().centerCrop()
+                            .into(receiverHolder.messageBody);
+
                 }else {
                     Bitmap image_bitMap= GlobalFunctions.getBitmapFromBase64(message_body);
                     receiverHolder.messageBody.setImageBitmap(image_bitMap);
