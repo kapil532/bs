@@ -191,64 +191,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_alignParentEnd="true" />
                     </LinearLayout>
-                    <LinearLayout
 
-                        android:id="@+id/l_to_h_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <com.blueshak.app.blueshak.text.MyTextView
-                            android:layout_weight=".3"
-                            android:layout_height="wrap_content"
-                            android:layout_width="match_parent"
-                            android:text="Lowest to highest price"
-                            android:textSize="@dimen/sign_up_text_size"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/black"
-                            android:padding="10dp">
-                        </com.blueshak.app.blueshak.text.MyTextView>
-                        <Switch
-                            android:layout_width="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight=".7"
-                            android:id="@+id/l_to_h"
-                            android:gravity="center"
-                            android:layout_gravity="center"
-                            android:checked="false"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/h_to_l_content"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <com.blueshak.app.blueshak.text.MyTextView
-                            android:layout_weight=".3"
-                            android:layout_height="wrap_content"
-                            android:layout_width="match_parent"
-                            android:text="Highest to lowest price"
-                            android:textSize="@dimen/sign_up_text_size"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/black"
-                            android:padding="10dp">
-                        </com.blueshak.app.blueshak.text.MyTextView>
-                        <Switch
-                            android:layout_width="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight=".7"
-                            android:id="@+id/h_to_l"
-                            android:gravity="center"
-                            android:layout_gravity="center"
-                            android:checked="false"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true" />
-                    </LinearLayout>
                 <LinearLayout
 
                     android:layout_width="match_parent"
@@ -278,6 +221,65 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true" />
                 </LinearLayout>
+                    <LinearLayout
+
+                        android:id="@+id/l_to_h_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.blueshak.app.blueshak.text.MyTextView
+                            android:layout_weight=".3"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:text="Lowest to Highest Price"
+                            android:textSize="@dimen/sign_up_text_size"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="10dp">
+                        </com.blueshak.app.blueshak.text.MyTextView>
+                        <Switch
+                            android:layout_width="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight=".7"
+                            android:id="@+id/l_to_h"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:checked="false"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/h_to_l_content"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.blueshak.app.blueshak.text.MyTextView
+                            android:layout_weight=".3"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:text="Highest to Lowest Price"
+                            android:textSize="@dimen/sign_up_text_size"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="10dp">
+                        </com.blueshak.app.blueshak.text.MyTextView>
+                        <Switch
+                            android:layout_width="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight=".7"
+                            android:id="@+id/h_to_l"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:checked="false"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+                    </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/ending_soon_content"
 
