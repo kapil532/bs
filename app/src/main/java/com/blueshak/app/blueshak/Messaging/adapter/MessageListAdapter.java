@@ -24,6 +24,7 @@ import com.blueshak.app.blueshak.services.model.MessageModel;
 import com.blueshak.app.blueshak.services.model.ProductModel;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.squareup.picasso.Picasso;
 
@@ -205,6 +206,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     .showImageOnLoading(R.drawable.placeholder_background).build();
 
             DisplayImageOptions options_rounded = new DisplayImageOptions.Builder().cacheInMemory(true)
+            .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                     .displayer(new RoundedBitmapDisplayer(25)) // default
                     .cacheOnDisc(true).resetViewBeforeLoading(true)
                     .showImageForEmptyUri(R.drawable.placeholder_background)

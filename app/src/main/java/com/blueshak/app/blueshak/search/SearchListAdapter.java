@@ -147,8 +147,12 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 if(obj.is_bookmark())
                     holder.favarite.setImageResource(R.drawable.like_full);
+
+
                 Log.d(TAG,"9");
-                if(!obj.isAvailable()) {
+
+                if(!obj.isAvailable())
+                {
                     holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_sold.setImageResource(R.drawable.ic_sold);
                 }
@@ -158,6 +162,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
 
                 if(obj.is_new()) {
+                    holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_sold.setImageResource(R.drawable.ic_new);
                 }
 
