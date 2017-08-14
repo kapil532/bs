@@ -185,7 +185,8 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
 
             if(model==null){
                 model=new FilterModel();
-                if(locationModel!=null){
+                if(locationModel!=null)
+                {
                     Log.d(TAG,"######locationModel####"+locationModel.toString());
                     Log.d(TAG,"######getState####"+locationModel.getState());
                     Log.d(TAG,"######getLatitude####"+locationModel.getLatitude());
@@ -208,6 +209,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                     model.setShipable(true);
                     model.setType(GlobalVariables.TYPE_SHOP);
                     model.setPriceRange(minPriceValue+","+maxPriceValue);
+                    when_open_the_app=true;
                 }else{
                     if(!locServices.canGetLocation()){
                         location_available=false;

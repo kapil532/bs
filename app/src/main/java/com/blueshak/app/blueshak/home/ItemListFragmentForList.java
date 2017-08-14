@@ -187,15 +187,18 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
 
             if(model==null){
                 model=new FilterModel();
-                if(locationModel!=null){
-                    Log.d(TAG,"######locationModel####"+locationModel.toString());
-                    Log.d(TAG,"######getState####"+locationModel.getState());
+                if(locationModel!=null)
+                {
+                    Log.d(TAG,"######locgetStateationModel####"+locationModel.toString());
+                    Log.d(TAG,"##########"+locationModel.getState());
                     Log.d(TAG,"######getLatitude####"+locationModel.getLatitude());
                     Log.d(TAG,"######getLongitude####"+locationModel.getLongitude());
+
                     if(locationModel.getCity()!=null&&locationModel.getState()!=null)
                         item_address=locationModel.getCity()+" "+locationModel.getState();
                     else
                         item_address="Sydney"+", Australia";
+
                     if(!locationModel.getLatitude().equalsIgnoreCase("0.0")&&!locationModel.getLongitude().equalsIgnoreCase("0.0")){
                         model.setLatitude(locationModel.getLatitude()+"");
                         model.setLongitude(locationModel.getLongitude()+"");
@@ -204,13 +207,17 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                         model.setLatitude(GlobalVariables.Sydney_latitude);
                         model.setLongitude(GlobalVariables.Sydney_longitude);
                     }
+
                     model.setRange(maxDistanceValue);
                     model.setAvailable(true);
                     model.setPickup(true);
                     model.setShipable(true);
                     model.setType(GlobalVariables.TYPE_SHOP);
                     model.setPriceRange(minPriceValue+","+maxPriceValue);
-                }else{
+                    when_open_the_app=true;
+                }
+                else
+                    {
                     if(!locServices.canGetLocation()){
                         location_available=false;
                        /* locServices.showSettingsAlert();*/
@@ -367,11 +374,18 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
         }else{
             Log.d(TAG,"######from the Filter or Current Location###########");
                 if(model!=null){
-                    /*String country= GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
-                    if(country!=null){
-                        model.setCurrent_country_code(country);
-                        model.setIs_current_country(true);
-                    }*/
+                    String country= GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
+                  /* if(model.getCurrent_country_code().length()>0)
+                   {
+                   }
+                   else
+                   {
+                       if (country != null) {
+                           model.setCurrent_country_code(country);
+                           model.setIs_current_country(true);
+                       }
+
+                   }*/
                     model.setPage(1);
                     getItemLists(context,model);
                 }

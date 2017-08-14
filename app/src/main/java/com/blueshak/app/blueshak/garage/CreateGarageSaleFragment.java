@@ -266,7 +266,7 @@ public class CreateGarageSaleFragment extends Fragment{
         }
         try {
             descriptionstr =Constants.parseTo(description.getText().toString());
-          //  Log.d(TAG,"#VALUESSSENDTOSERVER"+description.getText().toString());
+          Log.d(TAG,"#VALUESSSENDTOSERVER"+descriptionstr);
         }
         catch (Exception e)
         {
