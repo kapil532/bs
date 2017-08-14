@@ -226,7 +226,7 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
                  if(from==GlobalVariables.TYPE_FILTER_ACTIVITY){
                      Log.d(TAG,"#########world_wide from Filter Activity##########");
                     typeFilter = new AutocompleteFilter.Builder()
-                            .setTypeFilter(AutocompleteFilter.TYPE_FILTER_CITIES)
+                            .setTypeFilter(AutocompleteFilter.TYPE_FILTER_REGIONS)
                             .build();
                  }
                 mPlaceArrayAdapter = new PlaceArrayAdapter(activity, android.R.layout.simple_list_item_1,
