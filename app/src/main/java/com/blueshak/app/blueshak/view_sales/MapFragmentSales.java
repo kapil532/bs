@@ -267,8 +267,36 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         super.onResume();
     }
-
+    private FilterModel detail = new FilterModel();
     private void getLists(final Context context, FilterModel filterModel){
+
+        String filter_string = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.FILTER_MODEL);
+        Log.d(TAG, "######filter_string######" + filter_string);
+        if (filter_string != null)
+        {
+            Log.d(TAG, "########Filter is NOT null############");
+            detail.toObject(filter_string);
+            if(detail.is_current_country())
+            {
+                String countray= GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
+                filterModel.setCurrent_country_code(countray);
+                filterModel.setIs_current_country(true);
+            }
+            else
+            {
+                filterModel.setIs_current_country(false);
+            }
+        }
+        else {
+            String countray= GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
+            filterModel.setCurrent_country_code(countray);
+            filterModel.setIs_current_country(true);
+        }
+        if(detail!=null)
+        {
+            Log.d("http"," http://dev.blueshak.com/api"+detail.is_current_country());
+        }
+
         showProgressBar();
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getListDetails(context, filterModel, new ServerResponseInterface() {

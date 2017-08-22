@@ -182,7 +182,7 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                     context.getResources().getColor(R.color.brandColor));
             salesListModel = (SalesListModel) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
             locationModel = (LocationModel) getArguments().getSerializable(LOCATION_MODEL);
-            model = (FilterModel) getArguments().getSerializable(SALE_FILTER);
+            model = (FilterModel) getArguments().getSerializable( GlobalVariables.FILTER_MODEL);
             salesListModel = (SalesListModel) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
 
             if(model==null){
@@ -386,12 +386,41 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                        }
 
                    }*/
+
+                  String filter_string = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.FILTER_MODEL);
+                    Log.d(TAG, "######filter_string######" + filter_string);
+                    if (filter_string != null)
+                    {
+                        Log.d(TAG, "########Filter is NOT null############");
+                        detail.toObject(filter_string);
+                        if(detail.is_current_country())
+                        {
+                            String countray= GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
+                            model.setCurrent_country_code(countray);
+                            model.setIs_current_country(true);
+                        }
+                        else
+                        {
+                            model.setIs_current_country(false);
+                        }
+                    }
+                    else {
+                        String countray= GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
+                        model.setCurrent_country_code(countray);
+                        model.setIs_current_country(true);
+                    }
+                    if(detail!=null)
+                    {
+                        Log.d("http"," http://dev.blueshak.com/api"+detail.is_current_country());
+                    }
                     model.setPage(1);
                     getItemLists(context,model);
                 }
         }
 
     }
+
+    private FilterModel detail = new FilterModel();
     private void setLocation(String item_address){
         Log.d(TAG,"#########item_address##############"+item_address);
         if(TextUtils.isEmpty(item_address))

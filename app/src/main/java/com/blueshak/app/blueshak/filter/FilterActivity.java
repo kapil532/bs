@@ -239,7 +239,8 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
             location_content = (LinearLayout) findViewById(R.id.location_content);
             location_content.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
                     boolean world_wide = true;
                     if (current_country.isChecked())
                         world_wide = false;

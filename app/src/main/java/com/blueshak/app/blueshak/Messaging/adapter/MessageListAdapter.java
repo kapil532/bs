@@ -275,8 +275,8 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 Picasso.with(context)
                         .load(message_body)
                         .placeholder(R.drawable.squareplaceholder)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE)
-                        .networkPolicy(NetworkPolicy.NO_CACHE)
+//                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+//                        .networkPolicy(NetworkPolicy.NO_CACHE)
                         .fit().centerCrop()
                         .into(receiverHolder.messageBody);
                 String image=messageModel.getContact_image();
@@ -310,7 +310,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                     Picasso.with(context)
                             .load(message_body)
-                            .placeholder(R.drawable.squareplaceholder)
+                            //.placeholder(R.drawable.squareplaceholder)
                             .fit().centerCrop()
                             .into(receiverHolder.messageBody);
 
@@ -350,7 +350,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if(!TextUtils.isEmpty(chat_user_image)&&chat_user_image!=null){
                     Picasso.with(context)
                             .load(chat_user_image)
-                            .placeholder(R.drawable.squareplaceholder)
+                           .placeholder(R.drawable.squareplaceholder)
                             .fit().centerCrop()
                             .into(senderHolder.profilePic);
                 }else{
@@ -389,7 +389,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if(!TextUtils.isEmpty(image)&&image!=null){
                     Picasso.with(context)
                             .load(image)
-                            .placeholder(R.drawable.squareplaceholder)
+                          //  .placeholder(R.drawable.squareplaceholder)
                             .fit().centerCrop()
                             .into(senderHolder.profilePic);
                 }else{

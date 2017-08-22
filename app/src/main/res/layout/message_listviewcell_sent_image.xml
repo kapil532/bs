@@ -32,6 +32,7 @@
              android:layout_height="@dimen/chatview_image_height_size"
              android:layout_width="@dimen/chatview_image_height_size"
              android:adjustViewBounds="true"
+             android:background="@drawable/squareplaceholder"
              android:clickable="true"/>
          <com.blueshak.app.blueshak.text.MyTextView
              android:id="@+id/message_timestamp"

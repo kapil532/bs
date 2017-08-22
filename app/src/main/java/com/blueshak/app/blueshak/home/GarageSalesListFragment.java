@@ -189,7 +189,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
             });*/
             salesListModel = (SalesListModelNew) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
             locationModel = (LocationModel) getArguments().getSerializable(LOCATION_MODEL);
-            model = (FilterModel) getArguments().getSerializable(SALE_FILTER);
+            model = (FilterModel) getArguments().getSerializable(GlobalVariables.FILTER_MODEL_FOR_MAP);
             salesListModel = (SalesListModelNew) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
             if(model==null){
                 model=new FilterModel();
@@ -330,12 +330,42 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
             refreshList();
          /*   synchronized (adapter){adapter.notifyDataSetChanged();}*/
         }
-        if(model!=null){
+        if(model!=null)
+        {
+
+            String filter_string = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.FILTER_MODEL_FOR_MAP);
+            Log.d(TAG, "######filter_string######" + filter_string);
+            if (filter_string != null)
+            {
+                Log.d(TAG, "########Filter is NOT null############");
+                detail.toObject(filter_string);
+                if(detail.is_current_country())
+                {
+                    String countray= GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
+                    model.setCurrent_country_code(countray);
+                    model.setIs_current_country(true);
+                }
+                else
+                {
+                    model.setIs_current_country(false);
+                }
+            }
+            else {
+                String countray= GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
+                model.setCurrent_country_code(countray);
+                model.setIs_current_country(true);
+            }
+            if(detail!=null)
+            {
+                Log.d("http"," http://dev.blueshak.com/api"+detail.is_current_country());
+            }
             model.setPage(1);
             getLists(context,model);
         }
 
     }
+
+    private FilterModel detail = new FilterModel();
     @Override
     public void onResume() {
 

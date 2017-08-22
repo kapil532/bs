@@ -754,7 +754,7 @@ public class ProfileEditActivity extends RootActivity {
     }
     private void validateResult(StatusModel statusModel){
         if(statusModel.isStatus()){
-            Toast.makeText(activity,"Reset password link is sent to your E-mail",Toast.LENGTH_LONG).show();
+            Toast.makeText(activity,"an email has been sent to change your password",Toast.LENGTH_LONG).show();
             logoutAndMove(context);
             closeThisActivity();
         }else{

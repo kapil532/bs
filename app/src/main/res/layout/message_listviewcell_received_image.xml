@@ -32,8 +32,9 @@
             android:id="@+id/message_body"
             android:adjustViewBounds="true"
             android:layout_height="@dimen/chatview_image_height_size"
-            android:layout_width="@dimen/chatview_image_width_size"
+            android:layout_width="@dimen/chatview_image_height_size"
             android:scaleType="centerCrop"
+            android:background="@drawable/squareplaceholder"
             android:clickable="true"
 
             />
