@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -504,9 +505,9 @@ public class CreateGarageSaleFragment extends Fragment{
                 data=data+productModel.getId()+ ",";
 
             }
-
+            Log.d(TAG,"GETHEIGHT"+  dpToPx(104));
   LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) recycler_view.getLayoutParams();
-            params.height=product_list.size()*292;
+            params.height=product_list.size()*dpToPx(104);
             recycler_view.setLayoutParams(params);
             adapter=new MyItemListAdapter(context,product_list,false);
             recycler_view.setAdapter(adapter);
@@ -516,6 +517,11 @@ public class CreateGarageSaleFragment extends Fragment{
 
 
         }
+    }
+
+    public static int dpToPx(int dp)
+    {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
     public void getTimeDialog(final String cmd){
         Calendar mcurrentTime = Calendar.getInstance();
@@ -684,7 +690,7 @@ public class CreateGarageSaleFragment extends Fragment{
                     }
 
                     LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) recycler_view.getLayoutParams();
-                    params.height=product_list.size()*292;
+                    params.height=product_list.size()*dpToPx(104);
                     recycler_view.setLayoutParams(params);
                     adapter=new MyItemListAdapter(context,product_list,false);
                     recycler_view.setAdapter(adapter);
