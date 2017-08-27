@@ -274,11 +274,11 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        if (!search_radius.isChecked()) {
+                       /* if (!search_radius.isChecked()) {
                             search_radius.setChecked(true);
                             setDistanceRangeBar(50);
                             distance_content.setVisibility(View.VISIBLE);
-                        }
+                        }*/
                         if (sort_by_recent.isChecked()) {
                             sort_by_recent.setChecked(false);
                         }
@@ -363,11 +363,11 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        if (!search_radius.isChecked()) {
+                        /*if (!search_radius.isChecked()) {
                             search_radius.setChecked(true);
                             setDistanceRangeBar(50);
                             distance_content.setVisibility(View.VISIBLE);
-                        }
+                        }*/
                         if (from == GlobalVariables.TYPE_GARAGE_SALE) {
                             if (ending_soon.isChecked()) {
                                 ending_soon.setChecked(false);

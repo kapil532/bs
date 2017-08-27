@@ -40,7 +40,7 @@ private List<SalesModel> albumList;
     private static final int VIEWTYPE_LOADER = 2;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
-    protected TextView name_tv, items_tv, date_tv, distance_tv,sale_time;
+    protected TextView name_tv, items_tv, date_tv, distance_tv,sale_time,address;
     //    protected ImageView image_iv;
     protected ImageView image_iv;
     protected SliderLayout mProductSlider;
@@ -52,6 +52,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         name_tv = (TextView) view.findViewById(R.id.sale_item_row_list_name_tv);
         items_tv = (TextView) view.findViewById(R.id.sale_item_row_list_items_no_tv);
         date_tv = (TextView) view.findViewById(R.id.sales_item_row_list_date_tv);
+        address = (TextView) view.findViewById(R.id.address);
         distance_tv = (TextView) view.findViewById(R.id.sales_item_row_list_distance_tv);
         progressActivity = (ProgressActivity) view.findViewById(R.id.products_details_progressActivity);
         mProductSlider = (SliderLayout) view.findViewById(R.id.product_detail_slider);
@@ -114,6 +115,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
                 title="No Items Available";
 
             holder.items_tv.setText(title);
+            holder.address.setText(obj.getSale_address());
             holder.date_tv.setText("Listed "+obj.getListedDate());
             holder.sale_time.setText(obj.getStart_time()+"-"+obj.getEnd_time());
        /* holder.distance_tv.setText(obj.getDistanceAway()+" "+getContext().getString(R.string.milesAway));*/

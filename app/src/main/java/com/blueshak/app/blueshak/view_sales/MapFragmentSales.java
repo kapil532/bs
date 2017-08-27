@@ -270,7 +270,7 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
     private FilterModel detail = new FilterModel();
     private void getLists(final Context context, FilterModel filterModel){
 
-        String filter_string = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.FILTER_MODEL);
+        String filter_string = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.FILTER_MODEL_FOR_MAP);
         Log.d(TAG, "######filter_string######" + filter_string);
         if (filter_string != null)
         {
