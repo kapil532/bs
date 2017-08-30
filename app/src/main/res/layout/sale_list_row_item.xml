@@ -82,10 +82,10 @@
             android:layout_below="@+id/slider"
             android:background="@color/white"
             android:orientation="vertical"
-            android:paddingBottom="30dp"
+            android:paddingBottom="20dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="30dp">
+            android:paddingTop="20dp">
 
             <com.blueshak.app.blueshak.text.MyTextView
                 android:id="@+id/sale_item_row_list_name_tv"
@@ -102,7 +102,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="6dp"
                 android:orientation="horizontal">
 
                 <com.blueshak.app.blueshak.text.MyTextView
@@ -137,7 +137,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="6dp"
                 android:orientation="horizontal">
 
                 <com.blueshak.app.blueshak.text.MyTextView
@@ -154,7 +154,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="6dp"
                 android:orientation="horizontal">
 
                 <com.blueshak.app.blueshak.text.MyTextView

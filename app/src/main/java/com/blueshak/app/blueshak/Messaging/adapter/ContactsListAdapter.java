@@ -115,8 +115,8 @@ public class ContactsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         myViewHolder.image_type.setVisibility(View.GONE);
                     if(!contactModel.is_read()){
                         myViewHolder.lastTextMessage.setVisibility(View.GONE);
-                        myViewHolder.last_text_message_not_read.setVisibility(View.VISIBLE);
-                        myViewHolder.is_read.setChecked(true);
+                       // myViewHolder.last_text_message_not_read.setVisibility(View.VISIBLE);
+                       // myViewHolder.is_read.setChecked(true);
                     }else{
                         myViewHolder.lastTextMessage.setVisibility(View.VISIBLE);
                     }
