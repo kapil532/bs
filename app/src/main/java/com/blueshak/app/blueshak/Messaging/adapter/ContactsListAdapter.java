@@ -99,26 +99,33 @@ public class ContactsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 MyViewHolder myViewHolder=(MyViewHolder)view_holder;
                 final ContactModel contactModel=albumList.get(pos);
               /*  myViewHolder.TimeStamp.setText(getTimeStamp(contactModel.getCreated_at()));*/
-                if(contactModel.getMessage_type().equalsIgnoreCase(GlobalVariables.TYPE_IMAGE)){
+                if(contactModel.getMessage_type().equalsIgnoreCase(GlobalVariables.TYPE_IMAGE))
+                {
                    /* myViewHolder.lastTextMessage.setText("Photo");*/
                     myViewHolder.image_type.setVisibility(View.VISIBLE);
                     myViewHolder.lastTextMessage.setVisibility(View.GONE);
                     myViewHolder.last_text_message_not_read.setVisibility(View.GONE);
 
-                    if(!contactModel.is_read()){
+                    if(!contactModel.is_read())
+                    {
                         myViewHolder.is_read.setChecked(true);
                     }
-                }else{
+                }else
+                    {
                     myViewHolder.lastTextMessage.setText(Constants.getConv(contactModel.getMessage()));
                     myViewHolder.last_text_message_not_read.setText(Constants.getConv(contactModel.getMessage()));
                     if(myViewHolder.image_type.getVisibility()==View.VISIBLE)
                         myViewHolder.image_type.setVisibility(View.GONE);
-                    if(!contactModel.is_read()){
+                    if(!contactModel.is_read())
+                    {
                         myViewHolder.lastTextMessage.setVisibility(View.GONE);
-                       // myViewHolder.last_text_message_not_read.setVisibility(View.VISIBLE);
-                       // myViewHolder.is_read.setChecked(true);
+                        myViewHolder.last_text_message_not_read.setVisibility(View.VISIBLE);
+                       myViewHolder.is_read.setChecked(true);
                     }else{
                         myViewHolder.lastTextMessage.setVisibility(View.VISIBLE);
+                        myViewHolder.last_text_message_not_read.setVisibility(View.GONE);
+                        myViewHolder.is_read.setChecked(false);
+
                     }
                 }
                 myViewHolder.name.setText(Constants.getConv(contactModel.getContact_name()));

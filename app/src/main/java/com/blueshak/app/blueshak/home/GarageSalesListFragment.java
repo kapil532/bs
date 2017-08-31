@@ -82,7 +82,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
     private String Sydney_longitude="151.2092955";
     private TextView location,filter_tag;
     private ImageView location_arrow,filter,go_to_filter;
-    private  int last_page=1;
+    private  int last_page=0;
    /* private LinearLayout header_content;*/
     int minPriceValue=0, maxPriceValue=GlobalVariables.PRICE_MAX_VALUE, minDistanceValue=0, maxDistanceValue=GlobalVariables.DISTANCE_MAX_VALUE;
     private ProgressBar progress_bar;
@@ -152,7 +152,8 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
             recyclerView.setLayoutManager(linearLayoutManagerVertical);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView.setAdapter(adapter);
-        /*    recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListenerLinearView(
+
+    /* recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListenerLinearView(
                     linearLayoutManagerVertical) {
                 @Override
                 public void onLoadMore(int current_page) {
@@ -167,7 +168,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                     }
                 }
             });*/
-            endlessRecyclerOnScrollListenerLinearView=new EndlessRecyclerOnScrollListenerLinearView(linearLayoutManagerVertical) {
+           endlessRecyclerOnScrollListenerLinearView=new EndlessRecyclerOnScrollListenerLinearView(linearLayoutManagerVertical) {
                 @Override
                 public void onLoadMore(int current_page) {
                     Log.d(TAG,"####onLoadMore#####"+current_page);
@@ -177,10 +178,11 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                         model.setPage(current_page);
                         getLists(context,model);
                     }else{
-                        adapter.showLoading(false);
+                       // adapter.showLoading(false);
                     }
                 }
             };
+            recyclerView.addOnScrollListener(endlessRecyclerOnScrollListenerLinearView);
            /* recyclerView.setOnScrollListener(new MyScrollListener(activity) {
                 @Override
                 public void onMoved(int distance) {

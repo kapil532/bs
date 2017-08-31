@@ -147,8 +147,14 @@ public class SellerFragment extends Fragment implements SwipeRefreshLayout.OnRef
 		}else
 			showSettingsAlert();
 	}
-	private void getConversationContacts(final Context context){
-	showProgressBar();
+	private void getConversationContacts(final Context context) {
+		try {
+			showProgressBar();
+		} catch (Exception r)
+		{
+
+		}
+
 		ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
 		servicesMethodsManager.getConversationContacts(context,new ContactsListModel(),GlobalVariables.TYPE_SELLER_TAB, new ServerResponseInterface() {
 			@Override

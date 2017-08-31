@@ -82,7 +82,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
     public static boolean is_reset = false;
     public static boolean is_active = false;
     private int unread_count = 0;
-    private BottomBarBadge badge;
+    public static BottomBarBadge badge;
     private AppController.BaseActivityLifeCycleListener baseActivityLifeCycleListener;
 
     public static Intent newInstance(Context context, LocationModel locationModel, FilterModel filterModel) {
@@ -549,10 +549,13 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
     @Override
     public void onNotificationReceived(User receivedMessage) {
         /*don't show the badge if the conversation happening*/
-        if (!baseActivityLifeCycleListener.isChatActivityVisible()) {
-            if (GlobalFunctions.is_loggedIn(mainContext)) {
+        if (!baseActivityLifeCycleListener.isChatActivityVisible())
+        {
+            if (GlobalFunctions.is_loggedIn(mainContext))
+            {
                 unread_count++;
-                runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable()
+                {
                     @Override
                     public void run() {
                         /*Whether we created new badge or its already existed one, update the count now.*/

@@ -131,6 +131,15 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_activty);
         try{
+            try {
+                if (MainActivity.badge != null) {
+                    MainActivity.badge.hide();
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
             context = this;
             activity = this;
             progress_bar=(ProgressBar)findViewById(R.id.progress_bar);
@@ -691,10 +700,12 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
     public void onReceiveMessage(final Message receivedMessage) {
         runOnUiThread(new Runnable() {
             @Override
-            public void run() {
+            public void run()
+            {
                 if (adapter != null && Integer.parseInt(receivedMessage.getSender().getBs_id()) == Integer.parseInt(UserManager.getInstance(getApplicationContext()).getTargetUser().getBs_id())
                         &&Integer.parseInt(receivedMessage.getSender().getConversation_id()) == Integer.parseInt(UserManager.getInstance(getApplicationContext()).getTargetUser().getConversation_id())) {
-                    if(GlobalFunctions.is_loggedIn(context)){
+                    if(GlobalFunctions.is_loggedIn(context))
+                    {
                         getConversationMessages(context,receivedMessage.getSender().getConversation_id(),
                                 receivedMessage.getSender().getActive_tab());
                     }else
@@ -704,6 +715,17 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
         });
 
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(adapter!= null)
+
+        {
+        adapter =null;
+        }
+    }
+
     @Override
     public void onSendMessageResult(boolean isSuccess, String extraInfo)
     {

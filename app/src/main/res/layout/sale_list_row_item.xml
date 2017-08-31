@@ -134,23 +134,7 @@
                     android:textColor="@color/brandColor"
                     android:textSize="15sp"></com.blueshak.app.blueshak.text.MyTextView>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:orientation="horizontal">
 
-                <com.blueshak.app.blueshak.text.MyTextView
-                    android:id="@+id/address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    android:singleLine="true"
-                    android:text="1st August"
-                    android:textAppearance="@style/MediumText"
-                    android:textColor="#808080"
-                    android:textSize="17sp"></com.blueshak.app.blueshak.text.MyTextView>
-</LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -188,7 +172,23 @@
                     android:visibility="gone"></com.blueshak.app.blueshak.text.MyTextView>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
 
+                <com.blueshak.app.blueshak.text.MyTextView
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:singleLine="true"
+                    android:text="1st August"
+                    android:textAppearance="@style/MediumText"
+                    android:textColor="#808080"
+                    android:textSize="17sp"></com.blueshak.app.blueshak.text.MyTextView>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

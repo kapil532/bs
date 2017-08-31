@@ -284,33 +284,48 @@ public class MessageManager {
         if(gcmMessage.isMessage() && (mMessageListener != null))
             mMessageListener.onReceiveMessage(receivedMessage);
 
-        if(baseActivityLifeCycleListener.isChatActivityVisible()){
-            Log.d("isChatActivityVisible","isChatActivityVisible");
+        if(baseActivityLifeCycleListener.isChatActivityVisible())
+        {
+            Log.d("isChatActivityVisible","http://11");
             User TargetUser= UserManager.getInstance(ctx).getTargetUser();
             if(TargetUser!=null){
                 if(!(Integer.parseInt(receivedMessage.getSender().getBs_id()) == Integer.parseInt(UserManager.getInstance(ctx).getTargetUser().getBs_id()))){
-                    Log.d("isChatActivityVisible","Different so user build the Notification");
+                    Log.d("isChatActivityVisible","http://22");
                     sendNotification(sender,receivedMessage.getSender().getName(), receivedMessage.getMessageString(),receivedMessage.getType());
                 }
             }
         }else if(baseActivityLifeCycleListener.isRecentChatsActivityActivityVisible()){
-            Log.d("isRecentChatsA","isRecentChatsActivityActivityVisible");
+            Log.d("isRecentChatsA","http://33");
             if(mMessageListenerOne!=null)
                 mMessageListenerOne.onReceiveMessageOne(receivedMessage);
             sendNotification(sender,receivedMessage.getSender().getName(), receivedMessage.getMessageString(),receivedMessage.getType());
         }else{
-            Log.d("Nothing is visible","Build the Notification");
+            Log.d("Nothing is visible","http://44");
             sendNotification(sender,receivedMessage.getSender().getName(), receivedMessage.getMessageString(),receivedMessage.getType());
         }
     }
 
-    public void notify(Context mCtx,User sender){
+    public void notify(Context mCtx,User sender)
+    {
+
+        Log.d("isRecentChatsA","http://3388888");
         Message message=new Message();
         message.setSender(sender);
-        if((mMessageListener != null))
-            mMessageListener.onReceiveMessage(message);
-        if(onNotificationReceived!=null)
+        if((mMessageListener != null)) {
+            Log.d("isRecentChatsA","http://3388666");
+        mMessageListener.onReceiveMessage(message);
+
+    }
+        if((mMessageListenerOne != null)) {
+            Log.d("isRecentChatsA","http://3388444");
+            mMessageListenerOne.onReceiveMessageOne(message);
+
+        }
+
+        if(onNotificationReceived!=null) {
+            Log.d("isRecentChatsA","http://33822");
             onNotificationReceived.onNotificationReceived(sender);
+        }
 
       /*  if(mMessageListenerOne!=null)
             mMessageListenerOne.onReceiveMessageOne(message);*/

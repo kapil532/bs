@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.Messaging.adapter.ContactsListAdapter;
@@ -137,14 +138,25 @@ public class BuyerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 	}
 
 	@Override
-	public void onRefresh() {
-		if(GlobalFunctions.is_loggedIn(context))
+	public void onRefresh()
+	{
+		Log.d("FINd","FIND NOTIFICATION");
+
+				if(GlobalFunctions.is_loggedIn(context))
 			getConversationContacts(context);
 		else
 			showSettingsAlert();
 	}
-	private void getConversationContacts(final Context context){
+	private void getConversationContacts(final Context context)
+	{
+	try {
 		showProgressBar();
+	}
+	catch (Exception e)
+	{
+
+	}
+
 		ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
 		servicesMethodsManager.getConversationContacts(context,new ContactsListModel(),GlobalVariables.TYPE_BUYER_TAB, new ServerResponseInterface() {
 			@Override
@@ -215,10 +227,36 @@ public class BuyerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 								}
 		);
 	}
+
+/*	@Override
+	public void onReceiveMessage(final Message receivedMessage) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run()
+			{
+				if (adapter != null && Integer.parseInt(receivedMessage.getSender().getBs_id()) == Integer.parseInt(UserManager.getInstance(getApplicationContext()).getTargetUser().getBs_id())
+						&&Integer.parseInt(receivedMessage.getSender().getConversation_id()) == Integer.parseInt(UserManager.getInstance(getApplicationContext()).getTargetUser().getConversation_id())) {
+					if(GlobalFunctions.is_loggedIn(context))
+					{
+						getConversationMessages(context,receivedMessage.getSender().getConversation_id(),
+								receivedMessage.getSender().getActive_tab());
+					}else
+						showSettingsAlert();
+				}
+			}
+		});
+
+	}*/
 	@Override
-	public void onReceiveMessageOne(Message receivedMessage) {
+	public void onReceiveMessageOne(Message receivedMessage)
+	{
+
+
 		if(GlobalFunctions.is_loggedIn(context))
+		{
+			Log.d("http://","http://33------?"+receivedMessage);
 			getConversationContacts(context);
+		}
 		else
 			showSettingsAlert();
 	}
