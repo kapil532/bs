@@ -134,6 +134,7 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
             try {
                 if (MainActivity.badge != null) {
                     MainActivity.badge.hide();
+                    MainActivity.unread_count=0;
                 }
             }
             catch (Exception e)

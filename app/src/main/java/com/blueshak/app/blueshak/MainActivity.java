@@ -81,7 +81,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
     boolean is_map = false;
     public static boolean is_reset = false;
     public static boolean is_active = false;
-    private int unread_count = 0;
+    public static int unread_count = 0;
     public static BottomBarBadge badge;
     private AppController.BaseActivityLifeCycleListener baseActivityLifeCycleListener;
 
