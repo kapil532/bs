@@ -191,7 +191,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
             });*/
             salesListModel = (SalesListModelNew) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
             locationModel = (LocationModel) getArguments().getSerializable(LOCATION_MODEL);
-            model = (FilterModel) getArguments().getSerializable(GlobalVariables.FILTER_MODEL_FOR_MAP);
+            model = (FilterModel) getArguments().getSerializable(SALE_FILTER);
             salesListModel = (SalesListModelNew) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
             if(model==null){
                 model=new FilterModel();
@@ -238,6 +238,10 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                         }
                     }
                 }
+                if(!TextUtils.isEmpty(model.getResults_text()))
+                    results_all.setText("Results from "+model.getResults_text());
+                else
+                    results_all.setText("Results from Nearest First");
             }else{
                 item_address=model.getLocation();
               /*  String category_names=model.getCategory_names();
@@ -245,7 +249,10 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                     results_all.setText("Results in "+"'"+model.getCategory_names()+"'");
                 else
                     results_all.setText("Results in "+"'"+"All"+"'");*/
-                results_all.setText("Results from nearest first");
+                if(!TextUtils.isEmpty(model.getResults_text()))
+                    results_all.setText("Results from "+model.getResults_text());
+                else
+                    results_all.setText("Results from Nearest First");
             }
 
             activity.runOnUiThread(new Runnable() {
@@ -615,10 +622,10 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
             if(resultCode == activity.RESULT_OK){
                 Log.i(TAG,"result ok ");
                 Log.i(TAG,"request code "+globalVariables.REQUEST_CODE_FILTER_MODEL_LOCATION);
-                if(data.hasExtra(MainActivity.MAIN_ACTIVITY_FILTER_MODEL_SERIALIZE)){
-                    model=(FilterModel) data.getExtras().getSerializable(MainActivity.MAIN_ACTIVITY_FILTER_MODEL_SERIALIZE);
+                if(data.hasExtra(MainActivity.MAIN_ACTIVITY_FILTER_MODEL_SERIALIZE_FOR_SALE)){
+                    model=(FilterModel) data.getExtras().getSerializable(MainActivity.MAIN_ACTIVITY_FILTER_MODEL_SERIALIZE_FOR_SALE);
                     if(model!=null){
-                        MainActivity.filterModel=model;
+                        MainActivity.filterModelForSale=model;
                         item_address=model.getLocation();
                         String category_names=model.getCategory_names();
                      /*   if(!TextUtils.isEmpty(category_names)&& category_names!=null)
@@ -626,9 +633,9 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                         else
                             results_all.setText("Results in "+"'"+"All"+"'");*/
                         if(!TextUtils.isEmpty(model.getResults_text()))
-                            results_all.setText("Results in "+model.getResults_text());
+                            results_all.setText("Results from "+model.getResults_text());
                         else
-                            results_all.setText("Results from nearest first");
+                            results_all.setText("Results from Nearest First");
 
                         Log.i(TAG,"name pm"+model.getFormatted_address());
                         reset();

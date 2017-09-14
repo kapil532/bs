@@ -710,10 +710,10 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
             if(resultCode == activity.RESULT_OK){
                 Log.i(TAG,"result ok ");
                 Log.i(TAG,"request code "+globalVariables.REQUEST_CODE_FILTER_MODEL_LOCATION);
-                if(data.hasExtra(MainActivity.MAIN_ACTIVITY_FILTER_MODEL_SERIALIZE)){
-                    model=(FilterModel) data.getExtras().getSerializable(MainActivity.MAIN_ACTIVITY_FILTER_MODEL_SERIALIZE);
+                if(data.hasExtra(MainActivity.MAIN_ACTIVITY_FILTER_MODEL_SERIALIZE_FOR_SALE)){
+                    model=(FilterModel) data.getExtras().getSerializable(MainActivity.MAIN_ACTIVITY_FILTER_MODEL_SERIALIZE_FOR_SALE);
                     if(model!=null){
-                        MainActivity.filterModel=model;
+                        MainActivity.filterModelForSale=model;
                         lat=Double.parseDouble(model.getLatitude());
                         lng=Double.parseDouble(model.getLongitude());
                         String category_names=model.getCategory_names();
@@ -724,7 +724,7 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
                         if(!TextUtils.isEmpty(model.getResults_text()))
                             results_all.setText("Results in "+model.getResults_text());
                         else
-                            results_all.setText("Results from nearest first");
+                            results_all.setText("Results from Newly Listed");
 
                         Log.i(TAG,"name pm"+model.getFormatted_address());
                         cleaMap();

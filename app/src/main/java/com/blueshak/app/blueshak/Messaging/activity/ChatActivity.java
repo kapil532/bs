@@ -218,6 +218,11 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
                 @Override
                 public void onClick(View v) {
                  /*   finish();*/
+
+                    if(adapter!= null)
+                    {
+                        adapter =null;
+                    }
                     if(MainActivity.is_active)
                         closeThisActivity();
                     else{
@@ -720,12 +725,14 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
     @Override
     protected void onStop() {
         super.onStop();
-        if(adapter!= null)
+       /* if(adapter!= null)
 
         {
         adapter =null;
-        }
+        }*/
     }
+
+
 
     @Override
     public void onSendMessageResult(boolean isSuccess, String extraInfo)
@@ -873,13 +880,20 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
             progress_bar.setVisibility(View.GONE);
     }
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
+        if(adapter!= null)
+
+        {
+            adapter =null;
+        }
         if(MainActivity.is_active)
             closeThisActivity();
         else{
             closeThisActivity();
             startActivity(new Intent(activity,MainActivity.class));
         }
+
 
     }
     @Override

@@ -94,8 +94,9 @@
     <!-- UTIL-->
     <string name="please_check_ur_internet">Please check your internet connection</string>
     <!-- item_list_fragment_for_list-->
-    <string name="item_list_fragment_for_list_result_from_nearest">Results from nearest first</string>
-    <string name="item_list_fragment_for_list_result_in">Results in</string>
+    <string name="item_list_fragment_for_list_result_from_nearest">Results from Newly Listed</string>
+    <string name="item_list_fragment_for_list_result_from_nearest_new">Results from Nearest First</string>
+    <string name="item_list_fragment_for_list_result_in">Results from</string>
 
     <!-- PROFILE-->
     <string name="profile_edit">Edit</string>

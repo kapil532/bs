@@ -47,7 +47,8 @@ import io.fabric.sdk.android.Fabric;
  * Langoor , Bangalore
  * on 1/12/2016.
  */
-public class AppController extends MultiDexApplication {
+public class AppController extends MultiDexApplication
+{
     public static final String TAG = AppController.class.getSimpleName();
     private RequestQueue mRequestQueue;
 /*    private ImageLoader mImageLoader;*/

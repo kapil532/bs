@@ -676,7 +676,7 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
 
         if (from == GlobalVariables.TYPE_GARAGE_SALE) {
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text("most recent");
+                detail.setResults_text("Newly Listed");
                 detail.setSortByRecent_garage(true);
             } else
                 detail.setSortByRecent_garage(false);
@@ -688,7 +688,7 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
                 detail.setEnding_soon(false);
         } else if (from == GlobalVariables.TYPE_SEARCH || from == GlobalVariables.TYPE_ITEMS) {
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text("most recent");
+                detail.setResults_text("Newly Listed");
                 detail.setSortByRecent(true);
             } else
                 detail.setSortByRecent(false);
@@ -758,7 +758,7 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
 
         if (from == GlobalVariables.TYPE_GARAGE_SALE) {
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text("most recent");
+                detail.setResults_text("Newly Listed");
                 detail.setSortByRecent_garage(true);
             } else
                 detail.setSortByRecent_garage(false);
@@ -770,7 +770,7 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
                 detail.setEnding_soon(false);
         } else if (from == GlobalVariables.TYPE_SEARCH || from == GlobalVariables.TYPE_ITEMS) {
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text("most recent");
+                detail.setResults_text("Newly Listed");
                 detail.setSortByRecent(true);
             } else
                 detail.setSortByRecent(false);
@@ -912,7 +912,7 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
                 bundle.putSerializable(SearchActivity.MAIN_ACTIVITY_FILTER_MODEL_SERIALIZE, filterModel);
             } else {
                 result = new Intent(activity, MainActivity.class);
-                bundle.putSerializable(MainActivity.MAIN_ACTIVITY_FILTER_MODEL_SERIALIZE, filterModel);
+                bundle.putSerializable(MainActivity.MAIN_ACTIVITY_FILTER_MODEL_SERIALIZE_FOR_SALE, filterModel);
             }
             result.putExtras(bundle);
             setResult(this.RESULT_OK, result);

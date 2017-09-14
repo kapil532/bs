@@ -182,10 +182,11 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                     context.getResources().getColor(R.color.brandColor));
             salesListModel = (SalesListModel) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
             locationModel = (LocationModel) getArguments().getSerializable(LOCATION_MODEL);
-            model = (FilterModel) getArguments().getSerializable( GlobalVariables.FILTER_MODEL);
+            model = (FilterModel) getArguments().getSerializable(SALE_FILTER);
             salesListModel = (SalesListModel) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
 
-            if(model==null){
+            if(model==null)
+            {
                 model=new FilterModel();
                 if(locationModel!=null)
                 {
@@ -247,6 +248,15 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                         }
                     }
                 }
+                if(!TextUtils.isEmpty(model.getResults_text())) {
+                    Log.d("VALUESS","VALUESSS-->3  "+model.getResults_text());
+                    results_all.setText("Results from " + model.getResults_text());
+                }
+                else {
+                    Log.d("VALUESS","VALUESSS-->4  "+model.getResults_text());
+                    results_all.setText(Constants.getTextFromId(context, R.string.item_list_fragment_for_list_result_from_nearest_new));
+
+                }
             }else{
                 item_address=model.getLocation();
                /* String category_names=model.getCategory_names();
@@ -254,7 +264,16 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                     results_all.setText("Results in "+"'"+model.getCategory_names()+"'");
                 else
                     results_all.setText("Results in "+"'"+"All"+"'");*/
-                results_all.setText(getResources().getString(R.string.item_list_fragment_for_list_result_from_nearest));
+                if(!TextUtils.isEmpty(model.getResults_text()))
+                {
+                    Log.d("VALUESS","VALUESSS-->1  "+model.getResults_text());
+                    results_all.setText("Results from " + model.getResults_text());
+                }
+                else {
+                    Log.d("VALUESS","VALUESSS-->2  "+model.getResults_text());
+                    results_all.setText(Constants.getTextFromId(context, R.string.item_list_fragment_for_list_result_from_nearest_new));
+                }
+//                results_all.setText(getResources().getString(R.string.item_list_fragment_for_list_result_from_nearest_new));
             }
             location = (TextView)view.findViewById(R.id.location);
             filter_tag = (TextView)view.findViewById(R.id.filter_tag);
@@ -673,11 +692,12 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                     MainActivity.filterModel=model;
                     item_address=model.getLocation();
                     String category_names=model.getCategory_names();
-                    if(!TextUtils.isEmpty(model.getResults_text()))
-                        results_all.setText(Constants.getTextFromId(context,R.string.item_list_fragment_for_list_result_in)+" "+model.getResults_text());
-                    else
-                        results_all.setText(Constants.getTextFromId(context,R.string.item_list_fragment_for_list_result_from_nearest));
-
+                    if(!TextUtils.isEmpty(model.getResults_text())) {
+                        results_all.setText(Constants.getTextFromId(context, R.string.item_list_fragment_for_list_result_in) + " " + model.getResults_text());
+                    }
+                        else {
+                        results_all.setText(Constants.getTextFromId(context, R.string.item_list_fragment_for_list_result_from_nearest_new));
+                    }
 
                     /*if(!TextUtils.isEmpty(category_names)&& category_names!=null)
                         results_all.setText("Results in "+"'"+model.getCategory_names()+"'");

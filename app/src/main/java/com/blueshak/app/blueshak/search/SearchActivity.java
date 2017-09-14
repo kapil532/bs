@@ -520,7 +520,7 @@ public class SearchActivity extends RootActivity implements LocationListener,Swi
                     if(!TextUtils.isEmpty(model.getResults_text()))
                         results_all.setText("Results in "+model.getResults_text());
                     else
-                        results_all.setText("Results from nearest first");
+                        results_all.setText("Results from Newly Listed");
 
                     Log.i(TAG,"name pm"+model.getFormatted_address());
                     searchModel.setLongitude(model.getLongitude());

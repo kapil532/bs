@@ -48,7 +48,7 @@
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Results from nearest first"
+        android:text="@string/item_list_fragment_for_list_result_from_nearest_new"
         android:textStyle="italic"
         android:textColor="@color/black"
         android:singleLine="true"

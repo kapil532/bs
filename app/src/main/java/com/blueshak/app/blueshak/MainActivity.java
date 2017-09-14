@@ -75,8 +75,10 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
     private SearchView mSearchView;
     public static final String MAIN_ACTIVITY_LOCATION_MODEL_SERIALIZE = "locationModelSerialize";
     public static final String MAIN_ACTIVITY_FILTER_MODEL_SERIALIZE = "filterModelSerialize";
+    public static final String MAIN_ACTIVITY_FILTER_MODEL_SERIALIZE_FOR_SALE = "filterModelSerializeSale";
     private static LocationModel locationModel = null;
     public static FilterModel filterModel = null;
+    public static FilterModel filterModelForSale = null;
     private ImageView go_to_search, grid;
     boolean is_map = false;
     public static boolean is_reset = false;
@@ -180,7 +182,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
 
                                     if (is_map) {
 
-                                        Fragment fragment = new MapFragmentSales().newInstance(locationModel, GlobalVariables.TYPE_GARAGE, null, null, false, filterModel);
+                                        Fragment fragment = new MapFragmentSales().newInstance(locationModel, GlobalVariables.TYPE_GARAGE, null, null, false, filterModelForSale);
                                         mainActivityFM.beginTransaction().replace(R.id.container, fragment, "").commit();
                                         grid.setImageResource(R.drawable.ic_grid);
                                        // is_map=false;
@@ -254,12 +256,12 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             go_to_search.setVisibility(View.VISIBLE);
                             if (is_map) {
 
-                                Fragment fragment = new MapFragmentSales().newInstance(locationModel, GlobalVariables.TYPE_GARAGE, null, null, false, filterModel);
+                                Fragment fragment = new MapFragmentSales().newInstance(locationModel, GlobalVariables.TYPE_GARAGE, null, null, false, filterModelForSale);
                                 mainActivityFM.beginTransaction().replace(R.id.container, fragment, "").commit();
                                 grid.setImageResource(R.drawable.ic_grid);
                              //  is_map=true;
                             } else {
-                                GarageSalesListFragment garageSalesListFragment = GarageSalesListFragment.newInstance(salesListModel, GlobalVariables.TYPE_GARAGE, filterModel, locationModel, false);
+                                GarageSalesListFragment garageSalesListFragment = GarageSalesListFragment.newInstance(salesListModel, GlobalVariables.TYPE_GARAGE, filterModelForSale, locationModel, false);
                                 mainActivityFM.beginTransaction().replace(R.id.container, garageSalesListFragment, "").commit();
                                 grid.setImageResource(R.drawable.pin_white);
                          // is_map=false;
