@@ -134,5 +134,5 @@ public class GlobalVariables {
     public static String Sydney_latitude="-33.8688196";
     public static String Sydney_longitude="151.2092955";
     public static String BLUESHAK_SUPPORT_EMAIL="support@blueshak.com";
-    public static final int MAP_ZOOMING_INT = 8;
+    public static final int MAP_ZOOMING_INT = 10;
 }

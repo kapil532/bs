@@ -173,7 +173,8 @@ public class OTPActivity extends RootActivity {
 
 			}
 		});*/
-        if(intent!=null && intent.hasExtra(OTP_BUNDLE_KEY)){
+        if(intent!=null && intent.hasExtra(OTP_BUNDLE_KEY))
+        {
             otpCheckerModel=(OTPCheckerModel) intent.getSerializableExtra(OTP_BUNDLE_KEY);
             if(otpCheckerModel!=null){
                 if(otpCheckerModel.getIsd()!=null)

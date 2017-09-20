@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -326,9 +328,38 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
     }
     private void addMarker() {
         MarkerOptions options = new MarkerOptions();
-        /*MarkerOptions marker = new MarkerOptions().position(currentLatLng).title("resturan")
+        LatLng currentLatLng = new LatLng(lat,lng);
+        options.position(currentLatLng);
+        options.icon(BitmapDescriptorFactory.fromResource(R.drawable.dota));
+        Marker mapMarker = map.addMarker(options);
+        mapMarker.setAnchor(.5f,.5f);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,GlobalVariables.MAP_ZOOMING_INT));
+        map.addCircle(new CircleOptions()
+                .center(currentLatLng)
+                .radius(6000)
+                .strokeColor(getResources().getColor(R.color.fill_color))
+                .fillColor(0x220000FF)
+                .strokeWidth(3)
+        );
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if(!from_activity){
+                    ProductModel productModel=new ProductModel();
+                    productModel.setName(shop_name);
+                    productModel.setLongitude(Double.toString(lng));
+                    productModel.setLatitude(Double.toString(lat));
+                    Intent i= MapActivity.newInstance(activity,GlobalVariables.TYPE_SHOP,productModel);
+                    startActivity(i);
+                }
+                return false;
+            }
+        });
+
+       /* MarkerOptions options = new MarkerOptions();
+        *//*MarkerOptions marker = new MarkerOptions().position(currentLatLng).title("resturan")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.profile_pic));
-        */
+        *//*
 
         // following four lines requires 'Google Maps Android API Utility Library'
         // https://developers.google.com/maps/documentation/android/utility/
@@ -337,8 +368,8 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
         IconGenerator iconFactory = new IconGenerator(activity);
         iconFactory.setStyle(IconGenerator.STYLE_PURPLE);
         iconFactory.setColor(getResources().getColor(R.color.tab_selected));
-     /*   options.icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(icon_name)));*/
-        /*options.icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(icon_name)));*/
+     *//*   options.icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(icon_name)));*//*
+        *//*options.icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(icon_name)));*//*
         options.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_orange_small));
         options.anchor(iconFactory.getAnchorU(), iconFactory.getAnchorV());
         LatLng currentLatLng = new LatLng(lat,lng);
@@ -362,7 +393,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
                 }
                 return false;
             }
-        });
+        });*/
     }
     @Override
     public void onLocationChanged(Location location) {

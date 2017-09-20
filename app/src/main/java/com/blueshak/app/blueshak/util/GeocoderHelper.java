@@ -177,7 +177,7 @@ public class GeocoderHelper {
 
 
     public String fetchCityNameUsingGoogleMaps(Location location) {
-        String googleMapUrl = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + location.getLatitude() + ","
+        String googleMapUrl = "http:// maps.googleapis.com/maps/api/geocode/json?latlng=" + location.getLatitude() + ","
                 + location.getLongitude() + "&sensor=false&language=fr";
 
         try {

@@ -98,7 +98,8 @@ public class LoginActivity extends RootActivity implements View.OnClickListener,
 		int otp_verified=GlobalFunctions.getSharedPreferenceInt(this, GlobalVariables.SHARED_PREFERENCE_IS_OTP_VERIFIED);
 		if(filter_string!=null){
 			otpCheckerModel.toObject(filter_string);
-			if(otp_verified==0){
+			if(otp_verified==0)
+			{
 				startActivity(OTPActivity.newInstance(context,otpCheckerModel));
 				finish();
 			}

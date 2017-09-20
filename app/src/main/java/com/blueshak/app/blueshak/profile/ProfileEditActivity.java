@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -263,7 +264,8 @@ public class ProfileEditActivity extends RootActivity {
             profile_photo_content.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showAlert();
+//                    showAlert();
+                    selectImage();
                 }
             });
             profileDetailsModel=(ProfileDetailsModel) getIntent().getExtras().getSerializable(PRODUCTDETAIL_BUNDLE_KEY_POSITION);
@@ -297,7 +299,8 @@ public class ProfileEditActivity extends RootActivity {
     private void selectImage() {
 
         if (checkIfAlreadyhavePermission())
-            ImagePicker.pickImage(activity, "Select your image");
+            selectImageNew();
+//            ImagePicker.pickImage(this, "Select your image");
         else
             checkCameraPermission();
     }
@@ -305,6 +308,42 @@ public class ProfileEditActivity extends RootActivity {
     public void onResume() {
         super.onResume();
 
+    }
+
+    private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
+    private void selectImageNew() {
+        try {
+            PackageManager pm = getPackageManager();
+            int hasPerm = pm.checkPermission(Manifest.permission.CAMERA, getPackageName());
+            if (hasPerm == PackageManager.PERMISSION_GRANTED) {
+                final CharSequence[] options = {"Take Photo", "Choose From Gallery"};
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(activity);
+                builder.setTitle("Select Option");
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options[item].equals("Take Photo")) {
+                            dialog.dismiss();
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent, PICK_IMAGE_CAMERA);
+                        } else if (options[item].equals("Choose From Gallery")) {
+                            dialog.dismiss();
+                            Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(pickPhoto, PICK_IMAGE_GALLERY);
+                        } /*else if (options[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }*/
+                    }
+                });
+                builder.show();
+            } else
+                Toast.makeText(this, "Camera Permission error", Toast.LENGTH_SHORT).show();
+
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Camera Permission error", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 
     public void setThisPage(){
@@ -412,41 +451,92 @@ public class ProfileEditActivity extends RootActivity {
         },"Profile update");
 
     }
-    void showAlert() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        final CharSequence[] charSequences= new CharSequence[]{"Camera", "Choose from gallery"};
-        builder.setItems(R.array.select_dialog_items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(which==0){
-                    if(checkIfAlreadyhavePermission())
-                        cameraIntent();
-                    else
-                        checkCameraPermission();
-                }else{
-                    if(checkIfReadExternalStorageAlreadyhavePermission())
-                        pickImage();
-                    else
-                        checkReadExternalStoragePermission();
-
-                }
-            }
-        });
-        alert = builder.create();
-        alert.show();
-
-    }
-    public void pickImage() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        startActivityForResult(intent, PICK_PHOTO_FOR_AVATAR);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (data == null) {
+        if (requestCode == PICK_IMAGE_CAMERA) {
+            try {
+
+                try {
+                    Uri selectedImage = data.getData();
+                    String imagePatha = "profile";
+                    Bitmap bit_ = (Bitmap) data.getExtras().get("data");
+                    // String bitmap = ImageUtils.savePicture(activity, bit_, imagePatha);
+                    String base64_image= CommonUtil.encodeToBase64(bit_, Bitmap.CompressFormat.JPEG,100);
+                    setImage_bmp(base64_image);
+                    // String bitmap = ImagePicker.getImagePathFromResult(getActivity(),requestCode,resultCode,data);
+                    if(!TextUtils.isEmpty(base64_image)){
+
+                        Picasso.with(activity)
+                                .load(getImageUri(activity,bit_))
+                                .placeholder(R.drawable.squareplaceholder)
+                                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                                .networkPolicy(NetworkPolicy.NO_CACHE)
+                                .fit().centerCrop()
+                                .into(rounde_image);
+//                    rounde_image.setImageBitmap(bmp);
+                    }else{
+                        Toast.makeText(context,"Your profile pic is empty can't update the your profile",Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (requestCode == PICK_IMAGE_GALLERY) {
+            Uri selectedImage = data.getData();
+            try {
+                try {
+                    String imagePatha = "profile";
+                    Bitmap bit_ = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                    // String bitmap = ImageUtils.savePicture(activity, bit_, imagePatha);
+                    String base64_image= CommonUtil.encodeToBase64(bit_, Bitmap.CompressFormat.JPEG,100);
+                    setImage_bmp(base64_image);
+                    // String bitmap = ImagePicker.getImagePathFromResult(getActivity(),requestCode,resultCode,data);
+                    if(!TextUtils.isEmpty(base64_image)){
+
+                        Picasso.with(activity)
+                                .load(getImageUri(activity,bit_))
+                                .placeholder(R.drawable.squareplaceholder)
+                                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                                .networkPolicy(NetworkPolicy.NO_CACHE)
+                                .fit().centerCrop()
+                                .into(rounde_image);
+//                    rounde_image.setImageBitmap(bmp);
+                    }else{
+                        Toast.makeText(context,"Your profile pic is empty can't update the your profile",Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Audio.Media.DATA};
+        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+  /*  @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK)
+        {
+            Log.d("VALUESSS","VALUESSS===" +
+                    ">>"+data);
+            if (data == null)
+            {
                 return;
             }
 
@@ -474,16 +564,16 @@ public class ProfileEditActivity extends RootActivity {
             } catch (Exception e) {
 
             }
-           /* try {
+           *//* try {
                 InputStream inputStream = context.getContentResolver().openInputStream(data.getData());
                 BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
                 Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
                 String base64_image= CommonUtil.encodeToBase64(bmp, Bitmap.CompressFormat.JPEG,100);
                 setImage_bmp(base64_image);
 
-              *//*  if(bmp!=null)
+              *//**//*  if(bmp!=null)
                     bmp.recycle();
-*//*
+*//**//*
                 if(!TextUtils.isEmpty(base64_image)){
 
                 Picasso.with(activity)
@@ -500,8 +590,9 @@ public class ProfileEditActivity extends RootActivity {
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            }*/
-        }else if(requestCode == REQUEST_CAMERA){
+            }*//*
+        }
+        else if(requestCode == REQUEST_CAMERA){
 
             onCaptureImageResult(data);
         }else  if (requestCode == globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION) {
@@ -515,7 +606,7 @@ public class ProfileEditActivity extends RootActivity {
 
         }
     }
-
+*/
 
     private void cameraIntent(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -575,12 +666,15 @@ public class ProfileEditActivity extends RootActivity {
         int permissionCheck_location_coarse = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
         int permissionCheck_write_coarse = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int permissionCheck_camera = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
-        if(permissionCheck_location_coarse != PackageManager.PERMISSION_GRANTED ||
-                permissionCheck_write_coarse!=PackageManager.PERMISSION_GRANTED
-                || permissionCheck_camera!=PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CHECK_CAMERA);
+        if (permissionCheck_location_coarse != PackageManager.PERMISSION_GRANTED ||
+                permissionCheck_write_coarse != PackageManager.PERMISSION_GRANTED
+                || permissionCheck_camera != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CHECK_CAMERA);
         }
+
+
     }
+
     private boolean checkIfAlreadyhavePermission() {
         Log.d(TAG,"checkIfReadExternalStorageAlreadyhavePermission######################");
         int coarse_location = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
