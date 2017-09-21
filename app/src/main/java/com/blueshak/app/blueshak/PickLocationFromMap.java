@@ -13,9 +13,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -62,8 +64,9 @@ public class PickLocationFromMap extends AppCompatActivity implements GoogleMap.
     private  LocationModel locationModel=new LocationModel();
     private  int from=0;
     private ProgressBar progress_bar;
+    Button save;
     public static Intent newInstance(Context context, int from, boolean world_wide, LocationModel locationModel){
-        Intent mIntent = new Intent(context,PickLocation.class);
+        Intent mIntent = new Intent(context,PickLocationFromMap.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable(FROM, from);
         bundle.putBoolean(WORLD_WIDE_BUNDLE_KEY, world_wide);
@@ -71,6 +74,7 @@ public class PickLocationFromMap extends AppCompatActivity implements GoogleMap.
         mIntent.putExtras(bundle);
         return mIntent;
     }
+    String address;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +102,9 @@ public class PickLocationFromMap extends AppCompatActivity implements GoogleMap.
 
         Intent i=getIntent();
         if(i!=null) {
+            if (i.hasExtra(FROM)) {
+                from = getIntent().getExtras().getInt(FROM);
+            }
             /*if (i.hasExtra(FROM)) {
                 from = getIntent().getExtras().getInt(FROM);
             }
@@ -116,6 +123,46 @@ public class PickLocationFromMap extends AppCompatActivity implements GoogleMap.
         location_Text =(TextView)findViewById(R.id.location_Text);
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.title_fragment);
         mapFragment.getMapAsync(this);
+        save=(Button) findViewById(R.id.save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if(from==GlobalVariables.TYPE_GARAGE_SALE)
+                    if(!TextUtils.isEmpty(location_Text.getText()))
+                    {
+//                        locationModel.setStree_number(street_number.getText().toString().trim());
+                        address=location_Text.getText().toString();//locationModel.getStree_number().toString().trim()+"/"+locationModel.getAutocomplete_address();
+                    }else
+                        address=location_Text.getText().toString();//locationModel.getAutocomplete_address();
+                else
+                    address=location_Text.getText().toString();//locationModel.getAutocomplete_address();
+
+                if(!TextUtils.isEmpty(location_Text.getText()))
+                {
+
+                    Log.d("LOCATION V","VALUESSS11");
+                        /*setCity(mAutocompleteTextView.getText().toString());*/
+                    locationModel.setFormatted_address(locationModel.getFormatted_address());
+                    locationModel.setAutocomplete_address(locationModel.getAutocomplete_address());
+                    GlobalFunctions.setSharedPreferenceString(activity,GlobalVariables.CURRENT_LOCATION,locationModel.getFormatted_address());
+                    Log.i("", "Selected: " + locationModel.getFormatted_address()+" Latitude :"+locationModel.getLatitude()+" Longitude :"+locationModel.getLongitude());
+                    if(from==GlobalVariables.TYPE_FILTER_ACTIVITY || from==GlobalVariables.TYPE_ADD_TEMS || from==GlobalVariables.TYPE_MY_PROFILE || from==GlobalVariables.TYPE_SIGN_UP||from==GlobalVariables.TYPE_LOGIN || from==GlobalVariables.TYPE_GARAGE_SALE)
+                    {
+                        Log.d("LOCATION V","VALUESSS1122");
+                        setReturnResult(locationModel);
+                    }else{
+                        Log.d("LOCATION V","VALUESSS1133");
+                        closeThisActivity();
+                        Intent i=MainActivity.newInstance(context,locationModel,null);
+                        startActivity(i);
+
+                    }
+                }else
+//                    mAutocompleteTextView.setError("Please enter location");
+                Toast.makeText(context,"Please enter location",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -305,7 +352,9 @@ public class PickLocationFromMap extends AppCompatActivity implements GoogleMap.
             progress_bar.setVisibility(View.GONE);
     }
     private void setReturnResult(LocationModel locationModel){
-        if(locationModel!=null){
+        if(locationModel!=null)
+        {
+            Log.d("LOCAITON VALUESSS","VALUESSS--->");
             Bundle bundle = new Bundle();Intent result;
             if(from==GlobalVariables.TYPE_ADD_TEMS || from==GlobalVariables.TYPE_GARAGE_SALE){
                 result = new Intent(activity,CreateSaleActivity.class);

@@ -179,10 +179,10 @@ public class CreateGarageSaleFragment extends Fragment{
             mAutocompleteTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                   Intent intent= PickLocation.newInstance(context,GlobalVariables.TYPE_GARAGE_SALE,false,locationModel);
-//                    startActivityForResult(intent,globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION);
-                    Intent in = new Intent(getActivity(), PickLocationFromMap.class);
-                    startActivity(in);
+                   Intent intent= PickLocationFromMap.newInstance(context,GlobalVariables.TYPE_GARAGE_SALE,false,locationModel);
+                    startActivityForResult(intent,globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION);
+//                    Intent in = new Intent(getActivity(), PickLocationFromMap.class);
+//                    startActivity(in);
                 }
             });
             mAutocompleteTextView.setOnEditorActionListener(new DoneOnEditorActionListener());

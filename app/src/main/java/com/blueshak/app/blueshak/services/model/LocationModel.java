@@ -133,6 +133,7 @@ public class LocationModel implements Serializable {
 
     public boolean toObject(String jsonObjectString){
         try {
+            Log.d("ADDRSS VALUES","VALUESS FORMA"+jsonObjectString);
             JSONObject obj=new JSONObject(jsonObjectString);
             if(obj.has("results")){
                 JSONArray arr=(JSONArray)obj.getJSONArray(RESULTS);

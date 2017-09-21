@@ -258,7 +258,8 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
             save=(Button) findViewById(R.id.save);
             save.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
                     if(from==GlobalVariables.TYPE_GARAGE_SALE)
                         if(!TextUtils.isEmpty(street_number.getText().toString())){
                             locationModel.setStree_number(street_number.getText().toString().trim());
