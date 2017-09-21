@@ -439,7 +439,8 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
                 hideProgressBar();
                 GlobalFunctions.closeKeyboard(activity);
                  locationModel =(LocationModel)arg0;
-                 if(locationModel !=null){
+                 if(locationModel !=null)
+                 {
                      locationModel.setLongitude(Double.toString(lng));
                      locationModel.setLatitude(Double.toString(lat));
                      Log.i(TAG, "Selected: " + locationModel.getFormatted_address()+" Latitude :"+locationModel.getLatitude()+" Longitude :"+locationModel.getLongitude());
