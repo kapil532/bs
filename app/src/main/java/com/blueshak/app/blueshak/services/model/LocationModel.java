@@ -1,6 +1,7 @@
 package com.blueshak.app.blueshak.services.model;
 
 import android.content.Context;
+import android.location.Address;
 import android.util.Log;
 
 import com.blueshak.app.blueshak.global.GlobalFunctions;
@@ -8,6 +9,7 @@ import com.blueshak.app.blueshak.global.GlobalVariables;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.Serializable;
+import java.util.Locale;
 
 public class LocationModel implements Serializable {
 
@@ -57,7 +59,7 @@ public class LocationModel implements Serializable {
         this.country_code = country_code;
     }
 
-    String results=null, formatted_address=null,address_components=null;
+    String results=null, formatted_address=null,address_components=null,formatted_address_for_map=null;
 
     public String getStree_number() {
         return stree_number;
@@ -65,6 +67,14 @@ public class LocationModel implements Serializable {
 
     public String getAutocomplete_address() {
         return autocomplete_address;
+    }
+
+    public String getFormatted_address_for_map() {
+        return formatted_address_for_map;
+    }
+
+    public void setFormatted_address_for_map(String formatted_address_for_map) {
+        this.formatted_address_for_map = formatted_address_for_map;
     }
 
     public void setAutocomplete_address(String autocomplete_address) {
@@ -78,7 +88,10 @@ public class LocationModel implements Serializable {
     String city=null;
     String subhurb=null;
     String state=null;
-    String country=null, country_code=null,stree_number=null,autocomplete_address=null;
+    String country=null,
+            country_code=null,
+            stree_number=null,
+            autocomplete_address=null;
     String postal_code=null;
 
     String latitude =/* GlobalVariables.Sydney_latitude*/null;
@@ -139,7 +152,8 @@ public class LocationModel implements Serializable {
                 JSONArray arr=(JSONArray)obj.getJSONArray(RESULTS);
                 for(int i=0;i<arr.length();i++){
                     JSONObject obj_=(JSONObject)arr.getJSONObject(0);
-                    if(obj_.has("formatted_address")){
+                    if(obj_.has("formatted_address"))
+                    {
                         formatted_address=obj_.getString(FORMATTED_ADDRESS);
                     }
                     JSONArray address_components=(JSONArray)obj_.getJSONArray("address_components");
@@ -179,7 +193,7 @@ public class LocationModel implements Serializable {
                             }
                         }
 
-
+                        formatted_address_for_map=city+","+state+","+country;
                     }
                 }
             }

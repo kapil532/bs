@@ -665,7 +665,7 @@ public class CreateGarageSaleFragment extends Fragment{
                     locationModel=location_model;
                     productModel.setLatitude(location_model.getLatitude());
                     productModel.setLongitude(location_model.getLongitude());
-                    productModel.setAddress(location_model.getFormatted_address());
+                    productModel.setAddress(location_model.getFormatted_address_for_map());
                     productModel.setSuburb(location_model.getSubhurb());
                     productModel.setCity(location_model.getCity());
                     mAutocompleteTextView.setText(location_model.getFormatted_address());

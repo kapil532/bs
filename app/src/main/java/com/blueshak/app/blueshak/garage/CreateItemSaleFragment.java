@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueshak.app.blueshak.Messaging.helper.Constants;
+import com.blueshak.app.blueshak.PickLocationFromMap;
 import com.blueshak.app.blueshak.abhs.emojiParser;
 import com.crashlytics.android.Crashlytics;
 import com.blueshak.app.blueshak.currency.CurrencyActivity;
@@ -191,7 +192,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             mAutocompleteTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = PickLocation.newInstance(context, GlobalVariables.TYPE_ADD_TEMS, false, locationModel);
+                    Intent intent = PickLocationFromMap.newInstance(context, GlobalVariables.TYPE_ADD_TEMS, false, locationModel);
                     startActivityForResult(intent, globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION);
                 }
             });
@@ -844,7 +845,7 @@ catch (Exception ee)
                     locationModel = location_model;
                     productModel.setLatitude(location_model.getLatitude());
                     productModel.setLongitude(location_model.getLongitude());
-                    productModel.setAddress(location_model.getFormatted_address());
+                    productModel.setAddress(location_model.getFormatted_address_for_map());
                     productModel.setSuburb(location_model.getSubhurb());
                     productModel.setCity(location_model.getCity());
                     mAutocompleteTextView.setText(location_model.getFormatted_address());
