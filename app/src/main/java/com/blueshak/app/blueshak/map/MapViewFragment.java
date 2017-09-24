@@ -330,7 +330,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
         MarkerOptions options = new MarkerOptions();
         LatLng currentLatLng = new LatLng(lat,lng);
         options.position(currentLatLng);
-        options.icon(BitmapDescriptorFactory.fromResource(R.drawable.dota));
+        options.icon(BitmapDescriptorFactory.fromResource(R.drawable.atr));
         Marker mapMarker = map.addMarker(options);
         mapMarker.setAnchor(.5f,.5f);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,GlobalVariables.MAP_ZOOMING_INT));
