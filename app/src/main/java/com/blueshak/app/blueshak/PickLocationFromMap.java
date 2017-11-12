@@ -294,12 +294,12 @@ public class PickLocationFromMap extends AppCompatActivity implements GoogleMap.
     private Context context;
     private boolean proceed=false;
     private void getAddressFromLatLng(){
-        showProgressBar();
+        //showProgressBar();
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getAddress(activity, lat,lang, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-                hideProgressBar();
+               // hideProgressBar();
                 GlobalFunctions.closeKeyboard(activity);
                 locationModel =(LocationModel)arg0;
                 if(locationModel !=null)
@@ -330,13 +330,13 @@ public class PickLocationFromMap extends AppCompatActivity implements GoogleMap.
             @Override
             public void OnFailureFromServer(String msg)
             {
-                hideProgressBar();
+              //  hideProgressBar();
                 location_Text.setText("Blueshak Garage is not available..");
             }
 
             @Override
             public void OnError(String msg) {
-                hideProgressBar();
+             //   hideProgressBar();
                 location_Text.setText("Blueshak Garage is not available..");
             }
         }, "Fetching Current Location");
