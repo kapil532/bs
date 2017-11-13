@@ -109,7 +109,13 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
             progress_bar=(ProgressBar)view.findViewById(R.id.progress_bar);
             context= getActivity();
             activity= getActivity();
-            searchViewResult=(TextView)view.findViewById(R.id.searchViewResult);
+
+            this.inflater = inflater;
+            toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
+            swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+            swipeRefreshLayout.setOnRefreshListener(this);
+
+            searchViewResult=(TextView)toolbar.findViewById(R.id.searchViewResult);
             searchViewResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -117,10 +123,6 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                     startActivity(new Intent(activity, SearchActivity.class));
                 }
             });
-            this.inflater = inflater;
-            toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
-            swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
-            swipeRefreshLayout.setOnRefreshListener(this);
             swipeRefreshLayout.setColorSchemeColors(context.getResources().getColor(R.color.brandColor),
                     context.getResources().getColor(R.color.tab_selected),
                     context.getResources().getColor(R.color.darkorange),

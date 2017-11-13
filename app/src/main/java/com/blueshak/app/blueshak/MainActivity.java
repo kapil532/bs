@@ -79,7 +79,8 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
     private static LocationModel locationModel = null;
     public static FilterModel filterModel = null;
     public static FilterModel filterModelForSale = null;
-    private ImageView go_to_search, grid;
+    private ImageView go_to_search, grid,logo_title;
+    TextView searchViewResult;
     boolean is_map = false;
     public static boolean is_reset = false;
     public static boolean is_active = false;
@@ -141,7 +142,9 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             View v = inflator.inflate(R.layout.actionbar_custom_view, null);
             go_to_search = (ImageView) v.findViewById(R.id.go_to_filter);
+            logo_title = (ImageView) v.findViewById(R.id.logo_title);
             grid = (ImageView) v.findViewById(R.id.grid);
+            searchViewResult =(TextView)v.findViewById(R.id.searchViewResult);
             grid.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
@@ -234,6 +237,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                     {
                         case R.id.home:
                             activeTab=0;
+                            topbarToShowOrNot(0);
                             grid.setVisibility(View.VISIBLE);
                             go_to_search.setVisibility(View.VISIBLE);
                             Log.d("STATE","STATE--->"+is_list);
@@ -252,6 +256,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             break;
                         case R.id.garage:
                             activeTab=1;
+                            topbarToShowOrNot(0);
                             grid.setVisibility(View.VISIBLE);
                             go_to_search.setVisibility(View.VISIBLE);
                             if (is_map) {
@@ -280,6 +285,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             break;
                         case R.id.message:
                             activeTab=3;
+                            topbarToShowOrNot(1);
                             grid.setVisibility(View.GONE);
                             go_to_search.setVisibility(View.VISIBLE);
                             if (!GlobalFunctions.is_loggedIn(activity))
@@ -292,6 +298,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             break;
                         case R.id.profile:
                             activeTab=4;
+                            topbarToShowOrNot(1);
                             grid.setVisibility(View.GONE);
                             go_to_search.setVisibility(View.GONE);
                             if (GlobalFunctions.is_loggedIn(activity)) {
@@ -309,6 +316,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                     switch (menuItemId) {
                         case R.id.home:
                             activeTab=0;
+                            topbarToShowOrNot(0);
                             Log.d("STATE","STATE###"+is_list);
                             grid.setVisibility(View.VISIBLE);
                       /*  ItemListFragment itemListFragment= ItemListFragment.newInstance(new SalesListModel(), GlobalVariables.TYPE_MULTIPLE_ITEMS,filterModel,locationModel);
@@ -318,6 +326,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                                     ;
                         case R.id.garage:
                             activeTab=1;
+                            topbarToShowOrNot(0);
                             grid.setVisibility(View.VISIBLE);
                         /*GarageSalesListFragment garageSalesListFragment= GarageSalesListFragment.newInstance(salesListModel, GlobalVariables.TYPE_GARAGE,filterModel,locationModel);
                         mainActivityFM.beginTransaction().replace(R.id.container, garageSalesListFragment, "").commit();
@@ -332,6 +341,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             }
                             break;
                         case R.id.message:
+                            topbarToShowOrNot(1);
                             grid.setVisibility(View.GONE);
                             go_to_search.setVisibility(View.VISIBLE);
                             if (!GlobalFunctions.is_loggedIn(activity))
@@ -343,6 +353,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             }
                             break;
                         case R.id.profile:
+                            topbarToShowOrNot(1);
                             grid.setVisibility(View.GONE);
                             if (!GlobalFunctions.is_loggedIn(activity))
                                 showSettingsAlert();
@@ -353,6 +364,22 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
         } catch (Exception e) {
             e.printStackTrace();
             Log.d(TAG, e.getMessage());
+        }
+    }
+    void topbarToShowOrNot(int key)
+    {
+
+        switch (key)
+        {
+            case 0:
+                searchViewResult.setVisibility(View.VISIBLE);
+                logo_title.setVisibility(View.GONE);
+                break;
+
+            case 1:
+                searchViewResult.setVisibility(View.GONE);
+                logo_title.setVisibility(View.VISIBLE);
+                break;
         }
     }
 

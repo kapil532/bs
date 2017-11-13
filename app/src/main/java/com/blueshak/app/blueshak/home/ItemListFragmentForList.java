@@ -133,13 +133,15 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
 
             Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
             go_to_filter=(ImageView)toolbar.findViewById(R.id.go_to_filter);
+
             go_to_filter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     addFilter();
                 }
             });
-            searchViewResult=(TextView)view.findViewById(R.id.searchViewResult);
+            searchViewResult=(TextView)toolbar.findViewById(R.id.searchViewResult);
+          //  TextView searchViewResult=(TextView)view.findViewById(R.id.searchViewResult);
             searchViewResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v)

@@ -4,15 +4,51 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:layout_gravity="fill_horizontal"
-    android:layout_margin="5dp"
     android:background="@color/brandColor"
     android:orientation="vertical">
-    <ImageView
-        android:layout_height="22dp"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:src="@drawable/logo_header"
-        >
-    </ImageView>
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:orientation="vertical">
+            <com.blueshak.app.blueshak.text.MyTextView
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:id="@+id/searchViewResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:hint="Search BlueShak"
+                android:textSize="18sp"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/ic_search_field"
+                android:background="@android:drawable/editbox_background_normal"
+                android:textColor="@color/brand_text_color"
+                android:layout_below="@+id/header_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+            </com.blueshak.app.blueshak.text.MyTextView>
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/logo_title"
+            android:layout_height="22dp"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:src="@drawable/logo_header"
+            >
+        </ImageView>
+
+
+    </FrameLayout>
+
   <!--  <ImageView
         android:layout_marginRight="8dp"
         android:layout_width="22dp"
@@ -27,6 +63,8 @@
         android:layout_width="22dp"
         android:layout_height="22dp"
         android:id="@+id/go_to_filter"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="5dp"
         android:src="@drawable/ic_filter_white"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
@@ -40,6 +78,7 @@
         android:layout_height="22dp"
         android:src="@drawable/ic_grid"
         android:id="@+id/grid"
+        android:layout_marginTop="5dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
