@@ -137,7 +137,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
        /* setHasOptionsMenu(true);*/
         context = getActivity();
         activity = getActivity();
-        objectUploadPhoto= new Object_PhotosAdd();
+        objectUploadPhoto = new Object_PhotosAdd();
         stdCode = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
 
         Log.d("stdCode", "stdCode" + stdCode);
@@ -218,8 +218,10 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             category_content.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = CategoryActivity.newInstance(context, false, category.getText().toString());
-                    startActivityForResult(intent, globalVariables.REQUEST_CODE_SELECT_CATEGORY);
+                    Intent newItemOption = new Intent(context,NewItemOption.class);
+                    startActivity(newItemOption);
+//                    Intent intent = CategoryActivity.newInstance(context, false, category.getText().toString());
+//                    startActivityForResult(intent, globalVariables.REQUEST_CODE_SELECT_CATEGORY);
                 }
             });
             add_to_garage_sale_content = (LinearLayout) view.findViewById(R.id.add_to_garage_sale_content);
@@ -240,9 +242,10 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
             // Log.d("VALUESSS","SHIPPINGCOST"+(CreateProductModel)getArguments().getSerializable(CREATE_ITEM_BUNDLE_KEY));
             productModel = (CreateProductModel) getArguments().getSerializable(CREATE_ITEM_BUNDLE_KEY);
+            NewItemOption.productModel=productModel;
             locationModel = (LocationModel) getArguments().getSerializable(CREATE_ITEM_LOCATION_BUNDLE_KEY);
             if (productModel != null) {
-                Log.d("VALUESSS", "SHIPPINGCOST NT NULLl"+productModel);
+                Log.d("VALUESSS", "SHIPPINGCOST NT NULLl" + productModel);
                 setValues();
             } else {
                 ShippingSelection.isShippable = false;
@@ -325,12 +328,11 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     String time_to_deliver = "";
     String local_shipping_cost = "";
 
-    private void onClickProcessing()
-    {
+    private void onClickProcessing() {
 //        str_desc= emojiParser.emojiText(description.getText().toString());
 //        str_desc = description.getText().toString();
         // description.getText().toString();
-        Log.d("STR DESC0","DESCCCCC"+productModel);
+        Log.d("STR DESC0", "DESCCCCC" + productModel);
 //        Log.d("STR DESC0","DESCCCCC"+str_desc);
         if (item_negotiable)
             productModel.setNegotiable(true);
@@ -351,19 +353,15 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             postalCode = postalCode == null ? selectedAutoSuggesstionsList.get(i).getId() : postalCode + "," + selectedAutoSuggesstionsList.get(i).getId();
         }
         try {
-            str_name =  Constants.parseTo(name.getText().toString());
-        }
-        catch (Exception e)
-        {
+            str_name = Constants.parseTo(name.getText().toString());
+        } catch (Exception e) {
             str_name = name.getText().toString();
         }
-      try {
-          str_desc = Constants.parseTo(description.getText().toString());
-      }
-      catch (Exception e)
-      {
-          str_desc =description.getText().toString();
-      }
+        try {
+            str_desc = Constants.parseTo(description.getText().toString());
+        } catch (Exception e) {
+            str_desc = description.getText().toString();
+        }
 
         str_sp = saleprice.getText().toString();
         String currency = pd_salepricetype.getText().toString();
@@ -387,7 +385,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             Toast.makeText(activity, "Please fill the product location", Toast.LENGTH_LONG).show();
         }/* else if (!isShippable && !is_new_old.isChecked()) {
             Toast.makeText(activity, "Item should be either shippable or pick up", Toast.LENGTH_LONG).show();
-        } */else {
+        } */ else {
             /*String country=GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_COUNTRY);
             productModel.setCountry_short(country);
           */
@@ -540,15 +538,13 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
 
         setValuesA();
-     //   Log.d("IMAGES","GETPHOTOTS"+objectUploadPhoto.getAvailablePhotos().size());
+        //   Log.d("IMAGES","GETPHOTOTS"+objectUploadPhoto.getAvailablePhotos().size());
         try {
             if (objectUploadPhoto.getAvailablePhotos().size() > 0) {
                 addIcon_one.setVisibility(View.VISIBLE);
                 addIcon.setVisibility(View.GONE);
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
 
@@ -644,16 +640,13 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             item_negotiable = NegotiableSelection.bool_item_negotiable_ = productModel.isNegotiable();
             Log.d("SHIPPINGCOST", "SHIPPINGCOST" + productModel.isNegotiable() + "&&&$$$$" + productModel.isHide_item_price());
 
-try
-{
-    name.setText(Constants.getConv(productModel.getName()));
-    description.setText(Constants.getConv(productModel.getDescription()));
-}
-catch (Exception ee)
-{
-    name.setText(productModel.getName());
-    description.setText(productModel.getDescription());
-}
+            try {
+                name.setText(Constants.getConv(productModel.getName()));
+                description.setText(Constants.getConv(productModel.getDescription()));
+            } catch (Exception ee) {
+                name.setText(productModel.getName());
+                description.setText(productModel.getDescription());
+            }
 
 
             Log.d("VALUESSS", "SHIPPINGCOST" + productModel.getLocal_shipping_cost() + "--" + productModel.getDescription());
@@ -718,16 +711,19 @@ catch (Exception ee)
     }
 
 
-    public void showExitAlert() {
+    public void showExitAlert()
+    {
         final com.blueshak.app.blueshak.view.AlertDialog alertDialog = new com.blueshak.app.blueshak.view.AlertDialog(activity);
         alertDialog.setTitle("Are you sure?");
         alertDialog.setMessage("Are you sure to stop listing this item? The data you've created will be lost.");
         alertDialog.setPositiveButton("Yes", new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
 
-                if (from_key == GlobalVariables.TYPE_AC_SIGN_UP) {
+                if (from_key == GlobalVariables.TYPE_AC_SIGN_UP)
+                {
                     startActivity(new Intent(getActivity(), MainActivity.class));
                 } else {
                     getActivity().finish();
@@ -1072,12 +1068,12 @@ catch (Exception ee)
         listView = (TwoWayView) view.findViewById(R.id.photos_add_main_fragment_photos_list);
         addIcon_one = (ImageView) view.findViewById(R.id.photos_add_main_fragment_add_imageView_add);
 
-        if(type_edit_item)
-        {
-            adapter = new PhotosAddListAdapter(getActivity(), objectUploadPhoto.getAvailablePhotos(),true,this,true);
+        if (type_edit_item) {
+            adapter = new PhotosAddListAdapter(getActivity(), objectUploadPhoto.getAvailablePhotos(), true, this, true);
             addIcon_one.setVisibility(View.VISIBLE);
             addIcon.setVisibility(View.GONE);
-        } adapter = new PhotosAddListAdapter(getActivity(), objectUploadPhoto.getAvailablePhotos(), true, this, false);
+        }
+        adapter = new PhotosAddListAdapter(getActivity(), objectUploadPhoto.getAvailablePhotos(), true, this, false);
         //listener = (PhotosAddListener) getArguments().getSerializable(PHOTOS_ADD_FRAGMENT_MAIN_LISTENER_KEY);
 
         listView.setAdapter(adapter);
@@ -1085,10 +1081,8 @@ catch (Exception ee)
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (objectUploadPhoto != null)
-                {
-                    if (objectUploadPhoto.getAvailablePhotos().size() >= 5)
-                    {
+                if (objectUploadPhoto != null) {
+                    if (objectUploadPhoto.getAvailablePhotos().size() >= 5) {
                         addIcon_one.setVisibility(View.GONE);
                         Toast.makeText(context, "You can not add more than five images", Toast.LENGTH_SHORT).show();
                     } else
@@ -1100,8 +1094,7 @@ catch (Exception ee)
         });
         addIcon_one.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 if (objectUploadPhoto != null) {
                     if (objectUploadPhoto.getAvailablePhotos().size() >= 5) {
                         Toast.makeText(context, "You can not add more than five images", Toast.LENGTH_SHORT).show();
@@ -1176,16 +1169,14 @@ catch (Exception ee)
                 title_tv.setText(context.getString(R.string.app_name));//object_photosAdd.getTitle());
                 addIcon.setImageResource(objectUploadPhoto.getAddIconResID());
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
     }
 
-    public void refreshCameraImageList()
-    {
+    public void refreshCameraImageList() {
 
-        Log.d("IMAGES","GETPHOTOTS"+objectUploadPhoto.getAvailablePhotos().size());
+        Log.d("IMAGES", "GETPHOTOTS" + objectUploadPhoto.getAvailablePhotos().size());
         if (listView != null && adapter != null && objectUploadPhoto != null) {
             if (objectUploadPhoto.getAvailablePhotos().size() > 0) {
                 listView.setVisibility(View.VISIBLE);
