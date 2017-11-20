@@ -15,7 +15,9 @@
     <dimen name="navigation_divider_margin_left">12dp</dimen>
 
     <dimen name="product_list_row_item_icon_size">25dp</dimen>
-
+    <dimen name="grid_expected_size">120dp</dimen>
+    <dimen name="item_margin_horizontal">24dp</dimen>
+    <dimen name="item_margin_vertical">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->

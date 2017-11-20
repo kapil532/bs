@@ -155,10 +155,11 @@
                     android:background="@color/bottom_bar_background_color" />
 
                 <LinearLayout
-                    android:id="@+id/category_content"
+                    android:id="@+id/category_content_option"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    android:layout_marginBottom="100dp"
                     android:orientation="horizontal">
 
                     <RelativeLayout
@@ -168,7 +169,7 @@
                         android:padding="10dp">
 
                         <com.blueshak.app.blueshak.text.MyTextView
-                            android:id="@+id/pd_category"
+                            android:id="@+id/pd_category_"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="20dp"

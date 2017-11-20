@@ -77,7 +77,7 @@ public class NewItemOption extends RootActivity {
         setSupportActionBar(toolbar);
         LayoutInflater inflator = LayoutInflater.from(this);
         View v = inflator.inflate(R.layout.action_bar_titlel, null);
-        ((TextView) v.findViewById(R.id.title)).setText("New Item-Options");
+        ((TextView) v.findViewById(R.id.title)).setText("New Item - Options");
         toolbar.addView(v);
 
         close_button = (TextView) v.findViewById(R.id.cancel);
@@ -189,17 +189,17 @@ public class NewItemOption extends RootActivity {
 
     private void onClickProcessing() {
 //        Log.d("STR DESC0","DESCCCCC"+str_desc);
-        if (item_negotiable)
-            productModel.setNegotiable(true);
+        /*if (item_negotiable)
+            productModel.setNegotiable(true);*/
 
         if (is_new_old.isChecked())
             productModel.setIs_pickup(true);
 
-        if (hide_item)
-            productModel.setHide_item_price(true);
+     /*   if (hide_item)
+            productModel.setHide_item_price(true);*/
 
-        if (shipping_foc)
-            productModel.setShipping_foc(true);
+       /* if (shipping_foc)
+            productModel.setShipping_foc(true);*/
 
 
         Log.d(TAG, "SHIPPPABLE" + shippable.isChecked() + "--" + is_new_old.isChecked());
@@ -213,28 +213,28 @@ public class NewItemOption extends RootActivity {
         productModel.setCategories(selectedCategoryIDs);
 
 
-        if (item_negotiable)
+       /* if (item_negotiable)
             productModel.setNegotiable(true);
         else
             productModel.setNegotiable(false);
+*/
 
-
-        if (isShippable)
+     /*   if (isShippable)
             productModel.setShippable(true);
         else
-            productModel.setShippable(false);
+            productModel.setShippable(false);*/
 
-        if (hide_item)
+     /*   if (hide_item)
             productModel.setHide_item_price(true);
         else
-            productModel.setHide_item_price(false);
+            productModel.setHide_item_price(false);*/
 
-        if (shipping_foc)
+      /*  if (shipping_foc)
             productModel.setShipping_foc(true);
         else
-            productModel.setShipping_foc(false);
+            productModel.setShipping_foc(false);*/
 
-        if (is_intl_shipping)
+       /* if (is_intl_shipping)
             productModel.setIs_intl_shipping(true);
         else
             productModel.setIs_intl_shipping(false);
@@ -249,14 +249,14 @@ public class NewItemOption extends RootActivity {
         if (is_product_new.isChecked())
             productModel.setIs_product_new(true);
         else
-            productModel.setIs_product_new(false);
+            productModel.setIs_product_new(false);*/
 
 
-        productModel.setIntl_shipping_cost(intl_shipping_cost);
+       /* productModel.setIntl_shipping_cost(intl_shipping_cost);
         productModel.setTime_to_deliver(time_to_deliver);
         productModel.setLocal_shipping_cost(local_shipping_cost);
 
-        String token = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
+        String token = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);*/
 
         if (clm != null)
             selectedCategoryIDs = clm.getIdsforNames(selectedCategoryString);

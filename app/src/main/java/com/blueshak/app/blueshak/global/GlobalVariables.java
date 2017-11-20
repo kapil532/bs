@@ -64,6 +64,7 @@ public class GlobalVariables {
 
     public static final int REQUEST_CODE_NEGOTIABLE= 165;
     public static final int REQUEST_CODE_SHIPPING= 166;
+    public static final int REQUEST_CODE_NEWITEM= 167;
 
 
     public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");

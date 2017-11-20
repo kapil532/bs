@@ -4,9 +4,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -64,11 +67,17 @@ import com.blueshak.app.blueshak.services.model.SalesModel;
 import com.blueshak.app.blueshak.services.model.StatusModel;
 import com.mvc.imagepicker.ImagePicker;
 import com.mvc.imagepicker.ImageUtils;
+import com.tbruyelle.rxpermissions.RxPermissions;
 import com.tokenautocomplete.TokenCompleteTextView;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
+import com.zhihu.matisse.filter.Filter;
 
 import org.lucasr.twowayview.TwoWayView;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -196,7 +205,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                     startActivityForResult(intent, globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION);
                 }
             });
-            category_content = (LinearLayout) view.findViewById(R.id.category_content);
+            category_content = (LinearLayout) view.findViewById(R.id.category_content_option);
             pd_nagotiable_l = (LinearLayout) view.findViewById(R.id.pd_nagotiable_l);
             pd_nagotiable_l.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -219,7 +228,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 @Override
                 public void onClick(View v) {
                     Intent newItemOption = new Intent(context,NewItemOption.class);
-                    startActivity(newItemOption);
+                    startActivityForResult(newItemOption, globalVariables.REQUEST_CODE_NEWITEM);
 //                    Intent intent = CategoryActivity.newInstance(context, false, category.getText().toString());
 //                    startActivityForResult(intent, globalVariables.REQUEST_CODE_SELECT_CATEGORY);
                 }
@@ -349,7 +358,8 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
         Log.d(TAG, "SHIPPPABLE" + shippable.isChecked() + "--" + is_new_old.isChecked());
         postalCode = null;
-        for (int i = 0; i < selectedAutoSuggesstionsList.size(); i++) {
+        for (int i = 0; i < selectedAutoSuggesstionsList.size(); i++)
+        {
             postalCode = postalCode == null ? selectedAutoSuggesstionsList.get(i).getId() : postalCode + "," + selectedAutoSuggesstionsList.get(i).getId();
         }
         try {
@@ -638,6 +648,8 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             NegotiableSelection.comeFromScreen = true;
             hide_item = NegotiableSelection.bool_hide_item_ = productModel.isHide_item_price();
             item_negotiable = NegotiableSelection.bool_item_negotiable_ = productModel.isNegotiable();
+
+
             Log.d("SHIPPINGCOST", "SHIPPINGCOST" + productModel.isNegotiable() + "&&&$$$$" + productModel.isHide_item_price());
 
             try {
@@ -656,6 +668,8 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
            /* is_new_old.setChecked(productModel.is_product_new()?true:false);*/
             is_new_old.setChecked(productModel.is_pickup() ? true : false);
             nagotiable.setChecked(productModel.isNegotiable() ? true : false);
+
+
             if (productModel.getAddress() != null && !TextUtils.isEmpty(productModel.getAddress()))
                 mAutocompleteTextView.setText(productModel.getAddress());
             else
@@ -815,7 +829,8 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
             Log.i(TAG, "on activity result");
-            if (resultCode == activity.RESULT_OK) {
+            if (resultCode == activity.RESULT_OK)
+            {
 
 
                 try {
@@ -891,6 +906,50 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                             "---" + is_intl_shipping);
 
                 }
+                else if(requestCode == globalVariables.REQUEST_CODE_NEWITEM)
+                {
+                    try {
+                        item_negotiable = data.getExtras().getBoolean("item_negotiable");
+                        hide_item = data.getExtras().getBoolean("hide_item");
+                    }
+                    catch (Exception e)
+                    {
+                        item_negotiable=false;
+                        hide_item=false;
+                    }
+                    isShippable = ShippingSelection.isShippable;
+                    shipping_foc = ShippingSelection.shipping_foc;
+                    is_intl_shipping = ShippingSelection.is_intl_shipping;
+
+                    intl_shipping_cost = ShippingSelection.intl_shipping_cost;
+                    time_to_deliver = ShippingSelection.time_to_deliver;
+                    local_shipping_cost = ShippingSelection.local_shipping_cost_;
+                }
+                else if(requestCode == REQUEST_CODE_CHOOSE)
+                {
+
+                    for(int i=0;i<Matisse.obtainPathResult(data).size();i++)
+                    {
+                        Uri uriImage= Matisse.obtainResult(data).get(i);
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),uriImage);
+                            String bitmapa = ImageUtils.savePicture(getActivity(), bitmap, ""+Matisse.obtainPathResult(data));
+                            CreateImageModel modela = new CreateImageModel();
+
+                            modela.setImage(bitmapa);
+                            modela.setDisplay(false);
+                            objectUploadPhoto.getAvailablePhotos().add(modela);
+
+
+                        }
+                        catch (IOException e)
+                        {
+
+                        }
+                        refreshCameraImageList();
+                    }
+                    Toast.makeText(getActivity(),""+Matisse.obtainResult(data).toString()+"--"+Matisse.obtainPathResult(data),Toast.LENGTH_LONG).show();
+                }
             }
         } catch (NullPointerException e) {
             Log.d(TAG, "NullPointerException");
@@ -910,7 +969,8 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
     class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
         @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+        {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 onClickProcessing();
                 return true;
@@ -1035,14 +1095,21 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 product_list = clma.getCurrency_list();
                 for (int i = 0; i < product_list.size(); i++) {
                     Log.d("stdCode", "stdCode1122" + stdCode + "---" + product_list.get(i).getCountry_code());
-                    if (stdCode.equalsIgnoreCase(product_list.get(i).getCountry_code())) {
-                        stdCode = product_list.get(i).getCurrency();
-                        Log.d("stdCode", "stdCode11" + stdCode);
-                        GlobalFunctions.setSharedPreferenceString(getActivity(), GlobalVariables.SHARED_PREFERENCE_USER_CURRENCY, stdCode);
-                        ShippingSelection.price_default = stdCode;
-                        pd_salepricetype.setText(stdCode);
-                        return;
-                    }
+                  try {
+                      if (stdCode.equalsIgnoreCase(product_list.get(i).getCountry_code())) {
+                          stdCode = product_list.get(i).getCurrency();
+                          Log.d("stdCode", "stdCode11" + stdCode);
+                          GlobalFunctions.setSharedPreferenceString(getActivity(), GlobalVariables.SHARED_PREFERENCE_USER_CURRENCY, stdCode);
+                          ShippingSelection.price_default = stdCode;
+                          pd_salepricetype.setText(stdCode);
+                          return;
+                      }
+
+                  }
+                  catch (Exception e)
+                  {
+
+                  }
                 }
 
             }
@@ -1109,10 +1176,29 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
     }
 
+    private static final int REQUEST_CODE_CHOOSE = 23;
     private void selectImage() {
 
         if (checkIfAlreadyhavePermission())
-            ImagePicker.pickImage(CreateItemSaleFragment.this, "Select your image");
+        {
+//            RxPermissions rxPermissions = new RxPermissions(activity);
+//            rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+           Matisse.from(this)
+                    .choose(MimeType.ofImage(), false)
+                    .countable(true)
+                    .capture(true)
+                    .captureStrategy(
+                            new com.zhihu.matisse.internal.entity.CaptureStrategy(true, "com.blueshak.fileprovider"))
+                    .maxSelectable(9)
+                    .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                    .gridExpectedSize(
+                            getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+                    .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                    .thumbnailScale(0.85f)
+                    .imageEngine(new GlideEngine())
+                    .forResult(REQUEST_CODE_CHOOSE);
+        }
+            //ImagePicker.pickImage(CreateItemSaleFragment.this, "Select your image");
         else
             checkCameraPermission();
     }
