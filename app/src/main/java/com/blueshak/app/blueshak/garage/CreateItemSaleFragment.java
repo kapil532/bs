@@ -929,11 +929,12 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 {
 
                     for(int i=0;i<Matisse.obtainPathResult(data).size();i++)
-                    {
+                    { String imagePatha = System.currentTimeMillis() + "11";
+
                         Uri uriImage= Matisse.obtainResult(data).get(i);
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),uriImage);
-                            String bitmapa = ImageUtils.savePicture(getActivity(), bitmap, ""+Matisse.obtainPathResult(data));
+                            String bitmapa = ImageUtils.savePicture(getActivity(), bitmap, ""+imagePatha);
                             CreateImageModel modela = new CreateImageModel();
 
                             modela.setImage(bitmapa);
@@ -1189,7 +1190,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                     .capture(true)
                     .captureStrategy(
                             new com.zhihu.matisse.internal.entity.CaptureStrategy(true, "com.blueshak.fileprovider"))
-                    .maxSelectable(9)
+                    .maxSelectable(5)
                     .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
                     .gridExpectedSize(
                             getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
