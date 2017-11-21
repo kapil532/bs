@@ -126,7 +126,8 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     private LinearLayout category_content, add_to_garage_sale_content, pd_nagotiable_l, shipping_l;
     private ProgressBar progress_bar;
 
-    public static CreateItemSaleFragment newInstance(Context context, CreateProductModel sales, LocationModel locationModel, String type, int from) {
+    public static CreateItemSaleFragment newInstance(Context context, CreateProductModel sales, LocationModel locationModel, String type, int from)
+    {
         CreateItemSaleFragment createItemSaleFragment = new CreateItemSaleFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(CREATE_ITEM_BUNDLE_KEY, sales);
@@ -343,11 +344,15 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         // description.getText().toString();
         Log.d("STR DESC0", "DESCCCCC" + productModel);
 //        Log.d("STR DESC0","DESCCCCC"+str_desc);
+
+        selectedCategoryIDs= NewItemOption.selectedCategoryIDs;
+
+
         if (item_negotiable)
             productModel.setNegotiable(true);
 
-        if (is_new_old.isChecked())
-            productModel.setIs_pickup(true);
+//        if (is_new_old.isChecked())
+            productModel.setIs_pickup(NewItemOption.is_new_old_);
 
         if (hide_item)
             productModel.setHide_item_price(true);
@@ -375,8 +380,8 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
         str_sp = saleprice.getText().toString();
         String currency = pd_salepricetype.getText().toString();
-        if (clm != null)
-            selectedCategoryIDs = clm.getIdsforNames(selectedCategoryString);
+//        if (clm != null)
+//            selectedCategoryIDs = clm.getIdsforNames(selectedCategoryString);
         if (productModel.getImages().size() == 0) {
             Toast.makeText(activity, "Please select a photo", Toast.LENGTH_LONG).show();
         } else if (TextUtils.isEmpty(str_name)) {
@@ -449,16 +454,16 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 productModel.setIs_intl_shipping(false);
 
 
-            if (is_new_old.isChecked())
-                productModel.setIs_pickup(true);
-            else
-                productModel.setIs_pickup(false);
+            //if (is_new_old.isChecked())
+                productModel.setIs_pickup(NewItemOption.is_new_old_);
+          /*  else
+                productModel.setIs_pickup(false);*/
 
 
-            if (is_product_new.isChecked())
-                productModel.setIs_product_new(true);
-            else
-                productModel.setIs_product_new(false);
+            //if (is_product_new.isChecked())
+                productModel.setIs_product_new(NewItemOption.is_product_new_);
+//            else
+//                productModel.setIs_product_new(false);
 
 
             productModel.setIntl_shipping_cost(intl_shipping_cost);
@@ -908,7 +913,10 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 }
                 else if(requestCode == globalVariables.REQUEST_CODE_NEWITEM)
                 {
-                    try {
+
+
+                    try
+                    {
                         item_negotiable = data.getExtras().getBoolean("item_negotiable");
                         hide_item = data.getExtras().getBoolean("hide_item");
                     }
@@ -924,6 +932,9 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                     intl_shipping_cost = ShippingSelection.intl_shipping_cost;
                     time_to_deliver = ShippingSelection.time_to_deliver;
                     local_shipping_cost = ShippingSelection.local_shipping_cost_;
+
+
+
                 }
                 else if(requestCode == REQUEST_CODE_CHOOSE)
                 {

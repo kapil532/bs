@@ -46,7 +46,7 @@ import java.util.List;
 public class NewItemOption extends RootActivity {
 
     private ArrayList<String> selectedCategoryString = new ArrayList<String>();
-    private ArrayList<String> selectedCategoryIDs = new ArrayList<String>();
+    public static ArrayList<String> selectedCategoryIDs = new ArrayList<String>();
     private TextView category,select_sale;
     TextView location_Text;
     private TextView close_button;
@@ -62,6 +62,8 @@ public class NewItemOption extends RootActivity {
     public static CreateProductModel productModel = null;
     String TAG = "NEW ITEM OPTION";
     private static GlobalVariables globalVariables = new GlobalVariables();
+    public static  boolean is_new_old_;
+    public static  boolean is_product_new_;
     private Switch shippable, nagotiable, is_new_old, is_product_new;
     private LinearLayout category_content, add_to_garage_sale_content, pd_nagotiable_l, shipping_l;
     private Context context;
@@ -69,7 +71,8 @@ public class NewItemOption extends RootActivity {
     private CategoryListModel clm;
     private Boolean type_garage = false;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_item_option);
         activity =this;
@@ -188,83 +191,42 @@ public class NewItemOption extends RootActivity {
     String local_shipping_cost = "";
 
     private void onClickProcessing() {
-//        Log.d("STR DESC0","DESCCCCC"+str_desc);
-        /*if (item_negotiable)
-            productModel.setNegotiable(true);*/
 
         if (is_new_old.isChecked())
-            productModel.setIs_pickup(true);
-
-     /*   if (hide_item)
-            productModel.setHide_item_price(true);*/
-
-       /* if (shipping_foc)
-            productModel.setShipping_foc(true);*/
-
-
-        Log.d(TAG, "SHIPPPABLE" + shippable.isChecked() + "--" + is_new_old.isChecked());
-
-        /*if (selectedCategoryIDs.isEmpty()) {
-            Toast.makeText(activity, "Please fill the product Category", Toast.LENGTH_LONG).show();
-        } */
-            /*String country=GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_COUNTRY);
-            productModel.setCountry_short(country);
-          */
-        productModel.setCategories(selectedCategoryIDs);
-
-
-       /* if (item_negotiable)
-            productModel.setNegotiable(true);
+        {
+            is_new_old_=true;
+        }
         else
-            productModel.setNegotiable(false);
-*/
-
-     /*   if (isShippable)
-            productModel.setShippable(true);
-        else
-            productModel.setShippable(false);*/
-
-     /*   if (hide_item)
-            productModel.setHide_item_price(true);
-        else
-            productModel.setHide_item_price(false);*/
-
-      /*  if (shipping_foc)
-            productModel.setShipping_foc(true);
-        else
-            productModel.setShipping_foc(false);*/
-
-       /* if (is_intl_shipping)
-            productModel.setIs_intl_shipping(true);
-        else
-            productModel.setIs_intl_shipping(false);
-
-
-        if (is_new_old.isChecked())
-            productModel.setIs_pickup(true);
-        else
-            productModel.setIs_pickup(false);
+        {
+            is_new_old_=false;
+        }
 
 
         if (is_product_new.isChecked())
-            productModel.setIs_product_new(true);
+            is_product_new_=true;
         else
-            productModel.setIs_product_new(false);*/
+            is_product_new_=false;
 
-
-       /* productModel.setIntl_shipping_cost(intl_shipping_cost);
-        productModel.setTime_to_deliver(time_to_deliver);
-        productModel.setLocal_shipping_cost(local_shipping_cost);
-
-        String token = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);*/
 
         if (clm != null)
             selectedCategoryIDs = clm.getIdsforNames(selectedCategoryString);
+
+        if (selectedCategoryIDs.isEmpty())
+        {
+            Toast.makeText(activity, "Please fill the product Category", Toast.LENGTH_LONG).show();
+            return;
+        }
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+
     }
 
-    public  void closeThisActivity() {
+    public  void closeThisActivity()
+    {
         Log.d("closeThisActivity", "closeThisActivity the pick location issues#######");
-        if (activity != null) {
+        if (activity != null)
+        {
             activity.finish();
         }
     }
