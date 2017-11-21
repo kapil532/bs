@@ -189,7 +189,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                                         mainActivityFM.beginTransaction().replace(R.id.container, fragment, "").commit();
                                         grid.setImageResource(R.drawable.ic_grid);
                                        // is_map=false;
-                                    } else {
+                                     } else {
                                         GarageSalesListFragment garageSalesListFragment = GarageSalesListFragment.newInstance(salesListModel, GlobalVariables.TYPE_GARAGE, filterModel, locationModel, false);
                                         mainActivityFM.beginTransaction().replace(R.id.container, garageSalesListFragment, "").commit();
                                         grid.setImageResource(R.drawable.pin_white);
@@ -237,7 +237,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                     {
                         case R.id.home:
                             activeTab=0;
-                            topbarToShowOrNot(0);
+                            topbarToShowOrNot(0,0);
                             grid.setVisibility(View.VISIBLE);
                             go_to_search.setVisibility(View.VISIBLE);
                             Log.d("STATE","STATE--->"+is_list);
@@ -256,7 +256,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             break;
                         case R.id.garage:
                             activeTab=1;
-                            topbarToShowOrNot(0);
+                            topbarToShowOrNot(0,1);
                             grid.setVisibility(View.VISIBLE);
                             go_to_search.setVisibility(View.VISIBLE);
                             if (is_map) {
@@ -285,7 +285,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             break;
                         case R.id.message:
                             activeTab=3;
-                            topbarToShowOrNot(1);
+                            topbarToShowOrNot(1,2);
                             grid.setVisibility(View.GONE);
                             go_to_search.setVisibility(View.VISIBLE);
                             if (!GlobalFunctions.is_loggedIn(activity))
@@ -298,7 +298,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             break;
                         case R.id.profile:
                             activeTab=4;
-                            topbarToShowOrNot(1);
+                            topbarToShowOrNot(1,2);
                             grid.setVisibility(View.GONE);
                             go_to_search.setVisibility(View.GONE);
                             if (GlobalFunctions.is_loggedIn(activity)) {
@@ -316,7 +316,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                     switch (menuItemId) {
                         case R.id.home:
                             activeTab=0;
-                            topbarToShowOrNot(0);
+                            topbarToShowOrNot(0,0);
                             Log.d("STATE","STATE###"+is_list);
                             grid.setVisibility(View.VISIBLE);
                       /*  ItemListFragment itemListFragment= ItemListFragment.newInstance(new SalesListModel(), GlobalVariables.TYPE_MULTIPLE_ITEMS,filterModel,locationModel);
@@ -326,7 +326,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                                     ;
                         case R.id.garage:
                             activeTab=1;
-                            topbarToShowOrNot(0);
+                            topbarToShowOrNot(0,1);
                             grid.setVisibility(View.VISIBLE);
                         /*GarageSalesListFragment garageSalesListFragment= GarageSalesListFragment.newInstance(salesListModel, GlobalVariables.TYPE_GARAGE,filterModel,locationModel);
                         mainActivityFM.beginTransaction().replace(R.id.container, garageSalesListFragment, "").commit();
@@ -341,7 +341,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             }
                             break;
                         case R.id.message:
-                            topbarToShowOrNot(1);
+                            topbarToShowOrNot(1,2);
                             grid.setVisibility(View.GONE);
                             go_to_search.setVisibility(View.VISIBLE);
                             if (!GlobalFunctions.is_loggedIn(activity))
@@ -353,7 +353,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             }
                             break;
                         case R.id.profile:
-                            topbarToShowOrNot(1);
+                            topbarToShowOrNot(1,2);
                             grid.setVisibility(View.GONE);
                             if (!GlobalFunctions.is_loggedIn(activity))
                                 showSettingsAlert();
@@ -366,7 +366,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
             Log.d(TAG, e.getMessage());
         }
     }
-    void topbarToShowOrNot(int key)
+    void topbarToShowOrNot(int key,int keyOne)
     {
 
         switch (key)
@@ -379,6 +379,18 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
             case 1:
                 searchViewResult.setVisibility(View.GONE);
                 logo_title.setVisibility(View.VISIBLE);
+                break;
+        }
+        switch (keyOne)
+        {
+            case 0:
+                searchViewResult.setText("Search BlueShak Items");
+                break;
+
+            case 1:
+                searchViewResult.setText("Search BlueShak Sales");
+                break;
+            default:
                 break;
         }
     }
