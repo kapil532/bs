@@ -388,6 +388,11 @@ public class PhotosAddFragmentMain extends Fragment implements OnDeletePicture
         deleteCameraViewfromFile(context, position);
     }
 
+    @Override
+    public void onImageClick(int position, File file, String name, Boolean isDefault) {
+
+    }
+
     private void setRefreshData(){
        /*call the outer function to refresh list*/
         if(edit_key.equalsIgnoreCase(GlobalVariables.TYPE_CREATE_REQUEST))

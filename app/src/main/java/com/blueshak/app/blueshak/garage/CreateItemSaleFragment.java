@@ -35,7 +35,7 @@ import android.widget.Toast;
 
 import com.blueshak.app.blueshak.Messaging.helper.Constants;
 import com.blueshak.app.blueshak.PickLocationFromMap;
-import com.blueshak.app.blueshak.abhs.emojiParser;
+import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.crashlytics.android.Crashlytics;
 import com.blueshak.app.blueshak.currency.CurrencyActivity;
 import com.blueshak.app.blueshak.photos_add.OnDeletePicture;
@@ -46,7 +46,6 @@ import com.blueshak.app.blueshak.services.model.CurrencyModel;
 import com.blueshak.app.blueshak.services.model.ProfileDetailsModel;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.MainActivity;
-import com.blueshak.app.blueshak.PickLocation;
 import com.blueshak.app.blueshak.category.CategoryActivity;
 import com.blueshak.app.blueshak.global.GlobalFunctions;
 import com.blueshak.app.blueshak.global.GlobalVariables;
@@ -67,7 +66,6 @@ import com.blueshak.app.blueshak.services.model.SalesModel;
 import com.blueshak.app.blueshak.services.model.StatusModel;
 import com.mvc.imagepicker.ImagePicker;
 import com.mvc.imagepicker.ImageUtils;
-import com.tbruyelle.rxpermissions.RxPermissions;
 import com.tokenautocomplete.TokenCompleteTextView;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -81,7 +79,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateItemSaleFragment extends Fragment implements TokenCompleteTextView.TokenListener, OnDeletePicture {
+public class CreateItemSaleFragment extends Fragment implements TokenCompleteTextView.TokenListener,
+        OnDeletePicture {
 
     String TAG = "CreateItemSaleFragment";
     String[] ary;
@@ -104,7 +103,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     private List<CategoryModel> list_cm = new ArrayList<CategoryModel>();
     private ArrayList<String> selectedCategoryString = new ArrayList<String>();
     private ArrayList<String> selectedCategoryIDs = new ArrayList<String>();
-    private static Object_PhotosAdd objectUploadPhoto = new Object_PhotosAdd();
+    public static Object_PhotosAdd objectUploadPhoto = new Object_PhotosAdd();
     private static GlobalFunctions globalFunctions = new GlobalFunctions();
     private static GlobalVariables globalVariables = new GlobalVariables();
     private static CreateProductModel productModel = null;
@@ -125,6 +124,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     private String loading_label = "Publishing Item...";
     private LinearLayout category_content, add_to_garage_sale_content, pd_nagotiable_l, shipping_l;
     private ProgressBar progress_bar;
+    protected static final int REQUEST_ADD_IMAGES = 20;
 
     public static CreateItemSaleFragment newInstance(Context context, CreateProductModel sales, LocationModel locationModel, String type, int from)
     {
@@ -556,7 +556,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         //   Log.d("IMAGES","GETPHOTOTS"+objectUploadPhoto.getAvailablePhotos().size());
         try {
             if (objectUploadPhoto.getAvailablePhotos().size() > 0) {
-                addIcon_one.setVisibility(View.VISIBLE);
+                addIcon_one.setVisibility(View.GONE);
                 addIcon.setVisibility(View.GONE);
             }
         } catch (Exception e) {
@@ -610,20 +610,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     {
         objectUploadPhoto.setAvailablePhotos(productModel.getImages());
         scrollImageForTheItems();
-
-        /*PhotosAddFragmentMain.handle = new AttachedFragment() {
-            @Override
-            public void addFragment() {
-                objectUploadPhoto.setAvailablePhotos(productModel.getImages());
-                Fragment aboutFragment = PhotosAddFragmentMain.newInstance(activity, objectUploadPhoto, GlobalVariables.TYPE_CREATE_REQUEST);
-                getChildFragmentManager().beginTransaction().replace(R.id.container_upload_image, aboutFragment, "uploadImage").commit();
-
-            }
-        };
-        objectUploadPhoto.setAvailablePhotos(productModel.getImages());
-        Fragment aboutFragment = PhotosAddFragmentMain.newInstance(activity, objectUploadPhoto, GlobalVariables.TYPE_CREATE_REQUEST);
-        getChildFragmentManager().beginTransaction().replace(R.id.container_upload_image, aboutFragment, "uploadImage").commit();
-   */
 
     }
 
@@ -836,22 +822,23 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             Log.i(TAG, "on activity result");
             if (resultCode == activity.RESULT_OK)
             {
-
-
-                try {
+                /*try {
                     String imagePatha = System.currentTimeMillis() + "11";
                     Bitmap bit_ = ImagePicker.getImageFromResult(getActivity(), requestCode, resultCode, data);
                     String bitmap = ImageUtils.savePicture(getActivity(), bit_, imagePatha);
                     // String bitmap = ImagePicker.getImagePathFromResult(getActivity(),requestCode,resultCode,data);
                     Log.d("IMAGE PATH", "IMAGE PATH" + bitmap);
+
                     CreateImageModel modela = new CreateImageModel();
                     modela.setImage(bitmap);
                     modela.setDisplay(false);
                     objectUploadPhoto.getAvailablePhotos().add(modela);
                     refreshCameraImageList();
-                } catch (Exception e) {
 
-                }
+
+                } catch (Exception e) {
+                    BlueShakLog.logDebug(TAG,"onActivityResult Exception e -> "+e.getLocalizedMessage());
+                }*/
                 Log.i(TAG, "result ok ");
                 Log.i(TAG, "request code " + requestCode);
                 if (requestCode == globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION) {
@@ -938,7 +925,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 }
                 else if(requestCode == REQUEST_CODE_CHOOSE)
                 {
-
+                    BlueShakLog.logDebug(TAG, "onActivityResult REQUEST_CODE_CHOOSE " );
                     for(int i=0;i<Matisse.obtainPathResult(data).size();i++)
                     { String imagePatha = System.currentTimeMillis() + "11";
 
@@ -961,6 +948,9 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                         refreshCameraImageList();
                     }
                     Toast.makeText(getActivity(),""+Matisse.obtainResult(data).toString()+"--"+Matisse.obtainPathResult(data),Toast.LENGTH_LONG).show();
+                }else if(requestCode == REQUEST_ADD_IMAGES){
+                    BlueShakLog.logDebug(TAG, "onActivityResult REQUEST_ADD_IMAGES " );
+                    setImagesAdapter();
                 }
             }
         } catch (NullPointerException e) {
@@ -977,7 +967,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             e.printStackTrace();
         }
     }
-
 
     class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
         @Override
@@ -1147,41 +1136,57 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         listView = (TwoWayView) view.findViewById(R.id.photos_add_main_fragment_photos_list);
         addIcon_one = (ImageView) view.findViewById(R.id.photos_add_main_fragment_add_imageView_add);
 
+        String bitmapa = "https://www.blueshak.co.in/search"; //dummy
+        int listSize = objectUploadPhoto.getAvailablePhotos().size();
+        if( listSize >= 0 && listSize != 5){
+            for(int i = 0; i < 5-listSize;i++){
+                CreateImageModel modela = new CreateImageModel();
+                modela.setImage(bitmapa);
+                modela.setDisplay(false);
+                modela.setRealImage(false);
+                objectUploadPhoto.getAvailablePhotos().add(modela);
+                objectUploadPhoto.setAvailablePhotos(objectUploadPhoto.getAvailablePhotos());
+            }
+        }
         if (type_edit_item) {
-            adapter = new PhotosAddListAdapter(getActivity(), objectUploadPhoto.getAvailablePhotos(), true, this, true);
-            addIcon_one.setVisibility(View.VISIBLE);
+            adapter = new PhotosAddListAdapter(getActivity(), objectUploadPhoto.getAvailablePhotos(),
+                    true, this, true);
+            addIcon_one.setVisibility(View.GONE);
             addIcon.setVisibility(View.GONE);
         }
-        adapter = new PhotosAddListAdapter(getActivity(), objectUploadPhoto.getAvailablePhotos(), true, this, false);
-        //listener = (PhotosAddListener) getArguments().getSerializable(PHOTOS_ADD_FRAGMENT_MAIN_LISTENER_KEY);
-
-        listView.setAdapter(adapter);
+        setImagesAdapter();
 
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (objectUploadPhoto != null) {
+
+                startAddImageActivity();
+
+                /*if (objectUploadPhoto != null) {
                     if (objectUploadPhoto.getAvailablePhotos().size() >= 5) {
                         addIcon_one.setVisibility(View.GONE);
                         Toast.makeText(context, "You can not add more than five images", Toast.LENGTH_SHORT).show();
                     } else
                         selectImage();
                 } else
-                    selectImage();
+                    selectImage();*/
 
             }
         });
         addIcon_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (objectUploadPhoto != null) {
+
+                startAddImageActivity();
+
+                /*if (objectUploadPhoto != null) {
                     if (objectUploadPhoto.getAvailablePhotos().size() >= 5) {
                         Toast.makeText(context, "You can not add more than five images", Toast.LENGTH_SHORT).show();
                         addIcon_one.setVisibility(View.GONE);
                     } else
                         selectImage();
                 } else
-                    selectImage();
+                    selectImage();*/
 
             }
         });
@@ -1280,7 +1285,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 listView.setVisibility(View.VISIBLE);
                 if (objectUploadPhoto.getAvailablePhotos().size() < 5)
                     if (addIcon_one.getVisibility() == View.GONE)
-                        addIcon_one.setVisibility(View.VISIBLE);
+                        addIcon_one.setVisibility(View.GONE);
             } else {
                 listView.setVisibility(View.GONE);
             }
@@ -1322,10 +1327,27 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         deleteCameraViewfromFile(context, position);
     }
 
+    @Override
+    public void onImageClick(int position, File file, String name, Boolean isDefault) {
+        startAddImageActivity();
+    }
+
     private void setRefreshData() {
        /*call the outer function to refresh list*/
         setImages();
 
     }
+
+    private void startAddImageActivity(){
+        //objectUploadPhoto.getAvailablePhotos().clear();
+        Intent intent = new Intent(getActivity(),AddSalesImagesActivity.class);
+        startActivityForResult(intent,REQUEST_ADD_IMAGES);
+    }
+
+    private void setImagesAdapter(){
+        adapter = new PhotosAddListAdapter(getActivity(), objectUploadPhoto.getAvailablePhotos(), true, this, false);
+        listView.setAdapter(adapter);
+    }
+
 }
 

@@ -27,9 +27,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
- <!--   <permission
+    <!--
+        <permission
         android:name="com.blueshak.blueshak.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />-->
+        android:protectionLevel="signature" />
+    -->
     <!-- added by me -->
     <!-- GCM -->
     <!--
@@ -37,11 +39,13 @@
          android:name=".permission.C2D_MESSAGE"
          android:protectionLevel="signature" />
     -->
-  <!--<uses-permission android:name=".permission.C2D_MESSAGE"/>-->
-    <!--<permission
+    <!-- <uses-permission android:name=".permission.C2D_MESSAGE"/> -->
+    <!--
+        <permission
         android:name=".permission.C2D_MESSAGE"
         android:protectionLevel="signature"
-        tools:replace="android:name" />-->
+        tools:replace="android:name" />
+    -->
 
 
     <!-- added by me -->
@@ -59,22 +63,26 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <!-- admin@blueshak.com account api key for test dubug -->
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="f07881e8535106c06f831a244d499a3eae719d7f"
-            />
+            android:value="f07881e8535106c06f831a244d499a3eae719d7f" />
         <!-- manurk@langoor.com account api key for test dubug -->
-    <!-- <meta-data
+        <!--
+         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="e5d9825e360ef0515e077591c732c93a32dc5472" />-->
-     <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar"> -->
+            android:value="e5d9825e360ef0515e077591c732c93a32dc5472" />
+        -->
+        <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar"> -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-      <!--  <meta-data
+        <!--
+            <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBNV4_3GEbM3Pc08ifm7mKIBoC9k-842tg" />-->
+            android:value="AIzaSyBNV4_3GEbM3Pc08ifm7mKIBoC9k-842tg" />
+        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAZvPsCg4TwMX11ESk7HHXd8AbnKW2l2B0" />
@@ -171,7 +179,6 @@
             android:parentActivityName="com.blueshak.app.blueshak.register.TermsConditions"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name="com.blueshak.app.blueshak.item.ProductDetail"
             android:label="@string/title_activity_item_detail"
@@ -187,21 +194,19 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
-        android:name="com.blueshak.app.blueshak.report.ReportListing"
-        android:label="@string/title_activity_report_listing"
-        android:launchMode="singleTop"
-        android:parentActivityName="com.blueshak.app.blueshak.report.ReportListing"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-
+            android:name="com.blueshak.app.blueshak.report.ReportListing"
+            android:label="@string/title_activity_report_listing"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.blueshak.app.blueshak.report.ReportListing"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-        android:name="com.blueshak.app.blueshak.PickLocationFromMap"
-        android:label="@string/title_activity_report_listing"
-        android:launchMode="singleTop"
-        android:parentActivityName="com.blueshak.app.blueshak.report.ReportListing"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-
+            android:name="com.blueshak.app.blueshak.PickLocationFromMap"
+            android:label="@string/title_activity_report_listing"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.blueshak.app.blueshak.report.ReportListing"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.blueshak.app.blueshak.filter.FilterActivityForMap"
             android:label="@string/title_activity_report_listing"
@@ -209,8 +214,6 @@
             android:parentActivityName="com.blueshak.app.blueshak.report.ReportListing"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
         <activity
             android:name="com.blueshak.app.blueshak.garage.NegotiableSelection"
             android:label="@string/title_activity_report_listing"
@@ -218,7 +221,6 @@
             android:parentActivityName="com.blueshak.app.blueshak.report.ReportListing"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name="com.blueshak.app.blueshak.view_sales.MapActivity"
             android:label="@string/title_activity_map"
@@ -229,23 +231,23 @@
         <activity
             android:name="com.blueshak.app.blueshak.item.ImageViewActivty"
             android:label="@string/title_activity_image_view_activty"
+            android:launchMode="singleTop"
             android:parentActivityName="com.blueshak.app.blueshak.item.ImageViewActivty"
             android:screenOrientation="portrait"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.blueshak.app.blueshak.item.MakeOffersActivty"
             android:label="@string/title_activity_make_offers_activty"
+            android:launchMode="singleTop"
             android:parentActivityName="com.blueshak.app.blueshak.item.MakeOffersActivty"
             android:screenOrientation="portrait"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.blueshak.app.blueshak.profile.ProfileEditActivity"
             android:label="@string/title_activity_profile_edit"
+            android:launchMode="singleTop"
             android:parentActivityName="com.blueshak.app.blueshak.profile.ProfileEditActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.blueshak.app.blueshak.shop.ShopActivity"
@@ -275,7 +277,7 @@
             android:parentActivityName="com.blueshak.app.blueshak.search.SearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"  />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.blueshak.app.blueshak.filter.FilterActivity"
             android:label="@string/title_activity_filter"
@@ -356,9 +358,8 @@
             android:launchMode="singleTop"
             android:parentActivityName="com.blueshak.app.blueshak.Messaging.activity.ChatActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.blueshak.app.blueshak.item.ViewActivity"
             android:label="@string/title_activity_view"
@@ -382,9 +383,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.blueshak.app.blueshak.login.LoginActivity"
+            android:launchMode="singleTop"
             android:parentActivityName="com.blueshak.app.blueshak.login.LoginActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
@@ -396,29 +397,29 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.blueshak.app.blueshak.register.SignUpSCreenActivity"
+            android:launchMode="singleTop"
             android:parentActivityName="com.blueshak.app.blueshak.register.SignUpSCreenActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.blueshak.app.blueshak.forgot_password.ForgotPasswordActivity"
+            android:launchMode="singleTop"
             android:parentActivityName="com.blueshak.app.blueshak.forgot_password.ForgotPasswordActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name="com.blueshak.app.blueshak.category.CategoryActivity"
+            android:launchMode="singleTop"
             android:parentActivityName="com.blueshak.app.blueshak.category.CategoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name="com.blueshak.app.blueshak.mylistings.MyListings"
             android:label="@string/title_activity_my_listings"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.blueshak.app.blueshak.garage.GarageSalesList"
@@ -431,8 +432,7 @@
             android:label="@string/title_activity_currency"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -441,9 +441,15 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths_public"></meta-data>
+                android:resource="@xml/file_paths_public" />
         </provider>
 
+        <activity android:name="com.blueshak.app.blueshak.garage.AddSalesImagesActivity"
+            android:label="@string/title_activity_add_images"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

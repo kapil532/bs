@@ -5,8 +5,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
+
+import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.blueshak.blueshak.R;
 
 import java.io.ByteArrayOutputStream;
@@ -16,7 +22,8 @@ import java.io.ByteArrayOutputStream;
  */
 public class RootActivity extends AppCompatActivity {
     int onStartCount = 0;
-
+    public static String TAG = RootActivity.class.getSimpleName();
+    public View mToolBarView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +59,20 @@ public class RootActivity extends AppCompatActivity {
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "profile", null);
         return Uri.parse(path);
+    }
+
+    public void setToolBar(String title){
+        try {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            setSupportActionBar(toolbar);
+            LayoutInflater inflator = LayoutInflater.from(this);
+            mToolBarView = inflator.inflate(R.layout.action_bar_titlel, null);
+            ((TextView)mToolBarView.findViewById(R.id.title)).setText(title);
+            toolbar.addView(mToolBarView);
+        }catch (Exception e) {
+            BlueShakLog.logDebug(TAG, "Exception in setToolBar");
+        }
     }
 
 }

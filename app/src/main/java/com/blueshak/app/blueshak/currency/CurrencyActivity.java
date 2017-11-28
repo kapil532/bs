@@ -214,7 +214,9 @@ public class CurrencyActivity extends RootActivity  implements OnSelected {
     public void onSelected(int position)
     {
         Log.d(TAG,"onSelected###############"+product_list.get(position).getCurrency());
-        if( GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_USER_CURRENCY).equalsIgnoreCase(product_list.get(position).getCurrency()))
+        if(GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_USER_CURRENCY)!=null &&
+                GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_USER_CURRENCY)
+                        .equalsIgnoreCase(product_list.get(position).getCurrency()))
         {
             setReturnResult(product_list.get(position));
         }

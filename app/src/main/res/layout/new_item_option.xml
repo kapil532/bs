@@ -4,26 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <com.blueshak.app.blueshak.text.MyButton
-        android:layout_width="match_parent"
         android:id="@+id/pd_publish"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:background="@drawable/round_corner_btn__style"
-        android:textAllCaps="false"
-        android:textAppearance="@style/MediumText"
-        android:textSize="@dimen/sign_up_text_size"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:background="@drawable/round_corner_btn__style"
         android:text="Confirm"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" >
-    </com.blueshak.app.blueshak.text.MyButton>
+        android:textAllCaps="false"
+        android:textAppearance="@style/MediumText"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyButton>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -282,7 +283,9 @@
                     android:gravity="left"
                     android:text="Pickup"
                     android:textColor="@color/brand_text_color"
-                    android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
+                    android:textSize="@dimen/sign_up_text_size">
+
+                </com.blueshak.app.blueshak.text.MyTextView>
 
                 <Switch
                     android:id="@+id/is_new_old"
@@ -307,9 +310,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="horizontal"
-
-            >
+            android:orientation="horizontal">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -325,7 +326,9 @@
                     android:gravity="left"
                     android:text="Add to sale"
                     android:textColor="@color/brand_text_color"
-                    android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
+                    android:textSize="@dimen/sign_up_text_size">
+
+                </com.blueshak.app.blueshak.text.MyTextView>
 
                 <ImageView style="@style/image_setting"></ImageView>
             </RelativeLayout>
@@ -335,6 +338,44 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/bottom_bar_background_color" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.blueshak.app.blueshak.text.MyTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/brandColor"
+                    android:gravity="left"
+                    android:text="Allow PayPal Payment"
+                    android:textColor="@color/brand_text_color"
+                    android:textSize="@dimen/sign_up_text_size">
+
+                </com.blueshak.app.blueshak.text.MyTextView>
+
+                <Switch
+                    android:id="@+id/pay_pal_payment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center"
+                    android:checked="false"
+                    android:gravity="center" />
+            </RelativeLayout>
+        </LinearLayout>
 
 
 

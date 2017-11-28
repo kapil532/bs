@@ -13,6 +13,7 @@
         android:layout_width="100dip"
         android:layout_height="100dip"
         android:scaleType="centerCrop"
+        android:layout_margin="5dp"
         android:padding="5dp"
         android:src="@drawable/placeholder_background"
         />
@@ -23,6 +24,7 @@
         android:layout_height="20dp"
         android:layout_marginLeft="85dp"
         android:scaleType="centerCrop"
+        android:visibility="gone"
         android:src="@drawable/ic_delete_black_24dp"
 
         />

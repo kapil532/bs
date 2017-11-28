@@ -99,12 +99,14 @@ public class GlobalFunctions {
         editor.commit();
     }
 
-    public  static String getSharedPreferenceString(Context context, String key){
-        if(sharedPreferences==null){sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);}
+    public  static String getSharedPreferenceString(Context context, String key) {
+        if (sharedPreferences == null) {
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        }
         String returnString = null;
-        sharedPreferences=context.getSharedPreferences(GlobalVariables.SHARED_PREFERENCE_KEY, Activity.MODE_PRIVATE);
-        if(sharedPreferences.contains(key)){
-            returnString = sharedPreferences.getString(key,"");
+        sharedPreferences = context.getSharedPreferences(GlobalVariables.SHARED_PREFERENCE_KEY, Activity.MODE_PRIVATE);
+        if (sharedPreferences.contains(key)) {
+            returnString = sharedPreferences.getString(key, "");
         }
         return returnString;
     }

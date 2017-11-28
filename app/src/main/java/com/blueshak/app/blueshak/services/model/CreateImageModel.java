@@ -29,6 +29,16 @@ public class CreateImageModel implements Serializable{
     boolean is_new_image=false;
     int id=0;
 
+    public boolean isRealImage() {
+        return isRealImage;
+    }
+
+    public void setRealImage(boolean realImage) {
+        isRealImage = realImage;
+    }
+
+    boolean isRealImage = false;
+
     public int getId() {
         return id;
     }

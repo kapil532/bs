@@ -30,7 +30,7 @@
 
     <!--<string name="facebook_app_id">645536408947810</string>-->
 
-   <!-- <string name="facebook_app_id">1753514361569070</string>-->
+    <!-- <string name="facebook_app_id">1753514361569070</string>-->
 
     <string name="facebook_app_id">133724250427239</string>
 
@@ -40,7 +40,7 @@
     <!-- Used in app/dialog examples -->
     <!-- Used in app/dialog examples -->
     <string-array name="select_dialog_items">
-       <!-- <item>Click a picture from camera</item>-->
+        <!-- <item>Click a picture from camera</item>-->
         <item>Camera</item>
         <item>Choose from gallery</item>
     </string-array>
@@ -90,7 +90,6 @@
     <string name="otp_resend_text">Didn\'t receive one? Resend verification code.</string>
 
 
-
     <!-- UTIL-->
     <string name="please_check_ur_internet">Please check your internet connection</string>
     <!-- item_list_fragment_for_list-->
@@ -122,7 +121,10 @@
     <string name="profile_your_contact">(Your contact info is visible to others)</string>
     <string name="copy_right_text">Copyright BlueShak Pty Ltd. Version: 1.3</string>
 
-
+    <!--25Nov -->
+    <string name="upload_upto_five">Upload up to 5 photos</string>
+    <string name="upload_photo_description">Tab a photo to edit or delete\nHold and Drag to reorder photos</string>
+    <string name="title_activity_add_images">Add Images</string>
 
 
 </resources>

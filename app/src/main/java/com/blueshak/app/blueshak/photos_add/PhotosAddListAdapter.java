@@ -29,7 +29,8 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
     private  OnDeletePicture listener;
     boolean is_edit_product=false;
 
-    public PhotosAddListAdapter(Activity context, ArrayList<CreateImageModel> list, boolean isDeleteAvailable, OnDeletePicture listener,boolean is_edit_product) {
+    public PhotosAddListAdapter(Activity context, ArrayList<CreateImageModel> list, boolean isDeleteAvailable,
+                                OnDeletePicture listener,boolean is_edit_product) {
         super(context, R.layout.photos_add_list_row, list);
         this.context = context;
         this.list = list;
@@ -93,42 +94,7 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
                 //Bitmap myBitmap = globalFunctions.getScaledBitmap(list.get(position).getAbsolutePath(), globalVariables.IMAGE_THUMBNAIL_SIZE);
                 //holder.cameraImageView.setImageBitmap(myBitmap);
                 Uri uri = Uri.fromFile(new File(list.get(position).getImage()));
-               /* Picasso.Builder builder = new Picasso.Builder(context);
-                Picasso.with(context).invalidate(uri);
-                Picasso.with(context).load(uri).resize(100,100).centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_STORE).into(holder.cameraImageView,
-                        new Callback()
-                        {
-                            @Override
-                            public void onSuccess()
-                            {
-                                Log.d(TAG,"Picasso onSuccess############");
-                                //Dimiss progress dialog here
-                            }
 
-                            @Override
-                            public void onError()
-                            {
-                                Log.d(TAG,"Picasso onError############");
-                                //And here
-                            }
-                        });
-                    Log.d(TAG, "Image set");*/
-
-/*
-                builder.listener(new Picasso.Listener()
-                {
-                    @Override
-                    public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception)
-                    {
-                        exception.printStackTrace();
-                        Log.d(TAG,"onImageLoadFailed############ :"+exception.getMessage());
-                        exception.printStackTrace();
-                    }
-                });
-                builder.build().load(uri).resize(100, 100).centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_STORE).into(holder.cameraImageView);
-        */    /*String uri = fileName.getUri().toString();
-              String decodedUri = Uri.decode(uri);
-                ImageLoader.getInstance().displayImage(decodedUri, imageView);*/
             } else {
                 imageLoader.displayImage(list.get(position).getImage(), holder.cameraImageView, options);
             }
@@ -136,12 +102,13 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
             holder.cameraImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent();
+                    /*Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.parse("file://" + imgFile.getPath()), "image/*");
+                    intent.setDataAndType(Uri.parse("file://" + imgFile.getPath()), "image*//*");
                     Log.d(TAG, "Path = " + "file://" + imgFile.getPath());
-                /*context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("file:/"+imgFile.getPath())));*/
-                    context.startActivity(intent);
+                *//*context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("file:/"+imgFile.getPath())));*//*
+                    context.startActivity(intent);*/
+                    listener.onImageClick(position,imgFile,"",false);
                 }
             });
 

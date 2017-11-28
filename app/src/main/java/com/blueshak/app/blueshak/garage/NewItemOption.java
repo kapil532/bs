@@ -64,12 +64,13 @@ public class NewItemOption extends RootActivity {
     private static GlobalVariables globalVariables = new GlobalVariables();
     public static  boolean is_new_old_;
     public static  boolean is_product_new_;
-    private Switch shippable, nagotiable, is_new_old, is_product_new;
+    private Switch shippable, nagotiable, is_new_old, is_product_new, pay_pal_payment;
     private LinearLayout category_content, add_to_garage_sale_content, pd_nagotiable_l, shipping_l;
     private Context context;
     private Activity activity;
     private CategoryListModel clm;
     private Boolean type_garage = false;
+    public static  boolean is_pay_pal_payment;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -143,6 +144,7 @@ public class NewItemOption extends RootActivity {
             nagotiable = (Switch) findViewById(R.id.pd_nagotiable);
             is_new_old = (Switch) findViewById(R.id.is_new_old);
             select_sale = (TextView) findViewById(R.id.select_sale);
+            pay_pal_payment = (Switch) findViewById(R.id.pay_pal_payment);
 
             // Log.d("VALUESSS","SHIPPINGCOST"+(CreateProductModel)getArguments().getSerializable(CREATE_ITEM_BUNDLE_KEY));
 
@@ -207,6 +209,11 @@ public class NewItemOption extends RootActivity {
         else
             is_product_new_=false;
 
+        if(pay_pal_payment.isChecked()){
+            is_pay_pal_payment = true;
+        }else{
+            is_pay_pal_payment = false;
+        }
 
         if (clm != null)
             selectedCategoryIDs = clm.getIdsforNames(selectedCategoryString);
