@@ -85,17 +85,18 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
 
         productModel = new CreateProductModel();
     }
-     ImageView imageView;
-    private void dragAndDrop(boolean isRealBitmap){
-        if(isRealBitmap){
+
+    ImageView imageView;
+
+    private void dragAndDrop(boolean isRealBitmap) {
+        if (isRealBitmap) {
             mGrid.removeAllViews();
         }
         final LayoutInflater inflater = LayoutInflater.from(this);
         for (mPosition = 0; mPosition < 5; mPosition++) {
             final View itemView = inflater.inflate(R.layout.grid_item, mGrid, false);
             imageView = (ImageView) itemView.findViewById(R.id.img_selection);
-            //text.setText(String.valueOf(i + 1));
-            setBitmapImages(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos(),imageView,mPosition);
+            setBitmapImages(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos(), imageView, mPosition);
             itemView.setTag(mPosition);
             itemView.setOnLongClickListener(new LongPressListener());
             itemView.setOnClickListener(new onClickListener());
@@ -106,7 +107,6 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
     private void init() {
 
         mScrollView = (ScrollView) findViewById(R.id.layout_grid);
-        //mScrollView.setSmoothScrollingEnabled(true);
         mGrid = (GridLayout) findViewById(R.id.grid_layout);
         mGrid.setOnDragListener(new DragListener());
 
@@ -124,10 +124,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
     }
 
     private void selectImage() {
-
         if (checkIfAlreadyhavePermission()) {
-//            RxPermissions rxPermissions = new RxPermissions(activity);
-//            rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             Matisse.from(this)
                     .choose(MimeType.ofImage(), true)
                     .countable(true)
@@ -142,10 +139,10 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
                     .thumbnailScale(0.85f)
                     .imageEngine(new GlideEngine())
                     .forResult(REQUEST_CODE_CHOOSE);
-        }
-        //ImagePicker.pickImage(CreateItemSaleFragment.this, "Select your image");
-        else
+        } else {
             checkCameraPermission();
+        }
+
     }
 
     public void checkCameraPermission() {
@@ -247,12 +244,6 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
 
     private void setImage() {
         if (CreateItemSaleFragment.objectUploadPhoto != null) {
-            /*if (objectUploadPhoto.getAvailablePhotos().size() >= 5) {
-                //addIcon_one.setVisibility(View.GONE);
-                Toast.makeText(this, "You can not add more than five images", Toast.LENGTH_SHORT).show();
-            } else {
-                selectImage();
-            }*/
             selectImage();
         } else {
             selectImage();
@@ -264,7 +255,6 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
         try {
             if (resultCode == RESULT_OK) {
                 if (requestCode == REQUEST_CODE_CHOOSE) {
-                    //objectUploadPhoto.getAvailablePhotos().clear();
                     for (int i = 0; i < Matisse.obtainPathResult(data).size(); i++) {
                         if (isImageEdit) {
                             deleteCameraViewfromFile(iEditablePosition, false);
@@ -287,14 +277,10 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
                         } catch (IOException e) {
                             BlueShakLog.logError(TAG, "onActivityResult Exception -> " + e.getLocalizedMessage());
                         }
-                        //refreshCameraImageList();
-                        // setRefreshData();
                     }
                     sortArray(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
                     CreateItemSaleFragment.objectUploadPhoto.setAvailablePhotos(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
                     dragAndDrop(true);
-                    // setBitmapImages(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos(),);
-                    //Toast.makeText(this, "" + Matisse.obtainResult(data).toString() + "--" + Matisse.obtainPathResult(data), Toast.LENGTH_LONG).show();
                 }
             }
         } catch (NullPointerException e) {
@@ -320,18 +306,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
                 .showImageOnFail(R.drawable.placeholder_background)
                 .showImageOnLoading(R.drawable.placeholder_background).build();
 
-            /*Collections.sort(createImageList, new Comparator<CreateImageModel>() {
-                @Override
-                public int compare(CreateImageModel mall1, CreateImageModel mall2) {
-
-                    boolean b1 = mall1.isRealImage();
-                    boolean b2 = mall2.isRealImage();
-
-                    return (b1 != b2) ? (b1) ? -1 : 1 : 0;
-                }
-            });*/
         setBitmapDecodedImage(position, imageView, GALLERY, imageList);
-
     }
 
     private void setBitmapDecodedImage(int position, ImageView imageView, DisplayImageOptions GALLERY,
@@ -381,7 +356,9 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
         }
         return true;
     }
+
     int iEditablePosition = 0;
+
     private void showAlert(String message, final int position) {
         final AlertDialog alertDialog = new AlertDialog(this);
         alertDialog.setCancelable(true);
@@ -411,10 +388,6 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
 
         alertDialog.show();
     }
-   /* private void setAdapter(){
-        ImageAdapter gridAdapter = new ImageAdapter(this, createImageList);
-        mGrid.setAdapter(gridAdapter);
-    }*/
 
     @Override
     public boolean onLongClick(View view) {
@@ -431,11 +404,13 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
             }
         }
     }
+
     static int iLongPosition = 0;
+
     static class LongPressListener implements View.OnLongClickListener {
         @Override
         public boolean onLongClick(View view) {
-            iLongPosition = (Integer)view.getTag();
+            iLongPosition = (Integer) view.getTag();
             final ClipData data = ClipData.newPlainText("", "");
             View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
             view.startDrag(data, shadowBuilder, view, 0);
@@ -468,7 +443,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
                     }
                     BlueShakLog.logDebug(TAG, "DragListener -----> " + index);
                     // remove the view from the old position
-                    swapArrayList(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos(),index,iLongPosition);
+                    swapArrayList(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos(), index, iLongPosition);
                     mGrid.removeView(view);
                     // and push to the new
                     mGrid.addView(view, index);
@@ -531,11 +506,12 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
         if (index >= mGrid.getChildCount()) {
             index = mGrid.getChildCount() - 1;
         }
-       // BlueShakLog.logDebug(TAG, "DragListener calculateNewIndex --------------------> " + index);
+        // BlueShakLog.logDebug(TAG, "DragListener calculateNewIndex --------------------> " + index);
         return index;
     }
 
     boolean isImageEdit = false;
+
     class onClickListener implements View.OnClickListener {
 
         @Override
@@ -565,19 +541,15 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
         });
     }
 
-    private void removedDataFromArrayListLast(ArrayList<CreateImageModel> imageList){
-        if(imageList.size() > 5){
-            for (int i = imageList.size()-1; i >= 5; i--){
-
+    private void removedDataFromArrayListLast(ArrayList<CreateImageModel> imageList) {
+        if (imageList.size() > 5) {
+            for (int i = imageList.size() - 1; i >= 5; i--) {
                 imageList.remove(i);
-                /*if (!imageList.get(i).isRealImage()){
-                    imageList.remove(i);
-                }*/
             }
         }
     }
 
-    private void swapArrayList(ArrayList<CreateImageModel> imageList,int i,int j){
+    private void swapArrayList(ArrayList<CreateImageModel> imageList, int i, int j) {
         Collections.swap(imageList, i, j);
     }
 }
