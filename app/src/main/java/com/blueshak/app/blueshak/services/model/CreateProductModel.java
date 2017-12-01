@@ -429,6 +429,7 @@ public class CreateProductModel implements Serializable {
                 CreateImageModel model = new CreateImageModel();
                 model.setImage(createImageModels.get(i).getImage());
                 model.setId(createImageModels.get(i).getId());
+                //model.setImage_order(createImageModels.get(i).getId());
                 model.setDisplay(i==0?true:false);
                 images.add(model);
             }

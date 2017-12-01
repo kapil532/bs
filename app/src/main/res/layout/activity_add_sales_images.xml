@@ -33,83 +33,120 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/btn_ok"
-            android:weightSum="11"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="11">
 
-            <LinearLayout
+            <ScrollView
+                android:id="@+id/layout_grid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="5"
+                android:layout_weight="4"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <android.support.v7.widget.GridLayout
+                    android:id="@+id/grid_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    app:columnCount="3" />
+                <!--<LinearLayout
                     android:id="@+id/layout_drag_one"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1">
 
-                    <ImageView
-                        android:id="@+id/img_selection_one"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginLeft="10dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/placeholder_background" />
+                    <LinearLayout
+                        android:id="@+id/layout_one"
+                        android:layout_width="102dp"
+                        android:layout_height="102dp"
+                        android:layout_marginLeft="5dp">
 
-                    <ImageView
-                        android:id="@+id/img_selection_two"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginLeft="10dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/placeholder_background" />
+                        <ImageView
+                            android:id="@+id/img_selection_one"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/placeholder_background" />
+                    </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/img_selection_three"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginLeft="10dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/placeholder_background" />
+                    <LinearLayout
+                        android:id="@+id/layout_two"
+                        android:layout_width="102dp"
+                        android:layout_height="102dp"
+                        android:layout_marginLeft="10dp">
+
+                        <ImageView
+                            android:id="@+id/img_selection_two"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/placeholder_background" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_three"
+                        android:layout_width="101dp"
+                        android:layout_height="101dp"
+                        android:layout_marginLeft="10dp">
+
+                        <ImageView
+                            android:id="@+id/img_selection_three"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/placeholder_background" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/layout_drag_two"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1">
 
-                    <ImageView
-                        android:id="@+id/img_selection_four"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="top"
-                        android:layout_marginLeft="10dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/placeholder_background" />
+                    <LinearLayout
+                        android:id="@+id/layout_four"
+                        android:layout_width="102dp"
+                        android:layout_height="102dp"
+                        android:layout_marginLeft="5dp">
 
-                    <ImageView
-                        android:id="@+id/img_selection_five"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="top"
-                        android:layout_marginLeft="10dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/placeholder_background" />
-                </LinearLayout>
-            </LinearLayout>
+                        <ImageView
+                            android:id="@+id/img_selection_four"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="top"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/placeholder_background" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_five"
+                        android:layout_width="102dp"
+                        android:layout_height="102dp"
+                        android:layout_marginLeft="10dp">
+
+                        <ImageView
+                            android:id="@+id/img_selection_five"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="top"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/placeholder_background" />
+                    </LinearLayout>
+                </LinearLayout>-->
+            </ScrollView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="6"
+                android:layout_weight="7"
                 android:orientation="vertical">
 
                 <com.blueshak.app.blueshak.text.MyTextView

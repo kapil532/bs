@@ -1060,22 +1060,23 @@ public class ServicesMethodsManager {
             ArrayList<CreateImageModel> images = createProductModel.getImages();
             if(images.size()>0){
                 for (int j = 0; j < images.size(); j++) {
-                    if(images.get(j).is_new_image()){
+                    //if(images.get(j).is_new_image()){
                         String base64 = GlobalFunctions.getBase64fromPath(new File(images.get(j).getImage()));
                         if(base64.length()>0){
                             CreateImageModel model = new CreateImageModel();
                             model.setImage(base64);
-                            if (j == 0) {
+                            model.setDisplay(true);
+                            /*if (j == 0) {
                                 model.setDisplay(true);
                             } else {
                                 model.setDisplay(false);
-                            }
+                            }*/
                             images.remove(j);
                             images.add(j, model);
                         }else
                             images.remove(j);
-                    }/*else
-                        images.remove(j);*/
+                   // }/*else
+                      //  images.remove(j);*/
                 }
             }
             createProductModel.setImages(images);

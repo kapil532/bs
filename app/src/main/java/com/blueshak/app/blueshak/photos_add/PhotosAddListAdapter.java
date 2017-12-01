@@ -63,11 +63,7 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
             holder.cameraImageView.setImageBitmap(null);
             holder.deleteImageView.setOnClickListener(null);
             holder.cameraImageView.setOnClickListener(null);
-            if (is_edit_product) {
 
-            } else {
-
-            }
             final File imgFile = new File(list.get(position).getImage());//new File(list.get(position).getImagePath());
            /* Log.d(TAG, imgFile.getPath() + " is available");*/
             if (!isDeleteAvailable) {
@@ -98,7 +94,12 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
             } else {
                 imageLoader.displayImage(list.get(position).getImage(), holder.cameraImageView, options);
             }
-
+            boolean isTrue = false;
+            if (is_edit_product) {
+                isTrue = true;
+            } else {
+                isTrue = list.get(position).isRealImage();
+            }
             holder.cameraImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -108,7 +109,7 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
                     Log.d(TAG, "Path = " + "file://" + imgFile.getPath());
                 *//*context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("file:/"+imgFile.getPath())));*//*
                     context.startActivity(intent);*/
-                    listener.onImageClick(position,imgFile,"",false);
+                    listener.onImageClick(position,imgFile,"",list.get(position).isRealImage());
                 }
             });
 

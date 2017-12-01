@@ -77,6 +77,8 @@ import org.lucasr.twowayview.TwoWayView;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CreateItemSaleFragment extends Fragment implements TokenCompleteTextView.TokenListener,
@@ -749,43 +751,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         // Showing Alert Message
         alertDialog.show();
     }
-
-    public void showSuccesAlert(String title, String message) {
-        final com.blueshak.app.blueshak.view.AlertDialog alertDialog = new com.blueshak.app.blueshak.view.AlertDialog(activity);
-        alertDialog.setTitle(title);
-        alertDialog.setMessage(message);
-        alertDialog.setPositiveButton("Add more items", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              /*  Intent intent=new Intent(activity,CreateSaleActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);*/
-                Intent i = CreateSaleActivity.newInstance(activity, null, null, null, GlobalVariables.TYPE_HOME, GlobalVariables.TYPE_ITEM);
-                startActivity(i);
-
-
-                alertDialog.dismiss();
-                closeThisActivity();
-
-            }
-        });
-
-        // on pressing cancel button
-        alertDialog.setNegativeButton("Continue shopping", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              /*  Intent intent=new Intent(activity,MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);*/
-                alertDialog.dismiss();
-                closeThisActivity();
-            }
-        });
-
-        // Showing Alert Message
-        alertDialog.show();
-    }
-
     public void showSettingsAlert() {
         final com.blueshak.app.blueshak.view.AlertDialog alertDialog = new com.blueshak.app.blueshak.view.AlertDialog(context);
         alertDialog.setMessage("Please Login/Register to continue");
@@ -822,24 +787,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             Log.i(TAG, "on activity result");
             if (resultCode == activity.RESULT_OK)
             {
-                /*try {
-                    String imagePatha = System.currentTimeMillis() + "11";
-                    Bitmap bit_ = ImagePicker.getImageFromResult(getActivity(), requestCode, resultCode, data);
-                    String bitmap = ImageUtils.savePicture(getActivity(), bit_, imagePatha);
-                    // String bitmap = ImagePicker.getImagePathFromResult(getActivity(),requestCode,resultCode,data);
-                    Log.d("IMAGE PATH", "IMAGE PATH" + bitmap);
-
-                    CreateImageModel modela = new CreateImageModel();
-                    modela.setImage(bitmap);
-                    modela.setDisplay(false);
-                    objectUploadPhoto.getAvailablePhotos().add(modela);
-                    refreshCameraImageList();
-
-
-                } catch (Exception e) {
-                    BlueShakLog.logDebug(TAG,"onActivityResult Exception e -> "+e.getLocalizedMessage());
-                }*/
-                Log.i(TAG, "result ok ");
                 Log.i(TAG, "request code " + requestCode);
                 if (requestCode == globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION) {
                     Log.i(TAG, "REQUEST_CODE_FILTER_PICK_LOCATION " + requestCode);
@@ -923,31 +870,32 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
 
                 }
-                else if(requestCode == REQUEST_CODE_CHOOSE)
-                {
-                    BlueShakLog.logDebug(TAG, "onActivityResult REQUEST_CODE_CHOOSE " );
-                    for(int i=0;i<Matisse.obtainPathResult(data).size();i++)
-                    { String imagePatha = System.currentTimeMillis() + "11";
-
-                        Uri uriImage= Matisse.obtainResult(data).get(i);
+                else if(requestCode == REQUEST_CODE_CHOOSE) {
+                    BlueShakLog.logDebug(TAG, "onActivityResult REQUEST_CODE_CHOOSE ");
+                    for (int i = 0; i < Matisse.obtainPathResult(data).size(); i++) {
+                        String imagePatha = System.currentTimeMillis() + "11";
+                        Uri uriImage = Matisse.obtainResult(data).get(i);
                         try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),uriImage);
-                            String bitmapa = ImageUtils.savePicture(getActivity(), bitmap, ""+imagePatha);
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uriImage);
+                            String bitmapa = ImageUtils.savePicture(getActivity(), bitmap, "" + imagePatha);
                             CreateImageModel modela = new CreateImageModel();
 
                             modela.setImage(bitmapa);
-                            modela.setDisplay(false);
+                            modela.setRealImage(true);
+                            modela.setDisplay(true);
+                            modela.setId(i);
+                            modela.setImage_order(i);
                             objectUploadPhoto.getAvailablePhotos().add(modela);
 
+                        } catch (IOException e) {
 
                         }
-                        catch (IOException e)
-                        {
-
-                        }
-                        refreshCameraImageList();
+                       // refreshCameraImageList();
                     }
-                    Toast.makeText(getActivity(),""+Matisse.obtainResult(data).toString()+"--"+Matisse.obtainPathResult(data),Toast.LENGTH_LONG).show();
+                    sortArray(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
+                    CreateItemSaleFragment.objectUploadPhoto.setAvailablePhotos(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
+                    startAddImageActivity();
+                    //Toast.makeText(getActivity(), "" + Matisse.obtainResult(data).toString() + "--" + Matisse.obtainPathResult(data), Toast.LENGTH_LONG).show();
                 }else if(requestCode == REQUEST_ADD_IMAGES){
                     BlueShakLog.logDebug(TAG, "onActivityResult REQUEST_ADD_IMAGES " );
                     setImagesAdapter();
@@ -1136,7 +1084,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         listView = (TwoWayView) view.findViewById(R.id.photos_add_main_fragment_photos_list);
         addIcon_one = (ImageView) view.findViewById(R.id.photos_add_main_fragment_add_imageView_add);
 
-        String bitmapa = "https://www.blueshak.co.in/search"; //dummy
+        String bitmapa = ""; //dummy
         int listSize = objectUploadPhoto.getAvailablePhotos().size();
         if( listSize >= 0 && listSize != 5){
             for(int i = 0; i < 5-listSize;i++){
@@ -1151,10 +1099,12 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         if (type_edit_item) {
             adapter = new PhotosAddListAdapter(getActivity(), objectUploadPhoto.getAvailablePhotos(),
                     true, this, true);
+            listView.setAdapter(adapter);
             addIcon_one.setVisibility(View.GONE);
             addIcon.setVisibility(View.GONE);
+        }else{
+            setImagesAdapter();
         }
-        setImagesAdapter();
 
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1328,8 +1278,13 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     }
 
     @Override
-    public void onImageClick(int position, File file, String name, Boolean isDefault) {
-        startAddImageActivity();
+    public void onImageClick(int position, File file, String name, Boolean isRealImage) {
+        if(isRealImage){
+            startAddImageActivity();
+        }else{
+            selectImage();
+        }
+
     }
 
     private void setRefreshData() {
@@ -1349,5 +1304,17 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         listView.setAdapter(adapter);
     }
 
+    private void sortArray(ArrayList<CreateImageModel> imageList) {
+        Collections.sort(imageList, new Comparator<CreateImageModel>() {
+            @Override
+            public int compare(CreateImageModel mall1, CreateImageModel mall2) {
+
+                boolean b1 = mall1.isRealImage();
+                boolean b2 = mall2.isRealImage();
+
+                return (b1 != b2) ? (b1) ? -1 : 1 : 0;
+            }
+        });
+    }
 }
 

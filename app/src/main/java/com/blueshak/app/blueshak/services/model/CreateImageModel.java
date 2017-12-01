@@ -11,10 +11,21 @@ public class CreateImageModel implements Serializable{
     private final String TAG = "CreateImageModel";
     private final String
             IMAGE = "base64_image",
-            DISPLAY_FLAG = "is_display_image";
+            DISPLAY_FLAG = "is_display_image",
+            IMAGE_ORDER = "image_order";
 
     String image=null;
     boolean display=false;
+
+    public int getImage_order() {
+        return image_order;
+    }
+
+    public void setImage_order(int image_order) {
+        this.image_order = image_order;
+    }
+
+    int image_order;
 
     public boolean is_new_image() {
         if(id==0)
@@ -70,6 +81,8 @@ public class CreateImageModel implements Serializable{
             JSONObject json = new JSONObject(jsonObject);
             image = json.getString(IMAGE);
             display = json.getBoolean(DISPLAY_FLAG);
+            image_order = json.getInt(IMAGE_ORDER);
+            //id = json.getInt(id);
             return true;
         }catch(Exception ex){Log.d(TAG, "Json Exception : " + ex);
            }
@@ -84,6 +97,7 @@ public class CreateImageModel implements Serializable{
             jsonMain.put(IMAGE, image);
             jsonMain.put(DISPLAY_FLAG, display);
             jsonMain.put("id", id);
+            jsonMain.put(IMAGE_ORDER, image_order);
             returnString = jsonMain.toString();
         }
         catch (Exception ex){Log.d(TAG," To String Exception : "+ex);
