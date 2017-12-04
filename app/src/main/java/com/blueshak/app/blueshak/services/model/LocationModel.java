@@ -2,13 +2,17 @@ package com.blueshak.app.blueshak.services.model;
 
 import android.content.Context;
 import android.location.Address;
+import android.location.Geocoder;
 import android.util.Log;
 
 import com.blueshak.app.blueshak.global.GlobalFunctions;
 import com.blueshak.app.blueshak.global.GlobalVariables;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Locale;
 
 public class LocationModel implements Serializable {
@@ -59,7 +63,8 @@ public class LocationModel implements Serializable {
         this.country_code = country_code;
     }
 
-    String results=null, formatted_address=null,address_components=null,formatted_address_for_map=null;
+    String results=null, formatted_address=null,address_components=null;
+    String formatted_address_for_map=null;
 
     public String getStree_number() {
         return stree_number;
@@ -85,6 +90,7 @@ public class LocationModel implements Serializable {
         this.stree_number = stree_number;
     }
 
+    String locality=null;
     String city=null;
     String subhurb=null;
     String state=null;
@@ -160,9 +166,18 @@ public class LocationModel implements Serializable {
                     for(int j=0;j<address_components.length();j++){
                         JSONObject address_obj=(JSONObject)address_components.get(j);
                         JSONArray type_arr=(JSONArray)address_obj.getJSONArray("types");
+                        if(type_arr.get(0).equals("political")){
+                            if(address_obj.has("long_name")){
+                                if(locality == null){
+                                    locality=address_obj.getString("long_name");
+                                }
+                            }
+                        }
                         if(type_arr.get(0).equals("locality")){
                             if(address_obj.has("long_name")){
-                                city=address_obj.getString("long_name");
+                                if(city == null){
+                                    city=address_obj.getString("long_name");
+                                }
                             }
                         }
                         if(type_arr.get(0).equals("administrative_area_level_2")){
@@ -192,10 +207,11 @@ public class LocationModel implements Serializable {
                                 postal_code=address_obj.getString("long_name");
                             }
                         }
-
-                        formatted_address_for_map=city+","+state+","+country;
+                        formatted_address_for_map = city+","+state+","+country;
                     }
+
                 }
+               // getLocalityAddressFormat();
             }
             return true;
         }catch (Exception e){
@@ -204,7 +220,56 @@ public class LocationModel implements Serializable {
         }
         return false;
     }
+    public String getAddressFromLatLong(Context context, double LATITUDE, double LONGITUDE) {
+        try {
+            Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+            if (addresses != null && addresses.size() > 0) {
+                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                String city = addresses.get(0).getLocality();
+                String state = addresses.get(0).getAdminArea();
+                String country = addresses.get(0).getCountryName();
+                String postalCode = addresses.get(0).getPostalCode();
+                String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+                formatted_address_for_map = city+", "+state+", "+country;
+                return formatted_address_for_map;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+    private void getLocalityAddressFormat(){
+        String address = "";
+        if(locality!=null){
+            address = locality;
+        }else{
+            address = "";
+        }
+        if(city!=null){
+            if(locality!=null){
+                address = address+", "+city;
+            }else{
+                address = city;
+            }
+        }else{
+            address = address+"";
+        }
+        if(state!=null){
+            if(locality!=null){
+                address = address+", "+state;
+            }else{
+                address = state;
+            }
 
+        }else{
+            address = address+"";
+        }
+        if(country!=null){
+            address = address+", "+country;
+        }
+        formatted_address_for_map = address;
+    }
     @Override
     public String toString(){
         String returnString = null;

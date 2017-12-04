@@ -150,12 +150,16 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         activity = getActivity();
         objectUploadPhoto = new Object_PhotosAdd();
         stdCode = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
-
-        Log.d("stdCode", "stdCode" + stdCode);
         view = inflater.inflate(R.layout.item_productdetails_new, container, false);
         NegotiableSelection.bool_hide_item_ = false;
         NegotiableSelection.bool_item_negotiable_ = false;
         getUserDetailsPro(getActivity());
+        init();
+        generateCurre();
+        return view;
+    }
+
+    private void init() {
         try {
             progress_bar = (ProgressBar) view.findViewById(R.id.progress_bar);
             name = (EditText) view.findViewById(R.id.pd_name);
@@ -164,14 +168,11 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             saleprice.addTextChangedListener(new TextWatcher() {
                 public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
                     String text = arg0.toString();
-
-
                     if (text.contains(".") && text.substring(text.indexOf(".") + 1).length() > 2) {
                         saleprice.setText(text.substring(0, text.length() - 1));
                         saleprice.setSelection(saleprice.getText().length());
                     }
                 }
-
                 public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 
                 }
@@ -183,9 +184,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             pd_salepricetype = (TextView) view.findViewById(R.id.pd_salepricetype);
             currency = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_CURRENCY);
 
-            //Log.d("STD CODEDC","STDCODE"+currency);
-
-
             if (currency != null)
                 saleprice.setHint("Price in " + currency);
             pd_salepricetype.setOnClickListener(new View.OnClickListener() {
@@ -196,8 +194,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
                 }
             });
-
-
             mAutocompleteTextView = (TextView) view.findViewById(R.id
                     .pick_location);
             mAutocompleteTextView.setOnClickListener(new View.OnClickListener() {
@@ -250,13 +246,10 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             is_product_new = (Switch) view.findViewById(R.id.is_product_new);
             nagotiable = (Switch) view.findViewById(R.id.pd_nagotiable);
             is_new_old = (Switch) view.findViewById(R.id.is_new_old);
-
-            // Log.d("VALUESSS","SHIPPINGCOST"+(CreateProductModel)getArguments().getSerializable(CREATE_ITEM_BUNDLE_KEY));
             productModel = (CreateProductModel) getArguments().getSerializable(CREATE_ITEM_BUNDLE_KEY);
             NewItemOption.productModel = productModel;
             locationModel = (LocationModel) getArguments().getSerializable(CREATE_ITEM_LOCATION_BUNDLE_KEY);
             if (productModel != null) {
-                Log.d("VALUESSS", "SHIPPINGCOST NT NULLl" + productModel);
                 setValues();
             } else {
                 ShippingSelection.isShippable = false;
@@ -264,7 +257,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 productModel = new CreateProductModel();
             }
             from_key = getArguments().getInt(FROM_KEY);
-
             category.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -282,8 +274,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             Log.d(TAG, "Exception");
             e.printStackTrace();
         }
-        generateCurre();
-        return view;
     }
 
     @Override
@@ -340,7 +330,8 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     String local_shipping_cost = "";
 
     private void onClickProcessing() {
-        selectedCategoryIDs = NewItemOption.selectedCategoryIDs;
+        /*//selectedCategoryIDs = NewItemOption.selectedCategoryIDs;
+        selectedCategoryIDs = productModel.getCategories();*/
         if (item_negotiable)
             productModel.setNegotiable(true);
         productModel.setIs_pickup(NewItemOption.is_new_old_);
@@ -349,10 +340,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
         if (shipping_foc)
             productModel.setShipping_foc(true);
-        postalCode = null;
-        for (int i = 0; i < selectedAutoSuggesstionsList.size(); i++) {
-            postalCode = postalCode == null ? selectedAutoSuggesstionsList.get(i).getId() : postalCode + "," + selectedAutoSuggesstionsList.get(i).getId();
-        }
+
         try {
             str_name = Constants.parseTo(name.getText().toString());
         } catch (Exception e) {
@@ -366,30 +354,14 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
         str_sp = saleprice.getText().toString();
         String currency = pd_salepricetype.getText().toString();
-//        if (clm != null)
-//            selectedCategoryIDs = clm.getIdsforNames(selectedCategoryString);
-        if (productModel.getImages().size() == 0) {
-            Toast.makeText(activity, "Please select a photo", Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(str_name)) {
-            Toast.makeText(activity, "Please enter the product name", Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(currency)) {
-            Toast.makeText(activity, "Please select the currency", Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(str_sp)) {
-            Toast.makeText(activity, "Please enter the product price", Toast.LENGTH_LONG).show();
-        } else if (str_sp.length() > 9) {
-            Toast.makeText(activity, "Please enter the valid product price", Toast.LENGTH_LONG).show();
-        } else if (selectedCategoryIDs.isEmpty()) {
-            Toast.makeText(activity, "Please fill the product Category", Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(str_desc)) {
-            Toast.makeText(activity, "Please enter the product description", Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(mAutocompleteTextView.getText().toString())) {
-            Toast.makeText(activity, "Please fill the product location", Toast.LENGTH_LONG).show();
-        }/* else if (!isShippable && !is_new_old.isChecked()) {
-            Toast.makeText(activity, "Item should be either shippable or pick up", Toast.LENGTH_LONG).show();
-        } */ else {
-            /*String country=GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_COUNTRY);
-            productModel.setCountry_short(country);
-          */
+        if(validate()) {
+            //showProgressBar();
+
+            postalCode = null;
+            for (int i = 0; i < selectedAutoSuggesstionsList.size(); i++) {
+                postalCode = postalCode == null ? selectedAutoSuggesstionsList.get(i).getId() : postalCode + "," + selectedAutoSuggesstionsList.get(i).getId();
+            }
+
             productModel.setAddress(mAutocompleteTextView.getText().toString());
             productModel.setName(str_name);
             productModel.setDescription(str_desc);
@@ -418,7 +390,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             else
                 productModel.setNegotiable(false);
 
-
             if (isShippable)
                 productModel.setShippable(true);
             else
@@ -439,33 +410,53 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             else
                 productModel.setIs_intl_shipping(false);
 
-
-            //if (is_new_old.isChecked())
             productModel.setIs_pickup(NewItemOption.is_new_old_);
-          /*  else
-                productModel.setIs_pickup(false);*/
 
-
-            //if (is_product_new.isChecked())
             productModel.setIs_product_new(NewItemOption.is_product_new_);
-//            else
-//                productModel.setIs_product_new(false);
-
-
             productModel.setIntl_shipping_cost(intl_shipping_cost);
             productModel.setTime_to_deliver(time_to_deliver);
             productModel.setLocal_shipping_cost(local_shipping_cost);
 
             String token = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
             if (token != null) {
-                showProgressBar();
-
                 createSaleItem(context, productModel);
             } else {
+                hideProgressBar();
                 showSettingsAlert();
             }
-
+        }else{
+            hideProgressBar();
         }
+
+    }
+
+    private boolean validate(){
+        if (productModel.getImages().size() == 0) {
+            Toast.makeText(activity, "Please select a photo", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (TextUtils.isEmpty(str_name)) {
+            Toast.makeText(activity, "Please enter the product name", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (TextUtils.isEmpty(currency)) {
+            Toast.makeText(activity, "Please select the currency", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (TextUtils.isEmpty(str_sp)) {
+            Toast.makeText(activity, "Please enter the product price", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (str_sp.length() > 9) {
+            Toast.makeText(activity, "Please enter the valid product price", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (selectedCategoryIDs.isEmpty()) {
+            Toast.makeText(activity, "Please fill the product Category", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (TextUtils.isEmpty(str_desc)) {
+            Toast.makeText(activity, "Please enter the product description", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (TextUtils.isEmpty(mAutocompleteTextView.getText().toString())) {
+            Toast.makeText(activity, "Please fill the product location", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
     public static void setImages() {
@@ -555,6 +546,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showProgressBar();
                 onClickProcessing();
             }
         });
@@ -772,14 +764,18 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 if (requestCode == globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION) {
                     Log.i(TAG, "REQUEST_CODE_FILTER_PICK_LOCATION " + requestCode);
                     LocationModel location_model = (LocationModel) data.getExtras().getSerializable(CREATE_ITEM_LOCATION_BUNDLE_KEY);
-                    Log.i(TAG, "name pm" + location_model.getFormatted_address());
+                    Log.i(TAG, "name pm - " + location_model.getFormatted_address());
                     locationModel = location_model;
                     productModel.setLatitude(location_model.getLatitude());
                     productModel.setLongitude(location_model.getLongitude());
                     productModel.setAddress(location_model.getFormatted_address_for_map());
                     productModel.setSuburb(location_model.getSubhurb());
                     productModel.setCity(location_model.getCity());
-                    mAutocompleteTextView.setText(location_model.getFormatted_address());
+                    //mAutocompleteTextView.setText(location_model.getFormatted_address_for_map());
+                    mAutocompleteTextView.setText(location_model.getAddressFromLatLong(getActivity(),Double.valueOf(location_model.getLatitude()),
+                            Double.valueOf(location_model.getLongitude())));
+
+
                 } else if (requestCode == globalVariables.REQUEST_CODE_SELECT_CATEGORY) {
                     Log.i(TAG, "REQUEST_CODE_SELECT_CATEGORY " + requestCode);
                     CategoryModel categoryModel = (CategoryModel) data.getExtras().getSerializable(CREATE_ITEM_CATEGORY_BUNDLE_KEY);
@@ -850,8 +846,12 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                         String imagePatha = System.currentTimeMillis() + "11";
                         Uri uriImage = Matisse.obtainResult(data).get(i);
                         try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uriImage);
+                            Bitmap bitma = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uriImage);
+                            //String bitmapam = ImageUtils.savePicture(getActivity(), bitma, "" + imagePatha);
+
+                            Bitmap bitmap = Utils.setRotatedBitmap(bitma,imagePatha);
                             String bitmapa = ImageUtils.savePicture(getActivity(), bitmap, "" + imagePatha);
+
                             CreateImageModel modela = new CreateImageModel();
 
                             modela.setImage(bitmapa);
@@ -1057,23 +1057,40 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
         String bitmapa = ""; //dummy
         int listSize = objectUploadPhoto.getAvailablePhotos().size();
-        if (listSize >= 0 && listSize != 5) {
-            for (int i = 0; i < 5 - listSize; i++) {
-                CreateImageModel modela = new CreateImageModel();
+        // if (listSize >= 0 && listSize != 5) {
+        for (int i = 0; i < 5; i++) {
+            CreateImageModel modela = new CreateImageModel();
+            if (listSize > i && objectUploadPhoto.getAvailablePhotos().get(i).getId() >= 1 &&
+                    objectUploadPhoto.getAvailablePhotos().get(i).getId() != 0) {
+                modela.setImage(objectUploadPhoto.getAvailablePhotos().get(i).getImage());
+                modela.setId(objectUploadPhoto.getAvailablePhotos().get(i).getId());
+                modela.setDisplay(true);
+                modela.setRealImage(true);
+                modela.setImage_order(objectUploadPhoto.getAvailablePhotos().get(i).getImage_order());
+                objectUploadPhoto.getAvailablePhotos().remove(i);
+                objectUploadPhoto.getAvailablePhotos().add(i, modela);
+            } else {
                 modela.setImage(bitmapa);
                 modela.setDisplay(false);
                 modela.setRealImage(false);
+                modela.setId(0);
+                modela.setImage_order(0);
                 objectUploadPhoto.getAvailablePhotos().add(modela);
-                objectUploadPhoto.setAvailablePhotos(objectUploadPhoto.getAvailablePhotos());
             }
         }
+        Utils.removedDataFromArrayListLast(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
+        Utils.sortArray(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
+        objectUploadPhoto.setAvailablePhotos(objectUploadPhoto.getAvailablePhotos());
+        // }
         if (type_edit_item) {
+            selectedCategoryIDs = productModel.getCategories();
             adapter = new PhotosAddListAdapter(getActivity(), objectUploadPhoto.getAvailablePhotos(),
                     true, this, true);
             listView.setAdapter(adapter);
             addIcon_one.setVisibility(View.GONE);
             addIcon.setVisibility(View.GONE);
         } else {
+            selectedCategoryIDs = NewItemOption.selectedCategoryIDs;
             setImagesAdapter();
         }
 

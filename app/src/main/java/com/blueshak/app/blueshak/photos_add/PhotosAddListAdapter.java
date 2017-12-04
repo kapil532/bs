@@ -48,6 +48,7 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = null;
         try {
+            if(position < 5){
             if (convertView == null) {
                 LayoutInflater inflator = context.getLayoutInflater();
                 view = inflator.inflate(R.layout.photos_add_list_row, null);
@@ -142,6 +143,7 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
                     alertDialog.show();
                 }
             });
+            }
         }catch (Exception e){
             Log.d(TAG,"Exception :"+e.getMessage());
             e.printStackTrace();

@@ -1058,9 +1058,10 @@ public class ServicesMethodsManager {
         setCallbacks(mCallInterface);
        // for (int i = 0; i < salesModel.getProducts().size(); i++) {
             ArrayList<CreateImageModel> images = createProductModel.getImages();
+        ArrayList<CreateImageModel> createImages = new ArrayList<CreateImageModel>();
             if(images.size()>0){
                 for (int j = 0; j < images.size(); j++) {
-                    //if(images.get(j).is_new_image()){
+                    if(images.get(j).isRealImage()){
                         String base64 = GlobalFunctions.getBase64fromPath(new File(images.get(j).getImage()));
                         if(base64.length()>0){
                             CreateImageModel model = new CreateImageModel();
@@ -1071,15 +1072,16 @@ public class ServicesMethodsManager {
                             } else {
                                 model.setDisplay(false);
                             }*/
-                            images.remove(j);
-                            images.add(j, model);
-                        }else
-                            images.remove(j);
-                   // }/*else
-                      //  images.remove(j);*/
+                            /*images.remove(j);
+                            images.add(model);*/
+                            createImages.add(model);
+                        }/*else
+                            images.remove(j);*/
+                    }else
+                        images.remove(j);
                 }
             }
-            createProductModel.setImages(images);
+            createProductModel.setImages(createImages);
         //}
         postData(context, createProductModel, ServerConstants.URL_CreateSaleItem, TAG);
     }

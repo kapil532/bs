@@ -308,7 +308,7 @@ public class CreateSalesModel implements Serializable {
                 CreateImageModel model = new CreateImageModel();
                 model.setImage(createImageModels.get(i).getImage());
                 model.setId(createImageModels.get(i).getId());
-                model.setDisplay(i==0?true:false);
+                model.setDisplay(true);
                 images.add(model);
             }
             List<CreateProductModel> productModelList = new ArrayList<CreateProductModel>();
