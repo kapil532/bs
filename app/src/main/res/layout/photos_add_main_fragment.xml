@@ -52,6 +52,7 @@
         android:layout_height="wrap_content"
         android:drawSelectorOnTop="false"
         tools:context=".MainActivity"
+        android:layout_marginLeft="10dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/photos_add_main_fragment_add_imageView_add" />
 

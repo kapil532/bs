@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.blueshak.app.blueshak.services.model.CreateImageModel;
+import com.blueshak.app.blueshak.util.BlueShakLog;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ import java.util.Locale;
 public class Utils {
     static String  TAG = "Utils";
     public static void removedDataFromArrayListLast(ArrayList<CreateImageModel> imageList) {
-        if (imageList.size() > 5) {
+        if (imageList!=null && imageList.size() > 5) {
             for (int i = imageList.size() - 1; i >= 5; i--) {
                 imageList.remove(i);
             }
@@ -56,26 +57,6 @@ public class Utils {
                 return (int) (mall1.getId() - mall2.getId());
             }
         });
-    }
-
-    public static void getAddressFromLatLong(Context context, double LATITUDE, double LONGITUDE) {
-        try {
-            Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
-            if (addresses != null && addresses.size() > 0) {
-                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                String city = addresses.get(0).getLocality();
-                String state = addresses.get(0).getAdminArea();
-                String country = addresses.get(0).getCountryName();
-                String postalCode = addresses.get(0).getPostalCode();
-                String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
-
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return;
     }
 
     public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
@@ -143,5 +124,66 @@ public class Utils {
             int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
             return cursor.getString(idx);
         }
+    }
+
+    public static int getDefaultImageCount(ArrayList<CreateImageModel> availablePhotos){
+        int iCount = 0;
+        for(int i = 0; i < availablePhotos.size(); i++){
+            if(!availablePhotos.get(i).isRealImage()){
+                iCount = iCount+1;
+            }
+        }
+        BlueShakLog.logDebug(TAG,"Count - > "+iCount);
+        return iCount;
+    }
+    public static int getCountRealImage(ArrayList<CreateImageModel> availablePhotos){
+        int iCount = 0;
+        for(int i = 0; i < availablePhotos.size(); i++){
+            if(availablePhotos.get(i).isRealImage()){
+                iCount = iCount+1;
+            }
+        }
+        BlueShakLog.logDebug(TAG,"Count - > "+iCount);
+        return iCount;
+    }
+    public static ArrayList<CreateImageModel> getFilteredArrayList(ArrayList<CreateImageModel> availablePhotos){
+        ArrayList<CreateImageModel> availablePh = new ArrayList<>();
+        boolean isEmpty = false;
+        for(int i = 0; i < availablePhotos.size(); i++){
+            CreateImageModel modela = new CreateImageModel();
+            if(availablePhotos.get(i).isDisplay()){
+                modela.setImage(availablePhotos.get(i).getImage());
+                modela.setId(availablePhotos.get(i).getId());
+                modela.setDisplay(availablePhotos.get(i).isDisplay());
+                modela.setRealImage(availablePhotos.get(i).isRealImage());
+                modela.setImage_order(availablePhotos.get(i).getImage_order());
+                availablePh.add(modela);
+            }else{
+                if(!isEmpty){
+                    isEmpty = true;
+                    modela.setImage(availablePhotos.get(i).getImage());
+                    modela.setId(availablePhotos.get(i).getId());
+                    modela.setDisplay(availablePhotos.get(i).isDisplay());
+                    modela.setRealImage(availablePhotos.get(i).isRealImage());
+                    modela.setImage_order(availablePhotos.get(i).getImage_order());
+                    availablePh.add(modela);
+                }
+            }
+        }
+        sortArrayFirstEmpty(availablePh);
+        return availablePh;
+    }
+
+    public static void sortArrayFirstEmpty(ArrayList<CreateImageModel> imageList) {
+        Collections.sort(imageList, new Comparator<CreateImageModel>() {
+            @Override
+            public int compare(CreateImageModel mall1, CreateImageModel mall2) {
+
+                boolean b1 = mall1.isDisplay();
+                boolean b2 = mall2.isDisplay();
+
+                return (b1 != b2) ? (b2) ? -1 : 1 : 0;
+            }
+        });
     }
 }

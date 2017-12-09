@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.blueshak.app.blueshak.garage.Utils;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.services.model.CreateImageModel;
 import com.blueshak.app.blueshak.view.AlertDialog;
@@ -43,10 +45,11 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
         protected ImageView cameraImageView, deleteImageView;
         protected RelativeLayout relativeLayout;
     }
-
+    boolean isDefault = false;
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = null;
+
         try {
             if(position < 5){
             if (convertView == null) {
@@ -66,10 +69,7 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
             holder.cameraImageView.setOnClickListener(null);
 
             final File imgFile = new File(list.get(position).getImage());//new File(list.get(position).getImagePath());
-           /* Log.d(TAG, imgFile.getPath() + " is available");*/
-            if (!isDeleteAvailable) {
-                holder.deleteImageView.setVisibility(View.GONE);
-            }
+
             ImageLoader imageLoader = ImageLoader.getInstance();
             DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
                     .cacheOnDisc(true).resetViewBeforeLoading(true)
@@ -85,62 +85,33 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
                     .showImageOnFail(R.drawable.placeholder_background)
                     .showImageOnLoading(R.drawable.placeholder_background).build();
             if(imgFile.exists()) {
+                holder.deleteImageView.setVisibility(View.VISIBLE);
                 String decodedImgUri = Uri.fromFile(new File(list.get(position).getImage())).toString();
                 ImageLoader.getInstance().displayImage(decodedImgUri, holder.cameraImageView,GALLERY);
-         //Bitmap myBitmap = BitmapFactory.decodeFile(list.get(position).getAbsolutePath());
-                //Bitmap myBitmap = globalFunctions.getScaledBitmap(list.get(position).getAbsolutePath(), globalVariables.IMAGE_THUMBNAIL_SIZE);
-                //holder.cameraImageView.setImageBitmap(myBitmap);
-                Uri uri = Uri.fromFile(new File(list.get(position).getImage()));
 
             } else {
+                holder.deleteImageView.setVisibility(View.GONE);
                 imageLoader.displayImage(list.get(position).getImage(), holder.cameraImageView, options);
             }
-            boolean isTrue = false;
-            if (is_edit_product) {
-                isTrue = true;
-            } else {
-                isTrue = list.get(position).isRealImage();
-            }
+
             holder.cameraImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /*Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.parse("file://" + imgFile.getPath()), "image*//*");
-                    Log.d(TAG, "Path = " + "file://" + imgFile.getPath());
-                *//*context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("file:/"+imgFile.getPath())));*//*
-                    context.startActivity(intent);*/
+
                     listener.onImageClick(position,imgFile,"",list.get(position).isRealImage());
                 }
             });
 
             String className = context.getClass().getName();
-            Log.d(TAG, "ClassName" + className);
             holder.deleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(Utils.getCountRealImage(list) == 5){
+                        listener.ondeleting(position);
+                    }else{
+                        listener.ondeleting(position-1);
+                    }
 
-                    final AlertDialog alertDialog = new AlertDialog(context);
-                    alertDialog.setCancelable(true);
-                    alertDialog.setIcon(R.drawable.ic_warning_black_24dp);
-                    alertDialog.setTitle(context.getResources().getString(R.string.app_name));
-                    alertDialog.setMessage("Are you sure you want to delete this item image");
-                    alertDialog.setPositiveButton("yes", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            alertDialog.dismiss();
-                            listener.ondeleting(position);
-                        }
-                    });
-
-                    alertDialog.setNegativeButton("cancel", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            alertDialog.dismiss();
-                        }
-                    });
-
-                    alertDialog.show();
                 }
             });
             }

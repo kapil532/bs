@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.blueshak.app.blueshak.garage.Utils;
 import com.blueshak.app.blueshak.services.model.AskModel;
 import com.blueshak.app.blueshak.services.model.CurrencyListModel;
 import com.blueshak.app.blueshak.services.model.VerifyAliasModel;
@@ -1057,7 +1058,8 @@ public class ServicesMethodsManager {
     public void createSaleItem(Context context, CreateProductModel createProductModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
        // for (int i = 0; i < salesModel.getProducts().size(); i++) {
-            ArrayList<CreateImageModel> images = createProductModel.getImages();
+        ArrayList<CreateImageModel> images = createProductModel.getImages();
+        Utils.sortArray(images);
         ArrayList<CreateImageModel> createImages = new ArrayList<CreateImageModel>();
             if(images.size()>0){
                 for (int j = 0; j < images.size(); j++) {
@@ -1067,6 +1069,8 @@ public class ServicesMethodsManager {
                             CreateImageModel model = new CreateImageModel();
                             model.setImage(base64);
                             model.setDisplay(true);
+                            model.setImage_order(j);
+                            model.setId(j);
                             /*if (j == 0) {
                                 model.setDisplay(true);
                             } else {
@@ -1077,8 +1081,10 @@ public class ServicesMethodsManager {
                             createImages.add(model);
                         }/*else
                             images.remove(j);*/
-                    }else
+                    }else{
                         images.remove(j);
+                    }
+
                 }
             }
             createProductModel.setImages(createImages);

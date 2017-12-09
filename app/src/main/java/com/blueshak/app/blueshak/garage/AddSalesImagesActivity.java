@@ -45,6 +45,8 @@ import com.mvc.imagepicker.ImagePicker;
 import com.mvc.imagepicker.ImageUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
@@ -97,6 +99,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
         for (mPosition = 0; mPosition < 5; mPosition++) {
             final View itemView = inflater.inflate(R.layout.grid_item, mGrid, false);
             imageView = (ImageView) itemView.findViewById(R.id.img_selection);
+            ImageView image_delete = (ImageView) itemView.findViewById(R.id.img_delete);
 
             if(!isDeleted && postion >=0){
                 isDeleted = true;
@@ -108,12 +111,17 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
                 modela.setImage_order(0);
                 CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos().add(postion,modela);
             }
+            imageView.setTag(mPosition);
+            imageView.setId(mPosition);
+            image_delete.setTag(mPosition);
+            image_delete.setId(mPosition);
             itemView.setTag(mPosition);
             itemView.setId(mPosition);
             Utils.sortArray(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
-            setBitmapImages(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos(), imageView, mPosition);
+            setBitmapImages(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos(), imageView, mPosition,image_delete);
             itemView.setOnLongClickListener(new LongPressListener());
-            itemView.setOnClickListener(new onClickListener());
+            image_delete.setOnClickListener(new onClickListener());
+            itemView.setOnClickListener(new onViewClickListener());
             mGrid.addView(itemView);
         }
         BlueShakLog.logDebug(TAG, "drag final ADD ArrayList ->\n "+CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
@@ -134,6 +142,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
                 Utils.removedDataFromArrayListLast(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
                 BlueShakLog.logDebug(TAG, "drag final ArrayList ->\n "+CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
                // setImageOrderIdArrayList(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
+                Utils.sortArrayFirstEmpty(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
                 setResult(RESULT_OK);
                 finish();
             }
@@ -235,13 +244,13 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
 
     }
 
-    public static void setImages() {
+    /*public static void setImages() {
         if (CreateItemSaleFragment.objectUploadPhoto != null && productModel != null) {
             productModel.setImages(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
             productModel.setRemove_images(CreateItemSaleFragment.objectUploadPhoto.getRemoved_photos());
         }
 
-    }
+    }*/
 
     @Override
     public void ondeleting(int position) {
@@ -255,7 +264,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
 
     private void setRefreshData() {
        /*call the outer function to refresh list*/
-        setImages();
+        //setImages();
 
     }
 
@@ -269,9 +278,9 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
             if (resultCode == RESULT_OK) {
                 if (requestCode == REQUEST_CODE_CHOOSE) {
                     for (int i = 0; i < Matisse.obtainPathResult(data).size(); i++) {
-                        if (isImageEdit) {
+                        /*if (isImageEdit) {
                             deleteCameraViewfromFile(iEditablePosition, false);
-                        }
+                        }*/
                         String imagePatha = System.currentTimeMillis() + "11";
                         Uri uriImage = Matisse.obtainResult(data).get(i);
                         try {
@@ -296,6 +305,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
                         }
                     }
                     Utils.sortArray(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
+                    Utils.removedDataFromArrayListLast(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
                     CreateItemSaleFragment.objectUploadPhoto.setAvailablePhotos(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
                     dragAndDrop(true,-1);
                 }
@@ -312,7 +322,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
         }
     }
 
-    private void setBitmapImages(ArrayList<CreateImageModel> imageList, ImageView imageView, int position) {
+    private void setBitmapImages(ArrayList<CreateImageModel> imageList, ImageView imageView, int position,ImageView imageDelete) {
 
         BlueShakLog.logDebug(TAG, "setBitmapImages imagelist size -> " + imageList.size());
         DisplayImageOptions GALLERY = new DisplayImageOptions.Builder()
@@ -323,18 +333,41 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
                 .showImageOnFail(R.drawable.placeholder_background)
                 .showImageOnLoading(R.drawable.placeholder_background).build();
 
-        setBitmapDecodedImage(position, imageView, GALLERY, imageList);
+        setBitmapDecodedImage(position, imageView, GALLERY, imageList,imageDelete);
     }
 
     private void setBitmapDecodedImage(int position, ImageView imageView, DisplayImageOptions GALLERY,
-                                       ArrayList<CreateImageModel> imageList) {
+                                       ArrayList<CreateImageModel> imageList,final ImageView imageDelete) {
         String decodedImgUri;
         if(imageList.get(position).getImage().contains("http")){
             decodedImgUri = imageList.get(position).getImage();
         }else{
             decodedImgUri = Uri.fromFile(new File(imageList.get(position).getImage())).toString();
         }
-        ImageLoader.getInstance().displayImage(decodedImgUri, imageView, GALLERY);
+        ImageLoader.getInstance().displayImage(decodedImgUri, imageView, GALLERY, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                BlueShakLog.logDebug(TAG, "setBitmapDecodedImage  onLoadingFailed ");
+                imageDelete.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                BlueShakLog.logDebug(TAG, "setBitmapDecodedImage  onLoadingComplete ");
+                imageDelete.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+                BlueShakLog.logDebug(TAG, "setBitmapDecodedImage  onLoadingCancelled ");
+                imageDelete.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void onToolBarCancel() {
@@ -521,11 +554,25 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
             BlueShakLog.logDebug(TAG, "onClickListener mPosition x --------------------> " + x);
             if (CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos().size() >= 1 &&
                     CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos().get(x).isRealImage()) {
-                showAlert("Do you want edit or delete photo?", x);
-            } else {
-                isImageEdit = false;
-                setImage(5);
+                //showAlert("Do you want edit or delete photo?", x);
+                deleteCameraViewfromFile(x, false);
+                dragAndDrop(true,x);
             }
+        }
+    }
+    class onViewClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            int x = (Integer) view.getTag();
+            BlueShakLog.logDebug(TAG, "onClickListener mPosition x --------------------> " + x);
+            if (!(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos().size() >= 1 &&
+                    CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos().get(x).isRealImage())) {
+                setImage(Utils.getDefaultImageCount(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos()));
+            } /*else {
+               // isImageEdit = false;
+                setImage(5);
+            }*/
         }
     }
 

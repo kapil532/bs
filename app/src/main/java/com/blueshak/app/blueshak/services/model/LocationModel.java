@@ -7,6 +7,8 @@ import android.util.Log;
 
 import com.blueshak.app.blueshak.global.GlobalFunctions;
 import com.blueshak.app.blueshak.global.GlobalVariables;
+import com.blueshak.app.blueshak.util.BlueShakLog;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -91,10 +93,10 @@ public class LocationModel implements Serializable {
     }
 
     String locality=null;
-    String city=null;
+    String city="";
     String subhurb=null;
-    String state=null;
-    String country=null,
+    String state="";
+    String country="",
             country_code=null,
             stree_number=null,
             autocomplete_address=null;
@@ -175,9 +177,7 @@ public class LocationModel implements Serializable {
                         }
                         if(type_arr.get(0).equals("locality")){
                             if(address_obj.has("long_name")){
-                                if(city == null){
-                                    city=address_obj.getString("long_name");
-                                }
+                                city=address_obj.getString("long_name");
                             }
                         }
                         if(type_arr.get(0).equals("administrative_area_level_2")){
@@ -207,11 +207,11 @@ public class LocationModel implements Serializable {
                                 postal_code=address_obj.getString("long_name");
                             }
                         }
-                        formatted_address_for_map = city+","+state+","+country;
                     }
 
                 }
-               // getLocalityAddressFormat();
+                //formatted_address_for_map = city+", "+state+", "+country;
+                getLocalityAddressFormat();
             }
             return true;
         }catch (Exception e){
@@ -236,39 +236,31 @@ public class LocationModel implements Serializable {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-        return "";
+        return null;
     }
     private void getLocalityAddressFormat(){
         String address = "";
-        if(locality!=null){
-            address = locality;
-        }else{
-            address = "";
-        }
         if(city!=null){
-            if(locality!=null){
-                address = address+", "+city;
-            }else{
-                address = city;
-            }
-        }else{
-            address = address+"";
+            address = city;
         }
         if(state!=null){
-            if(locality!=null){
-                address = address+", "+state;
+            if(address.isEmpty()){
+                address = address+state;
             }else{
-                address = state;
+                address =address+", "+state;
             }
-
-        }else{
-            address = address+"";
         }
         if(country!=null){
-            address = address+", "+country;
+            if(address.isEmpty()){
+                address = address+country;
+            }else{
+                address = address+", "+country;
+            }
         }
         formatted_address_for_map = address;
+        BlueShakLog.logDebug(TAG,"Address from google json - > "+formatted_address_for_map);
     }
     @Override
     public String toString(){

@@ -419,7 +419,14 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
             String token = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
             if (token != null) {
-                createSaleItem(context, productModel);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        createSaleItem(context, productModel);
+                    }
+                }).start();
+
+
             } else {
                 hideProgressBar();
                 showSettingsAlert();
@@ -446,10 +453,10 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         } else if (str_sp.length() > 9) {
             Toast.makeText(activity, "Please enter the valid product price", Toast.LENGTH_LONG).show();
             return false;
-        } else if (selectedCategoryIDs.isEmpty()) {
+        } /*else if (selectedCategoryIDs.isEmpty()) {
             Toast.makeText(activity, "Please fill the product Category", Toast.LENGTH_LONG).show();
             return false;
-        } else if (TextUtils.isEmpty(str_desc)) {
+        }*/ else if (TextUtils.isEmpty(str_desc)) {
             Toast.makeText(activity, "Please enter the product description", Toast.LENGTH_LONG).show();
             return false;
         } else if (TextUtils.isEmpty(mAutocompleteTextView.getText().toString())) {
@@ -547,7 +554,10 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             @Override
             public void onClick(View v) {
                 showProgressBar();
+
                 onClickProcessing();
+
+
             }
         });
 
@@ -593,7 +603,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
 
     private void setValues() {
-        Log.d("VALUESSS", "SHIPPINGCOST VALUES INSIDE");
+        BlueShakLog.logDebug(TAG," Update setValues ");
         if (productModel != null) {
             loading_label = "Updating Item...";
             save.setText("Update");
@@ -771,10 +781,13 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                     productModel.setAddress(location_model.getFormatted_address_for_map());
                     productModel.setSuburb(location_model.getSubhurb());
                     productModel.setCity(location_model.getCity());
-                    //mAutocompleteTextView.setText(location_model.getFormatted_address_for_map());
-                    mAutocompleteTextView.setText(location_model.getAddressFromLatLong(getActivity(),Double.valueOf(location_model.getLatitude()),
-                            Double.valueOf(location_model.getLongitude())));
-
+                    String address = location_model.getAddressFromLatLong(getActivity(),Double.valueOf(location_model.getLatitude()),
+                            Double.valueOf(location_model.getLongitude()));
+                    if(address!=null){
+                        mAutocompleteTextView.setText(address);
+                    }else{
+                        mAutocompleteTextView.setText(location_model.getFormatted_address_for_map());
+                    }
 
                 } else if (requestCode == globalVariables.REQUEST_CODE_SELECT_CATEGORY) {
                     Log.i(TAG, "REQUEST_CODE_SELECT_CATEGORY " + requestCode);
@@ -866,7 +879,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                         }
                         // refreshCameraImageList();
                     }
-                    sortArray(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
+                    Utils.sortArray(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
                     CreateItemSaleFragment.objectUploadPhoto.setAvailablePhotos(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
                     startAddImageActivity();
                     //Toast.makeText(getActivity(), "" + Matisse.obtainResult(data).toString() + "--" + Matisse.obtainPathResult(data), Toast.LENGTH_LONG).show();
@@ -1047,17 +1060,9 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     protected static final int REQUEST_CHECK_CAMERA = 115;
     protected static final int REQUEST_CHECK_GALLARY = 118;
 
-    void scrollImageForTheItems() {
-        ImagePicker.setMinQuality(600, 600);
-//        imageutill= new Imageutils(getActivity(),this,true);
-        title_tv = (TextView) view.findViewById(R.id.photos_add_main_fragment_title_textview);
-        addIcon = (ImageView) view.findViewById(R.id.photos_add_main_fragment_add_imageView);
-        listView = (TwoWayView) view.findViewById(R.id.photos_add_main_fragment_photos_list);
-        addIcon_one = (ImageView) view.findViewById(R.id.photos_add_main_fragment_add_imageView_add);
-
+    private void defaultList(){
         String bitmapa = ""; //dummy
         int listSize = objectUploadPhoto.getAvailablePhotos().size();
-        // if (listSize >= 0 && listSize != 5) {
         for (int i = 0; i < 5; i++) {
             CreateImageModel modela = new CreateImageModel();
             if (listSize > i && objectUploadPhoto.getAvailablePhotos().get(i).getId() >= 1 &&
@@ -1079,18 +1084,34 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             }
         }
         Utils.removedDataFromArrayListLast(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
-        Utils.sortArray(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
+        Utils.sortArrayFirstEmpty(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
         objectUploadPhoto.setAvailablePhotos(objectUploadPhoto.getAvailablePhotos());
-        // }
+    }
+
+    void scrollImageForTheItems() {
+        ImagePicker.setMinQuality(600, 600);
+//        imageutill= new Imageutils(getActivity(),this,true);
+        title_tv = (TextView) view.findViewById(R.id.photos_add_main_fragment_title_textview);
+        addIcon = (ImageView) view.findViewById(R.id.photos_add_main_fragment_add_imageView);
+        listView = (TwoWayView) view.findViewById(R.id.photos_add_main_fragment_photos_list);
+        addIcon_one = (ImageView) view.findViewById(R.id.photos_add_main_fragment_add_imageView_add);
+
+        defaultList();
+
         if (type_edit_item) {
             selectedCategoryIDs = productModel.getCategories();
-            adapter = new PhotosAddListAdapter(getActivity(), objectUploadPhoto.getAvailablePhotos(),
+            adapter = new PhotosAddListAdapter(getActivity(), Utils.getFilteredArrayList(objectUploadPhoto.getAvailablePhotos()),
                     true, this, true);
             listView.setAdapter(adapter);
             addIcon_one.setVisibility(View.GONE);
             addIcon.setVisibility(View.GONE);
         } else {
-            selectedCategoryIDs = NewItemOption.selectedCategoryIDs;
+            if(NewItemOption.selectedCategoryIDs.isEmpty()){
+                selectedCategoryIDs.clear();
+                selectedCategoryIDs.add("22");
+            }else{
+                selectedCategoryIDs = NewItemOption.selectedCategoryIDs;
+            }
             setImagesAdapter();
         }
 
@@ -1133,7 +1154,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
     private static final int REQUEST_CODE_CHOOSE = 23;
 
-    private void selectImage() {
+    private void selectImage(int size) {
 
         if (checkIfAlreadyhavePermission()) {
 //            RxPermissions rxPermissions = new RxPermissions(activity);
@@ -1144,7 +1165,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                     .capture(true)
                     .captureStrategy(
                             new com.zhihu.matisse.internal.entity.CaptureStrategy(true, "com.blueshak.fileprovider"))
-                    .maxSelectable(5)
+                    .maxSelectable(size)
                     .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
                     .gridExpectedSize(
                             getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
@@ -1194,7 +1215,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    selectImage();
+                    selectImage(Utils.getDefaultImageCount(objectUploadPhoto.getAvailablePhotos()));
                 } else {
                     checkCameraPermission();
                 }
@@ -1237,6 +1258,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
     public void deleteCameraViewfromFile(Context context, int position) {
         try {
+            Utils.sortArray(objectUploadPhoto.getAvailablePhotos());
             String fileString = objectUploadPhoto.getAvailablePhotos().get(position).getImage();
             removed_photos.add(objectUploadPhoto.getAvailablePhotos().get(position));
             File file = new File(fileString);
@@ -1252,7 +1274,10 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             }
             objectUploadPhoto.getAvailablePhotos().remove(position);
             objectUploadPhoto.setRemoved_photos(removed_photos);
-            refreshCameraImageList();
+            defaultList();
+
+            setImagesAdapter();
+            //refreshCameraImageList();
         } catch (Exception e) {
             Log.d(TAG, "Exception on Deleting Image : " + e);
 
@@ -1263,14 +1288,15 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     @Override
     public void ondeleting(int position) {
         deleteCameraViewfromFile(context, position);
+
     }
 
     @Override
     public void onImageClick(int position, File file, String name, Boolean isRealImage) {
-        if (isRealImage) {
+        if (Utils.getCountRealImage(objectUploadPhoto.getAvailablePhotos()) > 0) {
             startAddImageActivity();
         } else {
-            selectImage();
+            selectImage(Utils.getDefaultImageCount(objectUploadPhoto.getAvailablePhotos()));
         }
 
     }
@@ -1288,21 +1314,10 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     }
 
     private void setImagesAdapter() {
-        adapter = new PhotosAddListAdapter(getActivity(), objectUploadPhoto.getAvailablePhotos(), true, this, false);
+        adapter = new PhotosAddListAdapter(getActivity(), Utils.getFilteredArrayList(objectUploadPhoto.getAvailablePhotos()), true, this, false);
         listView.setAdapter(adapter);
     }
 
-    private void sortArray(ArrayList<CreateImageModel> imageList) {
-        Collections.sort(imageList, new Comparator<CreateImageModel>() {
-            @Override
-            public int compare(CreateImageModel mall1, CreateImageModel mall2) {
 
-                boolean b1 = mall1.isRealImage();
-                boolean b2 = mall2.isRealImage();
-
-                return (b1 != b2) ? (b1) ? -1 : 1 : 0;
-            }
-        });
-    }
 }
 
