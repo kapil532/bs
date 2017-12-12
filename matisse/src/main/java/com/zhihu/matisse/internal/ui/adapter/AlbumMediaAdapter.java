@@ -50,6 +50,7 @@ public class AlbumMediaAdapter extends
     private OnMediaClickListener mOnMediaClickListener;
     private RecyclerView mRecyclerView;
     private int mImageResize;
+    public static boolean isCameraClick = false;
 
     public AlbumMediaAdapter(Context context, SelectedItemCollection selectedCollection, RecyclerView recyclerView) {
         super(null);
@@ -59,8 +60,8 @@ public class AlbumMediaAdapter extends
         TypedArray ta = context.getTheme().obtainStyledAttributes(new int[]{R.attr.item_placeholder});
         mPlaceholder = ta.getDrawable(0);
         ta.recycle();
-
         mRecyclerView = recyclerView;
+        isCameraClick = false;
     }
 
     @Override
@@ -72,6 +73,7 @@ public class AlbumMediaAdapter extends
                 @Override
                 public void onClick(View v) {
                     if (v.getContext() instanceof OnPhotoCapture) {
+                        isCameraClick = true;
                         ((OnPhotoCapture) v.getContext()).capture();
                     }
                 }

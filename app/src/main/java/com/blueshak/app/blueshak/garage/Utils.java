@@ -9,6 +9,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import com.blueshak.app.blueshak.services.model.CreateImageModel;
 import com.blueshak.app.blueshak.util.BlueShakLog;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -54,7 +56,7 @@ public class Utils {
         Collections.sort(imageList, new Comparator<CreateImageModel>() {
             @Override
             public int compare(CreateImageModel mall1, CreateImageModel mall2) {
-                return (int) (mall1.getId() - mall2.getId());
+                return mall1.getImage_order() - mall2.getImage_order();
             }
         });
     }
@@ -63,7 +65,8 @@ public class Utils {
         Matrix matrix = new Matrix();
         switch (orientation) {
             case ExifInterface.ORIENTATION_NORMAL:
-                return bitmap;
+                matrix.setRotate(90);
+                //return bitmap;
             case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
                 matrix.setScale(-1, 1);
                 break;
@@ -89,7 +92,8 @@ public class Utils {
                 matrix.setRotate(-90);
                 break;
             default:
-                return bitmap;
+                matrix.setRotate(90);
+                //return bitmap;
         }
         try {
             Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
@@ -102,10 +106,16 @@ public class Utils {
         }
     }
 
-    public static Bitmap setRotatedBitmap(Bitmap bitmap, String selectedImagePath){
+    public static Bitmap setRotatedBitmap(Context context,Bitmap bitmap, Uri selectedImagePath){
          ExifInterface exifObject = null;
         try {
-            exifObject = new ExifInterface(selectedImagePath);
+            InputStream input = context.getContentResolver().openInputStream(selectedImagePath);
+            if (Build.VERSION.SDK_INT > 23){
+                exifObject = new ExifInterface(input);
+            }else{
+                exifObject = new ExifInterface(selectedImagePath.getPath());
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

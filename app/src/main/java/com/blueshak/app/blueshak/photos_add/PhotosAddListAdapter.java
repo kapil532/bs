@@ -11,7 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.blueshak.app.blueshak.garage.CreateItemSaleFragment;
 import com.blueshak.app.blueshak.garage.Utils;
+import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.services.model.CreateImageModel;
 import com.blueshak.app.blueshak.view.AlertDialog;
@@ -39,6 +41,7 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
         this.isDeleteAvailable = isDeleteAvailable;
         this.listener = listener;
         this.is_edit_product=is_edit_product;
+        BlueShakLog.logDebug(TAG, "drag setImageOrderIdArrayList Adapter final ArrayList ->\n "+ list);
     }
 
     static class ViewHolder {
@@ -90,7 +93,11 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
                 ImageLoader.getInstance().displayImage(decodedImgUri, holder.cameraImageView,GALLERY);
 
             } else {
-                holder.deleteImageView.setVisibility(View.GONE);
+                if(list.get(position).getImage()!=null && list.get(position).getImage().contains("http") ){
+                    holder.deleteImageView.setVisibility(View.VISIBLE);
+                }else{
+                    holder.deleteImageView.setVisibility(View.GONE);
+                }
                 imageLoader.displayImage(list.get(position).getImage(), holder.cameraImageView, options);
             }
 

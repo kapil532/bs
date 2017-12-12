@@ -16,7 +16,7 @@
             android:layout_width="93dp"
             android:layout_height="93dp"
             android:layout_marginTop="10dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/placeholder_background" />
 
         <ImageView
@@ -24,7 +24,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/red_delete_icon" />
 
     </RelativeLayout>
