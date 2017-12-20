@@ -129,6 +129,8 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     private ProgressBar progress_bar;
     protected static final int REQUEST_ADD_IMAGES = 20;
 
+    public static ArrayList<CreateImageModel> removed_photos = new ArrayList<CreateImageModel>();
+
     public static CreateItemSaleFragment newInstance(Context context, CreateProductModel sales, LocationModel locationModel, String type, int from) {
         CreateItemSaleFragment createItemSaleFragment = new CreateItemSaleFragment();
         Bundle bundle = new Bundle();
@@ -157,6 +159,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         getUserDetailsPro(getActivity());
         init();
         generateCurre();
+        removed_photos.clear();
         return view;
     }
 
@@ -166,6 +169,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             name = (EditText) view.findViewById(R.id.pd_name);
             description = (EditText) view.findViewById(R.id.pd_description);
             saleprice = (EditText) view.findViewById(R.id.pd_saleprice);
+            Utils.editTextWatcher(saleprice);
             saleprice.addTextChangedListener(new TextWatcher() {
                 public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
                     String text = arg0.toString();
@@ -654,8 +658,17 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
             if (productModel.getAddress() != null && !TextUtils.isEmpty(productModel.getAddress()))
                 mAutocompleteTextView.setText(productModel.getAddress());
-            else
-                getAddressFromLatLng(Double.parseDouble(productModel.getLatitude()), Double.parseDouble(productModel.getLongitude()));
+            else{
+                LocationModel location_model = new LocationModel();
+                String address = location_model.getAddressFromLatLong(getActivity(), Double.valueOf(productModel.getLatitude()),
+                        Double.valueOf(productModel.getLongitude()));
+                if(address!=null){
+                    mAutocompleteTextView.setText(address);
+                }else{
+                    getAddressFromLatLng(Double.parseDouble(productModel.getLatitude()), Double.parseDouble(productModel.getLongitude()));
+                }
+            }
+
             selectedCategoryIDs.clear();
             selectedCategoryIDs.addAll(productModel.getCategories());
             if (clm != null) {
@@ -797,14 +810,15 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                     locationModel = location_model;
                     productModel.setLatitude(location_model.getLatitude());
                     productModel.setLongitude(location_model.getLongitude());
-                    productModel.setAddress(location_model.getFormatted_address_for_map());
                     productModel.setSuburb(location_model.getSubhurb());
                     productModel.setCity(location_model.getCity());
                     String address = location_model.getAddressFromLatLong(getActivity(), Double.valueOf(location_model.getLatitude()),
                             Double.valueOf(location_model.getLongitude()));
                     if (address != null) {
+                        productModel.setAddress(address);
                         mAutocompleteTextView.setText(address);
                     } else {
+                        productModel.setAddress(location_model.getFormatted_address_for_map());
                         mAutocompleteTextView.setText(location_model.getFormatted_address_for_map());
                     }
 
@@ -879,14 +893,19 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                         Uri uriImage = Matisse.obtainResult(data).get(i);
                         try {
                             String bitmapa;
-                            if (AlbumMediaAdapter.isCameraClick) {
-                                Bitmap bitma = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uriImage);
-                                Bitmap bitmap = Utils.setRotatedBitmap(getActivity(), bitma, uriImage);
-                                bitmapa = ImageUtils.savePicture(getActivity(), bitmap, "" + imagePatha);
+                            Bitmap bitmap = null, rotedBitmap = null;
+                            /*if (AlbumMediaAdapter.isCameraClick) {
+                                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uriImage);
+                                rotedBitmap = Utils.setRotatedBitmap(getActivity(), Utils.getResizedBitmap(bitmap,bitmap.getHeight()/2,bitmap.getWidth()/2), uriImage);
+                                bitmapa = ImageUtils.savePicture(getActivity(), rotedBitmap, "" + imagePatha);
                             } else {
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uriImage);
+                                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uriImage);
                                 bitmapa = ImageUtils.savePicture(getActivity(), bitmap, "" + imagePatha);
-                            }
+                            }*/
+
+                            bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uriImage);
+                            rotedBitmap = Utils.setRotatedBitmap(getActivity(), Utils.getResizedBitmap(bitmap,bitmap.getHeight()/2,bitmap.getWidth()/2), uriImage);
+                            bitmapa = ImageUtils.savePicture(getActivity(), rotedBitmap, "" + imagePatha);
 
                             CreateImageModel modela = new CreateImageModel();
                             modela.setImage(bitmapa);
@@ -895,6 +914,15 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                             modela.setId(i);
                             modela.setImage_order(i);
                             objectUploadPhoto.getAvailablePhotos().add(modela);
+
+                            if (bitmap != null) {
+                                bitmap.recycle();
+                                bitmap = null;
+                            }
+                            if (rotedBitmap != null) {
+                                rotedBitmap.recycle();
+                                rotedBitmap = null;
+                            }
 
                         } catch (IOException e) {
                             BlueShakLog.logDebug(TAG, "onActivityResult REQUEST_CODE_CHOOSE e " + e.getLocalizedMessage());
@@ -946,7 +974,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 GlobalFunctions.closeKeyboard(activity);
                 locationModel = (LocationModel) arg0;
                 if (locationModel != null) {
-                    mAutocompleteTextView.setText(locationModel.getFormatted_address());
+                    mAutocompleteTextView.setText(locationModel.getFormatted_address_for_map());
                 }
             }
 
@@ -1072,8 +1100,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
     }
 
-
-    ArrayList<CreateImageModel> removed_photos = new ArrayList<CreateImageModel>();
     TextView title_tv;
     ImageView addIcon;
     ImageView addIcon_one;
@@ -1337,6 +1363,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         adapter = new PhotosAddListAdapter(getActivity(), Utils.getFilteredArrayList(objectUploadPhoto.getAvailablePhotos()), true, this, false);
         listView.setAdapter(adapter);
     }
+
 
 
 }

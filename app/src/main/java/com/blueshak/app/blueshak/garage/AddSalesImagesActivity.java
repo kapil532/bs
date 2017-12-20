@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,7 +54,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AddSalesImagesActivity extends RootActivity implements OnDeletePicture, View.OnLongClickListener {
     public static String TAG = AddSalesImagesActivity.class.getSimpleName();
-    ArrayList<CreateImageModel> removed_photos = new ArrayList<CreateImageModel>();
 
     private static CreateProductModel productModel = null;
 
@@ -92,6 +92,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
             final View itemView = inflater.inflate(R.layout.grid_item, mGrid, false);
             imageView = (ImageView) itemView.findViewById(R.id.img_selection);
             ImageView image_delete = (ImageView) itemView.findViewById(R.id.img_delete);
+            ProgressBar progressBar = (ProgressBar)itemView.findViewById(R.id.progressBar);
 
             if (!isDeleted && postion >= 0) {
                 isDeleted = true;
@@ -110,7 +111,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
             itemView.setTag(mPosition);
             itemView.setId(mPosition);
             Utils.sortArray(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
-            setBitmapImages(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos(), imageView, mPosition, image_delete);
+            setBitmapImages(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos(), imageView, mPosition, image_delete,progressBar);
             itemView.setOnLongClickListener(new LongPressListener());
             image_delete.setOnClickListener(new onClickListener());
             itemView.setOnClickListener(new onViewClickListener());
@@ -207,7 +208,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
     public void deleteCameraViewfromFile(int position, Boolean isDeleteShow) {
         try {
             String fileString = CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos().get(position).getImage();
-            removed_photos.add(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos().get(position));
+            CreateItemSaleFragment.removed_photos.add(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos().get(position));
             File file = new File(fileString);
             if (file.exists()) {
                 file.delete();
@@ -220,7 +221,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
                 }
             }
             CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos().remove(position);
-            CreateItemSaleFragment.objectUploadPhoto.setRemoved_photos(removed_photos);
+            CreateItemSaleFragment.objectUploadPhoto.setRemoved_photos(CreateItemSaleFragment.removed_photos);
             setImages();
             // refreshCameraImageList();
         } catch (Exception e) {
@@ -234,7 +235,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
         if (CreateItemSaleFragment.objectUploadPhoto != null && productModel != null) {
             productModel.setImages(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos());
             productModel.setRemove_images(CreateItemSaleFragment.objectUploadPhoto.getRemoved_photos());
-            BlueShakLog.logDebug("setImages AddSales", " setImages........... ");
+            BlueShakLog.logDebug("setImages AddSales", " setImages........... "+productModel.getRemove_images());
         }
 
     }
@@ -272,25 +273,38 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
                         String imagePatha = System.currentTimeMillis() + "11";
                         Uri uriImage = Matisse.obtainResult(data).get(i);
                         try {
-                            String bitmapa;
-                            if (AlbumMediaAdapter.isCameraClick) {
-                                Bitmap bitma = MediaStore.Images.Media.getBitmap(getContentResolver(), uriImage);
-                                Bitmap bitmap = Utils.setRotatedBitmap(this, bitma, uriImage);
-                                bitmapa = ImageUtils.savePicture(this, bitmap, "" + imagePatha);
+                            String imagePath;
+                            Bitmap bitmap = null, rotedBitmap = null;
+                           /* if (AlbumMediaAdapter.isCameraClick) {
+                                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriImage);
+                                rotedBitmap = Utils.setRotatedBitmap(this, Utils.getResizedBitmap(bitmap,bitmap.getHeight()/2,bitmap.getWidth()/2), uriImage);
+                                imagePath = ImageUtils.savePicture(this, rotedBitmap, "" + imagePatha);
                             } else {
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriImage);
-                                bitmapa = ImageUtils.savePicture(this, bitmap, "" + imagePatha);
+                                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriImage);
+                                imagePath = ImageUtils.savePicture(this, bitmap, "" + imagePatha);
 
-                            }
+                            }*/
+
+                            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriImage);
+                            rotedBitmap = Utils.setRotatedBitmap(this, Utils.getResizedBitmap(bitmap,bitmap.getHeight()/2,bitmap.getWidth()/2), uriImage);
+                            imagePath = ImageUtils.savePicture(this, rotedBitmap, "" + imagePatha);
 
                             CreateImageModel modela = new CreateImageModel();
 
-                            modela.setImage(bitmapa);
+                            modela.setImage(imagePath);
                             modela.setDisplay(true);
                             modela.setRealImage(true);
                             modela.setId(i);
                             modela.setImage_order(i);
                             CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos().add(modela);
+                            if (bitmap != null) {
+                                bitmap.recycle();
+                                bitmap = null;
+                            }
+                            if (rotedBitmap != null) {
+                                rotedBitmap.recycle();
+                                rotedBitmap = null;
+                            }
 
 
                         } catch (IOException e) {
@@ -315,7 +329,9 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
         }
     }
 
-    private void setBitmapImages(ArrayList<CreateImageModel> imageList, ImageView imageView, int position, ImageView imageDelete) {
+
+
+    private void setBitmapImages(ArrayList<CreateImageModel> imageList, ImageView imageView, int position, ImageView imageDelete,ProgressBar progressBar) {
 
         BlueShakLog.logDebug(TAG, "setBitmapImages imagelist size -> " + imageList.size());
         DisplayImageOptions GALLERY = new DisplayImageOptions.Builder()
@@ -326,11 +342,11 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
                 .showImageOnFail(R.drawable.placeholder_background)
                 .showImageOnLoading(R.drawable.placeholder_background).build();
 
-        setBitmapDecodedImage(position, imageView, GALLERY, imageList, imageDelete);
+        setBitmapDecodedImage(position, imageView, GALLERY, imageList, imageDelete,progressBar);
     }
 
     private void setBitmapDecodedImage(int position, ImageView imageView, DisplayImageOptions GALLERY,
-                                       ArrayList<CreateImageModel> imageList, final ImageView imageDelete) {
+                                       ArrayList<CreateImageModel> imageList, final ImageView imageDelete,final ProgressBar progressBar) {
         String decodedImgUri;
         if (imageList.get(position).getImage().contains("http")) {
             decodedImgUri = imageList.get(position).getImage();
@@ -340,25 +356,28 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
         ImageLoader.getInstance().displayImage(decodedImgUri, imageView, GALLERY, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
-
+                progressBar.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onLoadingFailed(String s, View view, FailReason failReason) {
                 BlueShakLog.logDebug(TAG, "setBitmapDecodedImage  onLoadingFailed ");
                 imageDelete.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onLoadingComplete(String s, View view, Bitmap bitmap) {
                 BlueShakLog.logDebug(TAG, "setBitmapDecodedImage  onLoadingComplete ");
                 imageDelete.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onLoadingCancelled(String s, View view) {
                 BlueShakLog.logDebug(TAG, "setBitmapDecodedImage  onLoadingCancelled ");
                 imageDelete.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
             }
         });
     }

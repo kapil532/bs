@@ -2,6 +2,7 @@ package com.blueshak.app.blueshak.photos_add;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.blueshak.app.blueshak.garage.CreateItemSaleFragment;
@@ -19,6 +21,8 @@ import com.blueshak.app.blueshak.services.model.CreateImageModel;
 import com.blueshak.app.blueshak.view.AlertDialog;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,8 +51,9 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
     static class ViewHolder {
         protected ImageView cameraImageView, deleteImageView;
         protected RelativeLayout relativeLayout;
+        protected ProgressBar progressBar;
     }
-    boolean isDefault = false;
+    boolean isFirstDelete = false;
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = null;
@@ -62,6 +67,7 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
                 viewHolder.cameraImageView = (ImageView) view.findViewById(R.id.photos_add_list_row_imageView);
                 viewHolder.deleteImageView = (ImageView) view.findViewById(R.id.photos_add_list_row_delete_image);
                 viewHolder.relativeLayout = (RelativeLayout) view.findViewById(R.id.photos_add_list_relativeLayout);
+                viewHolder.progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
                 view.setTag(viewHolder);
             } else {
                 view = convertView;
@@ -98,7 +104,35 @@ public class PhotosAddListAdapter extends ArrayAdapter<CreateImageModel> {
                 }else{
                     holder.deleteImageView.setVisibility(View.GONE);
                 }
-                imageLoader.displayImage(list.get(position).getImage(), holder.cameraImageView, options);
+                imageLoader.displayImage(list.get(position).getImage(), holder.cameraImageView, options, new ImageLoadingListener() {
+                    @Override
+                    public void onLoadingStarted(String s, View view) {
+                        holder.progressBar.setVisibility(View.VISIBLE);
+                        holder.deleteImageView.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onLoadingFailed(String s, View view, FailReason failReason) {
+                        holder.progressBar.setVisibility(View.GONE);
+                        holder.deleteImageView.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                        holder.progressBar.setVisibility(View.GONE);
+                        if(list.get(position).getImage()!=null && !list.get(position).getImage().isEmpty()){
+                            holder.deleteImageView.setVisibility(View.VISIBLE);
+                        }else{
+                            holder.deleteImageView.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onLoadingCancelled(String s, View view) {
+                        holder.progressBar.setVisibility(View.GONE);
+                        holder.deleteImageView.setVisibility(View.GONE);
+                    }
+                });
             }
 
             holder.cameraImageView.setOnClickListener(new View.OnClickListener() {

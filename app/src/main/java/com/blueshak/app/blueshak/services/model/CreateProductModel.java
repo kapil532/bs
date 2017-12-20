@@ -2,6 +2,7 @@ package com.blueshak.app.blueshak.services.model;
 
 import android.util.Log;
 
+import com.blueshak.app.blueshak.garage.CreateItemSaleFragment;
 import com.blueshak.app.blueshak.global.GlobalVariables;
 
 import org.json.JSONArray;
@@ -60,6 +61,7 @@ public class CreateProductModel implements Serializable {
     private final String REQUEST_TYPE="request_type";
     private final String REMOVE_IMAGES = "remove_images";
     private final String  NEW_IMAGE = "new_images";
+    private final String  EXISTING_IMAGE = "existing_image";
     private final String  SALE_ID = "sale_id";
     private final String  CURRENCY = "currency";
     private final String  COUNTRY_SHORT = "country_short";
@@ -72,7 +74,8 @@ public class CreateProductModel implements Serializable {
     private final String  HIDE_ITEM_PRICE = "hide_item_price";
 
 
-
+    private String imageId = "image_id";
+    private String imageOrder = "image_order";
 
     /*@@@@@@@@@@@@@@@@@@added by me@@@@@@@@@@@@@@@@*/
     private final String PRODUCT_ID="product_id";
@@ -192,15 +195,6 @@ public class CreateProductModel implements Serializable {
     public void setRequest_type(String request_type) {
         this.request_type = request_type;
     }
-    ArrayList<CreateImageModel> remove_images = new ArrayList<CreateImageModel>();
-
-    public ArrayList<CreateImageModel> getRemove_images() {
-        return remove_images;
-    }
-
-    public void setRemove_images(ArrayList<CreateImageModel> remove_images) {
-        this.remove_images = remove_images;
-    }
 
     public void setSaleID(String saleID) {
         this.saleID = saleID;
@@ -210,6 +204,8 @@ public class CreateProductModel implements Serializable {
     String address=null;
 
     ArrayList<CreateImageModel> images = new ArrayList<CreateImageModel>();
+    ArrayList<CreateImageModel> existing_images = new ArrayList<CreateImageModel>();
+    //ArrayList<CreateImageModel> remove_images = new ArrayList<CreateImageModel>();
     ArrayList<String> categories = new ArrayList<String>();
 
     boolean shipping_foc=false;
@@ -308,6 +304,26 @@ public class CreateProductModel implements Serializable {
     public void setImages(ArrayList<CreateImageModel> images) {
         this.images = images;
     }
+
+    public ArrayList<CreateImageModel> getExistingImages() {
+        return existing_images;
+    }
+
+    public void setExistingImages(ArrayList<CreateImageModel> images) {
+        this.existing_images = images;
+    }
+
+
+    ArrayList<CreateImageModel> remove_images = new ArrayList<CreateImageModel>();
+
+    public ArrayList<CreateImageModel> getRemove_images() {
+        return remove_images;
+    }
+
+    public void setRemove_images(ArrayList<CreateImageModel> remove_images) {
+        this.remove_images = remove_images;
+    }
+
 
     public ArrayList<String> getCategories() {
         return categories;
@@ -430,7 +446,7 @@ public class CreateProductModel implements Serializable {
                 model.setImage(createImageModels.get(i).getImage());
                 model.setId(createImageModels.get(i).getId());
                 //model.setImage_order(createImageModels.get(i).getId());
-                model.setDisplay(i==0?true:false);
+                model.setDisplay(true);
                 images.add(model);
             }
 
@@ -518,11 +534,16 @@ public class CreateProductModel implements Serializable {
             }
             if(request_type.equalsIgnoreCase(GlobalVariables.TYPE_UPDATE_REQUEST)){
                 JSONArray removed_arry = new JSONArray();
-                Log.d(TAG,"remove_images : "+remove_images);
-                for(int i=0;i<remove_images.size();i++){
-                    CreateImageModel model1 = remove_images.get(i);
-                    removed_arry.put(model1.getId());
+                JSONObject reomevArrObj;
+                Log.d(TAG,"remove_images : "+CreateItemSaleFragment.removed_photos);
+                for(int i = 0; i< CreateItemSaleFragment.removed_photos.size(); i++){
+                    reomevArrObj = new JSONObject();
+                    CreateImageModel model1 = CreateItemSaleFragment.removed_photos.get(i);
+                    reomevArrObj.put(imageId,model1.getId());
+                    removed_arry.put(reomevArrObj);
+                    //removed_arry.put(model1.getId());
                 }
+
                 jsonMain.put(REMOVE_IMAGES,removed_arry);
                 Log.d(TAG,"new_imageArray : "+images);
                 JSONArray new_imageArray = new JSONArray();
@@ -534,6 +555,16 @@ public class CreateProductModel implements Serializable {
                 }
                 Log.d(TAG,"################## final new_imageArray : "+new_imageArray);
                 jsonMain.put(NEW_IMAGE,new_imageArray);
+                JSONArray existing_imageArray = new JSONArray();
+                JSONObject existingArrObj;
+                for(int i=0;i<existing_images.size();i++){
+                    existingArrObj = new JSONObject();
+                    CreateImageModel model = existing_images.get(i);
+                    existingArrObj.put(imageId,model.getId());
+                    existingArrObj.put(imageOrder,model.getImage_order());
+                    existing_imageArray.put(existingArrObj);
+                }
+                jsonMain.put(EXISTING_IMAGE,existing_imageArray);
             }else
                 jsonMain.put(IMAGE, imageArray);
             returnString = jsonMain.toString();

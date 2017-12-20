@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.blueshak.app.blueshak.garage.CreateItemSaleFragment;
 import com.blueshak.app.blueshak.garage.Utils;
 import com.blueshak.app.blueshak.services.model.AskModel;
 import com.blueshak.app.blueshak.services.model.CurrencyListModel;
@@ -1059,34 +1060,41 @@ public class ServicesMethodsManager {
         setCallbacks(mCallInterface);
        // for (int i = 0; i < salesModel.getProducts().size(); i++) {
         ArrayList<CreateImageModel> images = createProductModel.getImages();
+        ArrayList<CreateImageModel> existingImages = new ArrayList<CreateImageModel>();
         Utils.sortArray(images);
         ArrayList<CreateImageModel> createImages = new ArrayList<CreateImageModel>();
             if(images.size()>0){
                 for (int j = 0; j < images.size(); j++) {
+                    CreateImageModel model;
                     if(images.get(j).isRealImage()){
                         String base64 = GlobalFunctions.getBase64fromPath(new File(images.get(j).getImage()));
                         if(base64.length()>0){
-                            CreateImageModel model = new CreateImageModel();
+                            model = new CreateImageModel();
                             model.setImage(base64);
                             model.setDisplay(true);
                             model.setImage_order(j);
                             model.setId(j);
-                            /*if (j == 0) {
-                                model.setDisplay(true);
-                            } else {
-                                model.setDisplay(false);
-                            }*/
-                            /*images.remove(j);
-                            images.add(model);*/
                             createImages.add(model);
-                        }/*else
-                            images.remove(j);*/
+                        }else{
+                            model = new CreateImageModel();
+                            model.setDisplay(true);
+                            model.setImage_order(j);
+                            model.setId(images.get(j).getId());
+                            existingImages.add(model);
+                        }
+
                     }else{
+                        model = new CreateImageModel();
+                        model.setDisplay(true);
+                        model.setImage_order(j);
+                        model.setId(images.get(j).getId());
+                        existingImages.add(model);
                         images.remove(j);
                     }
 
                 }
             }
+            createProductModel.setExistingImages(existingImages);
             createProductModel.setImages(createImages);
         //}
         postData(context, createProductModel, ServerConstants.URL_CreateSaleItem, TAG);

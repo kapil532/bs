@@ -28,10 +28,7 @@ public class CreateImageModel implements Serializable{
     int image_order;
 
     public boolean is_new_image() {
-        if(id==0)
-            return true;
-        else
-            return false;
+        return true;
     }
     public void setIs_new_image(boolean is_new_image) {
         this.is_new_image = is_new_image;

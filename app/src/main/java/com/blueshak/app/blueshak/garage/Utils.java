@@ -1,17 +1,24 @@
 package com.blueshak.app.blueshak.garage;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.location.Address;
 import android.location.Geocoder;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.blueshak.app.blueshak.services.model.CreateImageModel;
@@ -25,12 +32,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import static com.zhihu.matisse.internal.utils.PathUtils.getPath;
+
 /**
  * Created by lsingh013 on 03/12/17.
  */
 
 public class Utils {
-    static String  TAG = "Utils";
+    static String  TAG = "Utils -->> ";
     public static void removedDataFromArrayListLast(ArrayList<CreateImageModel> imageList) {
         if (imageList!=null && imageList.size() > 5) {
             for (int i = imageList.size() - 1; i >= 5; i--) {
@@ -65,8 +74,8 @@ public class Utils {
         Matrix matrix = new Matrix();
         switch (orientation) {
             case ExifInterface.ORIENTATION_NORMAL:
-                matrix.setRotate(90);
-                //return bitmap;
+                //matrix.setRotate(90);
+                return bitmap;
             case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
                 matrix.setScale(-1, 1);
                 break;
@@ -92,8 +101,8 @@ public class Utils {
                 matrix.setRotate(-90);
                 break;
             default:
-                matrix.setRotate(90);
-                //return bitmap;
+                //matrix.setRotate(90);
+                return bitmap;
         }
         try {
             Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
@@ -120,10 +129,69 @@ public class Utils {
             e.printStackTrace();
         }
         int orientation = exifObject.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+        BlueShakLog.logDebug(TAG," orientation -> "+orientation);
         Bitmap imageRotate = rotateBitmap(bitmap,orientation);
         return imageRotate;
         //imageView.setImageBitmap(imageRotate);
     }
+
+    public static Bitmap rotateBitmapOrientation(Context context, Bitmap imageAsync, Uri contentUri) throws IOException {
+        String path = getFilePath(context, contentUri);
+        ExifInterface exif = new ExifInterface(path);
+        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
+        int rotationAngle = 0;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+        // Rotate Bitmap
+        Matrix matrix = new Matrix();
+        // Create and configure BitmapFactory
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        matrix.setRotate(rotationAngle, (float) imageAsync.getWidth() / 2, (float) imageAsync.getHeight() / 2);
+        imageAsync = Bitmap.createBitmap(imageAsync, 0, 0, imageAsync.getWidth(), imageAsync.getHeight(), matrix, true);
+        return imageAsync;
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private static String getFilePath(Context context, Uri contentUri) {
+        String wholeID = "";
+        try {
+            wholeID = DocumentsContract.getDocumentId(contentUri);
+        } catch (Exception e) {
+            return getPath(context, contentUri);
+        }
+        String id = wholeID.split(":")[1];
+        String[] column = {MediaStore.Images.Media.DATA};
+
+        String sel = MediaStore.Images.Media._ID + "=?";
+        Cursor cursor = context.getContentResolver().
+                query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        column, sel, new String[]{id}, null);
+
+        String filePath = "";
+        int columnIndex = cursor.getColumnIndex(column[0]);
+        if (cursor.moveToFirst()) {
+            filePath = cursor.getString(columnIndex);
+        }
+        cursor.close();
+        return filePath;
+    }
+
+    public static Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height,
+                matrix, false);
+
+        return resizedBitmap;
+    }
+
 
     private String getRealPathFromURIPath(Uri contentURI, Activity activity) {
         Cursor cursor = activity.getContentResolver().query(contentURI, null, null, null, null);
@@ -193,6 +261,35 @@ public class Utils {
                 boolean b2 = mall2.isDisplay();
 
                 return (b1 != b2) ? (b2) ? -1 : 1 : 0;
+            }
+        });
+    }
+
+    public static void setEditTextMaxLength(EditText edt_text) {
+        InputFilter[] filterArray = new InputFilter[1];
+        if(edt_text.getText().toString().contains(".")){
+            filterArray[0] = new InputFilter.LengthFilter(11);
+        }else{
+            filterArray[0] = new InputFilter.LengthFilter(8);
+        }
+        edt_text.setFilters(filterArray);
+    }
+
+    public static void editTextWatcher(final EditText edt_text){
+        edt_text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                setEditTextMaxLength(edt_text);
             }
         });
     }
