@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -33,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueshak.app.blueshak.garage.CreateItemSaleFragment;
+import com.blueshak.app.blueshak.garage.Utils;
 import com.blueshak.app.blueshak.services.model.CreateImageModel;
 import com.hbb20.CountryCodePicker;
 import com.blueshak.app.blueshak.otp.OTPActivity;
@@ -459,17 +461,19 @@ public class ProfileEditActivity extends RootActivity {
             try {
 
                 try {
-                    Uri selectedImage = data.getData();
-                    String imagePatha = "profile";
-                    Bitmap bit_ = (Bitmap) data.getExtras().get("data");
-                    // String bitmap = ImageUtils.savePicture(activity, bit_, imagePatha);
-                    String base64_image= CommonUtil.encodeToBase64(bit_, Bitmap.CompressFormat.JPEG,100);
+                    Bitmap rotedBitmap = null,bitmap = null;
+                    bitmap = (Bitmap) data.getExtras().get("data");
+                    Uri selectedImage = Utils.getImageUri(this,bitmap);
+                    rotedBitmap = Utils.setRotatedBitmap(this, Utils.getResizedBitmap(bitmap,
+                            bitmap.getHeight(),bitmap.getWidth()), selectedImage);
+
+                    String base64_image= CommonUtil.encodeToBase64(rotedBitmap, Bitmap.CompressFormat.JPEG,100);
                     setImage_bmp(base64_image);
                     // String bitmap = ImagePicker.getImagePathFromResult(getActivity(),requestCode,resultCode,data);
                     if(!TextUtils.isEmpty(base64_image)){
 
                         Picasso.with(activity)
-                                .load(getImageUri(activity,bit_))
+                                .load(getImageUri(activity,rotedBitmap))
                                 .placeholder(R.drawable.squareplaceholder)
                                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                                 .networkPolicy(NetworkPolicy.NO_CACHE)
@@ -479,10 +483,17 @@ public class ProfileEditActivity extends RootActivity {
                     }else{
                         Toast.makeText(context,"Your profile pic is empty can't update the your profile",Toast.LENGTH_LONG).show();
                     }
+                    if (bitmap != null) {
+                        bitmap.recycle();
+                        bitmap = null;
+                    }
+                    if (rotedBitmap != null) {
+                        rotedBitmap.recycle();
+                        rotedBitmap = null;
+                    }
                 } catch (Exception e) {
 
                 }
-
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -491,16 +502,19 @@ public class ProfileEditActivity extends RootActivity {
             Uri selectedImage = data.getData();
             try {
                 try {
+
+                    Bitmap bitmap = null, rotedBitmap = null;
                     String imagePatha = "profile";
-                    Bitmap bit_ = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                    // String bitmap = ImageUtils.savePicture(activity, bit_, imagePatha);
-                    String base64_image= CommonUtil.encodeToBase64(bit_, Bitmap.CompressFormat.JPEG,100);
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                    rotedBitmap = Utils.setRotatedBitmap(this, Utils.getResizedBitmap(bitmap,
+                            bitmap.getHeight()/2,bitmap.getWidth()/2), selectedImage);
+                    String base64_image= CommonUtil.encodeToBase64(rotedBitmap, Bitmap.CompressFormat.JPEG,100);
                     setImage_bmp(base64_image);
                     // String bitmap = ImagePicker.getImagePathFromResult(getActivity(),requestCode,resultCode,data);
                     if(!TextUtils.isEmpty(base64_image)){
 
                         Picasso.with(activity)
-                                .load(getImageUri(activity,bit_))
+                                .load(getImageUri(activity,rotedBitmap))
                                 .placeholder(R.drawable.squareplaceholder)
                                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                                 .networkPolicy(NetworkPolicy.NO_CACHE)
@@ -510,6 +524,16 @@ public class ProfileEditActivity extends RootActivity {
                     }else{
                         Toast.makeText(context,"Your profile pic is empty can't update the your profile",Toast.LENGTH_LONG).show();
                     }
+
+                    if (bitmap != null) {
+                        bitmap.recycle();
+                        bitmap = null;
+                    }
+                    if (rotedBitmap != null) {
+                        rotedBitmap.recycle();
+                        rotedBitmap = null;
+                    }
+
                 } catch (Exception e) {
 
                 }
@@ -670,7 +694,9 @@ public class ProfileEditActivity extends RootActivity {
         if (permissionCheck_location_coarse != PackageManager.PERMISSION_GRANTED ||
                 permissionCheck_write_coarse != PackageManager.PERMISSION_GRANTED
                 || permissionCheck_camera != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CHECK_CAMERA);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CHECK_CAMERA);
+            }
         }
 
 

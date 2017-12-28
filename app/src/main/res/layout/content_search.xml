@@ -1,187 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/swipe_container"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/white"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.blueshak.app.blueshak.search.SearchActivity"
-    tools:showIn="@layout/activity_search"
-    >
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="5dp"
-  >
-    <!--<include layout="@layout/item_list_row_item_header_new"
-        android:id="@+id/include" />-->
+    tools:showIn="@layout/activity_search">
 
-    <LinearLayout
-        android:visibility="gone"
-        android:background="@color/brand_secondary_color"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:id="@+id/header_content"
-        android:orientation="horizontal">
-
-        <!--<com.langoor.app.blueshak.text.MyTextViewBold
-            android:layout_margin="10dp"
-            android:layout_weight=".75"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Results in 'All'"
-            android:textStyle="bold"
-            android:textColor="@color/brandColor"
-            android:singleLine="true"
-            android:id="@+id/results_all"
-            android:layout_gravity="center_vertical"
-            android:maxLines="1"
-            android:scrollHorizontally="true"
-            android:ellipsize="none"
-            android:textSize="20sp"
-            android:gravity="center_vertical"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/view2"
-            android:layout_toStartOf="@+id/view2" >
-        </com.langoor.app.blueshak.text.MyTextViewBold>-->
-        <ImageView
-            android:layout_marginRight="10dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="35dp"
-            android:id="@+id/go_to_filter"
-            android:layout_weight=".25"
-            android:layout_height="35dp"
-            android:src="@drawable/ic_filter_blue"/>
-        <!--<ImageView
-            android:layout_margin="10dp"
-            android:layout_width="wrap_content"
-            android:id="@+id/go_to_filter"
-            android:layout_weight=".25"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_filter_blue"/>-->
-    </LinearLayout>
-<LinearLayout
-    android:id="@+id/search_bar"
-    android:background="@color/brand_secondary_color"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <com.blueshak.app.blueshak.text.MyEditTextView
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:id="@+id/searchViewResult"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:imeOptions="actionSearch"
-        android:imeActionLabel="Search"
-        android:hint="Search for any product"
-        android:singleLine="true"
-        android:textSize="16sp"
-        android:drawableRight="@drawable/ic_search_field"
-        android:background="@android:drawable/editbox_background_normal"
-        android:textColor="@color/brand_text_color"
-        android:layout_below="@+id/header_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-    </com.blueshak.app.blueshak.text.MyEditTextView>
-    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
-        android:visibility="gone"
-        android:background="@color/white"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Results from Newly Listed"
-        android:textStyle="italic"
-        android:textColor="@color/black"
-        android:singleLine="true"
-        android:id="@+id/results_all"
-        android:layout_gravity="center_vertical"
-        android:maxLines="1"
-        android:scrollHorizontally="true"
-        android:ellipsize="none"
-        android:textSize="@dimen/results_all_textsize"
-        >
-        </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
-    </LinearLayout>
-
-
-    <com.blueshak.app.blueshak.text.MyTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/brand_text_color"
-        android:text="No Products Found"
-       android:visibility="gone"
-        android:textSize="16sp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
-        </com.blueshak.app.blueshak.text.MyTextView>
-<!--    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Searh_List"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/searchViewResult" />-->
-
-   <!-- <ListView
-        android:id="@+id/Searh_List"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:choiceMode="singleChoice"
-        android:layout_below="@+id/searchViewResult"
-        android:divider="@drawable/list_divider"
-        android:dividerHeight="5dp"
-        android:footerDividersEnabled="true" />-->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:scrollbars="none"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/search_bar" />
+        android:layout_margin="5dp">
+        <!--<include layout="@layout/item_list_row_item_header_new"
+            android:id="@+id/include" />-->
 
-    <com.blueshak.app.blueshak.text.MyTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/brand_text_color"
-        android:text="No products found your search"
-        android:visibility="gone"
-        android:textSize="16sp"
-        android:id="@+id/no_search"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
-        </com.blueshak.app.blueshak.text.MyTextView>
-    <fr.castorflex.android.circularprogressbar.CircularProgressBar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_gravity="center"
-        android:indeterminate="true"
-        app:cpb_color="#F00"
-        app:cpb_colors="@array/color_array"
-        app:cpb_max_sweep_angle="300"
-        app:cpb_min_sweep_angle="10"
-        app:cpb_rotation_speed="1.0"
-        android:visibility="gone"
-        android:padding="10dp"
-        app:cpb_stroke_width="4dp"
-        android:background="@drawable/bg_circle_unread_count"
-        app:cpb_sweep_speed="1.0"
-        android:id="@+id/progress_bar"
-        android:indeterminateTintMode="src_atop"
-        android:indeterminateTint="@color/tab_selected"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-       />
-</RelativeLayout>
+        <LinearLayout
+            android:id="@+id/header_content"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/brand_secondary_color"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+
+            <ImageView
+                android:id="@+id/go_to_filter"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:layout_weight=".25"
+                android:src="@drawable/ic_filter_blue" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/brand_secondary_color"
+            android:orientation="vertical">
+
+            <com.blueshak.app.blueshak.text.MyEditTextView
+                android:id="@+id/searchViewResult"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/header_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:drawableRight="@drawable/ic_search_field"
+                android:hint="Search for any product"
+                android:imeActionLabel="Search"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:textColor="@color/brand_text_color"
+                android:textSize="16sp"></com.blueshak.app.blueshak.text.MyEditTextView>
+
+            <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                android:id="@+id/results_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white"
+                android:maxLines="1"
+                android:padding="10dp"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="@string/item_list_fragment_for_list_result_from_nearest_new"
+                android:textColor="@color/black"
+                android:textSize="@dimen/results_all_textsize"
+                android:textStyle="italic"
+                android:visibility="gone"></com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+        </LinearLayout>
+
+
+        <com.blueshak.app.blueshak.text.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="No Products Found"
+            android:textColor="@color/brand_text_color"
+            android:textSize="16sp"
+            android:visibility="gone"></com.blueshak.app.blueshak.text.MyTextView>
+        <!--    <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Searh_List"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/searchViewResult" />-->
+
+        <!-- <ListView
+             android:id="@+id/Searh_List"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:choiceMode="singleChoice"
+             android:layout_below="@+id/searchViewResult"
+             android:divider="@drawable/list_divider"
+             android:dividerHeight="5dp"
+             android:footerDividersEnabled="true" />-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/search_bar"
+            android:clipToPadding="false"
+            android:scrollbars="none" />
+
+        <com.blueshak.app.blueshak.text.MyTextView
+            android:id="@+id/no_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="No products found your search"
+            android:textColor="@color/brand_text_color"
+            android:textSize="16sp"
+            android:visibility="gone"></com.blueshak.app.blueshak.text.MyTextView>
+
+        <fr.castorflex.android.circularprogressbar.CircularProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/progress_bar"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_circle_unread_count"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/tab_selected"
+            android:indeterminateTintMode="src_atop"
+            android:padding="10dp"
+            android:visibility="gone"
+            app:cpb_color="#F00"
+            app:cpb_colors="@array/color_array"
+            app:cpb_max_sweep_angle="300"
+            app:cpb_min_sweep_angle="10"
+            app:cpb_rotation_speed="1.0"
+            app:cpb_stroke_width="4dp"
+            app:cpb_sweep_speed="1.0" />
+    </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

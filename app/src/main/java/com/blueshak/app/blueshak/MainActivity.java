@@ -205,7 +205,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             }
                         }
                     });
-            go_to_search.setOnClickListener(new View.OnClickListener() {
+            searchViewResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(activity, SearchActivity.class));

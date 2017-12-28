@@ -101,7 +101,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="5dp"
+            android:layout_margin="7dp"
             android:background="@drawable/round_corner_btn__style"
             android:gravity="center"
             android:text="Set Location"

@@ -894,14 +894,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                         try {
                             String bitmapa;
                             Bitmap bitmap = null, rotedBitmap = null;
-                            /*if (AlbumMediaAdapter.isCameraClick) {
-                                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uriImage);
-                                rotedBitmap = Utils.setRotatedBitmap(getActivity(), Utils.getResizedBitmap(bitmap,bitmap.getHeight()/2,bitmap.getWidth()/2), uriImage);
-                                bitmapa = ImageUtils.savePicture(getActivity(), rotedBitmap, "" + imagePatha);
-                            } else {
-                                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uriImage);
-                                bitmapa = ImageUtils.savePicture(getActivity(), bitmap, "" + imagePatha);
-                            }*/
 
                             bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uriImage);
                             rotedBitmap = Utils.setRotatedBitmap(getActivity(), Utils.getResizedBitmap(bitmap,bitmap.getHeight()/2,bitmap.getWidth()/2), uriImage);

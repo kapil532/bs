@@ -140,13 +140,13 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                 }
             });
             searchViewResult=(TextView)view.findViewById(R.id.searchViewResult);
-            searchViewResult.setOnClickListener(new View.OnClickListener() {
+            /*searchViewResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SearchActivity.TYPE_SEARCH=GlobalVariables.TYPE_SHOP;
                     startActivity(new Intent(activity, SearchActivity.class));
                 }
-            });
+            });*/
             /*results_all.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {

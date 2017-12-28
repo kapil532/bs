@@ -1,597 +1,595 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_below="@+id/product_detail_tool_bar"
-    android:layout_above="@+id/product_detail_button_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_above="@+id/product_detail_button_layout"
+    android:layout_below="@+id/product_detail_tool_bar"
     android:layout_weight="1"
     android:background="@color/brand_background_color"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:fillViewport="false">
+    android:fillViewport="false"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<LinearLayout
-    android:id="@+id/swipe_container"
-    android:background="@color/brand_background_color"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-    <LinearLayout
-          android:layout_width="match_parent"
-          android:id="@+id/profile_content"
-        android:layout_margin="10dp"
 
-          android:layout_height="wrap_content"
-          android:orientation="vertical">
-            <com.blueshak.app.blueshak.text.MyTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/profile_edit"
-                android:textStyle="bold"
-                android:textColor="@color/brandColor"
-                android:textSize="18sp"
-                android:id="@+id/edit"
-                android:layout_gravity="right">
-            </com.blueshak.app.blueshak.text.MyTextView>
-          <com.blueshak.app.blueshak.helper.RoundedImageView
-              android:id="@+id/rounde_image"
-              android:layout_width="100dp"
-              android:layout_height="100dp"
-              android:layout_centerHorizontal="true"
-              android:scaleType="centerCrop"
-              android:layout_centerVertical="true"
-              android:layout_alignParentLeft="true"
-              android:layout_alignParentStart="true"
-              android:layout_gravity="center_horizontal">
-          </com.blueshak.app.blueshak.helper.RoundedImageView>
-          <ImageView
-              android:id="@+id/online_status"
-              android:layout_width="20dp"
-              android:layout_height="20dp"
-              android:gravity="center"
-              android:textSize="12sp"
-              android:layout_marginLeft="52dp"
-              android:layout_marginTop="52dp"
-              android:textColor="@android:color/white"
-              android:visibility="gone"
-              android:background="@drawable/online_status"
-              />
-          <com.blueshak.app.blueshak.text.MyTextViewMediumBold
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text=""
-              android:layout_marginTop="3dp"
-              android:textStyle="bold"
-              android:textColor="@color/brand_text_color"
-              android:textSize="18sp"
-              android:id="@+id/profile_name"
-              android:layout_gravity="center_horizontal">
-              </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
-          <com.blueshak.app.blueshak.text.MyTextViewBold
-              android:layout_width="wrap_content"
-              android:layout_marginTop="3dp"
-              android:layout_height="wrap_content"
-              android:text=""
-              android:textStyle="bold"
-              android:textColor="@color/brandColor"
-              android:textSize="16sp"
-              android:id="@+id/email_id"
-              android:layout_gravity="center_horizontal">
-          </com.blueshak.app.blueshak.text.MyTextViewBold>
-          <com.blueshak.app.blueshak.text.MyTextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="3dp"
-              android:text=""
-              android:textStyle="bold"
-              android:textColor="@color/brand_text_color"
-              android:textSize="18sp"
-              android:id="@+id/phone_no"
-              android:layout_gravity="center_horizontal">
-          </com.blueshak.app.blueshak.text.MyTextView>
-          <com.blueshak.app.blueshak.text.MyTextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="3dp"
-              android:text=""
-              android:textStyle="bold"
-              android:textColor="@color/brand_text_color"
-              android:textSize="18sp"
-              android:id="@+id/address"
-              android:visibility="gone"
-              android:layout_gravity="center_horizontal">
-          </com.blueshak.app.blueshak.text.MyTextView>
-          <com.blueshak.app.blueshak.text.MyTextView
-              android:layout_width="wrap_content"
-              android:visibility="gone"
-              android:layout_height="wrap_content"
-              android:text="@string/profile_your_contact"
-              android:textStyle="bold"
-              android:textColor="@color/brand_text_color"
-              android:textSize="14sp"
-              android:layout_gravity="center_horizontal">
-          </com.blueshak.app.blueshak.text.MyTextView>
-            <RatingBar
-                  android:progressTint="@color/tab_selected"
-                  style="?android:attr/ratingBarStyleSmall"
-                  android:id="@+id/ratingBar"
-                  android:layout_gravity="center_horizontal"
-                  android:layout_marginTop="3dp"
-                  android:gravity="center_vertical"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:rating="0"
-                  />
-            <com.blueshak.app.blueshak.text.MyTextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Read reviews(0)"
-                  android:layout_gravity="center_horizontal"
-                  android:textColor="@color/brandColor"
-                  android:textSize="14sp"
-                  android:id="@+id/read_reviews"
-                  >
-              </com.blueshak.app.blueshak.text.MyTextView>
-
-      </LinearLayout>
-
-    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/profile_listing"
-        android:padding="10dp"
-        android:textStyle="bold"
-        android:textColor="@color/brand_text_color"
-        android:textSize="18sp"
-        android:layout_gravity="center_vertical">
-    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/bottom_bar_background_color"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-      <LinearLayout
-          android:id="@+id/listing_content"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:layout_margin="10dp"
-
-          >
-          <RelativeLayout
-              android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-          <com.blueshak.app.blueshak.text.MyTextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@string/profile_my_items"
-              android:drawableLeft="@drawable/ic_my_listings"
-              android:drawablePadding="10dp"
-              android:gravity="left"
-              android:textColor="@color/brand_text_color"
-              android:textSize="@dimen/sign_up_text_size"
-              android:layout_marginRight="20dp"
-              >
-              </com.blueshak.app.blueshak.text.MyTextView>
-              <ImageView
-              android:layout_width="24dp"
-              android:layout_marginTop="1dp"
-              android:layout_height="24dp"
-              android:textSize="@dimen/sign_up_text_size"
-              android:layout_alignParentRight="true"
-                  android:text="0" android:src="@drawable/ic_brow_arrow"
-              android:textColor="@color/brand_text_color"
-              >
-              </ImageView>
-        </RelativeLayout>
-      </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/bottom_bar_background_color"/>
-            <LinearLayout
-                android:id="@+id/likes_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="10dp"
-
-                >
-
-                <RelativeLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <com.blueshak.app.blueshak.text.MyTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/profile_my_bookmarks"
-                        android:drawableLeft="@drawable/ic_star_big_off"
-                        android:drawablePadding="10dp"
-                        android:gravity="left"
-                        android:textColor="@color/brand_text_color"
-                          android:textSize="@dimen/sign_up_text_size"
-                        android:layout_marginRight="20dp"
-                        >
-                    </com.blueshak.app.blueshak.text.MyTextView>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_height="24dp"
-                          android:textSize="@dimen/sign_up_text_size"
-                        android:layout_alignParentRight="true"
-                        android:text="0" android:src="@drawable/ic_brow_arrow"
-                        android:textColor="@color/brand_text_color"
-                        >
-                    </ImageView>
-                </RelativeLayout>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/bottom_bar_background_color"/>
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/shop_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="10dp"
-
-                >
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <com.blueshak.app.blueshak.text.MyTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/profile_my_shops"
-                        android:gravity="left"
-                        android:textColor="@color/brand_text_color"
-                        android:textSize="@dimen/sign_up_text_size"
-                        android:layout_marginRight="20dp"
-                        >
-                    </com.blueshak.app.blueshak.text.MyTextView>
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_height="24dp"
-                          android:textSize="@dimen/sign_up_text_size"
-                        android:layout_alignParentRight="true"
-                        android:text="0" android:src="@drawable/ic_brow_arrow"
-                        android:textColor="@color/brand_text_color"
-                        >
-                    </ImageView>
-                </RelativeLayout>
-            </LinearLayout>
-
-       </LinearLayout>
-    <View
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/bottom_bar_background_color"/>
-
-    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/profile_app"
-        android:padding="10dp"
-        android:layout_marginTop="5dp"
-        android:textStyle="bold"
-        android:textColor="@color/brand_text_color"
-        android:textSize="18sp"
-        android:layout_gravity="center_vertical">
-    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/bottom_bar_background_color"/>
         <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical">
+            android:id="@+id/swipe_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/brand_background_color"
+            android:orientation="vertical">
+
             <LinearLayout
-                android:id="@+id/contact_support_content"
-                android:layout_width="wrap_content"
+                android:id="@+id/profile_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+
                 android:layout_margin="10dp"
-                >
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                android:orientation="vertical">
+
+                <com.blueshak.app.blueshak.text.MyTextView
+                    android:id="@+id/edit"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <com.blueshak.app.blueshak.text.MyTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/profile_contact_support"
-                        android:gravity="left"
-                        android:textColor="@color/brand_text_color"
-                          android:textSize="@dimen/sign_up_text_size"
-                        android:layout_marginRight="20dp"
-                        >
-                    </com.blueshak.app.blueshak.text.MyTextView>
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_height="24dp"
-                          android:textSize="@dimen/sign_up_text_size"
-                        android:layout_alignParentRight="true"
-                        android:text="0" android:src="@drawable/ic_brow_arrow"
-                        android:textColor="@color/brand_text_color"
-                        >
-                    </ImageView>
-                </RelativeLayout>
+                    android:layout_gravity="right"
+                    android:text="@string/profile_edit"
+                    android:textColor="@color/brandColor"
+                    android:textSize="18sp"
+                    android:textStyle="bold"></com.blueshak.app.blueshak.text.MyTextView>
+
+                <com.blueshak.app.blueshak.helper.RoundedImageView
+                    android:id="@+id/rounde_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerCrop"></com.blueshak.app.blueshak.helper.RoundedImageView>
+
+                <ImageView
+                    android:id="@+id/online_status"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="52dp"
+                    android:layout_marginTop="52dp"
+                    android:background="@drawable/online_status"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="3dp"
+                    android:text=""
+                    android:textColor="@color/brand_text_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold"></com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+
+                <com.blueshak.app.blueshak.text.MyTextViewBold
+                    android:id="@+id/email_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="3dp"
+                    android:text=""
+                    android:textColor="@color/brandColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"></com.blueshak.app.blueshak.text.MyTextViewBold>
+
+                <com.blueshak.app.blueshak.text.MyTextView
+                    android:id="@+id/phone_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="3dp"
+                    android:text=""
+                    android:textColor="@color/brand_text_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold"></com.blueshak.app.blueshak.text.MyTextView>
+
+                <com.blueshak.app.blueshak.text.MyTextView
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="3dp"
+                    android:text=""
+                    android:textColor="@color/brand_text_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"></com.blueshak.app.blueshak.text.MyTextView>
+
+                <com.blueshak.app.blueshak.text.MyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/profile_your_contact"
+                    android:textColor="@color/brand_text_color"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"></com.blueshak.app.blueshak.text.MyTextView>
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="3dp"
+                    android:gravity="center_vertical"
+                    android:progressTint="@color/tab_selected"
+                    android:rating="0" />
+
+                <com.blueshak.app.blueshak.text.MyTextView
+                    android:id="@+id/read_reviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Read reviews(0)"
+                    android:textColor="@color/brandColor"
+                    android:textSize="14sp"></com.blueshak.app.blueshak.text.MyTextView>
+
             </LinearLayout>
-            <View
+
+            <com.blueshak.app.blueshak.text.MyTextViewMediumBold
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/bottom_bar_background_color"/>
-            <LinearLayout
-                android:id="@+id/rate_app_content"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="10dp"
-                >
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <com.blueshak.app.blueshak.text.MyTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/profile_rate_app"
-                        android:gravity="left"
-                        android:textColor="@color/brand_text_color"
-                          android:textSize="@dimen/sign_up_text_size"
-                        android:layout_marginRight="20dp"
-                        >
-                    </com.blueshak.app.blueshak.text.MyTextView>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_height="24dp"
-                          android:textSize="@dimen/sign_up_text_size"
-                        android:layout_alignParentRight="true"
-                        android:text="0" android:src="@drawable/ic_brow_arrow"
-                        android:textColor="@color/brand_text_color"
-                        >
-                    </ImageView>
-                </RelativeLayout>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/bottom_bar_background_color"/>
-            <LinearLayout
-                android:id="@+id/share_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="10dp"
-
-                >
-
-                <RelativeLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <com.blueshak.app.blueshak.text.MyTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/profile_share"
-                        android:gravity="left"
-                        android:textColor="@color/brand_text_color"
-                          android:textSize="@dimen/sign_up_text_size"
-                        android:layout_marginRight="20dp"
-                        >
-                    </com.blueshak.app.blueshak.text.MyTextView>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_height="24dp"
-                          android:textSize="@dimen/sign_up_text_size"
-                        android:layout_alignParentRight="true"
-                        android:text="0" android:src="@drawable/ic_brow_arrow"
-                        android:textColor="@color/brand_text_color"
-                        >
-                    </ImageView>
-                </RelativeLayout>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/bottom_bar_background_color"/>
-            <LinearLayout
-                android:id="@+id/privacy_policy_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="10dp"
-
-                >
-
-                <RelativeLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <com.blueshak.app.blueshak.text.MyTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/profile_privacy_policy"
-                        android:gravity="left"
-                        android:textColor="@color/brand_text_color"
-                        android:textSize="@dimen/sign_up_text_size"
-                        android:layout_marginRight="20dp"
-                        >
-                    </com.blueshak.app.blueshak.text.MyTextView>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_height="24dp"
-                        android:textSize="@dimen/sign_up_text_size"
-                        android:layout_alignParentRight="true"
-                        android:text="0" android:src="@drawable/ic_brow_arrow"
-                        android:textColor="@color/brand_text_color"
-                        >
-                    </ImageView>
-                </RelativeLayout>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/bottom_bar_background_color"/>
-            <LinearLayout
-                android:id="@+id/terms_conditions_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="10dp"
-
-                >
-
-                <RelativeLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <com.blueshak.app.blueshak.text.MyTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/profile_term_condition"
-                        android:gravity="left"
-                        android:textColor="@color/brand_text_color"
-                        android:textSize="@dimen/sign_up_text_size"
-                        android:layout_marginRight="20dp"
-                        >
-                    </com.blueshak.app.blueshak.text.MyTextView>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_height="24dp"
-                        android:textSize="@dimen/sign_up_text_size"
-                        android:layout_alignParentRight="true"
-                        android:text="0" android:src="@drawable/ic_brow_arrow"
-                        android:textColor="@color/brand_text_color"
-                        >
-                    </ImageView>
-                </RelativeLayout>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/bottom_bar_background_color"/>
-            <LinearLayout
-                android:id="@+id/logout_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="10dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <com.blueshak.app.blueshak.text.MyTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/profile_term_logout"
-                        android:gravity="left"
-                        android:textColor="@color/brand_text_color"
-                        android:textSize="@dimen/sign_up_text_size"
-                        android:layout_marginRight="20dp"
-                        >
-                    </com.blueshak.app.blueshak.text.MyTextView>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_height="24dp"
-                        android:textSize="@dimen/sign_up_text_size"
-                        android:layout_alignParentRight="true"
-                        android:text="0" android:src="@drawable/ic_brow_arrow"
-                        android:textColor="@color/brand_text_color"
-                        >
-                    </ImageView>
-                </RelativeLayout>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/bottom_bar_background_color"/>
-            <com.blueshak.app.blueshak.text.MyTextView
+                android:layout_gravity="center_vertical"
                 android:padding="10dp"
-                android:id="@+id/content_profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/copy_right_text"
-                android:gravity="center"
+                android:text="@string/profile_listing"
                 android:textColor="@color/brand_text_color"
-                android:textSize="@dimen/profile_text_size"
+                android:textSize="18sp"
+                android:textStyle="bold"></com.blueshak.app.blueshak.text.MyTextViewMediumBold>
 
-                >
-            </com.blueshak.app.blueshak.text.MyTextView>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/bottom_bar_background_color"/>
+                android:background="@color/bottom_bar_background_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/listing_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.blueshak.app.blueshak.text.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:drawableLeft="@drawable/ic_my_listings"
+                            android:drawablePadding="10dp"
+                            android:gravity="left"
+                            android:text="@string/profile_my_items"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_brow_arrow"
+                            android:text="0"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></ImageView>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bottom_bar_background_color" />
+
+                <LinearLayout
+                    android:id="@+id/likes_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+
+                    >
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.blueshak.app.blueshak.text.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:drawableLeft="@drawable/ic_star_big_off"
+                            android:drawablePadding="10dp"
+                            android:gravity="left"
+                            android:text="@string/profile_my_bookmarks"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_brow_arrow"
+                            android:text="0"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></ImageView>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bottom_bar_background_color" />
+
+                <LinearLayout
+                    android:id="@+id/shop_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.blueshak.app.blueshak.text.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:gravity="left"
+                            android:text="@string/profile_my_shops"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_brow_arrow"
+                            android:text="0"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></ImageView>
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bottom_bar_background_color"
+                android:visibility="gone" />
+
+            <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:padding="10dp"
+                android:text="@string/profile_app"
+                android:textColor="@color/brand_text_color"
+                android:textSize="18sp"
+                android:textStyle="bold"></com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bottom_bar_background_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/contact_support_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.blueshak.app.blueshak.text.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:gravity="left"
+                            android:text="@string/profile_contact_support"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_brow_arrow"
+                            android:text="0"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></ImageView>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bottom_bar_background_color" />
+
+                <LinearLayout
+                    android:id="@+id/rate_app_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.blueshak.app.blueshak.text.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:gravity="left"
+                            android:text="@string/profile_rate_app"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_brow_arrow"
+                            android:text="0"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></ImageView>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bottom_bar_background_color" />
+
+                <LinearLayout
+                    android:id="@+id/share_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+
+                    >
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.blueshak.app.blueshak.text.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:gravity="left"
+                            android:text="@string/profile_share"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_brow_arrow"
+                            android:text="0"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></ImageView>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bottom_bar_background_color" />
+
+                <LinearLayout
+                    android:id="@+id/privacy_policy_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+
+                    >
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.blueshak.app.blueshak.text.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:gravity="left"
+                            android:text="@string/profile_privacy_policy"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_brow_arrow"
+                            android:text="0"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></ImageView>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bottom_bar_background_color" />
+
+                <LinearLayout
+                    android:id="@+id/terms_conditions_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+
+                    >
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.blueshak.app.blueshak.text.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:gravity="left"
+                            android:text="@string/profile_term_condition"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_brow_arrow"
+                            android:text="0"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></ImageView>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bottom_bar_background_color" />
+
+                <LinearLayout
+                    android:id="@+id/logout_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.blueshak.app.blueshak.text.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:gravity="left"
+                            android:text="@string/profile_term_logout"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_brow_arrow"
+                            android:text="0"
+                            android:textColor="@color/brand_text_color"
+                            android:textSize="@dimen/sign_up_text_size"></ImageView>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bottom_bar_background_color" />
+
+                <com.blueshak.app.blueshak.text.MyTextView
+                    android:id="@+id/content_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/copy_right_text"
+                    android:textColor="@color/brand_text_color"
+                    android:textSize="@dimen/profile_text_size"
+
+                    ></com.blueshak.app.blueshak.text.MyTextView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bottom_bar_background_color" />
+            </LinearLayout>
+
         </LinearLayout>
 
-</LinearLayout>
-        <fr.castorflex.android.circularprogressbar.CircularProgressBar
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <fr.castorflex.android.circularprogressbar.CircularProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/progress_bar"
             android:layout_width="75dp"
             android:layout_height="75dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
+            android:background="@drawable/bg_circle_unread_count"
             android:indeterminate="true"
+            android:indeterminateTint="@color/tab_selected"
+            android:indeterminateTintMode="src_atop"
+            android:padding="10dp"
+            android:visibility="gone"
             app:cpb_color="#F00"
             app:cpb_colors="@array/color_array"
             app:cpb_max_sweep_angle="300"
             app:cpb_min_sweep_angle="10"
-            android:visibility="gone"
             app:cpb_rotation_speed="1.0"
-            android:padding="10dp"
             app:cpb_stroke_width="4dp"
-            android:background="@drawable/bg_circle_unread_count"
-            app:cpb_sweep_speed="1.0"
-            android:id="@+id/progress_bar"
-            android:indeterminateTintMode="src_atop"
-            android:indeterminateTint="@color/tab_selected"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            app:cpb_sweep_speed="1.0" />
 
     </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
-<!--
+</android.support.v4.widget.NestedScrollView><!--
 </android.support.v4.widget.SwipeRefreshLayout>-->
 
 

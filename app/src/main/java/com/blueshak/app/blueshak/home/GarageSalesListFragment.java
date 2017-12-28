@@ -116,13 +116,13 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
             swipeRefreshLayout.setOnRefreshListener(this);
 
             searchViewResult=(TextView)toolbar.findViewById(R.id.searchViewResult);
-            searchViewResult.setOnClickListener(new View.OnClickListener() {
+           /* searchViewResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SearchActivity.TYPE_SEARCH=GlobalVariables.TYPE_GARAGE;
                     startActivity(new Intent(activity, SearchActivity.class));
                 }
-            });
+            });*/
             swipeRefreshLayout.setColorSchemeColors(context.getResources().getColor(R.color.brandColor),
                     context.getResources().getColor(R.color.tab_selected),
                     context.getResources().getColor(R.color.darkorange),

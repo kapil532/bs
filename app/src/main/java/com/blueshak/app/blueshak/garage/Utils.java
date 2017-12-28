@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import com.blueshak.app.blueshak.services.model.CreateImageModel;
 import com.blueshak.app.blueshak.util.BlueShakLog;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -292,5 +293,12 @@ public class Utils {
                 setEditTextMaxLength(edt_text);
             }
         });
+    }
+
+    public static Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "profile", null);
+        return Uri.parse(path);
     }
 }

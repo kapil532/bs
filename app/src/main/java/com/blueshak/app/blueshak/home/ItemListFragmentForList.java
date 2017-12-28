@@ -46,6 +46,7 @@ import com.blueshak.app.blueshak.services.model.LocationModel;
 import com.blueshak.app.blueshak.services.model.ProductModel;
 import com.blueshak.app.blueshak.services.model.SalesListModel;
 import com.blueshak.app.blueshak.services.model.SalesModel;
+import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.blueshak.app.blueshak.util.LocationListener;
 import com.blueshak.app.blueshak.util.LocationService;
 import com.blueshak.blueshak.R;
@@ -142,14 +143,20 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
             });
             searchViewResult=(TextView)toolbar.findViewById(R.id.searchViewResult);
           //  TextView searchViewResult=(TextView)view.findViewById(R.id.searchViewResult);
-            searchViewResult.setOnClickListener(new View.OnClickListener() {
+            /*searchViewResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v)
                 {
-                    SearchActivity.TYPE_SEARCH=GlobalVariables.TYPE_SHOP;
-                    startActivity(new Intent(activity, SearchActivity.class));
+                    try {
+                        //if(activity!=null){
+                            SearchActivity.TYPE_SEARCH=GlobalVariables.TYPE_SHOP;
+                            startActivity(new Intent(getActivity(), SearchActivity.class));
+                       // }
+                    } catch (Exception e) {
+                        BlueShakLog.logError(TAG,"onClick error "+e.getLocalizedMessage());
+                    }
                 }
-            });
+            });*/
             /*results_all.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
