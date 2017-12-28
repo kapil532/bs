@@ -818,8 +818,20 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             ratingBar1.setRating(Float.parseFloat(productModel.getCummalative_rating()));
 
         }
-        /*getAddressFromLatLng(Double.parseDouble(productModel.getLatitude()),Double.parseDouble(productModel.getLongitude()));*/
-        location.setText(productModel.getAddress());
+
+        if(productModel.getAddress()!=null && !productModel.getAddress().isEmpty()){
+            location.setText(productModel.getAddress());
+        }else{
+            LocationModel location_model = new LocationModel();
+            String address = location_model.getAddressFromLatLong(this, Double.valueOf(productModel.getLatitude()),
+                    Double.valueOf(productModel.getLongitude()));
+            if(address!=null){
+                location.setText(address);
+            }else{
+                getAddressFromLatLng(Double.parseDouble(productModel.getLatitude()),Double.parseDouble(productModel.getLongitude()));
+            }
+        }
+
         showContent();
         setMap();
         getSellerProducts();

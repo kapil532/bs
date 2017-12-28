@@ -131,6 +131,16 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
     public static ArrayList<CreateImageModel> removed_photos = new ArrayList<CreateImageModel>();
 
+    private boolean item_negotiable = false;
+    private boolean hide_item = false;
+    private boolean isShippable = false;
+    private boolean shipping_foc = false;
+    private boolean is_intl_shipping = false;
+
+    String intl_shipping_cost = "";
+    String time_to_deliver = "";
+    String local_shipping_cost = "";
+
     public static CreateItemSaleFragment newInstance(Context context, CreateProductModel sales, LocationModel locationModel, String type, int from) {
         CreateItemSaleFragment createItemSaleFragment = new CreateItemSaleFragment();
         Bundle bundle = new Bundle();
@@ -321,23 +331,13 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
     //Changes 6/25/2017
     //item_negotiable =nagotiable
-    boolean item_negotiable = false;
-    boolean hide_item = false;
-    boolean isShippable = false;
-    boolean shipping_foc = false;
-    boolean is_intl_shipping = false;
 
-
-    String intl_shipping_cost = "";
-    String time_to_deliver = "";
-    String local_shipping_cost = "";
 
     private void onClickProcessing() {
 
         /*//selectedCategoryIDs = NewItemOption.selectedCategoryIDs;
         selectedCategoryIDs = productModel.getCategories();*/
-        if (item_negotiable)
-            productModel.setNegotiable(true);
+
         productModel.setIs_pickup(NewItemOption.is_new_old_);
         if (hide_item)
             productModel.setHide_item_price(true);
@@ -847,8 +847,10 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 } else if (requestCode == globalVariables.REQUEST_CODE_NEGOTIABLE) {
                     Log.i(TAG, "REQUEST_CODE_SELECT_CATEGORY " + requestCode);
 
-                    item_negotiable = data.getExtras().getBoolean("item_negotiable");
-                    hide_item = data.getExtras().getBoolean("hide_item");
+                    /*item_negotiable = data.getExtras().getBoolean("item_negotiable");
+                    hide_item = data.getExtras().getBoolean("hide_item");*/
+                    item_negotiable = NegotiableSelection.bool_item_negotiable_;
+                    hide_item = NegotiableSelection.bool_hide_item_;
                     Log.d("AAAA", "&&&&&&&&&&" + item_negotiable + "--" + hide_item);
 
                 } else if (requestCode == globalVariables.REQUEST_CODE_SHIPPING) {
@@ -869,14 +871,15 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
 
                 } else if (requestCode == globalVariables.REQUEST_CODE_NEWITEM) {
 
-
-                    try {
+                    item_negotiable = NegotiableSelection.bool_item_negotiable_;
+                    hide_item = NegotiableSelection.bool_hide_item_;
+                   /* try {
                         item_negotiable = data.getExtras().getBoolean("item_negotiable");
                         hide_item = data.getExtras().getBoolean("hide_item");
                     } catch (Exception e) {
                         item_negotiable = false;
                         hide_item = false;
-                    }
+                    }*/
                     isShippable = ShippingSelection.isShippable;
                     shipping_foc = ShippingSelection.shipping_foc;
                     is_intl_shipping = ShippingSelection.is_intl_shipping;

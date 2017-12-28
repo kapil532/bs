@@ -45,9 +45,10 @@ public class CategoryActivity extends RootActivity implements OnSelected {
     private TextView close_button;
     private ImageView go_back;
     private CategoryListModel clm;
-    private boolean is_multiple_selection=false;
-    private  String category=null;
-    public static Intent newInstance(Context context, boolean is_multiple_selection,String category){
+    private boolean is_multiple_selection = false;
+    private String category = null;
+
+    public static Intent newInstance(Context context, boolean is_multiple_selection, String category) {
         Intent mIntent = new Intent(context, CategoryActivity.class);
         Bundle bundle = new Bundle();
         bundle.putBoolean(MY_ITEMS_ITEMS_AVAILABLE, is_multiple_selection);
@@ -55,28 +56,29 @@ public class CategoryActivity extends RootActivity implements OnSelected {
         mIntent.putExtras(bundle);
         return mIntent;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-        try{
-            context= this;
-            activity= this;
-            if(getIntent().hasExtra(MY_ITEMS_ITEMS_AVAILABLE))
-                is_multiple_selection=getIntent().getBooleanExtra(MY_ITEMS_ITEMS_AVAILABLE,false);
-            if(getIntent().hasExtra(CATEGORY))
-                category=getIntent().getStringExtra(CATEGORY);
+        try {
+            context = this;
+            activity = this;
+            if (getIntent().hasExtra(MY_ITEMS_ITEMS_AVAILABLE))
+                is_multiple_selection = getIntent().getBooleanExtra(MY_ITEMS_ITEMS_AVAILABLE, false);
+            if (getIntent().hasExtra(CATEGORY))
+                category = getIntent().getStringExtra(CATEGORY);
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             setSupportActionBar(toolbar);
             LayoutInflater inflator = LayoutInflater.from(this);
             View v = inflator.inflate(R.layout.action_bar_titlel, null);
-            ((TextView)v.findViewById(R.id.title)).setText("Category");
+            ((TextView) v.findViewById(R.id.title)).setText("Category");
             toolbar.addView(v);
-            close_button=(TextView)v.findViewById(R.id.cancel);
+            close_button = (TextView) v.findViewById(R.id.cancel);
             close_button.setText("Done");
-            if(!is_multiple_selection)
+            if (!is_multiple_selection)
                 close_button.setVisibility(View.GONE);
             close_button.setOnClickListener(new View.OnClickListener() {
                                                 @Override
@@ -85,7 +87,7 @@ public class CategoryActivity extends RootActivity implements OnSelected {
                                                 }
                                             }
             );
-            go_back=(ImageView)findViewById(R.id.go_back);
+            go_back = (ImageView) findViewById(R.id.go_back);
             go_back.setVisibility(View.VISIBLE);
             go_back.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,7 +96,7 @@ public class CategoryActivity extends RootActivity implements OnSelected {
                 }
             });
             no_sales = (TextView) findViewById(R.id.no_sales);
-            done=(Button)findViewById(R.id.done);
+            done = (Button) findViewById(R.id.done);
             done.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -102,23 +104,23 @@ public class CategoryActivity extends RootActivity implements OnSelected {
                 }
             });
 
-            if(clm==null) {
+            if (clm == null) {
                 clm = GlobalFunctions.getCategories(activity);
                 if (clm != null) {
 
-                    product_list=clm.getCategoryList();
-                    product_list.add(0,getList());
+                    product_list = clm.getCategoryList();
+                    product_list.add(0, getList());
                 }
             }
             recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-            if(category!=null&&!TextUtils.isEmpty(category)){
-                for(int i=0;i<product_list.size();i++){
-                    if(category!=null&&category.equalsIgnoreCase(product_list.get(i).getName()))
+            if (category != null && !TextUtils.isEmpty(category)) {
+                for (int i = 0; i < product_list.size(); i++) {
+                    if (category != null && category.equalsIgnoreCase(product_list.get(i).getName()))
                         product_list.get(i).setIs_selected(true);
 
                 }
             }
-            adapter = new CategoryListAdapter(context,product_list,is_multiple_selection,this);
+            adapter = new CategoryListAdapter(context, product_list, is_multiple_selection, this);
             LinearLayoutManager linearLayoutManagerVertical =
                     new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(linearLayoutManagerVertical);
@@ -128,13 +130,14 @@ public class CategoryActivity extends RootActivity implements OnSelected {
             recyclerView.setAdapter(adapter);
             recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Crashlytics.log(e.getMessage());
-            Log.d(TAG,e.getMessage());
+            Log.d(TAG, e.getMessage());
         }
 
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -152,46 +155,48 @@ public class CategoryActivity extends RootActivity implements OnSelected {
 
 
     }
-    public void addItems(){
+
+    public void addItems() {
         String data = "";
         List<CategoryModel> stList = ((CategoryListAdapter) adapter).getProductList();
-        List<CategoryModel> selected_List =new ArrayList<CategoryModel>();
+        List<CategoryModel> selected_List = new ArrayList<CategoryModel>();
         selected_List.clear();
 
         for (int i = 0; i < stList.size(); i++) {
             CategoryModel productModel = stList.get(i);
             if (productModel.is_selected() == true) {
                 /*data = data + "\n" + productModel.getName().toString();*/
-                data=data+productModel.getId()+ ",";
+                data = data + productModel.getId() + ",";
                 selected_List.add(productModel);
             }
         }
-        CategoryModel categoryModel=new CategoryModel();
+        CategoryModel categoryModel = new CategoryModel();
         categoryModel.setSelectedCategoryString(selected_List);
-        Log.d(TAG,"####Selected ids#########"+data);
+        Log.d(TAG, "####Selected ids#########" + data);
         setReturnResult(categoryModel);
 
     }
 
-    private void setReturnResult(CategoryModel categoryModel){
-        if(categoryModel!=null){
+    private void setReturnResult(CategoryModel categoryModel) {
+        if (categoryModel != null) {
             Bundle bundle = new Bundle();
             Intent result;
-            if(is_multiple_selection){
-                bundle.putSerializable(FilterActivity.CREATE_ITEM_CATEGORY_BUNDLE_KEY,categoryModel);
-                result = new Intent(activity,FilterActivity.class);
-            }else {
-                bundle.putSerializable(CreateItemSaleFragment.CREATE_ITEM_CATEGORY_BUNDLE_KEY,categoryModel);
-                result = new Intent(activity,CreateSaleActivity.class);
+            if (is_multiple_selection) {
+                bundle.putSerializable(FilterActivity.CREATE_ITEM_CATEGORY_BUNDLE_KEY, categoryModel);
+                result = new Intent(activity, FilterActivity.class);
+            } else {
+                bundle.putSerializable(CreateItemSaleFragment.CREATE_ITEM_CATEGORY_BUNDLE_KEY, categoryModel);
+                result = new Intent(activity, CreateSaleActivity.class);
             }
             result.putExtras(bundle);
-            setResult(this.RESULT_OK,result);
-        }else{
+            setResult(this.RESULT_OK, result);
+        } else {
             setResult(this.RESULT_CANCELED);
         }
 
         finish();
     }
+
     public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
         private Drawable mDivider;
 
@@ -218,16 +223,16 @@ public class CategoryActivity extends RootActivity implements OnSelected {
             }
         }
     }
+
     @Override
     public void onSelected(int position) {
-        Log.d(TAG,"onSelected###############"+product_list.get(position).getName());
+        Log.d(TAG, "onSelected###############" + product_list.get(position).getName());
         setReturnResult(product_list.get(position));
 
     }
 
 
-    CategoryModel getList()
-    {
+    CategoryModel getList() {
         CategoryModel caf = new CategoryModel();
         caf.setId("");
         caf.setName("All");

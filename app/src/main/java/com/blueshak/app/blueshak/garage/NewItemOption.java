@@ -156,6 +156,8 @@ public class NewItemOption extends RootActivity {
                 ShippingSelection.isShippable = false;
                 NegotiableSelection.comeFromScreen = false;
                 productModel = new CreateProductModel();
+                category.setText("Others");
+                category.setFocusable(false);
             }
 
 
@@ -220,8 +222,9 @@ public class NewItemOption extends RootActivity {
 
         if (selectedCategoryIDs.isEmpty())
         {
-            Toast.makeText(activity, "Please fill the product Category", Toast.LENGTH_LONG).show();
-            return;
+            selectedCategoryIDs.add("22");
+            /*Toast.makeText(activity, "Please fill the product Category", Toast.LENGTH_LONG).show();
+            return;*/
         }
         Intent intent = new Intent();
         setResult(Activity.RESULT_OK, intent);
@@ -353,7 +356,7 @@ public class NewItemOption extends RootActivity {
 
 
             shippable.setChecked(productModel.isShippable() ? true : false);
-           /* is_new_old.setChecked(productModel.is_product_new()?true:false);*/
+            is_product_new.setChecked(productModel.is_product_new()?true:false);
             is_new_old.setChecked(productModel.is_pickup() ? true : false);
             nagotiable.setChecked(productModel.isNegotiable() ? true : false);
             selectedCategoryIDs.clear();

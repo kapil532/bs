@@ -125,6 +125,7 @@
     <string name="upload_upto_five">Upload up to 5 photos</string>
     <string name="upload_photo_description">Tab a photo to edit or delete\nHold and Drag to reorder photos</string>
     <string name="title_activity_add_images">Add Images</string>
+    <string name="add_new_picture">Add New Picture(s)</string>
 
 
 </resources>

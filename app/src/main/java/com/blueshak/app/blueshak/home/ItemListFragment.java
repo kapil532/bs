@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.blueshak.app.blueshak.Messaging.helper.Constants;
 import com.blueshak.app.blueshak.search.SearchActivity;
+import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.MainActivity;
 import com.blueshak.app.blueshak.PickLocation;
@@ -464,15 +465,14 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
     private void getItemLists(final Context context, FilterModel filterModel){
     /*    showProgress();*/
         showProgressBar();
-        Log.d(TAG, "GetItemLists filterModel :"+filterModel.toString());
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getHomeList(context, filterModel, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 swipeRefreshLayout.setRefreshing(false);
-                Log.d(TAG, "onSuccess Response");
                 itemListModel = (HomeListModel) arg0;
                 String str = itemListModel.toString();
+                BlueShakLog.logDebug(TAG,"getItemLists OnSuccessFromServer -> "+str);
                 setItemListValues(itemListModel);
                 no_sales.setVisibility(View.GONE);
                 hideProgressBar();
@@ -484,19 +484,17 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                 no_sales.setVisibility(View.VISIBLE);
                 no_sales.setText(no_items_found);
                 hideProgressBar();
-                Log.d(TAG, "OnFailureFromServer################"+msg);
-              /*  Toast.makeText(context,no_items_found,Toast.LENGTH_LONG).show();*/
+                BlueShakLog.logError(TAG,"getItemLists OnFailureFromServer -> "+msg);
 
             }
 
             @Override
             public void OnError(String msg) {
                 swipeRefreshLayout.setRefreshing(false);
-                Log.d(TAG,"#######OnError######"+ msg);
+                BlueShakLog.logError(TAG,"getItemLists OnError -> "+msg);
                 no_sales.setVisibility(View.VISIBLE);
                 no_sales.setText(no_items_found);
                 hideProgressBar();
-                /*Toast.makeText(context,no_items_found,Toast.LENGTH_LONG).show();*/
             }
         }, "List Sales");
 

@@ -7,6 +7,7 @@ import com.blueshak.app.blueshak.global.GlobalVariables;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,31 +55,31 @@ public class CreateProductModel implements Serializable {
     private final String ADDRESS = "address";
     private final String POSTCODES = "postcodes";
     private final String CATEGORIES = "categories";
-    private final String IS_PRODUCT_NEW="is_product_new";
-    private final String SUBHURB="suburb";
-    private final String CITY="city";
-    private final String IS_PICKUP="is_pickup";
-    private final String REQUEST_TYPE="request_type";
+    private final String IS_PRODUCT_NEW = "is_product_new";
+    private final String SUBHURB = "suburb";
+    private final String CITY = "city";
+    private final String IS_PICKUP = "is_pickup";
+    private final String REQUEST_TYPE = "request_type";
     private final String REMOVE_IMAGES = "remove_images";
-    private final String  NEW_IMAGE = "new_images";
-    private final String  EXISTING_IMAGE = "existing_image";
-    private final String  SALE_ID = "sale_id";
-    private final String  CURRENCY = "currency";
-    private final String  COUNTRY_SHORT = "country_short";
+    private final String NEW_IMAGE = "new_images";
+    private final String EXISTING_IMAGE = "existing_image";
+    private final String SALE_ID = "sale_id";
+    private final String CURRENCY = "currency";
+    private final String COUNTRY_SHORT = "country_short";
 
-    private final String  SHIPPING_FOC = "shipping_foc";
-    private final String  LOCAL_SHIPPING_COST = "local_shipping_cost";
-    private final String  IS_INTL_SHIPPING= "is_intl_shipping";
-    private final String  INTL_SHIPPING_COST= "intl_shipping_cost";
-    private final String  TIME_TO_DELIVER= "time_to_deliver";
-    private final String  HIDE_ITEM_PRICE = "hide_item_price";
+    private final String SHIPPING_FOC = "shipping_foc";
+    private final String LOCAL_SHIPPING_COST = "local_shipping_cost";
+    private final String IS_INTL_SHIPPING = "is_intl_shipping";
+    private final String INTL_SHIPPING_COST = "intl_shipping_cost";
+    private final String TIME_TO_DELIVER = "time_to_deliver";
+    private final String HIDE_ITEM_PRICE = "hide_item_price";
 
 
     private String imageId = "image_id";
     private String imageOrder = "image_order";
 
     /*@@@@@@@@@@@@@@@@@@added by me@@@@@@@@@@@@@@@@*/
-    private final String PRODUCT_ID="product_id";
+    private final String PRODUCT_ID = "product_id";
     String product_id = null;
     String sale_id = null;
     /*3333333333333333333*/
@@ -90,15 +91,16 @@ public class CreateProductModel implements Serializable {
     public void setSale_id(String sale_id) {
         this.sale_id = sale_id;
     }
+
     String currency = null;
     String latitude = null;
-    String longitude=null;
+    String longitude = null;
     String postcodes = null;
     String name = null;
     String salePrice = null;
-    String retailPrice=null;
+    String retailPrice = null;
     String description = null;
-    String request_type=null;
+    String request_type = null;
 
     public boolean isShipping_foc() {
         return shipping_foc;
@@ -115,7 +117,6 @@ public class CreateProductModel implements Serializable {
     public void setLocal_shipping_cost(String local_shipping_cost) {
         this.local_shipping_cost = local_shipping_cost;
     }
-
 
 
     public String getTime_to_deliver() {
@@ -144,8 +145,6 @@ public class CreateProductModel implements Serializable {
     }
 
 
-
-
     public String getIntl_shipping_cost() {
         return intl_shipping_cost;
     }
@@ -164,7 +163,7 @@ public class CreateProductModel implements Serializable {
 
     String saleID = null;
     String suburb = null;
-    String city = null,country_short=null;
+    String city = null, country_short = null;
 
     public String getCategory_string() {
         return category_string;
@@ -176,6 +175,7 @@ public class CreateProductModel implements Serializable {
 
     String saleType = null;
     String category_string = null;
+
     public String getSaleType() {
         return saleType;
     }
@@ -201,26 +201,26 @@ public class CreateProductModel implements Serializable {
 
     }
 
-    String address=null;
+    String address = null;
 
     ArrayList<CreateImageModel> images = new ArrayList<CreateImageModel>();
     ArrayList<CreateImageModel> existing_images = new ArrayList<CreateImageModel>();
     //ArrayList<CreateImageModel> remove_images = new ArrayList<CreateImageModel>();
     ArrayList<String> categories = new ArrayList<String>();
 
-    boolean shipping_foc=false;
-    boolean is_intl_shipping=false;
-    String local_shipping_cost=null;
-    String intl_shipping_cost=null;
-    String time_to_deliver=null;
-    boolean hide_item_price=false;
+    boolean shipping_foc = false;
+    boolean is_intl_shipping = false;
+    String local_shipping_cost = null;
+    String intl_shipping_cost = null;
+    String time_to_deliver = null;
+    boolean hide_item_price = false;
 
 
     boolean
-            shippable        = false,
-            is_product_new=false,
-            is_pickup=false,
-            negotiable      = false;
+            shippable = false,
+            is_product_new = false,
+            is_pickup = false,
+            negotiable = false;
 
     int id = -1;
 
@@ -254,8 +254,8 @@ public class CreateProductModel implements Serializable {
     }
 
 
-
-    public CreateProductModel(){}
+    public CreateProductModel() {
+    }
 
     public int getId() {
         return id;
@@ -350,15 +350,15 @@ public class CreateProductModel implements Serializable {
         this.negotiable = negotiable;
     }
 
-    public boolean toObject(String jsonObject){
+    public boolean toObject(String jsonObject) {
 
-        Log.d("VALUESSS","SHIPPINGCOST"+jsonObject.toString());
-        try{
+        Log.d("VALUESSS", "SHIPPINGCOST" + jsonObject.toString());
+        try {
             JSONObject json = new JSONObject(jsonObject);
             name = json.getString(NAME);
             salePrice = json.getString(SALE_PRICE);
             description = json.getString(DESCRIPTION);
-           //new changes
+            //new changes
             shipping_foc = json.getBoolean(SHIPPING_FOC);
             is_intl_shipping = json.getBoolean(IS_INTL_SHIPPING);
             hide_item_price = json.getBoolean(HIDE_ITEM_PRICE);
@@ -366,16 +366,16 @@ public class CreateProductModel implements Serializable {
             local_shipping_cost = json.getString(LOCAL_SHIPPING_COST);
             intl_shipping_cost = json.getString(INTL_SHIPPING_COST);
             time_to_deliver = json.getString(TIME_TO_DELIVER);
-          //new changes4
+            //new changes4
             JSONArray imageArray = json.getJSONArray(IMAGE);
-            for(int i=0;i<imageArray.length();i++){
+            for (int i = 0; i < imageArray.length(); i++) {
                 JSONObject imageObj = imageArray.getJSONObject(i);
                 CreateImageModel model = new CreateImageModel();
                 model.toObject(imageObj.toString());
                 images.add(model);
             }
             JSONArray categoryArray = json.getJSONArray(CATEGORIES);
-            for(int i=0;i<categoryArray.length();i++){
+            for (int i = 0; i < categoryArray.length(); i++) {
                 categories.add(categoryArray.getString(i));
             }
             shippable = json.getBoolean(IS_SHIPPABLE);
@@ -383,13 +383,13 @@ public class CreateProductModel implements Serializable {
             is_product_new = json.getBoolean(IS_PRODUCT_NEW);
 
 
-            if(json.has(ADDRESS)) address=json.getString(ADDRESS);
-            if(json.has(LATITUDE)) latitude=json.getString(LATITUDE);
-            if(json.has(LONGITUDE)) longitude=json.getString(LONGITUDE);
+            if (json.has(ADDRESS)) address = json.getString(ADDRESS);
+            if (json.has(LATITUDE)) latitude = json.getString(LATITUDE);
+            if (json.has(LONGITUDE)) longitude = json.getString(LONGITUDE);
             return true;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             Log.d(TAG, "Json Exception : " + ex);
-           }
+        }
         return false;
     }
 
@@ -409,29 +409,29 @@ public class CreateProductModel implements Serializable {
         this.is_product_new = is_product_new;
     }
 
-    public boolean toObject(ProductModel productModel, CategoryListModel categoryListModel){
-        try{
-            product_id=productModel.getId();
+    public boolean toObject(ProductModel productModel, CategoryListModel categoryListModel) {
+        try {
+            product_id = productModel.getId();
             name = productModel.getName();
             salePrice = productModel.getSalePrice();
             retailPrice = productModel.getRetailPrice();
             description = productModel.getDescription();
-            product_id=productModel.getId();
-            address=productModel.getAddress();
-            latitude=productModel.getLatitude();
-            longitude=productModel.getLongitude();
-            currency=productModel.getCurrency();
-            saleType=productModel.getSaleType();
-            sale_id=productModel.getSaleID();
+            product_id = productModel.getId();
+            address = productModel.getAddress();
+            latitude = productModel.getLatitude();
+            longitude = productModel.getLongitude();
+            currency = productModel.getCurrency();
+            saleType = productModel.getSaleType();
+            sale_id = productModel.getSaleID();
 
             // my changes 6/25/2017
-            shipping_foc=productModel.isShipping_foc();
-            local_shipping_cost=productModel.getLocal_shipping_cost();
-            is_intl_shipping=productModel.is_intl_shipping();
-            intl_shipping_cost =productModel.getIntl_shipping_cost();
-            Log.d("VALUESSS","SHIPPINGCOST-ss&&ss-"+intl_shipping_cost);
-            time_to_deliver =productModel.getTime_to_deliver();
-            hide_item_price =productModel.isHide_item_price();
+            shipping_foc = productModel.isShipping_foc();
+            local_shipping_cost = productModel.getLocal_shipping_cost();
+            is_intl_shipping = productModel.is_intl_shipping();
+            intl_shipping_cost = productModel.getIntl_shipping_cost();
+            Log.d("VALUESSS", "SHIPPINGCOST-ss&&ss-" + intl_shipping_cost);
+            time_to_deliver = productModel.getTime_to_deliver();
+            hide_item_price = productModel.isHide_item_price();
             // ----- my changes 6/25/2017
            /* List<String> imageArray = productModel.getImage();
             for(int i=0;i<imageArray.size();i++){
@@ -441,7 +441,7 @@ public class CreateProductModel implements Serializable {
                 images.add(model);
             }*/
             List<ImageIdModel> createImageModels = productModel.getCreateImageModels();
-            for(int i=0;i<createImageModels.size();i++){
+            for (int i = 0; i < createImageModels.size(); i++) {
                 CreateImageModel model = new CreateImageModel();
                 model.setImage(createImageModels.get(i).getImage());
                 model.setId(createImageModels.get(i).getId());
@@ -456,12 +456,13 @@ public class CreateProductModel implements Serializable {
             categories.addAll(categoryListModel.getIdsforNames(myList));
 
             shippable = productModel.isShipable();
-            is_pickup=productModel.isPickup();
+            is_pickup = productModel.isPickup();
             negotiable = productModel.isNegotiable();
+            is_product_new = productModel.is_product_new();
             return true;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             Log.d(TAG, "Product Model Exception : " + ex);
-           }
+        }
         return false;
     }
 
@@ -482,18 +483,18 @@ public class CreateProductModel implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String returnString = null;
-        try{
+        try {
             JSONObject jsonMain = new JSONObject();
             jsonMain.put(NAME, name);
-            jsonMain.put(REQUEST_TYPE,request_type);
+            jsonMain.put(REQUEST_TYPE, request_type);
             jsonMain.put(SALE_PRICE, salePrice);
             jsonMain.put(IS_PRODUCT_NEW, is_product_new);
             jsonMain.put(DESCRIPTION, description);
             jsonMain.put(ADDRESS, address);
             jsonMain.put(SUBHURB, suburb);
-            jsonMain.put(CITY,city);
+            jsonMain.put(CITY, city);
             jsonMain.put(LONGITUDE, longitude);
             jsonMain.put(LATITUDE, latitude);
             // my changes 6/25/2017
@@ -505,13 +506,13 @@ public class CreateProductModel implements Serializable {
             jsonMain.put(HIDE_ITEM_PRICE, hide_item_price);
             // ----- my changes 6/25/2017
 
-            if(saleType.equalsIgnoreCase(GlobalVariables.TYPE_GARAGE))
+            if (saleType.equalsIgnoreCase(GlobalVariables.TYPE_GARAGE))
                 jsonMain.put(SALESID, saleID);
             /*added for updating sale*/
             jsonMain.put(PRODUCT_ID, product_id);
             jsonMain.put(SALE_ID, sale_id);
             JSONArray categoryArray = new JSONArray();
-            for(int i=0;i<categories.size();i++){
+            for (int i = 0; i < categories.size(); i++) {
                 categoryArray.put(categories.get(i));
             }
             jsonMain.put(CATEGORIES, categoryArray);
@@ -528,50 +529,50 @@ public class CreateProductModel implements Serializable {
             jsonMain.put(SALE_TYPE, saleType);
 
             JSONArray imageArray = new JSONArray();
-            for(int i=0;i<images.size();i++){
+            for (int i = 0; i < images.size(); i++) {
                 CreateImageModel model = images.get(i);
                 imageArray.put(new JSONObject(model.toString()));
             }
-            if(request_type.equalsIgnoreCase(GlobalVariables.TYPE_UPDATE_REQUEST)){
+            if (request_type.equalsIgnoreCase(GlobalVariables.TYPE_UPDATE_REQUEST)) {
                 JSONArray removed_arry = new JSONArray();
                 JSONObject reomevArrObj;
-                Log.d(TAG,"remove_images : "+CreateItemSaleFragment.removed_photos);
-                for(int i = 0; i< CreateItemSaleFragment.removed_photos.size(); i++){
+                Log.d(TAG, "remove_images : " + CreateItemSaleFragment.removed_photos);
+                for (int i = 0; i < CreateItemSaleFragment.removed_photos.size(); i++) {
                     reomevArrObj = new JSONObject();
                     CreateImageModel model1 = CreateItemSaleFragment.removed_photos.get(i);
-                    reomevArrObj.put(imageId,model1.getId());
+                    reomevArrObj.put(imageId, model1.getId());
                     removed_arry.put(reomevArrObj);
                     //removed_arry.put(model1.getId());
                 }
 
-                jsonMain.put(REMOVE_IMAGES,removed_arry);
-                Log.d(TAG,"new_imageArray : "+images);
+                jsonMain.put(REMOVE_IMAGES, removed_arry);
+                Log.d(TAG, "new_imageArray : " + images);
                 JSONArray new_imageArray = new JSONArray();
-                for(int i=0;i<images.size();i++){
+                for (int i = 0; i < images.size(); i++) {
                     CreateImageModel model = images.get(i);
-                    Log.d(TAG,"################## new_imageArray : "+model.toString());
-                    if(model.is_new_image())
+                    Log.d(TAG, "################## new_imageArray : " + model.toString());
+                    if (model.is_new_image())
                         new_imageArray.put(new JSONObject(model.toString()));
                 }
-                Log.d(TAG,"################## final new_imageArray : "+new_imageArray);
-                jsonMain.put(NEW_IMAGE,new_imageArray);
+                Log.d(TAG, "################## final new_imageArray : " + new_imageArray);
+                jsonMain.put(NEW_IMAGE, new_imageArray);
                 JSONArray existing_imageArray = new JSONArray();
                 JSONObject existingArrObj;
-                for(int i=0;i<existing_images.size();i++){
+                for (int i = 0; i < existing_images.size(); i++) {
                     existingArrObj = new JSONObject();
                     CreateImageModel model = existing_images.get(i);
-                    existingArrObj.put(imageId,model.getId());
-                    existingArrObj.put(imageOrder,model.getImage_order());
+                    existingArrObj.put(imageId, model.getId());
+                    existingArrObj.put(imageOrder, model.getImage_order());
                     existing_imageArray.put(existingArrObj);
                 }
-                jsonMain.put(EXISTING_IMAGE,existing_imageArray);
-            }else
+                jsonMain.put(EXISTING_IMAGE, existing_imageArray);
+            } else
                 jsonMain.put(IMAGE, imageArray);
             returnString = jsonMain.toString();
-            Log.d(TAG," CreProduct request : "+returnString);
+            Log.d(TAG, " CreProduct request : " + returnString);
+        } catch (Exception ex) {
+            Log.d(TAG, " To String Exception : " + ex);
         }
-        catch (Exception ex){Log.d(TAG," To String Exception : "+ex);
-           }
         return returnString;
     }
 }

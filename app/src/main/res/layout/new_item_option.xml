@@ -71,7 +71,9 @@
                     android:gravity="left"
                     android:text="Category"
                     android:textColor="@color/brand_text_color"
-                    android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
+                    android:textSize="@dimen/sign_up_text_size">
+
+                </com.blueshak.app.blueshak.text.MyTextView>
 
                 <ImageView style="@style/image_setting"></ImageView>
             </RelativeLayout>

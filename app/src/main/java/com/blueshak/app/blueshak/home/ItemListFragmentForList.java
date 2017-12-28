@@ -493,15 +493,14 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
     private void getItemLists(final Context context, FilterModel filterModel){
     /*    showProgress();*/
         showProgressBar();
-        Log.d(TAG, "GetItemLists filterModel :"+filterModel.toString());
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getHomeList(context, filterModel, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 swipeRefreshLayout.setRefreshing(false);
-                Log.d(TAG, "onSuccess Response");
                 itemListModel = (HomeListModel) arg0;
                 String str = itemListModel.toString();
+                BlueShakLog.logDebug(TAG,"getItemLists onSuccess -> "+str);
                 setItemListValues(itemListModel);
                 no_sales.setVisibility(View.GONE);
                 hideProgressBar();
@@ -513,7 +512,7 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                 no_sales.setVisibility(View.VISIBLE);
                 no_sales.setText(no_items_found);
                 hideProgressBar();
-                Log.d(TAG, "OnFailureFromServer################"+msg);
+                BlueShakLog.logError(TAG,"getItemLists OnFailureFromServer -> "+msg);
               /*  Toast.makeText(context,no_items_found,Toast.LENGTH_LONG).show();*/
 
             }
@@ -521,7 +520,7 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
             @Override
             public void OnError(String msg) {
                 swipeRefreshLayout.setRefreshing(false);
-                Log.d(TAG,"#######OnError######"+ msg);
+                BlueShakLog.logError(TAG,"getItemLists OnError -> "+msg);
                 no_sales.setVisibility(View.VISIBLE);
                 no_sales.setText(no_items_found);
                 hideProgressBar();
@@ -619,42 +618,6 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
             //ds.setStyle(Typeface.BOLD);
           /*  ds.setTypeface(Typeface.DEFAULT_BOLD);*/
         }
-    }
-    private void addMoreItems(final Context context, FilterModel filterModel){
-        showProgress();
-        Log.d(TAG, "FilterModel :"+filterModel.toString());
-        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getHomeList(context,filterModel, new ServerResponseInterface() {
-            @Override
-            public void OnSuccessFromServer(Object arg0) {
-                swipeRefreshLayout.setRefreshing(false);
-                no_sales.setVisibility(View.GONE);
-                Log.d(TAG, "onSuccess Response");
-                itemListModel = (HomeListModel)arg0;
-                String str = itemListModel.toString();
-                setItemListValues(itemListModel);
-            }
-
-            @Override
-            public void OnFailureFromServer(String msg) {
-                swipeRefreshLayout.setRefreshing(false);
-                no_sales.setVisibility(View.VISIBLE);
-                no_sales.setText(no_items_found);
-                Log.d(TAG, "OnFailureFromServer################"+msg);
-                /*Toast.makeText(context,no_items_found,Toast.LENGTH_LONG).show();*/
-
-            }
-
-            @Override
-            public void OnError(String msg) {
-                swipeRefreshLayout.setRefreshing(false);
-                Log.d(TAG,"#######OnError######"+ msg);
-                no_sales.setVisibility(View.VISIBLE);
-                no_sales.setText(no_items_found);
-                /*Toast.makeText(context,no_items_found,Toast.LENGTH_LONG).show();*/
-            }
-        }, "List Sales");
-
     }
 
     private void getAddressFromLatLng(final String lat,final String lng){
