@@ -487,7 +487,6 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                     }
                 }
             });
-           clearDeleteList();
 
         } catch (NullPointerException e){
             Log.d(TAG,"NullPointerException");
@@ -537,9 +536,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                 Log.d(TAG, "getSimilarProducts onSuccess Response");
                 SimilarProductsModel similarProductsModel = (SimilarProductsModel)arg0;
             /*    setSimilarProducts(similarProductsModel.getProductsList(),"Similar products");*/
-                if (CreateSaleActivity.deleted_product_list != null){
-                    CreateSaleActivity.deleted_product_list.clear();
-                }
+
                 setValues(similarProductsModel.getProductsList());
                 similar_listing=similarProductsModel.getProductsList();
                 Log.d(TAG, similarProductsModel.toString());
@@ -1081,7 +1078,8 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             if(is_map)
                 setMap();
 
-            deletedDataLocally();
+            //deletedDataLocally();
+            //updateUI(relatedList);
             super.onResume();
 
         }catch (IllegalStateException e){
@@ -1559,7 +1557,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         }
     }
 
-    private void deletedDataLocally(){
+    /*private void deletedDataLocally(){
         BlueShakLog.logDebug(TAG,"deletedDataLocally -> ");
         if (CreateSaleActivity.deleted_product_list != null){
             BlueShakLog.logDebug(TAG,"deletedDataLocally -> CreateSaleActivity.deleted_product_list "
@@ -1581,7 +1579,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             }
         }
 
-    }
+    }*/
 
     private void updateUI(List<ProductModel> deleted_product_list) {
         String title = "";
@@ -2030,10 +2028,4 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         BlueShakSharedPreferences.setSalesLongitude(context,longitude);
     }
 
-    private void clearDeleteList(){
-        if (CreateSaleActivity.deleted_product_list != null){
-            CreateSaleActivity.deleted_product_list.clear();
-            CreateSaleActivity.deleted_product_list = null;
-        }
-    }
 }

@@ -146,10 +146,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
                         .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
                             @Override
                             public void onSliderClick(BaseSliderView slider) {
-                                if(CreateSaleActivity.deleted_product_list!=null){
-                                    CreateSaleActivity.deleted_product_list.clear();
-                                    CreateSaleActivity.deleted_product_list = null;
-                                }
                                 Intent intent = ProductDetail.newInstance(context,null,obj,GlobalVariables.TYPE_MY_SALE);
                                 context.startActivity(intent);
                             }

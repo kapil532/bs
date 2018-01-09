@@ -179,10 +179,7 @@ public class CreateGarageSaleFragment extends Fragment implements MyItemListAdap
             publish.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(CreateSaleActivity.deleted_product_list!=null){
-                        CreateSaleActivity.deleted_product_list.clear();
-                        CreateSaleActivity.deleted_product_list = null;
-                    }
+
                     onClickProcessing();
                     GlobalFunctions.removeSharedPreferenceKey(context, GlobalVariables.SELECTED_ITEMS_LIST);
                     /*addItems();*/
@@ -362,10 +359,7 @@ public class CreateGarageSaleFragment extends Fragment implements MyItemListAdap
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 hideProgressBar();
-                if(CreateSaleActivity.deleted_product_list!=null){
-                    CreateSaleActivity.deleted_product_list.clear();
-                    CreateSaleActivity.deleted_product_list = null;
-                }
+
                 if (arg0 instanceof IDModel) {
                     IDModel idModel = (IDModel) arg0;
                     createSalesModel.setSaleID(idModel.getId());
@@ -398,10 +392,7 @@ public class CreateGarageSaleFragment extends Fragment implements MyItemListAdap
             @Override
             public void OnFailureFromServer(String msg) {
                 hideProgressBar();
-                if(CreateSaleActivity.deleted_product_list!=null){
-                    CreateSaleActivity.deleted_product_list.clear();
-                    CreateSaleActivity.deleted_product_list = null;
-                }
+
                 if (msg != null) {
                     if (msg.equalsIgnoreCase(email_verification_error))
                         GlobalFunctions.showEmailVerificatiomAlert(context);
@@ -413,10 +404,7 @@ public class CreateGarageSaleFragment extends Fragment implements MyItemListAdap
             @Override
             public void OnError(String msg) {
                 hideProgressBar();
-                if(CreateSaleActivity.deleted_product_list!=null){
-                    CreateSaleActivity.deleted_product_list.clear();
-                    CreateSaleActivity.deleted_product_list = null;
-                }
+
                 if (msg != null) {
                     if (msg.equalsIgnoreCase(email_verification_error))
                         GlobalFunctions.showEmailVerificatiomAlert(context);
@@ -883,18 +871,13 @@ public class CreateGarageSaleFragment extends Fragment implements MyItemListAdap
                 GlobalFunctions.hideProgress();
                 if (arg0 instanceof StatusModel) {
                    // setSalesAdapter();
-                    if(CreateSaleActivity.deleted_product_list!=null){
-                        CreateSaleActivity.deleted_product_list.clear();
-                        CreateSaleActivity.deleted_product_list = null;
-                    }
-                    CreateSaleActivity.deleted_product_list = deleteList(position);
-                    StatusModel statusModel = (StatusModel) arg0;
+                   //deleteList(position);
+                    //StatusModel statusModel = (StatusModel) arg0;
                     SalesModel salesModel = new SalesModel();
                     salesModel.setId(createSalesModel.getSaleID());
-                    //getSaleInfo(context);
-                    if (statusModel.isStatus()) {
-                        //Toast.makeText(context, "Sales Item deleted successfully", Toast.LENGTH_SHORT).show();
-                    }
+                    closeThisActivity();
+                    Intent intent = ProductDetail.newInstance(context, null, salesModel, GlobalVariables.TYPE_MY_SALE);
+                    context.startActivity(intent);
                 } else if (arg0 instanceof ErrorModel) {
                     ErrorModel errorModel = (ErrorModel) arg0;
                     String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
@@ -941,21 +924,15 @@ public class CreateGarageSaleFragment extends Fragment implements MyItemListAdap
     }
 
     private void setSalesAdapter(List<ProductModel> product_list) {
-        List<ProductModel> productList;
-        if(CreateSaleActivity.deleted_product_list!=null && CreateSaleActivity.deleted_product_list.size() < product_list.size()){
-            productList = CreateSaleActivity.deleted_product_list;
-        }else{
-            productList = product_list;
-        }
 
         String label = "";
-        if (productList.size() == 1)
+        if (product_list.size() == 1)
             label = "1 Item added";
         else
-            label = productList + " Items added";
+            label = product_list + " Items added";
         select_items.setText(label);
 
-        adapter = new MyItemListAdapter(context, productList, false);
+        adapter = new MyItemListAdapter(context, product_list, false);
         adapter.setOnClickedListener(this);
         //recycler_view.setAdapter(adapter);
     }

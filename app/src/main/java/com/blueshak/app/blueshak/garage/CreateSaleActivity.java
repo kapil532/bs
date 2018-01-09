@@ -52,8 +52,6 @@ public class CreateSaleActivity extends RootActivity {
     private  TextView activity_title,cancel;
     private  ImageView go_back;
 
-    public static List<ProductModel> deleted_product_list = new ArrayList<ProductModel>();
-
     public static Intent newInstance(Context context, CreateSalesModel sales, CreateProductModel createProductModel, LocationModel locationModel, int from,String type) {
         Intent mIntent = new Intent(context, CreateSaleActivity.class);
         Bundle bundle = new Bundle();
