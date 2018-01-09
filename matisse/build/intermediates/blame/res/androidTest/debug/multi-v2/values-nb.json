@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Kapil Katiyar\\AndroidStudioProjects\\DIVRT-APP\\v2AndroidBS\\matisse\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-nb\\values-nb.xml",
+            "outputFile": "D:\\bs\\bs\\matisse\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-nb\\values-nb.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Kapil Katiyar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\cfbf2d6ede1639a4080278b7dc127e0c\\res\\values-nb\\values-nb.xml",
@@ -16,7 +16,7 @@
             ]
         },
         {
-            "outputFile": "C:\\Users\\Kapil Katiyar\\AndroidStudioProjects\\DIVRT-APP\\v2AndroidBS\\matisse\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-nb\\values-nb.xml",
+            "outputFile": "D:\\bs\\bs\\matisse\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-nb\\values-nb.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Kapil Katiyar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\cfbf2d6ede1639a4080278b7dc127e0c\\res\\values-nb\\values-nb.xml",

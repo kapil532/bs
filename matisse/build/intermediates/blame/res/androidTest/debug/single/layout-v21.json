@@ -1,18 +1,18 @@
 [
     {
-        "merged": "C:\\Users\\Kapil Katiyar\\AndroidStudioProjects\\DIVRT-APP\\v2AndroidBS\\matisse\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "merged": "D:\\bs\\bs\\matisse\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v21\\notification_template_icon_group.xml",
         "source": "C:\\Users\\Kapil Katiyar\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\3b8ecc9a7f72e8cd6c6865b3fb00f4c3\\res\\layout-v21\\notification_template_icon_group.xml"
     },
     {
-        "merged": "C:\\Users\\Kapil Katiyar\\AndroidStudioProjects\\DIVRT-APP\\v2AndroidBS\\matisse\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v21\\notification_template_custom_big.xml",
-        "source": "C:\\Users\\Kapil Katiyar\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\3b8ecc9a7f72e8cd6c6865b3fb00f4c3\\res\\layout-v21\\notification_template_custom_big.xml"
+        "merged": "D:\\bs\\bs\\matisse\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\Kapil Katiyar\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\3b8ecc9a7f72e8cd6c6865b3fb00f4c3\\res\\layout-v21\\notification_action_tombstone.xml"
     },
     {
-        "merged": "C:\\Users\\Kapil Katiyar\\AndroidStudioProjects\\DIVRT-APP\\v2AndroidBS\\matisse\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v21\\notification_action.xml",
+        "merged": "D:\\bs\\bs\\matisse\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v21\\notification_action.xml",
         "source": "C:\\Users\\Kapil Katiyar\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\3b8ecc9a7f72e8cd6c6865b3fb00f4c3\\res\\layout-v21\\notification_action.xml"
     },
     {
-        "merged": "C:\\Users\\Kapil Katiyar\\AndroidStudioProjects\\DIVRT-APP\\v2AndroidBS\\matisse\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v21\\notification_action_tombstone.xml",
-        "source": "C:\\Users\\Kapil Katiyar\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\3b8ecc9a7f72e8cd6c6865b3fb00f4c3\\res\\layout-v21\\notification_action_tombstone.xml"
+        "merged": "D:\\bs\\bs\\matisse\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\Kapil Katiyar\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\3b8ecc9a7f72e8cd6c6865b3fb00f4c3\\res\\layout-v21\\notification_template_custom_big.xml"
     }
 ]

@@ -22,10 +22,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blueshak.blueshak.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -115,7 +117,8 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
         super.onCreateView(inflater, container, savedInstanceState);
         activity = getActivity();
         context = getActivity();
-        if (view != null) {
+        if (view != null)
+        {
             ViewGroup parent = (ViewGroup) view.getParent();
             if (parent != null)
                 parent.removeView(view);
@@ -151,9 +154,12 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
             locServices.setListener(this);
             final FragmentManager fm = getChildFragmentManager();
             fragment = (SupportMapFragment) fm.findFragmentById(R.id.map);
+            MapFragment mapFragment =(MapFragment) getActivity().getFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
 //            listFAB = (FloatingActionButton) view.findViewById(R.id.map_fragment_list_fab);
             sale_header_name = (TextView) view.findViewById(R.id.sale_header_name);
-
+/*
             if (fragment == null) {
                 fragment = SupportMapFragment.newInstance();
                 fm.beginTransaction().replace(R.id.map, fragment).commit();
@@ -161,7 +167,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
             } else {
                 fragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
                 fragment.getMapAsync(this);
-            }
+            }*/
             from_activity = getArguments().getBoolean(MAP_FRAGMENT_SALES_FROM_ACTIVITY_ID_STRING);
             type = getArguments().getString(MAP_FRAGMENT_SALES_BUNDLE_TYPE_STRING);
             if (!from_activity)
@@ -521,6 +527,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
 
         }
         if(mClusterManager!=null)mClusterManager.cluster();
+        Toast.makeText(context,""+model.getLatitude(),Toast.LENGTH_LONG).show();
         LatLng currentLatLng = new LatLng(Double.parseDouble(model.getLatitude()),Double.parseDouble(model.getLongitude()));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,8));
     }

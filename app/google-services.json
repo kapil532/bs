@@ -1,0 +1,317 @@
+{
+  "project_info": {
+    "project_number": "458375606592",
+    "firebase_url": "https://divrt-b449b.firebaseio.com",
+    "project_id": "divrt-b449b",
+    "storage_bucket": "divrt-b449b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458375606592:android:5cf214076a188e4d",
+        "android_client_info": {
+          "package_name": "com.blueshak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458375606592-dh166fbaljpu5mjfi5uaoci6gj74ud7b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.divrt.co",
+            "certificate_hash": "FA86ABCA52270C82004D7C78F6D434721DAF32FA"
+          }
+        },
+        {
+          "client_id": "458375606592-7mojhq0c9ji5pqlf170r3in21cqqit7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw4TlvIP4dm02L3WBVSV4HkrwExUY7ezA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458375606592-7mojhq0c9ji5pqlf170r3in21cqqit7o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "458375606592-auas3t40pk7hgestlasc6c78lu44f2jv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.blueshak"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458375606592:android:5f1e4d7430496b4e",
+        "android_client_info": {
+          "package_name": "demo.divrt.co"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458375606592-nvg74s52cmgt3m2h9spipkqehlqu4bo2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "demo.divrt.co",
+            "certificate_hash": "FA86ABCA52270C82004D7C78F6D434721DAF32FA"
+          }
+        },
+        {
+          "client_id": "458375606592-7mojhq0c9ji5pqlf170r3in21cqqit7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw4TlvIP4dm02L3WBVSV4HkrwExUY7ezA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458375606592-7mojhq0c9ji5pqlf170r3in21cqqit7o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "458375606592-auas3t40pk7hgestlasc6c78lu44f2jv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.divrt.co"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458375606592:android:985ce46b2326359f",
+        "android_client_info": {
+          "package_name": "dev.divrt.co"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458375606592-4oj4gjv54tt229nm6o9ogk1se9m206ia.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.divrt.co",
+            "certificate_hash": "FA86ABCA52270C82004D7C78F6D434721DAF32FA"
+          }
+        },
+        {
+          "client_id": "458375606592-7mojhq0c9ji5pqlf170r3in21cqqit7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw4TlvIP4dm02L3WBVSV4HkrwExUY7ezA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458375606592-7mojhq0c9ji5pqlf170r3in21cqqit7o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "458375606592-auas3t40pk7hgestlasc6c78lu44f2jv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.divrt.co"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458375606592:android:99b6a0f0d3565792",
+        "android_client_info": {
+          "package_name": "test.divrt.co"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458375606592-irl8ont5m4of7ahatfujgdjk4ik5s81u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "test.divrt.co",
+            "certificate_hash": "FA86ABCA52270C82004D7C78F6D434721DAF32FA"
+          }
+        },
+        {
+          "client_id": "458375606592-7mojhq0c9ji5pqlf170r3in21cqqit7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw4TlvIP4dm02L3WBVSV4HkrwExUY7ezA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458375606592-7mojhq0c9ji5pqlf170r3in21cqqit7o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "458375606592-auas3t40pk7hgestlasc6c78lu44f2jv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.divrt.co"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458375606592:android:9b472324065bb160",
+        "android_client_info": {
+          "package_name": "com.divrt.attendant.vrmallattandant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458375606592-cq7d52o44n12p23vhds68j1ijh3vtkf6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.divrt.attendant.vrmallattandant",
+            "certificate_hash": "FA86ABCA52270C82004D7C78F6D434721DAF32FA"
+          }
+        },
+        {
+          "client_id": "458375606592-7mojhq0c9ji5pqlf170r3in21cqqit7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw4TlvIP4dm02L3WBVSV4HkrwExUY7ezA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458375606592-7mojhq0c9ji5pqlf170r3in21cqqit7o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "458375606592-auas3t40pk7hgestlasc6c78lu44f2jv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.divrt.co"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458375606592:android:56b9b1c2a8b9b691",
+        "android_client_info": {
+          "package_name": "prod.divrt.co"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458375606592-kit8l7kt80f82cnh9r906mqc64jdlopm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "prod.divrt.co",
+            "certificate_hash": "FA86ABCA52270C82004D7C78F6D434721DAF32FA"
+          }
+        },
+        {
+          "client_id": "458375606592-7mojhq0c9ji5pqlf170r3in21cqqit7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw4TlvIP4dm02L3WBVSV4HkrwExUY7ezA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458375606592-7mojhq0c9ji5pqlf170r3in21cqqit7o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "458375606592-auas3t40pk7hgestlasc6c78lu44f2jv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.divrt.co"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
