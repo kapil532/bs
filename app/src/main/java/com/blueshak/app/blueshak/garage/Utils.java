@@ -117,7 +117,7 @@ public class Utils {
     }
 
     public static Bitmap setRotatedBitmap(Context context,Bitmap bitmap, Uri selectedImagePath){
-         ExifInterface exifObject = null;
+        ExifInterface exifObject = null;
         try {
             InputStream input = context.getContentResolver().openInputStream(selectedImagePath);
             if (Build.VERSION.SDK_INT > 23){
@@ -301,4 +301,6 @@ public class Utils {
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "profile", null);
         return Uri.parse(path);
     }
+
+
 }

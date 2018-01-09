@@ -17,7 +17,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -25,7 +24,13 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <permission
+        android:name="com.blueshak.blueshak.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="com.blueshak.blueshak.permission.MAPS_RECEIVE"/>
 
     <!--
         <permission
@@ -53,7 +58,6 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.blueshak.app.blueshak.AppController"
@@ -64,7 +68,7 @@
         android:supportsRtl="true"
         android:hardwareAccelerated="false"
         android:theme="@style/AppTheme">
-
+        <!--<uses-library android:name="com.google.android.maps" />-->
         <!-- admin@blueshak.com account api key for test dubug -->
         <meta-data
             android:name="io.fabric.ApiKey"
@@ -79,15 +83,11 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <!--
-            <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBNV4_3GEbM3Pc08ifm7mKIBoC9k-842tg" />
-        -->
+
+        <!-- FaceBook App Id -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAZvPsCg4TwMX11ESk7HHXd8AbnKW2l2B0" />
-        <!-- FaceBook App Id AIzaSyAZvPsCg4TwMX11ESk7HHXd8AbnKW2l2B0-->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

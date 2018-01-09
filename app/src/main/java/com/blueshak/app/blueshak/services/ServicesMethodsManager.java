@@ -1298,4 +1298,12 @@ public class ServicesMethodsManager {
         param += "&conversation_id=" + conversation_id;
         postData(context, new StatusModel(), ServerConstants.URL_delete_conversation, param, TAG);
     }
+
+    public void deleteSalesItems(Context context, String productID, String salesID, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String param = "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
+        param += "&product_id=" + productID;
+        param += "&sale_id=" + salesID;
+        postData(context, new StatusModel(), ServerConstants.URL_delete_sales_items, param, TAG);
+    }
 }

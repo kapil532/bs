@@ -45,6 +45,7 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.ui.adapter.AlbumMediaAdapter;
+import com.zhihu.matisse.ui.MatisseActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -141,6 +142,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
     }
 
     private void selectImage(int imageCount) {
+        MatisseActivity.isProfilePic = false;
         if (checkIfAlreadyhavePermission()) {
             Matisse.from(this)
                     .choose(MimeType.ofImage(), true)
@@ -257,6 +259,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
     }
 
     private void setImage(int imageCount) {
+        MatisseActivity.isProfilePic = false;
         selectImage(imageCount);
     }
 

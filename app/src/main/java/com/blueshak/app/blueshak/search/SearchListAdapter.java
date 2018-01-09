@@ -288,7 +288,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 Log.d(TAG,"OnFailureFromServer"+msg);
             }
         }, "Add Bookmarks");
-
     }
     private void addBookmark(final Context context, String productID){
         /*GlobalFunctions.showProgress(context, "Bookmarking Product...");*/

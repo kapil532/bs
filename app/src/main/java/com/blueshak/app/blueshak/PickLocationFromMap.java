@@ -183,17 +183,10 @@ public class PickLocationFromMap extends AppCompatActivity implements GoogleMap.
     LocationService locServices;
     private Double lat,lang;
     public void setUpMap() {
-
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
-
         if (!checkPermission()) {
-
             requestPermission();
-
         } else {
-
-
             map.setMyLocationEnabled(true);
             //  map.setTrafficEnabled(true);
             map.setIndoorEnabled(true);
@@ -210,9 +203,6 @@ public class PickLocationFromMap extends AppCompatActivity implements GoogleMap.
 
                 @Override
                 public boolean onMarkerClick(Marker marker) {
-
-
-
 
                     return true;
                 }
@@ -244,20 +234,13 @@ public class PickLocationFromMap extends AppCompatActivity implements GoogleMap.
 
     private void requestPermission()
     {
-
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-
             Toast.makeText(this, "GPS permission allows us to access location data. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
 
         } else
         {
-
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
-
-
             if (checkPermission()) {
-
-
                 map.setMyLocationEnabled(true);
                 //  map.setTrafficEnabled(true);
                 map.setIndoorEnabled(true);

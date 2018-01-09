@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.blueshak.app.blueshak.garage.CreateSaleActivity;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
@@ -109,8 +110,10 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
             if(!TextUtils.isEmpty(obj.getSale_items_count()))
                 if(Integer.parseInt(obj.getSale_items_count())==1)
                     title=obj.getSale_items_count()+" Item";
-                else
+                else if(Integer.parseInt(obj.getSale_items_count())>1)
                     title=obj.getSale_items_count()+" Items";
+                else
+                    title="No Items Available";
             else
                 title="No Items Available";
 
@@ -143,6 +146,10 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
                         .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
                             @Override
                             public void onSliderClick(BaseSliderView slider) {
+                                if(CreateSaleActivity.deleted_product_list!=null){
+                                    CreateSaleActivity.deleted_product_list.clear();
+                                    CreateSaleActivity.deleted_product_list = null;
+                                }
                                 Intent intent = ProductDetail.newInstance(context,null,obj,GlobalVariables.TYPE_MY_SALE);
                                 context.startActivity(intent);
                             }

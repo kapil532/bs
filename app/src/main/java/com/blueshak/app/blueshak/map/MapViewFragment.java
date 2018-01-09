@@ -13,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.InflateException;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueshak.blueshak.R;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -57,11 +59,12 @@ import com.blueshak.app.blueshak.util.LocationService;
 import com.blueshak.app.blueshak.view_sales.MapActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.google.android.gms.location.places.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapViewFragment extends Fragment implements OnMapReadyCallback, LocationListener {
+public class MapViewFragment extends Fragment implements OnMapReadyCallback, LocationListener,GoogleMap.OnMapClickListener {
     public static final String TAG = "MapFragmentSales";
     public static final String MAP_FRAGMENT_SALES_BUNDLE_TYPE_STRING = "MapFragmentSalesBundleTypeString";
     public static final String MAP_FRAGMENT_SALES_PRODUCT_ID_STRING = "MapFragmentProductIdTypeString";
@@ -159,8 +162,15 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
             mapFragment.getMapAsync(this);
 //            listFAB = (FloatingActionButton) view.findViewById(R.id.map_fragment_list_fab);
             sale_header_name = (TextView) view.findViewById(R.id.sale_header_name);
+
 /*
             if (fragment == null) {
+
+
+            MapFragment mapFragment = (MapFragment)getActivity().getFragmentManager().findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+            /*if (fragment == null) {
+>>>>>>> 4ecf3df750a74d68da740e0779ff673378ff1e4d
                 fragment = SupportMapFragment.newInstance();
                 fm.beginTransaction().replace(R.id.map, fragment).commit();
                 fragment.getMapAsync(this);
@@ -168,25 +178,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
                 fragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
                 fragment.getMapAsync(this);
             }*/
-            from_activity = getArguments().getBoolean(MAP_FRAGMENT_SALES_FROM_ACTIVITY_ID_STRING);
-            type = getArguments().getString(MAP_FRAGMENT_SALES_BUNDLE_TYPE_STRING);
-            if (!from_activity)
-                en_large.setVisibility(View.VISIBLE);
-            else
-                en_large.setVisibility(View.GONE);
-            en_large.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!from_activity) {
-                        ProductModel productModel = new ProductModel();
-                        productModel.setName(shop_name);
-                        productModel.setLongitude(Double.toString(lng));
-                        productModel.setLatitude(Double.toString(lat));
-                        Intent i = MapActivity.newInstance(activity, GlobalVariables.TYPE_SHOP, productModel);
-                        startActivity(i);
-                    }
-                }
-            });
+
 
             if (type.equalsIgnoreCase(GlobalVariables.TYPE_SHOP)) {
                 shop = (Shop) getArguments().getSerializable(SHOP);
@@ -218,24 +210,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
                     locServices.removeListener();
                 }
             }
-           /* sale_header_name.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                   final int DRAWABLE_LEFT = 0;
-                    final int DRAWABLE_TOP = 1;
-                    final int DRAWABLE_RIGHT = 2;
-                    final int DRAWABLE_BOTTOM = 3;
-                    final Location loc=locServices.getLocation();
-                    if(event.getAction() == MotionEvent.ACTION_UP) {
-                        if(event.getRawX() >= (sale_header_name.getRight() - sale_header_name.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                            if(salesListModel.getSalesList().size()>0){
-                                MainActivity.replaceFragment(SalesList.newInstance(salesListModel, type,null,false), SalesList.TAG);}
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-            });*/
+
         } catch (NullPointerException e) {
             Log.d(TAG, "NullPointerException");
             e.printStackTrace();
@@ -280,35 +255,100 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
         }, "List Sales");
 
     }
+    float camera_focus_zoom = 12.0f;
+    public void setUpMap() {
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        if (!checkPermission()) {
+            requestPermission();
+        } else {
+            map.setMyLocationEnabled(true);
+            //  map.setTrafficEnabled(true);
+            map.setIndoorEnabled(true);
+//            map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+            map.setBuildingsEnabled(true);
+//            map.getUiSettings().setZoomControlsEnabled(true);
+            map.setOnCameraChangeListener(OnCameraChangeListen);
+            map.setOnMapClickListener(this);
+           // locServices = new LocationService(activity);
+           // lat=locServices.getLatitude();
+           // lang=locServices.getLongitude();
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), camera_focus_zoom));
+            if(from_activity || !type.equalsIgnoreCase(GlobalVariables.TYPE_SHOP)){
+                map.getUiSettings().setZoomControlsEnabled(true);
+            }
+            if(type.equalsIgnoreCase(GlobalVariables.TYPE_SHOP)){
+                addMarker();
+            }else{
+                setUpClusterer();
+            }
+        }
+    }
+    GoogleMap.OnCameraChangeListener OnCameraChangeListen = new GoogleMap.OnCameraChangeListener() {
 
-    /* private void getLists(Context context){
-         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-         servicesMethodsManager.getMySalesList(context, new ServerResponseInterface() {
-             @Override
-             public void OnSuccessFromServer(Object arg0) {
-                 Log.d(TAG, "onSuccess Response");
-                 salesListModel = (SalesListModelNew) arg0;
-                 String str = salesListModel.toString();
-                 Log.d(TAG, str);
-                 addItems();
-             }
+        @Override
+        public void onCameraChange(CameraPosition cameraPosition)
+        {
+            /*locationModel.setLatitude(Double.toString(cameraPosition.target.latitude));
+            locationModel.setLongitude(Double.toString(cameraPosition.target.longitude));
+            lat=cameraPosition.target.latitude;
+            lang=cameraPosition.target.longitude;
+            getAddressFromLatLng();*/
+        }
+    };
+    final int PERMISSION_REQUEST_CODE = 2002;
+    private void requestPermission()
+    {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+            Toast.makeText(getActivity(), "GPS permission allows us to access location data. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
 
-             @Override
-             public void OnFailureFromServer(String msg) {
-                 Log.d(TAG, msg);
-             }
+        } else
+        {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
+            if (checkPermission()) {
+                map.setMyLocationEnabled(true);
+                //  map.setTrafficEnabled(true);
+                map.setIndoorEnabled(true);
+                map.setBuildingsEnabled(true);
+                map.getUiSettings().setZoomControlsEnabled(true);
+                map.setOnCameraChangeListener(OnCameraChangeListen);
+                map.setOnMapClickListener(this);
+                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
-             @Override
-             public void OnError(String msg) {
-                 Log.d(TAG, msg);
-             }
-         }, "List Sales");
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
 
-     }*/
+                        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(marker.getPosition().latitude,
+                                marker.getPosition().longitude));
+
+                        return true;
+                    }
+
+                });
+            } else {
+                requestPermission();
+            }
+        }
+    }
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        /*googleMap.setMyLocationEnabled(true);*/
+        map = googleMap;
+        setUpMap();
+
+        /*googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        *//*googleMap.setMyLocationEnabled(true);*//*
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -330,7 +370,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
         if(type.equalsIgnoreCase(GlobalVariables.TYPE_SHOP))
             addMarker();
         else
-            setUpClusterer();
+            setUpClusterer();*/
     }
     private void addMarker() {
         MarkerOptions options = new MarkerOptions();
@@ -362,44 +402,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
             }
         });
 
-       /* MarkerOptions options = new MarkerOptions();
-        *//*MarkerOptions marker = new MarkerOptions().position(currentLatLng).title("resturan")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.profile_pic));
-        *//*
 
-        // following four lines requires 'Google Maps Android API Utility Library'
-        // https://developers.google.com/maps/documentation/android/utility/
-        // I have used this to display the time as title for location markers
-        // you can safely comment the following four lines but for this info
-        IconGenerator iconFactory = new IconGenerator(activity);
-        iconFactory.setStyle(IconGenerator.STYLE_PURPLE);
-        iconFactory.setColor(getResources().getColor(R.color.tab_selected));
-     *//*   options.icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(icon_name)));*//*
-        *//*options.icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(icon_name)));*//*
-        options.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_orange_small));
-        options.anchor(iconFactory.getAnchorU(), iconFactory.getAnchorV());
-        LatLng currentLatLng = new LatLng(lat,lng);
-        options.position(currentLatLng);
-        Marker mapMarker = map.addMarker(options);
-        mapMarker.setTitle(shop_name);
-        Log.d(TAG, "Marker added.............................");
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,GlobalVariables.MAP_ZOOMING_INT));
-        Log.d(TAG, "Zoom done.............................");
-
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                if(!from_activity){
-                    ProductModel productModel=new ProductModel();
-                    productModel.setName(shop_name);
-                    productModel.setLongitude(Double.toString(lng));
-                    productModel.setLatitude(Double.toString(lat));
-                    Intent i= MapActivity.newInstance(activity,GlobalVariables.TYPE_SHOP,productModel);
-                    startActivity(i);
-                }
-                return false;
-            }
-        });*/
     }
     @Override
     public void onLocationChanged(Location location) {
@@ -420,6 +423,11 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
                 setUpClusterer();
             }
         }*/
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+
     }
 
     public class MyItem implements ClusterItem {
@@ -578,25 +586,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
 
     }
 
-   /* public Bitmap createDrawableFromView(Context context) {
-        View marker = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
-                inflate(R.layout.map_popup, your_parent_layout,false);
-        TextView tv_location_name = (TextView) marker.findViewById(R.id.tv_location_name);
-        TextView tv_event_status = (TextView) marker.findViewById(R.id.tv_event_status);
-        TextView tv_event_name = (TextView) marker.findViewById(R.id.tv_event_name);
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-        marker.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
-        marker.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
-        marker.buildDrawingCache();
-        Bitmap bitmap = Bitmap.createBitmap(marker.getMeasuredWidth(), marker.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-
-        Canvas canvas = new Canvas(bitmap);
-        marker.draw(canvas);
-        return bitmap;
-    }*/
    private MyItem clickedClusterItem;
     private Cluster<MyItem> clickedCluster;
     private final GoogleMap.InfoWindowAdapter mInfoWindowAdapter = new GoogleMap.InfoWindowAdapter() {
@@ -612,7 +601,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
                 go_to_sale_info.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d(TAG,"########onClick###################");
                         Intent intent = ProductDetail.newInstance(activity,null,clickedClusterItem.getSalesModel(),GlobalVariables.TYPE_MY_SALE);
                         activity.startActivity(intent);
                     }
@@ -620,14 +608,12 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
                 window.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d(TAG,"########onClick###################");
                         Intent intent = ProductDetail.newInstance(activity,null,clickedClusterItem.getSalesModel(),GlobalVariables.TYPE_MY_SALE);
                         activity.startActivity(intent);
 
                     }
                 });
                 if(clickedClusterItem!=null){
-                    System.out.println("You clicked this: "+clickedClusterItem.getSalesModel().getName());
                     SalesModel salesModel=clickedClusterItem.getSalesModel();
                     sale_name.setText(salesModel.getName());
                     String title="";
@@ -653,45 +639,10 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
                     //download and display image from url
                     imageLoader.displayImage(item_image,sale_image, options);
 
-                  /*  if(!TextUtils.isEmpty(item_image)){
-                        Picasso.with(activity).load(item_image).placeholder(R.drawable.placeholder_background).error(R.drawable.placeholder_background).into(new Target() {
-                            @Override
-                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                int targetWidth = bitmap.getWidth();
-                                double aspectRatio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
-                                int targetHeight = (int) (targetWidth * aspectRatio);
-                                Bitmap result = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, false);
-                               sale_image.setImageBitmap(result);
-                                getInfoContents(marker);
-                            *//*if (result != bitmap) {
-                                // Same bitmap is returned if sizes are the same
-                                bitmap.recycle();
-
-                            }*//*
-                            }
-
-                            @Override
-                            public void onBitmapFailed(Drawable errorDrawable) {
-                               sale_image.setImageDrawable(errorDrawable);
-                            }
-
-                            @Override
-                            public void onPrepareLoad(Drawable placeHolderDrawable) {
-                                sale_image.setImageDrawable(placeHolderDrawable);
-                            }
-                        });
-                    }*/
                 }else{
                     System.out.println("The clicked cluster item was nulllll");
                 }
-              /*  if (clickedCluster != null) {
-                    for (Objective item : clickedCluster.getItems()) {
-                        // Extract data from each item in the cluster as needed
-                        if(item.getRemoteId().equals(clickedClusterItem.getRemoteId())){
-                            nameTV.setText(clickedClusterItem.getName());
-                        }
-                    }
-                }*/
+
             }
             return window;
         }
