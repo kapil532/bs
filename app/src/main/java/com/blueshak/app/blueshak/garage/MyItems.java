@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyItems extends RootActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class MyItems extends RootActivity implements SwipeRefreshLayout.OnRefreshListener,MyItemListAdapter.OnClickedListener{
 
     private static final String TAG = "MyItems";
     private static Context context;
@@ -107,6 +107,7 @@ public class MyItems extends RootActivity implements SwipeRefreshLayout.OnRefres
             });
             recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
             adapter = new MyItemListAdapter(context, product_list,true);
+            adapter.setOnClickedListener(this);
             LinearLayoutManager linearLayoutManagerVertical =
                     new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(linearLayoutManagerVertical);
@@ -272,6 +273,12 @@ public class MyItems extends RootActivity implements SwipeRefreshLayout.OnRefres
         Intent i=CreateSaleActivity.newInstance(activity,null,null,null,GlobalVariables.TYPE_HOME,GlobalVariables.TYPE_ITEM);
         startActivity(i);
     }
+
+    @Override
+    public void saleDeleteClicked(ProductModel obj,int position) {
+
+    }
+
     public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
         private Drawable mDivider;
 

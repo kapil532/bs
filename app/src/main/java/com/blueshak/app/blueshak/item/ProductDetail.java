@@ -49,7 +49,8 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
-import com.blueshak.app.blueshak.Messaging.helper.Constants;
+import com.blueshak.app.blueshak.util.BlueShakLog;
+import com.blueshak.app.blueshak.util.BlueShakSharedPreferences;
 import com.crashlytics.android.Crashlytics;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
@@ -486,6 +487,8 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                     }
                 }
             });
+           clearDeleteList();
+
         } catch (NullPointerException e){
             Log.d(TAG,"NullPointerException");
             e.printStackTrace();
@@ -534,6 +537,9 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                 Log.d(TAG, "getSimilarProducts onSuccess Response");
                 SimilarProductsModel similarProductsModel = (SimilarProductsModel)arg0;
             /*    setSimilarProducts(similarProductsModel.getProductsList(),"Similar products");*/
+                if (CreateSaleActivity.deleted_product_list != null){
+                    CreateSaleActivity.deleted_product_list.clear();
+                }
                 setValues(similarProductsModel.getProductsList());
                 similar_listing=similarProductsModel.getProductsList();
                 Log.d(TAG, similarProductsModel.toString());
@@ -627,6 +633,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
     }
     private void getSaleInfo(SalesModel salesModel,Context context){
         showProgressBar();
+        setSalesIdLatLongForDelete(context,salesModel.getId(),Double.toString(latitude),Double.toString(longitude));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getSaleInfo(context, salesModel.getId(),Double.toString(latitude),Double.toString(longitude), new ServerResponseInterface() {
             @Override
@@ -636,8 +643,6 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                  SalesModel salesModel = (SalesModel) arg0;
                 Log.d(TAG+"#Sale ####", salesModel.toString());
                 setThisPage(salesModel);
-
-
                 Log.d(TAG, salesModel.toString());
             }
 
@@ -823,7 +828,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             location.setText(productModel.getAddress());
         }else{
             LocationModel location_model = new LocationModel();
-            String address = location_model.getAddressFromLatLong(this, Double.valueOf(productModel.getLatitude()),
+            String address = location_model.getSubAddressFromLatLong(this, Double.valueOf(productModel.getLatitude()),
                     Double.valueOf(productModel.getLongitude()));
             if(address!=null){
                 location.setText(address);
@@ -1075,6 +1080,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             if(is_map)
                 setMap();
 
+            deletedDataLocally();
             super.onResume();
 
         }catch (IllegalStateException e){
@@ -1164,14 +1170,18 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         title.setText(title_name);
         sale_name_tv.setText(title_name);
         String title="";
-        if(!TextUtils.isEmpty(salesModel.getSale_items_count()))
-            if(Integer.parseInt(salesModel.getSale_items_count())==1)
+        if(!TextUtils.isEmpty(salesModel.getSale_items_count())){
+            if(Integer.parseInt(salesModel.getSale_items_count())==1){
                 title=salesModel.getSale_items_count()+" Item";
-            else
+            }else if(Integer.parseInt(salesModel.getSale_items_count()) > 1){
                 title=salesModel.getSale_items_count()+" Items";
-        else
-            title="No Items Available";
+            }else{
+                title="No Items Available";
+            }
 
+        }else{
+            title="No Items Available";
+        }
         sale_items_tv.setText(title);
         sale_date_tv.setText("Listed "+salesModel.getListedDate());
         sale_time.setText(salesModel.getStart_time()+"-"+salesModel.getEnd_time());
@@ -1255,7 +1265,15 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             ratingBar1.setRating(Float.parseFloat(salesModel.getAvg_seller_rating()));
 
         }
-        location.setText(salesModel.getSale_address());
+        LocationModel location_model = new LocationModel();
+        String address = location_model.getSubAddressFromLatLong(this, Double.valueOf(productModel.getLatitude()),
+                Double.valueOf(productModel.getLongitude()));
+        if(address!=null){
+            location.setText(address);
+        }else{
+            location.setText(salesModel.getSale_address());
+        }
+
       /*  getAddressFromLatLng(Double.parseDouble(salesModel.getLatitude()),Double.parseDouble(salesModel.getLongitude()));*/
         showContent();
         setMap();
@@ -1520,24 +1538,70 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                 outRect.top = 2 * space;
         }
     }
-    private void setValues(List<ProductModel> products){
-            relatedList.clear();
-            relatedList.addAll(products);
-        Log.d("REFRESH LIST","REFRESH LIST"+relatedList.size());
-            if(relatedList!=null){
-                if(relatedList.size()>0&&recyclerView!=null&&relatedList!=null&&adapter!=null){
+    private void setValues(List<ProductModel> products) {
 
-                    refreshList();
-                    no_items.setVisibility(View.GONE);
-                }else{
-                    refreshList();
-                    no_items.setVisibility(View.VISIBLE);
-                }
-            }else{
+        relatedList.clear();
+        relatedList.addAll(products);
+        Log.d("REFRESH LIST", "REFRESH LIST" + relatedList.size());
+        if (relatedList != null) {
+            if (relatedList.size() > 0 && recyclerView != null && relatedList != null && adapter != null) {
+
+                refreshList();
+                no_items.setVisibility(View.GONE);
+            } else {
                 refreshList();
                 no_items.setVisibility(View.VISIBLE);
             }
+        } else {
+            refreshList();
+            no_items.setVisibility(View.VISIBLE);
+        }
     }
+
+    private void deletedDataLocally(){
+        BlueShakLog.logDebug(TAG,"deletedDataLocally -> ");
+        if (CreateSaleActivity.deleted_product_list != null){
+            BlueShakLog.logDebug(TAG,"deletedDataLocally -> CreateSaleActivity.deleted_product_list "
+                    +CreateSaleActivity.deleted_product_list.size());
+            relatedList.clear();
+            relatedList.addAll(CreateSaleActivity.deleted_product_list);
+            if (relatedList != null) {
+                if (relatedList.size() > 0 && recyclerView != null && relatedList != null && adapter != null) {
+                    updateUI(relatedList);
+                    refreshList();
+                    no_items.setVisibility(View.GONE);
+                } else {
+                    refreshList();
+                    no_items.setVisibility(View.VISIBLE);
+                }
+            } else {
+                refreshList();
+                no_items.setVisibility(View.VISIBLE);
+            }
+        }
+
+    }
+
+    private void updateUI(List<ProductModel> deleted_product_list) {
+        String title = "";
+        int iCount = deleted_product_list.size();
+        if (iCount == 1) {
+            title = iCount + " Item";
+        } else if (iCount > 1) {
+            title = iCount + " Items";
+        } else {
+            title = "No Items Available";
+        }
+        sale_items_tv.setText(title);
+        if (iCount > 0){
+            similarListing_label.setText("Items for sale");
+        }
+        else{
+            similarListing_label.setText("No items for sale");
+        }
+
+    }
+
     private void deleteBookmark(final Context context, final String productID){
         /*GlobalFunctions.showProgress(context, "Bookmarking Product...");*/
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
@@ -1955,5 +2019,20 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 			/*UtilityClass.showAlertDialog(context, ERROR, "Couldn't launch the market", null, 0);*/
         }
 
+    }
+
+    private void setSalesIdLatLongForDelete(Context context,String salesId,String latitude,String longitude){
+        BlueShakLog.logDebug(TAG,"setSalesIdLatLongForDelete -> salesId -> "+salesId+" latitude -> "+latitude+
+                "longitude -> "+longitude);
+        BlueShakSharedPreferences.setSalesId(context,salesId);
+        BlueShakSharedPreferences.setSalesLatitude(context,latitude);
+        BlueShakSharedPreferences.setSalesLongitude(context,longitude);
+    }
+
+    private void clearDeleteList(){
+        if (CreateSaleActivity.deleted_product_list != null){
+            CreateSaleActivity.deleted_product_list.clear();
+            CreateSaleActivity.deleted_product_list = null;
+        }
     }
 }

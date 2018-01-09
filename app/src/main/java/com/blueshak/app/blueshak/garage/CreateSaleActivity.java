@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blueshak.app.blueshak.services.model.ProductModel;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.MainActivity;
 import com.blueshak.app.blueshak.global.GlobalFunctions;
@@ -24,6 +25,9 @@ import com.blueshak.app.blueshak.services.model.CreateProductModel;
 import com.blueshak.app.blueshak.services.model.CreateSalesModel;
 import com.blueshak.app.blueshak.services.model.LocationModel;
 import com.blueshak.app.blueshak.view.AlertDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateSaleActivity extends RootActivity {
 
@@ -47,6 +51,9 @@ public class CreateSaleActivity extends RootActivity {
     private String type;
     private  TextView activity_title,cancel;
     private  ImageView go_back;
+
+    public static List<ProductModel> deleted_product_list = new ArrayList<ProductModel>();
+
     public static Intent newInstance(Context context, CreateSalesModel sales, CreateProductModel createProductModel, LocationModel locationModel, int from,String type) {
         Intent mIntent = new Intent(context, CreateSaleActivity.class);
         Bundle bundle = new Bundle();

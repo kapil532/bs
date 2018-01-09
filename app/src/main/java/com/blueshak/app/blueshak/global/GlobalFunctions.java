@@ -141,7 +141,9 @@ public class GlobalFunctions {
     public static void showProgress(Context context,@Nullable String message){
         if(context!=null){
             progressDialog = new ProgressDialog(context);
-            if(message==null){message = context.getString(R.string.loading);}
+            if(message==null){
+                message = context.getString(R.string.loading);
+            }
             progressDialog.setMessage(message);
             progressDialog.setCancelable(false);
             progressDialog.show();

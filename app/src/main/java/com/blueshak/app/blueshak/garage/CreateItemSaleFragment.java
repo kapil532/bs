@@ -72,6 +72,7 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.ui.adapter.AlbumMediaAdapter;
+import com.zhihu.matisse.ui.MatisseActivity;
 
 import org.lucasr.twowayview.TwoWayView;
 
@@ -635,9 +636,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             hide_item = NegotiableSelection.bool_hide_item_ = productModel.isHide_item_price();
             item_negotiable = NegotiableSelection.bool_item_negotiable_ = productModel.isNegotiable();
 
-
-            Log.d("SHIPPINGCOST", "SHIPPINGCOST" + productModel.isNegotiable() + "&&&$$$$" + productModel.isHide_item_price());
-
             try {
                 name.setText(Constants.getConv(productModel.getName()));
                 description.setText(Constants.getConv(productModel.getDescription()));
@@ -645,9 +643,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 name.setText(productModel.getName());
                 description.setText(productModel.getDescription());
             }
-
-
-            Log.d("VALUESSS", "SHIPPINGCOST" + productModel.getLocal_shipping_cost() + "--" + productModel.getDescription());
             saleprice.setText(productModel.getSalePrice());
             pd_salepricetype.setText(productModel.getCurrency());
             shippable.setChecked(productModel.isShippable() ? true : false);
@@ -727,7 +722,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         alertDialog.setPositiveButton("Yes", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 if (from_key == GlobalVariables.TYPE_AC_SIGN_UP) {
                     startActivity(new Intent(getActivity(), MainActivity.class));
@@ -1198,7 +1192,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     private static final int REQUEST_CODE_CHOOSE = 23;
 
     private void selectImage(int size) {
-
+        MatisseActivity.isProfilePic = false;
         if (checkIfAlreadyhavePermission()) {
 //            RxPermissions rxPermissions = new RxPermissions(activity);
 //            rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)

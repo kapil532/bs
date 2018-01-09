@@ -1,6 +1,7 @@
 package com.blueshak.app.blueshak.util;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
@@ -109,6 +110,7 @@ public class LocationService extends Service implements LocationListener, Google
         }
     }
 
+    @SuppressLint("MissingPermission")
     public Location getLocation() {
         try {
             locationManager = (LocationManager) mContext
@@ -276,6 +278,7 @@ public class LocationService extends Service implements LocationListener, Google
         return null;
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.d("GPS","Connected");
