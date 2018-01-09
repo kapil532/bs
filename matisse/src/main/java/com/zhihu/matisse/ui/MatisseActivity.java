@@ -34,6 +34,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.zhihu.matisse.R;
@@ -79,6 +80,8 @@ public class MatisseActivity extends AppCompatActivity implements
     private TextView mButtonApply;
     private View mContainer;
     private View mEmptyView;
+    private FrameLayout frameLayoutBottom;
+    public static boolean isProfilePic = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,6 +121,7 @@ public class MatisseActivity extends AppCompatActivity implements
         mContainer = findViewById(R.id.container);
         mEmptyView = findViewById(R.id.empty_view);
 
+        frameLayoutBottom = (FrameLayout)findViewById(R.id.bottom_toolbar);
         mSelectedCollection.onCreate(savedInstanceState);
         updateBottomToolbar();
 
@@ -130,6 +134,7 @@ public class MatisseActivity extends AppCompatActivity implements
         mAlbumCollection.onCreate(this, this);
         mAlbumCollection.onRestoreInstanceState(savedInstanceState);
         mAlbumCollection.loadAlbums();
+
     }
 
     @Override
@@ -215,18 +220,32 @@ public class MatisseActivity extends AppCompatActivity implements
 
     private void updateBottomToolbar() {
         int selectedCount = mSelectedCollection.count();
-        if (selectedCount == 0) {
-            mButtonPreview.setEnabled(false);
-            mButtonApply.setEnabled(false);
-            mButtonApply.setText(getString(R.string.button_apply_default));
-        } else if (selectedCount == 1 && mSpec.singleSelectionModeEnabled()) {
-            mButtonPreview.setEnabled(true);
-            mButtonApply.setText(R.string.button_apply_default);
-            mButtonApply.setEnabled(true);
-        } else {
-            mButtonPreview.setEnabled(true);
-            mButtonApply.setEnabled(true);
-            mButtonApply.setText(getString(R.string.button_apply, selectedCount));
+        if(isProfilePic){
+            frameLayoutBottom.setVisibility(View.GONE);
+            if(selectedCount == 1){
+                Intent result = new Intent();
+                ArrayList<Uri> selectedUris = (ArrayList<Uri>) mSelectedCollection.asListOfUri();
+                result.putParcelableArrayListExtra(EXTRA_RESULT_SELECTION, selectedUris);
+                ArrayList<String> selectedPaths = (ArrayList<String>) mSelectedCollection.asListOfString();
+                result.putStringArrayListExtra(EXTRA_RESULT_SELECTION_PATH, selectedPaths);
+                setResult(RESULT_OK, result);
+                finish();
+            }
+        }else{
+            frameLayoutBottom.setVisibility(View.VISIBLE);
+            if (selectedCount == 0) {
+                mButtonPreview.setEnabled(false);
+                mButtonApply.setEnabled(false);
+                mButtonApply.setText(getString(R.string.button_apply_default));
+            } else if (selectedCount == 1 && mSpec.singleSelectionModeEnabled()) {
+                mButtonPreview.setEnabled(true);
+                mButtonApply.setText(R.string.button_apply_default);
+                mButtonApply.setEnabled(true);
+            } else {
+                mButtonPreview.setEnabled(true);
+                mButtonApply.setEnabled(true);
+                mButtonApply.setText(getString(R.string.button_apply, selectedCount));
+            }
         }
     }
 
