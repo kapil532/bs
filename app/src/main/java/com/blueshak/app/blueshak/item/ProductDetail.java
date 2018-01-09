@@ -568,6 +568,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 
     public void setMap(){
        if(fragmentManager!=null){
+           Log.d(TAG,"Product SHop"+productModel.getLatitude());
               if(fragmentManager!=null&&!this.isFinishing()){
                   Fragment fragment = new MapViewFragment().newInstance(GlobalVariables.TYPE_SHOP,productModel,null,false);
                   fragmentManager.beginTransaction().replace(R.id.map,fragment).commitAllowingStateLoss();

@@ -157,9 +157,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
             locServices.setListener(this);
             final FragmentManager fm = getChildFragmentManager();
             fragment = (SupportMapFragment) fm.findFragmentById(R.id.map);
-            MapFragment mapFragment =(MapFragment) getActivity().getFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
+
 //            listFAB = (FloatingActionButton) view.findViewById(R.id.map_fragment_list_fab);
             sale_header_name = (TextView) view.findViewById(R.id.sale_header_name);
 
@@ -178,7 +176,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
                 fragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
                 fragment.getMapAsync(this);
             }*/
-
+            type = (String) getArguments().getSerializable(MAP_FRAGMENT_SALES_BUNDLE_TYPE_STRING);
 
             if (type.equalsIgnoreCase(GlobalVariables.TYPE_SHOP)) {
                 shop = (Shop) getArguments().getSerializable(SHOP);
@@ -190,6 +188,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
                     lng = Double.parseDouble(shop.getLongitude());
                 }
                 if (productModel != null) {
+                    Log.d(TAG,"PRODUCT"+productModel.getLatitude());
                     icon_name = productModel.getName();
                     shop_name = productModel.getName();
                     lat = Double.parseDouble(productModel.getLatitude());
@@ -210,6 +209,9 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
                     locServices.removeListener();
                 }
             }
+            MapFragment mapFragment =(MapFragment) getActivity().getFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
 
         } catch (NullPointerException e) {
             Log.d(TAG, "NullPointerException");
@@ -258,7 +260,8 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
     float camera_focus_zoom = 12.0f;
     public void setUpMap() {
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        if (!checkPermission()) {
+        if (!checkPermission())
+        {
             requestPermission();
         } else {
             map.setMyLocationEnabled(true);
@@ -272,14 +275,14 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
            // locServices = new LocationService(activity);
            // lat=locServices.getLatitude();
            // lang=locServices.getLongitude();
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), camera_focus_zoom));
+          //  map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), camera_focus_zoom));
             if(from_activity || !type.equalsIgnoreCase(GlobalVariables.TYPE_SHOP)){
                 map.getUiSettings().setZoomControlsEnabled(true);
             }
             if(type.equalsIgnoreCase(GlobalVariables.TYPE_SHOP)){
-                addMarker();
+            addMarker();
             }else{
-                setUpClusterer();
+              setUpClusterer();
             }
         }
     }
@@ -535,9 +538,38 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
 
         }
         if(mClusterManager!=null)mClusterManager.cluster();
-        Toast.makeText(context,""+model.getLatitude(),Toast.LENGTH_LONG).show();
+       // Toast.makeText(context,""+model.getLatitude(),Toast.LENGTH_LONG).show();
+        if(map!=null) {
+            Log.d(TAG, "#######map--" + model.getLatitude());
+            {
+                drawCircle();
+            }
+        }
         LatLng currentLatLng = new LatLng(Double.parseDouble(model.getLatitude()),Double.parseDouble(model.getLongitude()));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,8));
+    }
+
+    private void drawCircle(){
+        try{
+            int range;
+            if(model.isDistance_enabled()){
+                range=model.getRange()*1000;
+            }else{
+                range=250000;
+            }
+            CircleOptions circleOptions = new CircleOptions()
+                    .center(new LatLng(lat, lng))
+                    .fillColor(context.getResources().getColor(R.color.brand_secondary_trasnparent_color_1))
+                    .strokeColor(context.getResources().getColor(R.color.tab_selected))
+                    .strokeWidth(2)
+                    .radius(range).clickable(true);; // In meters
+
+            map.addCircle(circleOptions);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            Log.d(TAG,e.getMessage());
+        }
+
     }
     class OwnIconRendered extends DefaultClusterRenderer<MyItem> {
 
