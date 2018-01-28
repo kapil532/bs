@@ -143,12 +143,12 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemViewType(int position){
         MessageModel messageModel=messages.get(position);
-        if(messageModel.getMessage_type().equalsIgnoreCase(GlobalVariables.TYPE_TEXT)){
+        if(messageModel.getMessage_type()!=null && messageModel.getMessage_type().equalsIgnoreCase(GlobalVariables.TYPE_TEXT)){
             if(messageModel.is_sent_by_you())
                 return VIEWTYPE_MESSAGE_SENT;
             else
                 return VIEWTYPE_MESSAGE_RECEIVED;
-        }else if(messageModel.getMessage_type().equalsIgnoreCase(GlobalVariables.TYPE_OFFER)){
+        }else if(messageModel.getMessage_type()!=null && messageModel.getMessage_type().equalsIgnoreCase(GlobalVariables.TYPE_OFFER)){
             if(messageModel.is_sent_by_you())
                 return VIEWTYPE_MESSAGE_SEND_OFFER_MESSAGE;
             else

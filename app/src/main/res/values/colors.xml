@@ -78,5 +78,6 @@
     <color name="brand_secondary_trasnparent_color_3">#4D92D0FF</color>
     <color name="brand_secondary_trasnparent_color_1">#3392D0FF</color>
     <color name="white_trasnparent_color_1">#80ffffff</color>
+    <color name="dark_gray">#A9A9A9</color>
 
 </resources>

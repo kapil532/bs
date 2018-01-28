@@ -1,8 +1,10 @@
 package com.blueshak.app.blueshak.services.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.blueshak.app.blueshak.global.GlobalVariables;
+import com.blueshak.app.blueshak.util.BlueShakSharedPreferences;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,15 +20,20 @@ public class MessageModel implements Serializable {
     private final String IMAGE = "image";
     private final String MESSAGE_ID = "message_id";
     private final String SENDER = "sender";
-    private final String CONVERSATION_ID= "conversation_id";
-    private final String RECEIVER= "receiver";
+    private final String CONVERSATION_ID = "conversation_id";
+    private final String RECEIVER = "receiver";
     private final String OFFER_PRODUCT_ID = "offered_product_id";
-    private final String PRODUCT_IMAGE="product_image";
-    private final String PRODUCT_ID="product_id";
-    private final String PRODUCT_NAME="product_name";
-    private final String DATE="date";
+    private final String PRODUCT_IMAGE = "product_image";
+    private final String PRODUCT_ID = "product_id";
+    private final String PRODUCT_NAME = "product_name";
+    private final String DATE = "date";
 
-    boolean local_message=false;
+    private final String CHAT_PRODUCT_ID = "chat_product_id";
+    private final String CHAT_PRODUCT_NAME = "chat_product_name";
+    private final String CHAT_PRODUCT_CURRENCY = "chat_product_currency";
+    private final String CHAT_PRODUCT_PRICE = "chat_product_price";
+
+    boolean local_message = false;
 
     public String getTAG() {
         return TAG;
@@ -148,20 +155,58 @@ public class MessageModel implements Serializable {
     private final String CONTACT_IMAGE = "contact_image";
     private final String CREATED_AT = "created_at";
     private final String IS_SEND_BY_YOU = "is_sent_by_you";
-    private final String PRODUCT_DETAILS= "product_details";
+    private final String PRODUCT_DETAILS = "product_details";
 
-    String message_type=null, message=null,image=null,message_id=null,sender=null,
-            receiver=null,offered_product_id=null,product_name=null,
-            contact_name=null,
-            conversation_id=null,
-            contact_image=null,
-            created_at=null
-            ,product_details=null,  product_image=null;
-    boolean is_sent_by_you=false;
+    String message_type = null, message = null, image = null, message_id = null, sender = null,
+            receiver = null, offered_product_id = null, product_name = null,
+            contact_name = null,
+            conversation_id = null,
+            contact_image = null,
+            created_at = null, product_details = null, product_image = null;
 
-    ProductModel productModel=new ProductModel();
+    private String chat_product_id;
+    private String chat_product_name;
+    private String chat_product_currency;
+    private String chat_product_price;
 
-    public MessageModel(){}
+    public String getChat_product_id() {
+        return chat_product_id;
+    }
+
+    public void setChat_product_id(String chat_product_id) {
+        this.chat_product_id = chat_product_id;
+    }
+
+    public String getChat_product_name() {
+        return chat_product_name;
+    }
+
+    public void setChat_product_name(String chat_product_name) {
+        this.chat_product_name = chat_product_name;
+    }
+
+    public String getChat_product_currency() {
+        return chat_product_currency;
+    }
+
+    public void setChat_product_currency(String chat_product_currency) {
+        this.chat_product_currency = chat_product_currency;
+    }
+
+    public String getChat_product_price() {
+        return chat_product_price;
+    }
+
+    public void setChat_product_price(String chat_product_price) {
+        this.chat_product_price = chat_product_price;
+    }
+
+    boolean is_sent_by_you = false;
+
+    ProductModel productModel = new ProductModel();
+
+    public MessageModel() {
+    }
 
     public String getProduct_name() {
         return product_name;
@@ -179,54 +224,85 @@ public class MessageModel implements Serializable {
         this.product_image = product_image;
     }
 
-    public boolean toObject(String jsonObject){
-        try{
+    public boolean toObject(Context context,String jsonObject) {
+        try {
             JSONObject json = new JSONObject(jsonObject);
-            if(json.has(MESSAGE_TYPE)) message_type = json.getString(MESSAGE_TYPE);
-            if(json.has(MESSAGE)) message = json.getString(MESSAGE);
-            if(json.has(MESSAGE_ID)) message_id = json.getString(MESSAGE_ID);
-            if(json.has(IMAGE))image = json.getString(IMAGE);
-            if(json.has(CONVERSATION_ID)) conversation_id = json.getString(CONVERSATION_ID);
-            if(json.has(SENDER)) sender = json.getString(SENDER);
-            if(json.has(RECEIVER))receiver = json.getString(RECEIVER);
-            if(json.has(OFFER_PRODUCT_ID)) offered_product_id = json.getString(OFFER_PRODUCT_ID);
-            if(json.has(CONTACT_NAME))contact_name = json.getString(CONTACT_NAME);
-            if(json.has(CONTACT_IMAGE)) contact_image = json.getString(CONTACT_IMAGE);
-            if(json.has(CREATED_AT))created_at = json.getString(CREATED_AT);
-            if(isJSONValid(created_at)){
-                JSONObject date_obj=json.getJSONObject(CREATED_AT);
-                if(date_obj.has(DATE)) created_at = date_obj.getString(DATE);
-            }else {
-                created_at = json.getString(CREATED_AT);
+
+            if (json.has(CHAT_PRODUCT_ID) && json.getString(CHAT_PRODUCT_ID)!=null
+                    && !json.getString(CHAT_PRODUCT_ID).equalsIgnoreCase("null")) {
+                chat_product_id = json.getString(CHAT_PRODUCT_ID);
+                BlueShakSharedPreferences.setChatProductId(context,chat_product_id);
+            }
+            if (json.has(CHAT_PRODUCT_NAME) && json.getString(CHAT_PRODUCT_NAME)!=null
+                    && !json.getString(CHAT_PRODUCT_NAME).equalsIgnoreCase("null")) {
+                chat_product_name = json.getString(CHAT_PRODUCT_NAME);
+                BlueShakSharedPreferences.setChatProductName(context,chat_product_name);
+            }
+            if (json.has(CHAT_PRODUCT_CURRENCY) && json.getString(CHAT_PRODUCT_CURRENCY)!=null
+                    && !json.getString(CHAT_PRODUCT_CURRENCY).equalsIgnoreCase("null")) {
+                chat_product_currency = json.getString(CHAT_PRODUCT_CURRENCY);
+                BlueShakSharedPreferences.setChatProductCurrency(context,chat_product_currency);
+            }
+            if (json.has(CHAT_PRODUCT_PRICE) && json.getString(CHAT_PRODUCT_PRICE)!=null
+                    && !json.getString(CHAT_PRODUCT_PRICE).equalsIgnoreCase("null")) {
+                chat_product_price = json.getString(CHAT_PRODUCT_PRICE);
+                BlueShakSharedPreferences.setChatProductPrice(context,chat_product_price);
             }
 
-
+            if (json.has(MESSAGE_TYPE)) message_type = json.getString(MESSAGE_TYPE);
+            if (json.has(MESSAGE)) message = json.getString(MESSAGE);
+            if (json.has(MESSAGE_ID)) message_id = json.getString(MESSAGE_ID);
+            if (json.has(IMAGE)) image = json.getString(IMAGE);
+            if (json.has(CONVERSATION_ID)) conversation_id = json.getString(CONVERSATION_ID);
+            if (json.has(SENDER)) sender = json.getString(SENDER);
+            if (json.has(RECEIVER)) receiver = json.getString(RECEIVER);
+            if (json.has(OFFER_PRODUCT_ID)) offered_product_id = json.getString(OFFER_PRODUCT_ID);
+            if (json.has(CONTACT_NAME)) contact_name = json.getString(CONTACT_NAME);
+            if (json.has(CONTACT_IMAGE)) contact_image = json.getString(CONTACT_IMAGE);
+            if (json.has(CREATED_AT)){
+                created_at = json.getString(CREATED_AT);
+                if (isJSONValid(created_at)) {
+                    JSONObject date_obj = json.getJSONObject(CREATED_AT);
+                    if (date_obj.has(DATE)) created_at = date_obj.getString(DATE);
+                } else {
+                    created_at = json.getString(CREATED_AT);
+                }
+            }
             int temp = 0;
-            try{temp = json.getInt(IS_SEND_BY_YOU);}catch(Exception e){temp =0;}if(temp>0){is_sent_by_you=true;}else{is_sent_by_you=false;}temp=0;
+            try {
+                temp = json.getInt(IS_SEND_BY_YOU);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                is_sent_by_you = true;
+            } else {
+                is_sent_by_you = false;
+            }
+            temp = 0;
 
-           try {
-               if (json.has(PRODUCT_DETAILS)) {
-                   JSONObject jsonObject1 = json.getJSONObject(PRODUCT_DETAILS);
-                   if (jsonObject1.has(PRODUCT_IMAGE))
-                       product_image = jsonObject1.getString(PRODUCT_IMAGE);
-                   if (jsonObject1.has(PRODUCT_ID))
-                       offered_product_id = jsonObject1.getString(PRODUCT_ID);
-                   if (jsonObject1.has(PRODUCT_NAME))
-                       product_name = jsonObject1.getString(PRODUCT_NAME);
-               }
-           }catch (Exception e)
-           {
-           }
+            try {
+                if (json.has(PRODUCT_DETAILS)) {
+                    JSONObject jsonObject1 = json.getJSONObject(PRODUCT_DETAILS);
+                    if (jsonObject1.has(PRODUCT_IMAGE))
+                        product_image = jsonObject1.getString(PRODUCT_IMAGE);
+                    if (jsonObject1.has(PRODUCT_ID))
+                        offered_product_id = jsonObject1.getString(PRODUCT_ID);
+                    if (jsonObject1.has(PRODUCT_NAME))
+                        product_name = jsonObject1.getString(PRODUCT_NAME);
+
+                }
+            } catch (Exception e) {
+            }
             try {
                 productModel.toObject(product_details);
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
 
             }
             return true;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             Log.d(TAG, "Json Exception --->: " + ex.getMessage());
-           }
+        }
         return false;
 
     }
@@ -239,32 +315,31 @@ public class MessageModel implements Serializable {
         this.local_message = local_message;
     }
 
-    public boolean toObject(CreateMessageModel createMessageModel){
-        try{
-            message_type=createMessageModel.getMessage_type();
-            local_message=true;
+    public boolean toObject(CreateMessageModel createMessageModel) {
+        try {
+            message_type = createMessageModel.getMessage_type();
+            local_message = true;
 
-            if(message_type.equalsIgnoreCase(GlobalVariables.TYPE_IMAGE))
-                image=createMessageModel.getImage();
+            if (message_type.equalsIgnoreCase(GlobalVariables.TYPE_IMAGE))
+                image = createMessageModel.getImage();
             else
-                message=createMessageModel.getMessage();
-            created_at=new Date().toString();
-            conversation_id=createMessageModel.getConversation_id();
-            receiver=createMessageModel.getSend_to();
-            is_sent_by_you=true;
+                message = createMessageModel.getMessage();
+            created_at = new Date().toString();
+            conversation_id = createMessageModel.getConversation_id();
+            receiver = createMessageModel.getSend_to();
+            is_sent_by_you = true;
             return true;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             Log.d(TAG, "Json Exception : " + ex);
-           }
+        }
         return false;
     }
 
 
-
     @Override
-    public String toString(){
+    public String toString() {
         String returnString = null;
-        try{
+        try {
             JSONObject jsonMain = new JSONObject();
             jsonMain.put(MESSAGE_TYPE, message_type);
             jsonMain.put(MESSAGE, message);
@@ -278,12 +353,18 @@ public class MessageModel implements Serializable {
             jsonMain.put(CONTACT_IMAGE, contact_image);
             jsonMain.put(CREATED_AT, created_at);
             jsonMain.put(IS_SEND_BY_YOU, is_sent_by_you);
+            jsonMain.put(CHAT_PRODUCT_ID, chat_product_id);
+            jsonMain.put(CHAT_PRODUCT_NAME, chat_product_name);
+            jsonMain.put(CHAT_PRODUCT_CURRENCY, chat_product_currency);
+            jsonMain.put(CHAT_PRODUCT_PRICE, chat_product_price);
             returnString = jsonMain.toString();
-        }catch (Exception ex){Log.d(TAG," To String Exception : "+ex);
+        } catch (Exception ex) {
+            Log.d(TAG, " To String Exception : " + ex);
 
         }
         return returnString;
     }
+
     public boolean isJSONValid(String test) {
         try {
             new JSONObject(test);

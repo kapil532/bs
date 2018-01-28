@@ -105,16 +105,8 @@ public class LoginActivity extends RootActivity implements View.OnClickListener,
 			}
 		}
 		int googlePlayServiceStatus = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-		if(googlePlayServiceStatus != ConnectionResult.SUCCESS)
-		{
-			if(googlePlayServiceStatus == ConnectionResult.SERVICE_MISSING ||
-					googlePlayServiceStatus == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED ||
-					googlePlayServiceStatus == ConnectionResult.SERVICE_DISABLED )
-				GooglePlayServicesUtil.getErrorDialog(googlePlayServiceStatus, this, 0).show();
-
-			return;
-		}
 		setContentView(R.layout.activity_login_screen);
+
 		try{
 			activity=this;
 			context=this;
@@ -184,6 +176,16 @@ public class LoginActivity extends RootActivity implements View.OnClickListener,
 			e.printStackTrace();
 			Crashlytics.log(e.getMessage());
 			Log.d(TAG,e.getMessage());
+		}
+
+		if(googlePlayServiceStatus != ConnectionResult.SUCCESS)
+		{
+			if(googlePlayServiceStatus == ConnectionResult.SERVICE_MISSING ||
+					googlePlayServiceStatus == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED ||
+					googlePlayServiceStatus == ConnectionResult.SERVICE_DISABLED )
+				GooglePlayServicesUtil.getErrorDialog(googlePlayServiceStatus, this, 0).show();
+
+			return;
 		}
 
 	}

@@ -1,5 +1,6 @@
 package com.blueshak.app.blueshak.services.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -24,15 +25,18 @@ public class MessageConversationModel implements Serializable {
 
     private List<MessageModel> conversations_messages = new ArrayList<MessageModel>();
 
-    public boolean toObject(String jsonObjectString){
+    public boolean toObject(Context context,String jsonObjectString){
         try{
             JSONObject json = new JSONObject(jsonObjectString);
             List<MessageModel> productModelArrayList = new ArrayList<MessageModel>();
+            MessageModel message = new MessageModel();
+            message.toObject(context,jsonObjectString);
+            //conversations_messages.add(message);
             JSONArray jsonArray = json.getJSONArray(CONVERSATION_MESSAGES);
             for(int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                MessageModel message = new MessageModel();
-                message.toObject(jsonObject.toString());
+                message = new MessageModel();
+                message.toObject(context,jsonObject.toString());
                 productModelArrayList.add(message);
             }
             conversations_messages.addAll(productModelArrayList);

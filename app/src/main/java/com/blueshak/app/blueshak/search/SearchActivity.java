@@ -275,10 +275,10 @@ public class SearchActivity extends RootActivity implements LocationListener,Swi
         super.onResume();
     }
     public void doSearch() {
-        final Location loc=locServices.getLocation();
-        lat=Double.toString(loc.getLatitude());
-        lng=Double.toString(loc.getLongitude());
+        Location loc=locServices.getLocation();
         if(loc!=null){
+            lat=Double.toString(loc.getLatitude());
+            lng=Double.toString(loc.getLongitude());
             setDefaultFilter();
             if(GlobalFunctions.isNetworkAvailable(context)){
                 search_query=searchViewResult.getText().toString().trim();

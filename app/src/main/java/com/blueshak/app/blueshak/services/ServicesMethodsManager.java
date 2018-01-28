@@ -9,6 +9,7 @@ import com.blueshak.app.blueshak.garage.Utils;
 import com.blueshak.app.blueshak.services.model.AskModel;
 import com.blueshak.app.blueshak.services.model.CurrencyListModel;
 import com.blueshak.app.blueshak.services.model.VerifyAliasModel;
+import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.global.GlobalFunctions;
 import com.blueshak.app.blueshak.global.GlobalVariables;
@@ -149,6 +150,7 @@ public class ServicesMethodsManager {
                 } else if (obj instanceof CurrencyListModel) {
                     GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_CURRENCIES, arg0.toString());
                 }
+                BlueShakLog.logDebug("ServiceMethod", "Chat List ServiceMethod - > " + arg0.toString()+"\n\n");
                 parseResponse(context, obj, arg0);
             }
             @Override
@@ -672,7 +674,7 @@ public class ServicesMethodsManager {
                 }
             } else {
                 MessageConversationModel messageConversationModel = new MessageConversationModel();
-                if (messageConversationModel.toObject(resp.toString())) {
+                if (messageConversationModel.toObject(context,resp.toString())) {
                     mUiCallBack.OnSuccessFromServer(messageConversationModel);
                 } else {
                     mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
@@ -695,7 +697,7 @@ public class ServicesMethodsManager {
                 }
             } else if (resp.has("message_id")) {
                 MessageModel messagemodel = new MessageModel();
-                if (messagemodel.toObject(resp.toString())) {
+                if (messagemodel.toObject(context,resp.toString())) {
                     mUiCallBack.OnSuccessFromServer(messagemodel);
                 } else {
                     mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));

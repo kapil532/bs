@@ -47,6 +47,8 @@ import com.blueshak.app.blueshak.MainActivity;
 import com.blueshak.app.blueshak.Messaging.helper.Constants;
 import com.blueshak.app.blueshak.reviews_rating.ReviewsRatings;
 import com.blueshak.app.blueshak.services.model.ProfileDetailsModel;
+import com.blueshak.app.blueshak.util.BlueShakLog;
+import com.blueshak.app.blueshak.util.BlueShakSharedPreferences;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.Messaging.adapter.MessageListAdapter;
 import com.blueshak.app.blueshak.Messaging.data.Message;
@@ -325,8 +327,8 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
                         .fit().centerCrop()
                         .into(product_image);
             }*/
-            product_name.setText(item_name);
-            product_price.setText(GlobalFunctions.getFormatedAmount(item_currency,item_price));
+            product_name.setText(getString(R.string.items)+" "+item_name);
+            product_price.setText(GlobalFunctions.getFormatedAmount(getString(R.string.listed)+" "+item_currency,item_price));
 
         }
         active_tab = user.getActive_tab();
@@ -344,6 +346,7 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
 
     private void getConversationMessages(final Context context, String conversation_id, String active_tab) {
        showProgressBar();
+        clearSharedChatData();
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getConversationMessages(context, new MessageConversationModel(), conversation_id, active_tab, new ServerResponseInterface() {
             @Override
@@ -361,7 +364,7 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
 
                 } else if (arg0 instanceof MessageConversationModel) {
                     MessageConversationModel model = (MessageConversationModel) arg0;
-                    Log.d(TAG, "ContactsListModel###########" + model.toString());
+                    BlueShakLog.logDebug(TAG, "Chat List ContactsListModel - > " + model.toString()+"\n\n");
                     setValues(model);
                 }
             }
@@ -387,7 +390,8 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
 
     }
 
-    private void    setValues(MessageConversationModel model) {
+    private void setValues(MessageConversationModel model) {
+        setProductContent();
         if (model != null) {
             messageConversationModel = model;
             List<MessageModel> messageModels = model.getConversations_messages();
@@ -400,12 +404,14 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
                     if (adapter.getItemCount() > 1) {
                         recyclerView.getLayoutManager().scrollToPosition(adapter.getItemCount() - 1);
                     }
-                }else
+                }else{
                     no_messages.setVisibility(View.VISIBLE);
-            }
-        }else
-            no_messages.setVisibility(View.VISIBLE);
+                }
 
+            }
+        }else{
+            no_messages.setVisibility(View.VISIBLE);
+        }
     }
 
     public void createMessage(final  String message) {
@@ -869,7 +875,9 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
         alertDialog.show();
     }
     public static void closeThisActivity(){
-        if(activity!=null){activity.finish();}
+        if(activity!=null){
+            activity.finish();
+        }
     }
     public void showProgressBar(){
         if(progress_bar!=null)
@@ -934,5 +942,24 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
     public void proceedToReviews() {
         Intent intent= ReviewsRatings.newInstance(activity,null,null,profileDetailsModel,null);
         startActivity(intent);
+    }
+
+    private void clearSharedChatData(){
+        BlueShakSharedPreferences.removeChatId(this);
+        BlueShakSharedPreferences.removeChatName(this);
+        BlueShakSharedPreferences.removeChatCurrency(this);
+        BlueShakSharedPreferences.removeChatPrice(this);
+    }
+
+    private void setProductContent(){
+        if(BlueShakSharedPreferences.getChatProductName(this)!=null
+                && !BlueShakSharedPreferences.getChatProductName(this).isEmpty()){
+            product_content.setVisibility(View.VISIBLE);
+            product_name.setText(getString(R.string.items)+" "+BlueShakSharedPreferences.getChatProductName(this));
+            product_price.setText(GlobalFunctions.getFormatedAmount(getString(R.string.listed)
+                    +" "+BlueShakSharedPreferences.getChatProductCurrency(this),BlueShakSharedPreferences.getChatProductPrice(this)));
+        }else{
+            product_content.setVisibility(View.GONE);
+        }
     }
 }
