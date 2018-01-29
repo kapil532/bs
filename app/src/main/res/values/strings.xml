@@ -128,6 +128,8 @@
     <string name="add_new_picture">Add New Picture(s)</string>
     <string name="items">Items:</string>
     <string name="listed">Listed:</string>
+    <string name="seller_items">Seller Items</string>
+    <string name="feature_items">Featured Items</string>
 
 
 </resources>

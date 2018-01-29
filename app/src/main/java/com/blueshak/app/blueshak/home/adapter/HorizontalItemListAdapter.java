@@ -1,11 +1,9 @@
-package com.blueshak.app.blueshak.home;
+package com.blueshak.app.blueshak.home.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextPaint;
-import android.text.TextUtils;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,8 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blueshak.app.blueshak.home.adapter.HorizontalItemListAdapter;
-import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.blueshak.app.blueshak.global.GlobalFunctions;
 import com.blueshak.app.blueshak.global.GlobalVariables;
 import com.blueshak.app.blueshak.item.ProductDetail;
@@ -28,16 +24,17 @@ import com.blueshak.app.blueshak.services.model.ErrorModel;
 import com.blueshak.app.blueshak.services.model.ProductModel;
 import com.blueshak.app.blueshak.services.model.StatusModel;
 import com.blueshak.blueshak.R;
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/*import com.langoor.app.blueshak.ImageCashing.ImageLoader;*/
+/**
+ * Created by lsingh013 on 29/01/18.
+ */
 
-
-public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
+public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
         ViewPagerEx.OnPageChangeListener {
     public static final String TAG = "ItemListAdapter";
     private Context context;
@@ -48,12 +45,9 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
     public String item_address;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        protected TextView item_price, item_name, item_location, shipping_type;
-        protected ImageView image_iv, favarite, is_sold, is_garage, shippable, pick_up;
+        protected TextView item_price, item_name;
+        protected ImageView image_iv, is_sold;
         public View container;
-        public RecyclerView horizontalRecyclerView;
-        private TextView txt_feature_items;
-        private TextView txt_seller_items;
 
         public MyViewHolder(View view) {
             super(view);
@@ -61,17 +55,8 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
             item_price = (TextView) view.findViewById(R.id.item_price);
             image_iv = (ImageView) view.findViewById(R.id.product_image);
             is_sold = (ImageView) view.findViewById(R.id.is_sold);
-            is_garage = (ImageView) view.findViewById(R.id.is_garage_item);
-            favarite = (ImageView) view.findViewById(R.id.item_favirate);
             item_name = (TextView) view.findViewById(R.id.item_name);
-            shippable = (ImageView) view.findViewById(R.id.shippable);
-            pick_up = (ImageView) view.findViewById(R.id.pick_up);
-            item_location = (TextView) view.findViewById(R.id.item_location);
-            //change this value
-            shipping_type = (TextView) view.findViewById(R.id.shipping_type);
-            horizontalRecyclerView = (RecyclerView)view.findViewById(R.id.horizontal_recycler_view);
-            txt_feature_items = (TextView)view.findViewById(R.id.txt_feature_items);
-            txt_seller_items = (TextView)view.findViewById(R.id.txt_seller_items);
+
         }
     }
 
@@ -84,7 +69,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
         }
     }
 
-    public ItemListAdapterForList(Context mContext, List<ProductModel> albumList) {
+    public HorizontalItemListAdapter(Context mContext, List<ProductModel> albumList) {
         this.context = mContext;
         this.albumList = albumList;
         this.item_address = GlobalFunctions.getSharedPreferenceString(mContext, GlobalVariables.CURRENT_LOCATION);
@@ -95,78 +80,24 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-      /*  if(viewType == VIEWTYPE_LOADER){
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.*//*custom_bottom_progressbar*//*custom_loading_list_item, parent, false);
-            return  new VHLoader(v);
-        }else if(viewType == VIEWTYPE_ITEM){
-            View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_list_row_item_new, parent, false);
-            return new MyViewHolder(itemView);
-        }
-        throw new RuntimeException("there is no type that matches the type " + viewType + " + make sure your using types correctly");
-*/
+
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_list_row_item_new_for_list, parent, false);
-        return new MyViewHolder(itemView);
+                .inflate(R.layout.horizantal_items_list, parent, false);
+        return new HorizontalItemListAdapter.MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder view_holder, int position) {
         try {
-            if (view_holder instanceof MyViewHolder) {
-                final MyViewHolder holder = (MyViewHolder) view_holder;
-              /*  final ProductModel obj = albumList.get(position-1);*/
+            if (view_holder instanceof HorizontalItemListAdapter.MyViewHolder) {
+                final HorizontalItemListAdapter.MyViewHolder holder = (HorizontalItemListAdapter.MyViewHolder) view_holder;
                 final ProductModel obj = albumList.get(position);
-                List<ProductModel> horizontalList = obj.getHorizontalList();
-                if(position==0){
-                    holder.horizontalRecyclerView.setVisibility(View.VISIBLE);
-                    holder.txt_feature_items.setVisibility(View.VISIBLE);
-                    holder.txt_seller_items.setVisibility(View.VISIBLE);
-                    HorizontalItemListAdapter itemListDataAdapter = new HorizontalItemListAdapter(context, horizontalList);
-                    holder.horizontalRecyclerView.setHasFixedSize(true);
-                    holder.horizontalRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-                    holder.horizontalRecyclerView.setAdapter(itemListDataAdapter);
-                }else{
-                    holder.horizontalRecyclerView.setVisibility(View.GONE);
-                    holder.txt_feature_items.setVisibility(View.GONE);
-                    holder.txt_seller_items.setVisibility(View.GONE);
-                }
-
-
                 holder.item_name.setText(obj.getName());
-
-                if (obj.isShipping_foc()) {
-                    holder.shipping_type.setText("Free Shipping");
-                } else if (Float.parseFloat(obj.getLocal_shipping_cost()) == 0.00) {
-                    holder.shipping_type.setText(" ");
-                } else {
-                    holder.shipping_type.setText("+" + GlobalFunctions.getFormatedAmount(obj.getCurrency(), obj.getLocal_shipping_cost()));
-                }
                 if (obj.isHide_item_price()) {
-
                     holder.item_price.setText("Negotiable");
                 } else {
-
                     holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(), obj.getSalePrice()));
                 }
-
-                if (!TextUtils.isEmpty(obj.getAddress()))
-                    holder.item_location.setText(obj.getAddress());
-                else
-                    holder.item_location.setVisibility(View.GONE);
-
-                if (obj.is_bookmark())
-                    holder.favarite.setImageResource(R.drawable.like_full);
-                else
-                    holder.favarite.setImageResource(R.drawable.like_border);
-                /*if(obj.is_new())
-                    holder.new_flag_image.setVisibility(View.VISIBLE);
-                else
-                    holder.new_flag_image.setVisibility(View.GONE);
-                */
-                if (obj.isPickup()) holder.pick_up.setVisibility(View.VISIBLE);
-                if (obj.isShipable()) holder.shippable.setVisibility(View.VISIBLE);
-
                 if (!obj.isAvailable()) {
                     holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_sold.setImageResource(R.drawable.ic_sold);
@@ -179,10 +110,6 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                     holder.is_sold.setImageResource(R.drawable.ic_new);
                 }
 
-                if (obj.is_garage_item())
-                    holder.is_garage.setVisibility(View.VISIBLE);
-                else
-                    holder.is_garage.setVisibility(View.GONE);
 
                 holder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -193,26 +120,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
 
                     }
                 });
-                holder.favarite.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
-                        if (GlobalFunctions.is_loggedIn(context)) {
-                            if (obj.is_bookmark()) {
-                                holder.favarite.setImageResource(R.drawable.like_border);
-                                deleteBookmark(context, obj.getId());
-                                obj.setIs_bookmark(false);
-                            } else {
-                                holder.favarite.setImageResource(R.drawable.like_full);
-                                addBookmark(context, obj.getId());
-                                obj.setIs_bookmark(true);
-                            }
-                        } else
-                            showSettingsAlert();
-
-
-                    }
-                });
                 String item_image = obj.getItem_display_Image();
                 ImageLoader imageLoader = ImageLoader.getInstance();
                 DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
@@ -222,8 +130,8 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                         .showImageOnLoading(R.drawable.placeholder_background).build();
                 //download and display image from url
                 imageLoader.displayImage(item_image, holder.image_iv, options);
-            } else if (view_holder instanceof VHLoader) {
-                VHLoader loaderViewHolder = (VHLoader) view_holder;
+            } else if (view_holder instanceof HorizontalItemListAdapter.VHLoader) {
+                HorizontalItemListAdapter.VHLoader loaderViewHolder = (HorizontalItemListAdapter.VHLoader) view_holder;
                 if (showLoader) {
                     loaderViewHolder.progressBar.setVisibility(View.VISIBLE);
                 } else {
@@ -264,14 +172,6 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
 
     }
 
-    //    need to override this method
-    /*@Override
-    public int getItemViewType(int position) {
-        if(isPositionHeader(position))
-            return TYPE_HEADER;
-        return TYPE_ITEM;
-    }*/
-
     private boolean isPositionHeader(int position) {
         return position == 0;
     }
@@ -284,9 +184,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
         @Override
         public void updateDrawState(TextPaint ds) {
             ds.setColor(context.getResources().getColor(R.color.tab_selected));//set text color
-          /*  ds.setUnderlineText(true);*/
-            //ds.setStyle(Typeface.BOLD);
-          /*  ds.setTypeface(Typeface.DEFAULT_BOLD);*/
+
         }
     }
 

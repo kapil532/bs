@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductModel implements Serializable {
     private final String TAG = "ProductModel";
@@ -60,6 +61,15 @@ public class ProductModel implements Serializable {
     private final String LINK="link";
     private final String ADDRESS = "product_address";
     private final String IS_NEW_FLAG="is_new_flag";
+    private List<ProductModel> horizontalList;
+
+    public List<ProductModel> getHorizontalList() {
+        return horizontalList;
+    }
+
+    public void setHorizontalList(List<ProductModel> horizontalList) {
+        this.horizontalList = horizontalList;
+    }
 
     public String getShipping_delivery_date() {
         return shipping_delivery_date;

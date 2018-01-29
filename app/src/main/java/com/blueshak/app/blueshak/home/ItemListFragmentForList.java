@@ -477,7 +477,11 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
             System.out.println("#######itemListModel.getItem_list()#########"+itemListModel.getItem_list().size());
             if(productModels!=null){
                 if(productModels.size()>0&&recyclerView!=null&&list!=null&&adapter!=null){
+                    ProductModel productModel = new ProductModel();
+                    productModel.setHorizontalList(productModels);
+                    product_list.add(0,productModel);
                     product_list.addAll(productModels);
+
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
