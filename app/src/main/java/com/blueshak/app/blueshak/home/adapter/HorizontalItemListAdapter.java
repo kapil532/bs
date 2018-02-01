@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.blueshak.app.blueshak.global.GlobalFunctions;
 import com.blueshak.app.blueshak.global.GlobalVariables;
+import com.blueshak.app.blueshak.home.model.FeatureItemData;
 import com.blueshak.app.blueshak.item.ProductDetail;
 import com.blueshak.app.blueshak.login.LoginActivity;
 import com.blueshak.app.blueshak.services.ServerResponseInterface;
@@ -38,7 +39,7 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
         ViewPagerEx.OnPageChangeListener {
     public static final String TAG = "ItemListAdapter";
     private Context context;
-    private List<ProductModel> albumList;
+    private List<FeatureItemData> featureItemList;
     protected boolean showLoader;
     private static final int VIEWTYPE_ITEM = 1;
     private static final int VIEWTYPE_LOADER = 2;
@@ -69,9 +70,9 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
         }
     }
 
-    public HorizontalItemListAdapter(Context mContext, List<ProductModel> albumList) {
+    public HorizontalItemListAdapter(Context mContext, List<FeatureItemData> featureItemList) {
         this.context = mContext;
-        this.albumList = albumList;
+        this.featureItemList = featureItemList;
         this.item_address = GlobalFunctions.getSharedPreferenceString(mContext, GlobalVariables.CURRENT_LOCATION);
      /*   imgLoader = new ImageLoader(mContext);*/
 
@@ -91,37 +92,43 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
         try {
             if (view_holder instanceof HorizontalItemListAdapter.MyViewHolder) {
                 final HorizontalItemListAdapter.MyViewHolder holder = (HorizontalItemListAdapter.MyViewHolder) view_holder;
-                final ProductModel obj = albumList.get(position);
-                holder.item_name.setText(obj.getName());
-                if (obj.isHide_item_price()) {
+                final FeatureItemData featureData = featureItemList.get(position);
+                holder.item_name.setText(featureData.getProduct_name());
+                if (featureData.getHide_item_price().equalsIgnoreCase("1")) {
                     holder.item_price.setText("Negotiable");
                 } else {
-                    holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(), obj.getSalePrice()));
+                    holder.item_price.setText(GlobalFunctions.getFormatedAmount(featureData.getCurrency(), featureData.getSale_price()));
                 }
-                if (!obj.isAvailable()) {
+                if (!featureData.getIs_available().equalsIgnoreCase("1")) {
                     holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_sold.setImageResource(R.drawable.ic_sold);
                 } else {
                     holder.is_sold.setVisibility(View.INVISIBLE);
                 }
 
-                if (obj.is_new()) {
+                if (featureData.getIs_product_new().equalsIgnoreCase("1")) {
                     holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_sold.setImageResource(R.drawable.ic_new);
+                }else{
+                    holder.is_sold.setVisibility(View.INVISIBLE);
+                }
+                if (featureData.getIs_featured().equalsIgnoreCase("1")) {
+                    holder.is_sold.setVisibility(View.VISIBLE);
+                    holder.is_sold.setImageResource(R.drawable.ic_new);
+                }else{
+                    holder.is_sold.setVisibility(View.INVISIBLE);
                 }
 
-
-                holder.container.setOnClickListener(new View.OnClickListener() {
+               /* holder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                     /*  getItemInfo(obj.getId());*/
-                        Intent intent = ProductDetail.newInstance(context, obj, null, GlobalVariables.TYPE_MY_SALE);
+                        Intent intent = ProductDetail.newInstance(context, featureData, null, GlobalVariables.TYPE_MY_SALE);
                         context.startActivity(intent);
 
                     }
-                });
+                });*/
 
-                String item_image = obj.getItem_display_Image();
+                String item_image = featureData.getImage();
                 ImageLoader imageLoader = ImageLoader.getInstance();
                 DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
                         .cacheOnDisc(true).resetViewBeforeLoading(true)
@@ -154,7 +161,11 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public int getItemCount() {
-        return albumList.size();
+        if(featureItemList!=null){
+            return featureItemList.size();
+        }else{
+            return 0;
+        }
     }
 
     @Override
@@ -176,7 +187,7 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
         return position == 0;
     }
 
-    class MyClickableSpan extends ClickableSpan { //clickable span
+    class MyClickableSpan extends ClickableSpan {
         public void onClick(View textView) {
 
         }
@@ -186,104 +197,6 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
             ds.setColor(context.getResources().getColor(R.color.tab_selected));//set text color
 
         }
-    }
-
-    private void addBookmark(final Context context, String productID) {
-        /*GlobalFunctions.showProgress(context, "Bookmarking Product...");*/
-        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.addBookmark(context, productID, new ServerResponseInterface() {
-            @Override
-            public void OnSuccessFromServer(Object arg0) {
-                /*GlobalFunctions.hideProgress();*/
-                if (arg0 instanceof StatusModel) {
-                    StatusModel statusModel = (StatusModel) arg0;
-                    if (statusModel.isStatus()) {
-
-                        Toast.makeText(context, "Added to bookmarks", Toast.LENGTH_SHORT).show();
-                    }
-                } else if (arg0 instanceof ErrorModel) {
-                    ErrorModel errorModel = (ErrorModel) arg0;
-                    String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
-                   /* Toast.makeText(context, msg, Toast.LENGTH_LONG).show();*/
-                }
-            }
-
-            @Override
-            public void OnFailureFromServer(String msg) {
-                /*GlobalFunctions.hideProgress();*/
-               /* Toast.makeText(context, msg, Toast.LENGTH_LONG).show();*/
-            }
-
-            @Override
-            public void OnError(String msg) {
-               /* GlobalFunctions.hideProgress();*/
-             /*   Toast.makeText(context, msg, Toast.LENGTH_LONG).show();*/
-            }
-        }, "Add Bookmarks");
-
-    }
-
-    private void deleteBookmark(final Context context, String productID) {
-        /*GlobalFunctions.showProgress(context, "Bookmarking Product...");*/
-        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.deleteBookmark(context, productID, new ServerResponseInterface() {
-            @Override
-            public void OnSuccessFromServer(Object arg0) {
-                /*GlobalFunctions.hideProgress();*/
-                if (arg0 instanceof StatusModel) {
-                    StatusModel statusModel = (StatusModel) arg0;
-                    if (statusModel.isStatus()) {
-                        Toast.makeText(context, "Bookmark Removed", Toast.LENGTH_SHORT).show();
-                    }
-                } else if (arg0 instanceof ErrorModel) {
-                    ErrorModel errorModel = (ErrorModel) arg0;
-                    String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
-                    /*Toast.makeText(context, msg, Toast.LENGTH_LONG).show();*/
-                }
-            }
-
-            @Override
-            public void OnFailureFromServer(String msg) {
-                /*GlobalFunctions.hideProgress();*/
-               /* Toast.makeText(context, msg, Toast.LENGTH_LONG).show();*/
-            }
-
-            @Override
-            public void OnError(String msg) {
-               /* GlobalFunctions.hideProgress();*/
-                /*Toast.makeText(context, msg, Toast.LENGTH_LONG).show();*/
-            }
-        }, "Add Bookmarks");
-
-    }
-
-    public void add(List<ProductModel> items) {
-        int previousDataSize = this.albumList.size();
-        this.albumList.addAll(items);
-        notifyItemRangeInserted(previousDataSize, items.size());
-    }
-
-    private void getItemInfo(String product_id) {
-        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getItemInfo(context, product_id, new ServerResponseInterface() {
-            @Override
-            public void OnSuccessFromServer(Object arg0) {
-                ProductModel productModel = (ProductModel) arg0;
-                Intent intent = ProductDetail.newInstance(context, productModel, null, GlobalVariables.TYPE_MY_SALE);
-                context.startActivity(intent);
-            }
-
-            @Override
-            public void OnFailureFromServer(String msg) {
-
-            }
-
-            @Override
-            public void OnError(String msg) {
-
-            }
-        }, "GetItemInfo onSuccess Response");
-
     }
 
     public void showSettingsAlert() {

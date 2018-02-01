@@ -5,7 +5,7 @@
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/brand_background_color"
     app:cardElevation="5dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     card_view:cardCornerRadius="0dp"
@@ -19,7 +19,9 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp">
 
         <ImageView
             android:id="@+id/product_image"

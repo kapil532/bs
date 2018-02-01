@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +33,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueshak.app.blueshak.Messaging.helper.Constants;
+import com.blueshak.app.blueshak.base.PresenterCallBack;
+import com.blueshak.app.blueshak.home.model.FeatureItemData;
+import com.blueshak.app.blueshak.home.model.FeatureItemsModel;
+import com.blueshak.app.blueshak.home.presenter.ItemListPresenter;
 import com.blueshak.app.blueshak.search.SearchActivity;
 import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.blueshak.blueshak.R;
@@ -91,6 +96,8 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
     private ProgressBar progress_bar;
     private TextView searchViewResult;
     private ImageView go_to_filter;
+    private ArrayList<FeatureItemData> featureItemsList = new ArrayList<FeatureItemData>();
+    private StaggeredGridLayoutManager gridLayoutManager;
 
     public static ItemListFragment newInstance(SalesListModel salesListModel, String type,FilterModel filterModel,LocationModel locationModel){
         ItemListFragment saleFragment = new ItemListFragment();
@@ -271,14 +278,16 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
             toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
             no_sales = (TextView) view.findViewById(R.id.no_sales);
             recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-            adapter = new ItemListAdapter(context, product_list);
-            StaggeredGridLayoutManager gridLayoutManager =
-                    new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+
+            /*adapter = new ItemListAdapter(context, product_list);
+            StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(gridLayoutManager);
-            recyclerView.addItemDecoration(new SpacesItemDecoration(
-                    getResources().getDimensionPixelSize(R.dimen.space)));
+            //recyclerView.addItemDecoration(new SpacesItemDecoration(getResources().getDimensionPixelSize(R.dimen.space)));
             recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView.setAdapter(adapter);
+            recyclerView.setAdapter(adapter);*/
+
+            setAdapterItemList(product_list,featureItemsList);
+
            /* recyclerView.setOnScrollListener(new MyScrollListener(activity) {
                 @Override
                 public void onMoved(int distance) {
@@ -378,6 +387,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
         if(when_open_the_app){
             Log.d(TAG,"######when_open_the_app###########");
             if(locServices!=null)
+                getFeatureList(context, model);
                 setCountry(context,locServices.getLatitude(),locServices.getLongitude());
         }else{
             Log.d(TAG,"######from the Filter or Current Location###########");
@@ -736,7 +746,36 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
             }
         }, "Fetching Current Location");
 
+    }
 
+    private void setAdapterItemList(ArrayList<ProductModel> product_list,ArrayList<FeatureItemData> featureItemsList){
+        adapter = new ItemListAdapter(context, product_list,featureItemsList);
+        gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        //recyclerView.addItemDecoration(new SpacesItemDecoration(getResources().getDimensionPixelSize(R.dimen.space)));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void getFeatureList(Context context,FilterModel filterModel){
+        ItemListPresenter itemListPresenter = new ItemListPresenter();
+        itemListPresenter.getItemLists(context, filterModel, new PresenterCallBack<FeatureItemsModel>() {
+            @Override
+            public void onSuccess(FeatureItemsModel object) {
+                featureItemsList.clear();
+                FeatureItemData[] featureItemList =  object.getData();
+                for (FeatureItemData featureItem : featureItemList) {
+                    featureItemsList.add(featureItem);
+                }
+                setAdapterItemList(product_list,featureItemsList);
+                BlueShakLog.logDebug(TAG,"getFeatureList Size --> "+featureItemsList.size());
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
     }
 }
 

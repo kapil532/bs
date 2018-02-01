@@ -3,7 +3,9 @@ package com.blueshak.app.blueshak.services.model;
 import android.util.Log;
 
 import com.blueshak.app.blueshak.global.GlobalVariables;
+
 import org.json.JSONObject;
+
 import java.io.Serializable;
 
 public class FilterModel implements Serializable {
@@ -13,28 +15,28 @@ public class FilterModel implements Serializable {
             LONGITUDE = "longitude",
             RANGE = "range",
             PRICE_RANGE = "price_range",
-           /* ZIPCODE = "zip_code",*/
             TYPE = "type",
-            PAGE="page",
+            PAGE = "page",
             IS_SHIPABLE = "is_shippable",
             IS_PICKUP = "is_pickupable",
             IS_AVAILABLE = "is_available",
-            LOCATION="location",
-            DISTANCE_ENABLED="distance_enabled",
-                   SORTING_ENABLED="sorting_enabled",
-            FORMATTED_ADDRESS="formatted_address",
-            SORT_BY_RECENT="sortByRecent",
-                   SORT_BY_RECENT_GARAGE="sortByRecentGarage",
-                   GARAGE_ITEMS="garage_items",
-                   ENDING_SOON="ending_soon",
-                   IS_CURRENT_COUNTRY="is_current_country",
-                   PRICE_HIGH_TO_LOW="price_h_2_l",
-                   PRICE_LOW_TO_HIGH="price_l_2_h",
-                   CURRENT_COUNTRY_CODE="current_country_code",
+            LOCATION = "location",
+            DISTANCE_ENABLED = "distance_enabled",
+            SORTING_ENABLED = "sorting_enabled",
+            FORMATTED_ADDRESS = "formatted_address",
+            SORT_BY_RECENT = "sortByRecent",
+            SORT_BY_RECENT_GARAGE = "sortByRecentGarage",
+            GARAGE_ITEMS = "garage_items",
+            ENDING_SOON = "ending_soon",
+            IS_CURRENT_COUNTRY = "is_current_country",
+            PRICE_HIGH_TO_LOW = "price_h_2_l",
+            PRICE_LOW_TO_HIGH = "price_l_2_h",
+            CURRENT_COUNTRY_CODE = "current_country_code",
             CATEGORIES = "categories",
             NEW_ITEMS = "new_items",
-            NEGOTIABLE_ITEMS = "negotiable_items"
-    ;
+            NEGOTIABLE_ITEMS = "negotiable_items",
+            SOURCE = "source",
+            TAKE = "take";
 
     String latitude =/* GlobalVariables.Sydney_latitude*/null;
     String longitude = /* GlobalVariables.Sydney_longitude*/null;
@@ -47,10 +49,10 @@ public class FilterModel implements Serializable {
         this.results_text = results_text;
     }
 
-    String priceRange = GlobalVariables.PRICE_MIN_VALUE+","+GlobalVariables.PRICE_MAX_VALUE;
+    String priceRange = GlobalVariables.PRICE_MIN_VALUE + "," + GlobalVariables.PRICE_MAX_VALUE;
     String zipcode = null;
     String type = null;
-    String current_country_code = null,results_text=null;
+    String current_country_code = null, results_text = null;
 
     public String getFormatted_address() {
         return formatted_address;
@@ -60,10 +62,10 @@ public class FilterModel implements Serializable {
         this.formatted_address = formatted_address;
     }
 
-    String formatted_address=null;
+    String formatted_address = null;
     String categories = null;
-    String category_names= null;
-    String location=null;
+    String category_names = null;
+    String location = null;
 
     public String getCategory_names() {
         return category_names;
@@ -73,7 +75,7 @@ public class FilterModel implements Serializable {
         this.category_names = category_names;
     }
 
-    int page=1;
+    int page = 1;
 
     public int getPage() {
         return page;
@@ -83,7 +85,7 @@ public class FilterModel implements Serializable {
         this.page = page;
     }
 
-    int range =0;
+    int range = 0;
 
     public boolean isDistance_enabled() {
         return distance_enabled;
@@ -95,14 +97,14 @@ public class FilterModel implements Serializable {
 
     boolean
 
-            shipable        = false;
-    boolean pickup          = false;
-    boolean distance_enabled        = false;
-    boolean sortByRecent=false;
-    boolean sortByRecent_garage=false;
-    boolean available       = false;
-    boolean ending_soon=false;
-    boolean is_current_country=false;
+            shipable = false;
+    boolean pickup = false;
+    boolean distance_enabled = false;
+    boolean sortByRecent = false;
+    boolean sortByRecent_garage = false;
+    boolean available = false;
+    boolean ending_soon = false;
+    boolean is_current_country = false;
 
     public boolean isNew_items() {
         return new_items;
@@ -120,12 +122,12 @@ public class FilterModel implements Serializable {
         this.negotiable_items = negotiable_items;
     }
 
-    boolean sorting_enabled=false;
-    boolean price_h_2_l=false;
-    boolean price_l_2_h=false;
-    boolean garage_items=false;
-    boolean new_items=false;
-    boolean negotiable_items=false;
+    boolean sorting_enabled = false;
+    boolean price_h_2_l = false;
+    boolean price_l_2_h = false;
+    boolean garage_items = false;
+    boolean new_items = false;
+    boolean negotiable_items = false;
 
     public boolean isPrice_l_2_h() {
         return price_l_2_h;
@@ -143,7 +145,8 @@ public class FilterModel implements Serializable {
         this.price_h_2_l = price_h_2_l;
     }
 
-    public FilterModel(){}
+    public FilterModel() {
+    }
 
     public String getLatitude() {
         return latitude;
@@ -261,40 +264,182 @@ public class FilterModel implements Serializable {
         this.garage_items = garage_items;
     }
 
-    public boolean toObject(String jsonObject){
-        try{
+    public boolean toObject(String jsonObject) {
+        try {
             JSONObject json = new JSONObject(jsonObject);
-            if(json.has(LATITUDE))latitude = json.getString(LATITUDE);
-            if(json.has(LONGITUDE))longitude = json.getString(LONGITUDE);
+            if (json.has(LATITUDE)) latitude = json.getString(LATITUDE);
+            if (json.has(LONGITUDE)) longitude = json.getString(LONGITUDE);
 
            /* if(json.has(ZIPCODE))zipcode = json.getString(ZIPCODE);*/
-            if(json.has(TYPE))type = json.getString(TYPE);
-            if(json.has(RANGE))range = json.getInt(RANGE);
-            if(json.has(FORMATTED_ADDRESS))formatted_address = json.getString(FORMATTED_ADDRESS);
-            if(json.has(PRICE_RANGE))priceRange = json.getString(PRICE_RANGE);
-            if(json.has(CATEGORIES))categories = json.getString(CATEGORIES);
-            if(json.has(CURRENT_COUNTRY_CODE))current_country_code = json.getString(CURRENT_COUNTRY_CODE);
+            if (json.has(TYPE)) type = json.getString(TYPE);
+            if (json.has(RANGE)) range = json.getInt(RANGE);
+            if (json.has(FORMATTED_ADDRESS)) formatted_address = json.getString(FORMATTED_ADDRESS);
+            if (json.has(PRICE_RANGE)) priceRange = json.getString(PRICE_RANGE);
+            if (json.has(CATEGORIES)) categories = json.getString(CATEGORIES);
+            if (json.has(CURRENT_COUNTRY_CODE))
+                current_country_code = json.getString(CURRENT_COUNTRY_CODE);
             int temp = 0;
-            try{temp = json.getInt(SORT_BY_RECENT_GARAGE);}catch(Exception e){temp =0;}if(temp>0){sortByRecent_garage=true;}else{sortByRecent_garage=false;}temp=0;
-            try{temp = json.getInt(SORT_BY_RECENT);}catch(Exception e){temp =0;}if(temp>0){sortByRecent=true;}else{sortByRecent=false;}temp=0;
-            try{temp = json.getInt(IS_SHIPABLE);}catch(Exception e){temp =0;}if(temp>0){shipable=true;}else{shipable=false;}temp=0;
-            try{temp = json.getInt(IS_PICKUP);}catch(Exception e){temp =0;}if(temp>0){pickup=true;}else{pickup=false;}temp=0;
-            try{temp = json.getInt(IS_AVAILABLE);}catch(Exception e){temp =0;}if(temp>0){available=true;}else{available=false;}temp=0;
-            try{temp = json.getInt(DISTANCE_ENABLED);}catch(Exception e){temp =0;}if(temp>0){distance_enabled=true;}else{distance_enabled=false;}temp=0;
-            try{temp = json.getInt(ENDING_SOON);}catch(Exception e){temp =0;}if(temp>0){ending_soon=true;}else{ending_soon=false;}temp=0;
-            try{temp = json.getInt(IS_CURRENT_COUNTRY);}catch(Exception e){temp =0;}if(temp>0){is_current_country=true;}else{is_current_country=false;}temp=0;
-            try{temp = json.getInt(SORTING_ENABLED);}catch(Exception e){temp =0;}if(temp>0){sorting_enabled=true;}else{sorting_enabled=false;}temp=0;
-            try{temp = json.getInt(GARAGE_ITEMS);}catch(Exception e){temp =0;}if(temp>0){garage_items=true;}else{garage_items=false;}temp=0;
-            try{temp = json.getInt(PRICE_HIGH_TO_LOW);}catch(Exception e){temp =0;}if(temp>0){price_h_2_l=true;}else{price_h_2_l=false;}temp=0;
-            try{temp = json.getInt(PRICE_LOW_TO_HIGH);}catch(Exception e){temp =0;}if(temp>0){price_l_2_h=true;}else{price_l_2_h=false;}temp=0;
-            try{temp = json.getInt(NEW_ITEMS);}catch(Exception e){temp =0;}if(temp>0){new_items=true;}else{new_items=false;}temp=0;
-            try{temp = json.getInt(NEGOTIABLE_ITEMS);}catch(Exception e){temp =0;}if(temp>0){negotiable_items=true;}else{negotiable_items=false;}temp=0;
+            try {
+                temp = json.getInt(SORT_BY_RECENT_GARAGE);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                sortByRecent_garage = true;
+            } else {
+                sortByRecent_garage = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(SORT_BY_RECENT);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                sortByRecent = true;
+            } else {
+                sortByRecent = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(IS_SHIPABLE);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                shipable = true;
+            } else {
+                shipable = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(IS_PICKUP);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                pickup = true;
+            } else {
+                pickup = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(IS_AVAILABLE);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                available = true;
+            } else {
+                available = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(DISTANCE_ENABLED);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                distance_enabled = true;
+            } else {
+                distance_enabled = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(ENDING_SOON);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                ending_soon = true;
+            } else {
+                ending_soon = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(IS_CURRENT_COUNTRY);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                is_current_country = true;
+            } else {
+                is_current_country = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(SORTING_ENABLED);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                sorting_enabled = true;
+            } else {
+                sorting_enabled = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(GARAGE_ITEMS);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                garage_items = true;
+            } else {
+                garage_items = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(PRICE_HIGH_TO_LOW);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                price_h_2_l = true;
+            } else {
+                price_h_2_l = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(PRICE_LOW_TO_HIGH);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                price_l_2_h = true;
+            } else {
+                price_l_2_h = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(NEW_ITEMS);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                new_items = true;
+            } else {
+                new_items = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(NEGOTIABLE_ITEMS);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                negotiable_items = true;
+            } else {
+                negotiable_items = false;
+            }
+            temp = 0;
 
             return true;
 
-        }catch(Exception ex){
+        } catch (Exception ex) {
 
-            Log.d(TAG, "Json Exception : " + ex);}
+            Log.d(TAG, "Json Exception : " + ex);
+        }
         return false;
     }
 
@@ -331,9 +476,9 @@ public class FilterModel implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String returnString = null;
-        try{
+        try {
             JSONObject jsonMain = new JSONObject();
             jsonMain.put(TYPE, type);
             jsonMain.put(RANGE, range);
@@ -347,24 +492,108 @@ public class FilterModel implements Serializable {
             jsonMain.put(PAGE, page);
             jsonMain.put(CURRENT_COUNTRY_CODE, current_country_code);
             String temp = "0";
-            if(sortByRecent_garage){temp = "1";}else{temp="0";}jsonMain.put(SORT_BY_RECENT_GARAGE, temp);temp = "0";
-            if(negotiable_items){temp = "1";}else{temp="0";}jsonMain.put(NEGOTIABLE_ITEMS, temp);temp = "0";
-            if(new_items){temp = "1";}else{temp="0";}jsonMain.put(NEW_ITEMS, temp);temp = "0";
-            if(sortByRecent){temp = "1";}else{temp="0";}jsonMain.put(SORT_BY_RECENT, temp);temp = "0";
-            if(distance_enabled){temp = "1";}else{temp="0";}jsonMain.put(DISTANCE_ENABLED, temp);temp = "0";
-            if(shipable){temp = "1";}else{temp="0";}jsonMain.put(IS_SHIPABLE, temp);temp = "0";
-            if(pickup){temp = "1";}else{temp="0";}jsonMain.put(IS_PICKUP, temp);temp = "0";
-            if(available){temp = "1";}else{temp="0";}jsonMain.put(IS_AVAILABLE, temp);temp = "0";
-            if(ending_soon){temp = "1";}else{temp="0";}jsonMain.put(ENDING_SOON, temp);temp = "0";
-            if(is_current_country){temp = "1";}else{temp="0";}jsonMain.put(IS_CURRENT_COUNTRY, temp);temp = "0";
-            if(sorting_enabled){temp = "1";}else{temp="0";}jsonMain.put(SORTING_ENABLED, temp);temp = "0";
-            if(garage_items){temp = "1";}else{temp="0";}jsonMain.put(GARAGE_ITEMS, temp);temp = "0";
-            if(price_h_2_l){temp = "1";}else{temp="0";}jsonMain.put(PRICE_HIGH_TO_LOW, temp);temp = "0";
-            if(price_l_2_h){temp = "1";}else{temp="0";}jsonMain.put(PRICE_LOW_TO_HIGH, temp);temp = "0";
+            if (sortByRecent_garage) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(SORT_BY_RECENT_GARAGE, temp);
+            temp = "0";
+            if (negotiable_items) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(NEGOTIABLE_ITEMS, temp);
+            temp = "0";
+            if (new_items) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(NEW_ITEMS, temp);
+            temp = "0";
+            if (sortByRecent) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(SORT_BY_RECENT, temp);
+            temp = "0";
+            if (distance_enabled) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(DISTANCE_ENABLED, temp);
+            temp = "0";
+            if (shipable) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(IS_SHIPABLE, temp);
+            temp = "0";
+            if (pickup) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(IS_PICKUP, temp);
+            temp = "0";
+            if (available) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(IS_AVAILABLE, temp);
+            temp = "0";
+            if (ending_soon) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(ENDING_SOON, temp);
+            temp = "0";
+            if (is_current_country) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(IS_CURRENT_COUNTRY, temp);
+            temp = "0";
+            if (sorting_enabled) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(SORTING_ENABLED, temp);
+            temp = "0";
+            if (garage_items) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(GARAGE_ITEMS, temp);
+            temp = "0";
+            if (price_h_2_l) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(PRICE_HIGH_TO_LOW, temp);
+            temp = "0";
+            if (price_l_2_h) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(PRICE_LOW_TO_HIGH, temp);
+            temp = "0";
             returnString = jsonMain.toString();
+        } catch (Exception ex) {
+            Log.d(TAG, " To String Exception : " + ex);
         }
-        catch (Exception ex){Log.d(TAG," To String Exception : "+ex);
-           }
         return returnString;
     }
 }

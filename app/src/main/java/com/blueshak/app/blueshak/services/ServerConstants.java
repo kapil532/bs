@@ -60,6 +60,8 @@ public class ServerConstants
     public static final String URL_privacy_policy="http://52.34.5.124/privacy-policy";
     public static final String URL_verify_alias = BASE_URL + "verify_alias";
     public static final String URL_delete_conversation = BASE_URL + "delete_conversation";
+
     public static final String URL_delete_sales_items = BASE_URL + "delete_sale_item";
+    public static final String URL_feature_items = BASE_URL + "list_featured_items";
 
 }

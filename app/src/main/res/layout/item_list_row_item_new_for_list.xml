@@ -5,8 +5,8 @@
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/brand_background_color"
     app:cardBackgroundColor="@color/brand_background_color"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     card_view:cardCornerRadius="0dp"
     card_view:cardUseCompatPadding="true"
     card_view:contentPadding="0dp"
@@ -23,17 +23,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@color/white"
+            android:layout_marginLeft="10dp"
             android:maxLines="1"
-            android:padding="10dp"
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:text="@string/feature_items"
+            android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textSize="@dimen/results_all_textsize"
             android:textStyle="italic">
 
         </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+
+        <LinearLayout
+            android:id="@+id/feature_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:background="@color/dark_gray">
+
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/horizontal_recycler_view"
@@ -43,16 +53,24 @@
             android:clipToPadding="false"
             android:dividerHeight="7dp"
             android:paddingBottom="10dp"
-            android:paddingLeft="@dimen/space"
-            android:paddingRight="@dimen/space"
+            android:layout_marginLeft="5dp"
+            android:paddingRight="5dp"
             android:scrollbars="none" />
+
+        <LinearLayout
+            android:id="@+id/feature_below_line"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/dark_gray"
+            android:orientation="vertical">
+
+        </LinearLayout>
 
         <com.blueshak.app.blueshak.text.MyTextViewMediumBold
             android:id="@+id/txt_seller_items"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@color/white"
             android:maxLines="1"
             android:padding="10dp"
             android:scrollHorizontally="true"
@@ -64,10 +82,21 @@
 
         </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
 
+        <LinearLayout
+            android:id="@+id/seller_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="vertical"
+            android:background="@color/dark_gray">
+
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@color/brand_background_color">
 
             <ImageView
@@ -217,7 +246,9 @@
                         android:text="Free Shipping "
                         android:textColor="@color/brand_text_color"
                         android:textSize="11sp"
-                        android:textStyle="bold"></com.blueshak.app.blueshak.text.MyTextView>
+                        android:textStyle="bold">
+
+                    </com.blueshak.app.blueshak.text.MyTextView>
 
                 </RelativeLayout>
 
@@ -237,14 +268,14 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginRight="@dimen/contactlist_ctimestamp_margin_right"
-                        android:layout_weight=".80"
+                        android:layout_marginRight="25dp"
                         android:singleLine="true"
                         android:text="new "
                         android:textColor="@color/brand_text_color"
-
                         android:textSize="15sp"
-                        android:textStyle="bold"></com.blueshak.app.blueshak.text.MyTextView>
+                        android:textStyle="bold">
+
+                    </com.blueshak.app.blueshak.text.MyTextView>
 
                     <ImageView
                         android:id="@+id/item_favirate"
@@ -260,6 +291,14 @@
             </LinearLayout>
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/dark_gray">
+
+        </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
 

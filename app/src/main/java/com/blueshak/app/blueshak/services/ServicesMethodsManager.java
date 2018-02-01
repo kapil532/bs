@@ -882,7 +882,7 @@ public class ServicesMethodsManager {
     }
     public  void getHomeList(Context context, FilterModel filterModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
-        String param= "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
+        /*String param= "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
         if(!TextUtils.isEmpty(filterModel.getLatitude()) && !TextUtils.isEmpty(filterModel.getLongitude())){
             param += "&" + FilterModel.LATITUDE + "=" + filterModel.getLatitude();
             param += "&" + FilterModel.LONGITUDE + "=" + filterModel.getLongitude();
@@ -891,7 +891,7 @@ public class ServicesMethodsManager {
             param += "&" + FilterModel.RANGE + "=" +filterModel.getRange();
         param += "&" + FilterModel.PAGE + "=" + filterModel.getPage();
         param += "&" + FilterModel.TYPE + "=" + filterModel.getType();
-        /*param += "&" + FilterModel.PRICE_RANGE + "=" + filterModel.getPriceRange();*/
+        *//*param += "&" + FilterModel.PRICE_RANGE + "=" + filterModel.getPriceRange();*//*
         if(filterModel.isSortByRecent())
             param += "&" + FilterModel.SORT_BY_RECENT + "=" + (filterModel.isSortByRecent() ? 1 : 0);
         if(filterModel.isGarage_items())
@@ -911,12 +911,13 @@ public class ServicesMethodsManager {
 
         if(filterModel.isNew_items())
             param += "&" + FilterModel.NEW_ITEMS + "=" + (filterModel.isNew_items() ? 1 : 0);
-    /*    param += "&" + FilterModel.IS_SHIPABLE + "=" + (filterModel.isShipable() ? 1 : 0);
+    *//*    param += "&" + FilterModel.IS_SHIPABLE + "=" + (filterModel.isShipable() ? 1 : 0);
         param += "&" + FilterModel.IS_PICKUP + "=" + (filterModel.isPickup() ? 1 : 0);
-        param += "&" + FilterModel.IS_AVAILABLE + "=" + (filterModel.isAvailable() ? 1 : 0);*/
+        param += "&" + FilterModel.IS_AVAILABLE + "=" + (filterModel.isAvailable() ? 1 : 0);*//*
         if(!TextUtils.isEmpty(filterModel.getCategories()))
-            param += "&" + FilterModel.CATEGORIES + "=" + filterModel.getCategories();
+            param += "&" + FilterModel.CATEGORIES + "=" + filterModel.getCategories();*/
        /* param += "&" + FilterModel.ZIPCODE + "=" + filterModel.getZipcode();*/
+        String param = getParams(context,filterModel,null,null);
         getData(context, new HomeListModel(), ServerConstants.URL_getItemList, param, TAG);
     }
 
@@ -1308,4 +1309,81 @@ public class ServicesMethodsManager {
         param += "&sale_id=" + salesID;
         postData(context, new StatusModel(), ServerConstants.URL_delete_sales_items, param, TAG);
     }
+
+    private String getParams(Context context, FilterModel filterModel, String source,String take) {
+        String param = "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
+        if (!TextUtils.isEmpty(filterModel.getLatitude()) && !TextUtils.isEmpty(filterModel.getLongitude())) {
+            param += "&" + FilterModel.LATITUDE + "=" + filterModel.getLatitude();
+            param += "&" + FilterModel.LONGITUDE + "=" + filterModel.getLongitude();
+        }
+        if (filterModel.isDistance_enabled()) {
+            param += "&" + FilterModel.RANGE + "=" + filterModel.getRange();
+        }
+        param += "&" + FilterModel.PAGE + "=" + filterModel.getPage();
+        param += "&" + FilterModel.TYPE + "=" + filterModel.getType();
+        if (filterModel.isSortByRecent()) {
+            param += "&" + FilterModel.SORT_BY_RECENT + "=" + (filterModel.isSortByRecent() ? 1 : 0);
+        }
+        if (filterModel.isGarage_items()) {
+            param += "&" + FilterModel.GARAGE_ITEMS + "=" + (filterModel.isGarage_items() ? 1 : 0);
+        }
+
+        if (filterModel.is_current_country()) {
+            param += "&" + FilterModel.CURRENT_COUNTRY_CODE + "=" + filterModel.getCurrent_country_code();
+            param += "&" + FilterModel.IS_CURRENT_COUNTRY + "=" + (filterModel.is_current_country() ? 1 : 0);
+        }
+        if (filterModel.isPrice_l_2_h()) {
+            param += "&" + FilterModel.PRICE_LOW_TO_HIGH + "=" + (filterModel.isPrice_l_2_h() ? 1 : 0);
+        }
+
+        if (filterModel.isPrice_h_2_l()) {
+            param += "&" + FilterModel.PRICE_HIGH_TO_LOW + "=" + (filterModel.isPrice_h_2_l() ? 1 : 0);
+        }
+        if (filterModel.isNegotiable_items()) {
+            param += "&" + FilterModel.NEGOTIABLE_ITEMS + "=" + (filterModel.isNegotiable_items() ? 1 : 0);
+        }
+        if (filterModel.isNew_items()) {
+            param += "&" + FilterModel.NEW_ITEMS + "=" + (filterModel.isNew_items() ? 1 : 0);
+        }
+        if (!TextUtils.isEmpty(filterModel.getCategories())) {
+            param += "&" + FilterModel.CATEGORIES + "=" + filterModel.getCategories();
+        }
+        if(source!=null){
+            param += "&" + FilterModel.SOURCE + "=" + source;
+        }
+        if(take!=null){
+            param += "&" + FilterModel.TAKE + "=" + take;
+        }
+        return param;
+    }
+
+    public void getFeatureItemsList(Context context, FilterModel filterModel, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String param = getParams(context,filterModel,"featured","5");
+        getFeatureItemsData(context, ServerConstants.URL_feature_items, param, TAG);
+    }
+    private void getFeatureItemsData(final Context context, String URL, String params, String TAG) {
+        if (params != null) {
+            if (!params.equalsIgnoreCase("")) {
+                URL += "?" + params;
+            }
+        }
+        VolleyServices request = new VolleyServices();
+        request.setCallbacks(new VolleyServices.ResposeCallBack() {
+            @Override
+            public void OnSuccess(JSONObject arg0) {
+                mUiCallBack.OnSuccessFromServer(arg0);
+            }
+            @Override
+            public void OnFailure(String cause) {
+                mUiCallBack.OnFailureFromServer(cause);
+            }
+            @Override
+            public void OnFailure(int cause) {
+                mUiCallBack.OnFailureFromServer(context.getString(cause));
+            }
+        });
+        request.makeJsonGETRequest(context, URL.trim(), TAG);
+    }
+
 }

@@ -12,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueshak.app.blueshak.home.adapter.HorizontalItemListAdapter;
+import com.blueshak.app.blueshak.home.model.FeatureItemData;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.blueshak.app.blueshak.global.GlobalFunctions;
 import com.blueshak.app.blueshak.global.GlobalVariables;
@@ -42,6 +44,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
     public static final String TAG = "ItemListAdapter";
     private Context context;
     private List<ProductModel> albumList;
+    private List<FeatureItemData> featureItemList;
     protected boolean showLoader;
     private static final int VIEWTYPE_ITEM = 1;
     private static final int VIEWTYPE_LOADER = 2;
@@ -54,6 +57,9 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
         public RecyclerView horizontalRecyclerView;
         private TextView txt_feature_items;
         private TextView txt_seller_items;
+        private LinearLayout feature_below_line;
+        private LinearLayout feature_line;
+        private LinearLayout seller_line;
 
         public MyViewHolder(View view) {
             super(view);
@@ -72,6 +78,9 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
             horizontalRecyclerView = (RecyclerView)view.findViewById(R.id.horizontal_recycler_view);
             txt_feature_items = (TextView)view.findViewById(R.id.txt_feature_items);
             txt_seller_items = (TextView)view.findViewById(R.id.txt_seller_items);
+            feature_below_line = (LinearLayout)view.findViewById(R.id.feature_below_line);
+            feature_line = (LinearLayout)view.findViewById(R.id.feature_line);
+            seller_line = (LinearLayout)view.findViewById(R.id.seller_line);
         }
     }
 
@@ -84,9 +93,10 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
         }
     }
 
-    public ItemListAdapterForList(Context mContext, List<ProductModel> albumList) {
+    public ItemListAdapterForList(Context mContext, List<ProductModel> albumList,List<FeatureItemData> featureItemList) {
         this.context = mContext;
         this.albumList = albumList;
+        this.featureItemList = featureItemList;
         this.item_address = GlobalFunctions.getSharedPreferenceString(mContext, GlobalVariables.CURRENT_LOCATION);
      /*   imgLoader = new ImageLoader(mContext);*/
 
@@ -117,21 +127,26 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                 final MyViewHolder holder = (MyViewHolder) view_holder;
               /*  final ProductModel obj = albumList.get(position-1);*/
                 final ProductModel obj = albumList.get(position);
-                List<ProductModel> horizontalList = obj.getHorizontalList();
                 if(position==0){
                     holder.horizontalRecyclerView.setVisibility(View.VISIBLE);
                     holder.txt_feature_items.setVisibility(View.VISIBLE);
                     holder.txt_seller_items.setVisibility(View.VISIBLE);
-                    HorizontalItemListAdapter itemListDataAdapter = new HorizontalItemListAdapter(context, horizontalList);
+                    holder.feature_line.setVisibility(View.VISIBLE);
+                    holder.seller_line.setVisibility(View.VISIBLE);
+                    HorizontalItemListAdapter itemListDataAdapter = new HorizontalItemListAdapter(context, featureItemList);
                     holder.horizontalRecyclerView.setHasFixedSize(true);
                     holder.horizontalRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
                     holder.horizontalRecyclerView.setAdapter(itemListDataAdapter);
+                    holder.feature_below_line.setVisibility(View.VISIBLE);
+
                 }else{
                     holder.horizontalRecyclerView.setVisibility(View.GONE);
                     holder.txt_feature_items.setVisibility(View.GONE);
                     holder.txt_seller_items.setVisibility(View.GONE);
+                    holder.feature_below_line.setVisibility(View.GONE);
+                    holder.feature_line.setVisibility(View.GONE);
+                    holder.seller_line.setVisibility(View.GONE);
                 }
-
 
                 holder.item_name.setText(obj.getName());
 

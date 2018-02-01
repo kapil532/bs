@@ -2,6 +2,7 @@ package com.blueshak.app.blueshak.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
@@ -10,9 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.blueshak.app.blueshak.home.adapter.HorizontalItemListAdapter;
+import com.blueshak.app.blueshak.home.model.FeatureItemData;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.blueshak.blueshak.R;
 /*import com.langoor.app.blueshak.ImageCashing.ImageLoader;*/
@@ -39,9 +44,16 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int VIEWTYPE_ITEM = 1;
     private static final int VIEWTYPE_LOADER = 2;
     public String item_address;
+    private List<FeatureItemData> featureItemList;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         protected TextView item_price;
         protected ImageView image_iv,favarite,is_sold,is_garage;
+        public RecyclerView horizontalRecyclerView;
+        private TextView txt_feature_items;
+        private TextView txt_seller_items;
+        private LinearLayout feature_below_line;
+        private LinearLayout feature_line;
+        private LinearLayout seller_line;
         public MyViewHolder(View view) {
             super(view);
             item_price = (TextView) view.findViewById(R.id.item_price);
@@ -49,6 +61,13 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             is_sold= (ImageView) view.findViewById(R.id.is_sold);
             is_garage= (ImageView) view.findViewById(R.id.is_garage_item);
             favarite= (ImageView) view.findViewById(R.id.item_favirate);
+
+            horizontalRecyclerView = (RecyclerView)view.findViewById(R.id.horizontal_recycler_view);
+            txt_feature_items = (TextView)view.findViewById(R.id.txt_feature_items);
+            txt_seller_items = (TextView)view.findViewById(R.id.txt_seller_items);
+            feature_below_line = (LinearLayout)view.findViewById(R.id.feature_below_line);
+            feature_line = (LinearLayout)view.findViewById(R.id.feature_line);
+            seller_line = (LinearLayout)view.findViewById(R.id.seller_line);
         }
     }
 
@@ -60,9 +79,10 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    public ItemListAdapter(Context mContext, List<ProductModel> albumList) {
+    public ItemListAdapter(Context mContext, List<ProductModel> albumList,List<FeatureItemData> featureItemList) {
         this.context = mContext;
         this.albumList = albumList;
+        this.featureItemList = featureItemList;
         this.item_address=GlobalFunctions.getSharedPreferenceString(mContext,GlobalVariables.CURRENT_LOCATION);
      /*   imgLoader = new ImageLoader(mContext);*/
 
@@ -93,9 +113,26 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                final  MyViewHolder holder=(MyViewHolder)view_holder;
               /*  final ProductModel obj = albumList.get(position-1);*/
                 final ProductModel obj = albumList.get(position);
-                /* int price=0;
-                if(!TextUtils.isEmpty(obj.getSalePrice()))
-                    price=(int)Float.parseFloat(obj.getSalePrice());*/
+              if(position==0){
+                  holder.horizontalRecyclerView.setVisibility(View.VISIBLE);
+                  holder.txt_feature_items.setVisibility(View.VISIBLE);
+                  holder.txt_seller_items.setVisibility(View.VISIBLE);
+                  holder.feature_line.setVisibility(View.VISIBLE);
+                  holder.seller_line.setVisibility(View.VISIBLE);
+                  HorizontalItemListAdapter itemListDataAdapter = new HorizontalItemListAdapter(context, featureItemList);
+                  holder.horizontalRecyclerView.setHasFixedSize(true);
+                  holder.horizontalRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                  holder.horizontalRecyclerView.setAdapter(itemListDataAdapter);
+                  holder.feature_below_line.setVisibility(View.VISIBLE);
+
+              }else{
+                  holder.horizontalRecyclerView.setVisibility(View.GONE);
+                  holder.txt_feature_items.setVisibility(View.GONE);
+                  holder.txt_seller_items.setVisibility(View.GONE);
+                  holder.feature_below_line.setVisibility(View.GONE);
+                  holder.feature_line.setVisibility(View.GONE);
+                  holder.seller_line.setVisibility(View.GONE);
+              }
 
                 holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(),obj.getSalePrice()));
 

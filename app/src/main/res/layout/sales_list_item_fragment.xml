@@ -42,25 +42,34 @@
                 android:hint="Search BlueShak"
                 android:imeOptions="actionDone"
                 android:textColor="@color/brand_text_color"
-                android:textSize="16sp"></com.blueshak.app.blueshak.text.MyTextView>
+                android:textSize="16sp">
+
+            </com.blueshak.app.blueshak.text.MyTextView>
 
         </LinearLayout>
 
         <com.blueshak.app.blueshak.text.MyTextViewMediumBold
             android:id="@+id/results_all"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@color/white"
-            android:ellipsize="none"
             android:maxLines="1"
             android:padding="10dp"
             android:scrollHorizontally="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/rectangle_nearest"
             android:singleLine="true"
             android:text="@string/item_list_fragment_for_list_result_from_nearest_new"
             android:textColor="@color/black"
             android:textSize="@dimen/results_all_textsize"
-            android:textStyle="italic"></com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+            android:textStyle="italic">
+
+        </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/dark_gray"
+            android:layout_height="1dp">
+        </LinearLayout>
         <!--android:background="#DCDCDC"-->
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -78,22 +87,12 @@
                 android:padding="10dp"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:visibility="gone"></com.blueshak.app.blueshak.text.MyTextView>
+                android:visibility="gone">
+
+            </com.blueshak.app.blueshak.text.MyTextView>
 
         </LinearLayout>
 
-        <!--<ListView
-              android:id="@+id/sales_list_fragment_list_view"
-              android:layout_width="match_parent"
-              android:scrollbars="none"
-              android:layout_height="match_parent"
-              android:layout_margin="5dp"
-              android:choiceMode="singleChoice"
-              android:divider="@drawable/list_divider"
-              android:dividerHeight="7dp"
-              android:footerDividersEnabled="true"
-              android:layout_below="@+id/linearLayout3" />
-      -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -106,8 +105,6 @@
                 android:layout_alignParentBottom="true"
                 android:clipToPadding="false"
                 android:dividerHeight="7dp"
-                android:paddingLeft="@dimen/space"
-                android:paddingRight="@dimen/space"
                 android:scrollbars="none" />
 
 
@@ -122,7 +119,9 @@
                 android:gravity="center"
                 android:text="Loading products..."
                 android:textColor="@color/brand_text_color"
-                android:textSize="@dimen/empty_label_size"></com.blueshak.app.blueshak.text.MyTextView>
+                android:textSize="@dimen/empty_label_size">
+
+            </com.blueshak.app.blueshak.text.MyTextView>
 
             <fr.castorflex.android.circularprogressbar.CircularProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
