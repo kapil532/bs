@@ -54,7 +54,7 @@
             android:layout_margin="10dp"
             android:textSize="@dimen/login_btn_textsize"
             android:textAllCaps="false"
-            android:text="Skip"
+            android:text="@string/skip"
             android:textStyle="normal"
             android:textColor="@color/brandColor"
             android:layout_alignParentBottom="true"

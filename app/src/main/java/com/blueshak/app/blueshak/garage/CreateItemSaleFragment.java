@@ -35,7 +35,9 @@ import android.widget.Toast;
 
 import com.blueshak.app.blueshak.Messaging.helper.Constants;
 import com.blueshak.app.blueshak.PickLocationFromMap;
+import com.blueshak.app.blueshak.garage.ui.SuccessfulCreationActivity;
 import com.blueshak.app.blueshak.util.BlueShakLog;
+import com.blueshak.app.blueshak.util.BlueShakSharedPreferences;
 import com.crashlytics.android.Crashlytics;
 import com.blueshak.app.blueshak.currency.CurrencyActivity;
 import com.blueshak.app.blueshak.photos_add.OnDeletePicture;
@@ -101,7 +103,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     private Switch shippable, nagotiable, is_new_old, is_product_new;
     private Button save;
     private boolean[] is_checked;
-    static Activity activity;
+    public static Activity activity;
     private static final int GOOGLE_API_CLIENT_ID = 1;
     private CategoryListModel clm;
     private List<CategoryModel> list_cm = new ArrayList<CategoryModel>();
@@ -361,7 +363,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         currency = pd_salepricetype.getText().toString();
         if (validate()) {
             //showProgressBar();
-
+            BlueShakSharedPreferences.setProductName(getContext(),str_name);
             postalCode = null;
             for (int i = 0; i < selectedAutoSuggesstionsList.size(); i++) {
                 postalCode = postalCode == null ? selectedAutoSuggesstionsList.get(i).getId() : postalCode + "," + selectedAutoSuggesstionsList.get(i).getId();
@@ -491,8 +493,9 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 if (arg0 instanceof IDModel) {
                     IDModel idModel = (IDModel) arg0;
                     createProductModel.setProduct_id(idModel.getId());
-                    Toast.makeText(context, "Item has been listed Successfully", Toast.LENGTH_LONG).show();
-                    closeThisActivity();
+                    //Toast.makeText(context, "Item has been listed Successfully", Toast.LENGTH_LONG).show();
+                    //closeThisActivity();
+                    startSuccessfulActivity();
                 } else if (arg0 instanceof ErrorModel) {
                     ErrorModel errorModel = (ErrorModel) arg0;
                     String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
@@ -562,7 +565,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
             @Override
             public void onClick(View v) {
                 showProgressBar();
-
                 onClickProcessing();
 
 
@@ -767,6 +769,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
     }
 
 
+
     @Override
     public void onStop() {
         //
@@ -925,8 +928,12 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                 } else if (requestCode == REQUEST_ADD_IMAGES) {
                     BlueShakLog.logDebug(TAG, "onActivityResult REQUEST_ADD_IMAGES ");
                     setImagesAdapter();
+                }else if(requestCode == SuccessfulCreationActivity.SUCCESS_FEATURE){
+                    closeThisActivity();
                 }
-            }
+            }/*else{
+                closeThisActivity();
+            }*/
         } catch (NullPointerException e) {
             Log.d(TAG, "NullPointerException");
             e.printStackTrace();
@@ -1352,8 +1359,9 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         adapter = new PhotosAddListAdapter(getActivity(), Utils.getFilteredArrayList(objectUploadPhoto.getAvailablePhotos()), true, this, false);
         listView.setAdapter(adapter);
     }
-
-
-
+    private void startSuccessfulActivity(){
+        Intent intent = new Intent(getActivity(),SuccessfulCreationActivity.class);
+        startActivityForResult(intent,SuccessfulCreationActivity.SUCCESS_FEATURE);
+    }
 }
 

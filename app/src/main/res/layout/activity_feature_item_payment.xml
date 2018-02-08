@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_white"
+    android:fillViewport="true"
+    android:padding="@dimen/margin_10dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_layout"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/layout_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:isScrollContainer="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_back"
+                android:tint="@android:color/black" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/img_feature"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:src="@drawable/profile_pic" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/icon_feature_small" />
+            </RelativeLayout>
+
+            <com.blueshak.app.blueshak.text.MyTextView
+                android:id="@+id/txt_item_name"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/rectangle_bg"
+                android:gravity="center"
+                android:padding="@dimen/margin_5dp"
+                android:text="Item name"
+                android:layout_marginLeft="@dimen/margin_2dp"
+                android:textColor="@color/app_fontBlackColor"
+                android:textSize="@dimen/sign_up_text_size">
+
+            </com.blueshak.app.blueshak.text.MyTextView>
+
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/icon_feature" />
+
+                <com.blueshak.app.blueshak.text.MyTextView
+                    android:id="@+id/pd_salepricetype11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:padding="@dimen/margin_5dp"
+                    android:text="@string/your_items"
+                    android:textColor="@color/app_fontBlackColor"
+                    android:textSize="@dimen/txt_size_12sp">
+
+                </com.blueshak.app.blueshak.text.MyTextView>
+
+            </LinearLayout>
+
+            <com.blueshak.app.blueshak.text.MyTextView
+                android:id="@+id/seller_item_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/margin_10dp"
+                android:text="@string/feature_item_sell_description"
+                android:textColor="@color/app_fontBlackColor"
+                android:textSize="@dimen/txt_size_14sp">
+
+            </com.blueshak.app.blueshak.text.MyTextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/dark_gray">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/radio_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_20dp"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/margin_10dp"
+                        android:layout_marginBottom="@dimen/margin_5dp"
+                        android:text="@string/week_one" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/margin_40dp"
+                        android:background="@color/dark_gray">
+
+                    </LinearLayout>
+
+                    <RadioButton
+                        android:id="@+id/radio_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_20dp"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginBottom="@dimen/margin_5dp"
+                        android:text="@string/week_two" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/margin_40dp"
+                        android:background="@color/dark_gray">
+
+                    </LinearLayout>
+
+
+                    <RadioButton
+                        android:id="@+id/radio_three"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_20dp"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginBottom="@dimen/margin_5dp"
+                        android:text="@string/week_three" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/margin_40dp"
+                        android:background="@color/dark_gray">
+
+                    </LinearLayout>
+
+
+                    <RadioButton
+                        android:id="@+id/radio_four"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_20dp"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginBottom="@dimen/margin_10dp"
+                        android:text="@string/week_four" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/margin_10dp"
+                android:background="@color/dark_gray">
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.blueshak.app.blueshak.text.MyButton
+            android:id="@+id/btn_skip"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/margin_5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_skip_bg"
+            android:gravity="center"
+            android:text="@string/skip"
+            android:textAllCaps="false"
+            android:textColor="@color/brandColor"
+            android:textSize="@dimen/sign_up_text_size">
+
+        </com.blueshak.app.blueshak.text.MyButton>
+
+        <com.blueshak.app.blueshak.text.MyButton
+            android:id="@+id/btn_paypal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_paypal_bg"
+            android:gravity="center"
+            android:text="@string/pay_pal_label"
+            android:textAllCaps="false"
+            android:textAppearance="@style/MediumText"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sign_up_text_size">
+
+        </com.blueshak.app.blueshak.text.MyButton>
+    </LinearLayout>
+</RelativeLayout>

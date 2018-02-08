@@ -130,6 +130,20 @@
     <string name="listed">Listed:</string>
     <string name="seller_items">Seller Items</string>
     <string name="feature_items">Featured Items</string>
+    <string name="title_activity_successful">Successful</string>
+    <string name="successful_title">Item Listing Successful!</string>
+    <string name="successful_description">Your item has been listed and in now live!</string>
+    <string name="successful_another"><u>List Another Item</u></string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="pay_pal_label">Pay with PayPal</string>
+    <string name="your_items">Your item ?</string>
+    <string name="feature_item_sell_description">Want to sell faster? We a have a low-cost option-for only US$0.99/wk,
+        you can have your item(s) featured on top.</string>
+    <string name="week_one">1 week for USD 0.99</string>
+    <string name="week_two">2 weeks for USD 1.90 (USD 0.95/wk)</string>
+    <string name="week_three">3 weeks for USD 2.70(USD 0.90/wk)</string>
+    <string name="week_four">4 weeks for USD 3.40(USD 0.85/wk)</string>
 
 
 </resources>

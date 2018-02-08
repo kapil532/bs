@@ -143,4 +143,18 @@ public class BlueShakSharedPreferences {
                 mSharedPreferences.edit().remove(chatId).commit();
         }
     }
+
+    public static void setProductName(Context context, String name) {
+        String chat = "ProductName";
+        android.content.SharedPreferences prefs = context.getSharedPreferences(salesPreferences, Activity.MODE_PRIVATE);
+        android.content.SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(chat, name);
+        editor.apply();
+    }
+
+    public static String getProductName(Context context) {
+        String chat = "ProductName";
+        android.content.SharedPreferences prefs = context.getSharedPreferences(salesPreferences, Activity.MODE_PRIVATE);
+        return prefs.getString(chat, "");
+    }
 }

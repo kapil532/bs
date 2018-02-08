@@ -94,32 +94,27 @@
     <dimen name="splash_logo_height">150dp</dimen>
     <dimen name="splash_logo_margin_top">35dp</dimen>
 
-    <dimen name="txt_size_10sp">10sp</dimen>
-    <dimen name="txt_size_12sp">12sp</dimen>
-    <dimen name="txt_size_14sp">14sp</dimen>
-    <dimen name="txt_size_15sp">15sp</dimen>
-    <dimen name="txt_size_16sp">16sp</dimen>
-    <dimen name="txt_size_18sp">18sp</dimen>
-    <dimen name="txt_size_20sp">20sp</dimen>
-    <dimen name="txt_size_22sp">22sp</dimen>
-    <dimen name="txt_size_24sp">24sp</dimen>
+    <dimen name="txt_size_10sp">12sp</dimen>
+    <dimen name="txt_size_12sp">14sp</dimen>
+    <dimen name="txt_size_14sp">16sp</dimen>
+    <dimen name="txt_size_15sp">17sp</dimen>
+    <dimen name="txt_size_16sp">18sp</dimen>
+    <dimen name="txt_size_18sp">20sp</dimen>
+    <dimen name="txt_size_20sp">22sp</dimen>
+    <dimen name="txt_size_22sp">24sp</dimen>
+    <dimen name="txt_size_24sp">26sp</dimen>
 
-
-    <dimen name="margin_1dp">1dp</dimen>
-    <dimen name="margin_2dp">2dp</dimen>
-    <dimen name="margin_3dp">3dp</dimen>
-    <dimen name="margin_5dp">5dp</dimen>
-    <dimen name="margin_10dp">10dp</dimen>
-    <dimen name="margin_15dp">15dp</dimen>
-    <dimen name="margin_20dp">20dp</dimen>
-    <dimen name="margin_25dp">25dp</dimen>
-    <dimen name="margin_30dp">30dp</dimen>
-    <dimen name="margin_40dp">40dp</dimen>
-    <dimen name="margin_45dp">45dp</dimen>
-    <dimen name="margin_50dp">50dp</dimen>
-    <dimen name="margin_60dp">60dp</dimen>
-    <dimen name="margin_70dp">70dp</dimen>
-    <dimen name="margin_80dp">80dp</dimen>
+    <dimen name="margin_10dp">12dp</dimen>
+    <dimen name="margin_15dp">17dp</dimen>
+    <dimen name="margin_20dp">22dp</dimen>
+    <dimen name="margin_25dp">27dp</dimen>
+    <dimen name="margin_30dp">32dp</dimen>
+    <dimen name="margin_40dp">42dp</dimen>
+    <dimen name="margin_45dp">47dp</dimen>
+    <dimen name="margin_50dp">52dp</dimen>
+    <dimen name="margin_60dp">62dp</dimen>
+    <dimen name="margin_70dp">72dp</dimen>
+    <dimen name="margin_80dp">82dp</dimen>
 
 
 </resources>

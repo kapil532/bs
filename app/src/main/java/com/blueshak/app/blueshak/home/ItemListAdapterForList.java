@@ -128,24 +128,25 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
               /*  final ProductModel obj = albumList.get(position-1);*/
                 final ProductModel obj = albumList.get(position);
                 if(position==0){
-                    holder.horizontalRecyclerView.setVisibility(View.VISIBLE);
-                    holder.txt_feature_items.setVisibility(View.VISIBLE);
-                    holder.txt_seller_items.setVisibility(View.VISIBLE);
-                    holder.feature_line.setVisibility(View.VISIBLE);
-                    holder.seller_line.setVisibility(View.VISIBLE);
-                    HorizontalItemListAdapter itemListDataAdapter = new HorizontalItemListAdapter(context, featureItemList);
-                    holder.horizontalRecyclerView.setHasFixedSize(true);
-                    holder.horizontalRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-                    holder.horizontalRecyclerView.setAdapter(itemListDataAdapter);
-                    holder.feature_below_line.setVisibility(View.VISIBLE);
+                    if(featureItemList!=null && featureItemList.size() > 0){
+                        holder.horizontalRecyclerView.setVisibility(View.VISIBLE);
+                        holder.txt_feature_items.setVisibility(View.VISIBLE);
+                        holder.txt_seller_items.setVisibility(View.VISIBLE);
+                        holder.feature_line.setVisibility(View.VISIBLE);
+                        holder.seller_line.setVisibility(View.VISIBLE);
+                        HorizontalItemListAdapter itemListDataAdapter = new HorizontalItemListAdapter(context, featureItemList);
+                        holder.horizontalRecyclerView.setHasFixedSize(true);
+                        holder.horizontalRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                        holder.horizontalRecyclerView.setAdapter(itemListDataAdapter);
+                        holder.feature_below_line.setVisibility(View.VISIBLE);
+                    }else{
+                        setVisible(holder);
+                        holder.txt_seller_items.setVisibility(View.VISIBLE);
+                        holder.seller_line.setVisibility(View.VISIBLE);
+                    }
 
                 }else{
-                    holder.horizontalRecyclerView.setVisibility(View.GONE);
-                    holder.txt_feature_items.setVisibility(View.GONE);
-                    holder.txt_seller_items.setVisibility(View.GONE);
-                    holder.feature_below_line.setVisibility(View.GONE);
-                    holder.feature_line.setVisibility(View.GONE);
-                    holder.seller_line.setVisibility(View.GONE);
+                    setVisible(holder);
                 }
 
                 holder.item_name.setText(obj.getName());
@@ -257,6 +258,15 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
             Log.d(TAG, "Exception");
             e.printStackTrace();
         }
+    }
+
+    private void setVisible(MyViewHolder holder){
+        holder.horizontalRecyclerView.setVisibility(View.GONE);
+        holder.txt_feature_items.setVisibility(View.GONE);
+        holder.txt_seller_items.setVisibility(View.GONE);
+        holder.feature_below_line.setVisibility(View.GONE);
+        holder.feature_line.setVisibility(View.GONE);
+        holder.seller_line.setVisibility(View.GONE);
     }
 
     @Override

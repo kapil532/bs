@@ -1067,6 +1067,8 @@ public class ServicesMethodsManager {
         Utils.sortArray(images);
         ArrayList<CreateImageModel> createImages = new ArrayList<CreateImageModel>();
             if(images.size()>0){
+
+
                 for (int j = 0; j < images.size(); j++) {
                     CreateImageModel model;
                     if(images.get(j).isRealImage()){

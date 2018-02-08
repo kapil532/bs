@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_white"
+    tools:context="com.blueshak.app.blueshak.garage.ui.SuccessfulCreationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="@dimen/margin_10dp"
+        android:orientation="vertical">
+
+        <com.blueshak.app.blueshak.text.MyTextView
+            android:id="@+id/pd_salepricetype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_30dp"
+            android:gravity="center"
+            android:text="@string/successful_title"
+            android:textColor="@color/black"
+            android:textSize="@dimen/txt_size_18sp">
+
+        </com.blueshak.app.blueshak.text.MyTextView>
+
+        <com.blueshak.app.blueshak.text.MyTextView
+            android:id="@+id/pd_salepricetype1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:gravity="center"
+            android:text="@string/successful_description"
+            android:textColor="@color/black"
+            android:textSize="@dimen/txt_size_16sp">
+
+        </com.blueshak.app.blueshak.text.MyTextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20dp"
+            android:padding="@dimen/margin_10dp"
+            app:srcCompat="@drawable/icon_check_tick" />
+
+        <com.blueshak.app.blueshak.text.MyTextView
+            android:id="@+id/txt_another_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/successful_another"
+            android:layout_marginTop="@dimen/margin_20dp"
+            android:gravity="center"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/sign_up_text_size">
+
+        </com.blueshak.app.blueshak.text.MyTextView>
+    </LinearLayout>
+
+    <com.blueshak.app.blueshak.text.MyButton
+        android:id="@+id/btn_next"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/round_corner_btn__style"
+        android:gravity="center"
+        android:text="@string/next"
+        android:textAllCaps="false"
+        android:textAppearance="@style/MediumText"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sign_up_text_size">
+
+    </com.blueshak.app.blueshak.text.MyButton>
+</RelativeLayout>

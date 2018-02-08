@@ -25,8 +25,8 @@ android {
 
     defaultConfig {
         applicationId 'com.blueshak'
-        minSdkVersion 14
-        targetSdkVersion 23
+        minSdkVersion 16
+        targetSdkVersion 24
         versionCode 14
         versionName "1.5"
         vectorDrawables.useSupportLibrary = true
@@ -50,6 +50,12 @@ android {
     dexOptions {
         javaMaxHeapSize "4g" //specify the heap size for the dex process
     }
+    sourceSets {
+        main {
+            resources.srcDirs = ['src/main/resources', 'src/main/res/values-xhdpi']
+            res.srcDirs = ['src/main/res', 'src/main/res/values-xxhdpi']
+        }
+    }
 }
 /*allprojects {
     configurations {
@@ -61,6 +67,9 @@ dependencies {
     /*compile ('net.rimoto:intlphoneinput:0.9.4'){
           exclude module: 'support-v4'
       }*/
+
+    compile('com.paypal.sdk:paypal-android-sdk:2.15.3')
+
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.hbb20:ccp:1.7.1'
     /* compile fileTree(include: ['*.jar'], dir: 'libs')*/
@@ -127,6 +136,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'*/
     compile 'com.android.support:gridlayout-v7:24.2.1'
     compile 'com.google.android.gms:play-services-places:9.2.0'
+
 
 }
 /*

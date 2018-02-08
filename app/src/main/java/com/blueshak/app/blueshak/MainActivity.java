@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.blueshak.app.blueshak.Messaging.data.User;
 import com.blueshak.app.blueshak.Messaging.manager.MessageManager;
+import com.blueshak.app.blueshak.garage.ui.FeatureItemPaymentActivity;
 import com.blueshak.app.blueshak.home.ItemListFragmentForList;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.Messaging.activity.InboxFragment;
@@ -521,6 +522,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                     if (item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.list_item))) {
                         if (GlobalFunctions.is_loggedIn(activity)) {
                             Intent i = CreateSaleActivity.newInstance(activity, null, null, null, GlobalVariables.TYPE_HOME, GlobalVariables.TYPE_ITEM);
+                            //Intent i = new Intent(MainActivity.this,FeatureItemPaymentActivity.class);
                             startActivity(i);
                           /*  setDeFaultTabAsHome();*/
                         } else
