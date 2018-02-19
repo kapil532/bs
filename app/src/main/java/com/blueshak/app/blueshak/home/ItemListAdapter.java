@@ -32,11 +32,12 @@ import com.blueshak.app.blueshak.services.model.ProductModel;
 import com.blueshak.app.blueshak.services.model.StatusModel;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
 import java.util.List;
 
 
 public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
-        ViewPagerEx.OnPageChangeListener{
+        ViewPagerEx.OnPageChangeListener {
     public static final String TAG = "ItemListAdapter";
     private Context context;
     private List<ProductModel> albumList;
@@ -45,45 +46,50 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int VIEWTYPE_LOADER = 2;
     public String item_address;
     private List<FeatureItemData> featureItemList;
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         protected TextView item_price;
-        protected ImageView image_iv,favarite,is_sold,is_garage;
+        protected ImageView image_iv, favarite, is_sold, is_garage;
         public RecyclerView horizontalRecyclerView;
         private TextView txt_feature_items;
         private TextView txt_seller_items;
         private LinearLayout feature_below_line;
         private LinearLayout feature_line;
         private LinearLayout seller_line;
+        private ImageView is_featured;
+
         public MyViewHolder(View view) {
             super(view);
             item_price = (TextView) view.findViewById(R.id.item_price);
-            image_iv= (ImageView) view.findViewById(R.id.product_image);
-            is_sold= (ImageView) view.findViewById(R.id.is_sold);
-            is_garage= (ImageView) view.findViewById(R.id.is_garage_item);
-            favarite= (ImageView) view.findViewById(R.id.item_favirate);
+            image_iv = (ImageView) view.findViewById(R.id.product_image);
+            is_sold = (ImageView) view.findViewById(R.id.is_sold);
+            is_featured = (ImageView) view.findViewById(R.id.is_featured);
+            is_garage = (ImageView) view.findViewById(R.id.is_garage_item);
+            favarite = (ImageView) view.findViewById(R.id.item_favirate);
 
-            horizontalRecyclerView = (RecyclerView)view.findViewById(R.id.horizontal_recycler_view);
-            txt_feature_items = (TextView)view.findViewById(R.id.txt_feature_items);
-            txt_seller_items = (TextView)view.findViewById(R.id.txt_seller_items);
-            feature_below_line = (LinearLayout)view.findViewById(R.id.feature_below_line);
-            feature_line = (LinearLayout)view.findViewById(R.id.feature_line);
-            seller_line = (LinearLayout)view.findViewById(R.id.seller_line);
+            horizontalRecyclerView = (RecyclerView) view.findViewById(R.id.horizontal_recycler_view);
+            txt_feature_items = (TextView) view.findViewById(R.id.txt_feature_items);
+            txt_seller_items = (TextView) view.findViewById(R.id.txt_seller_items);
+            feature_below_line = (LinearLayout) view.findViewById(R.id.feature_below_line);
+            feature_line = (LinearLayout) view.findViewById(R.id.feature_line);
+            seller_line = (LinearLayout) view.findViewById(R.id.seller_line);
         }
     }
 
-    class VHLoader extends RecyclerView.ViewHolder{
+    class VHLoader extends RecyclerView.ViewHolder {
         ProgressBar progressBar;
+
         public VHLoader(View itemView) {
             super(itemView);
             progressBar = (ProgressBar) itemView.findViewById(R.id.bottom_progress_bar);
         }
     }
 
-    public ItemListAdapter(Context mContext, List<ProductModel> albumList,List<FeatureItemData> featureItemList) {
+    public ItemListAdapter(Context mContext, List<ProductModel> albumList, List<FeatureItemData> featureItemList) {
         this.context = mContext;
         this.albumList = albumList;
         this.featureItemList = featureItemList;
-        this.item_address=GlobalFunctions.getSharedPreferenceString(mContext,GlobalVariables.CURRENT_LOCATION);
+        this.item_address = GlobalFunctions.getSharedPreferenceString(mContext, GlobalVariables.CURRENT_LOCATION);
      /*   imgLoader = new ImageLoader(mContext);*/
 
 
@@ -109,34 +115,34 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder view_holder, int position) {
         try {
-          if(view_holder instanceof MyViewHolder){
-               final  MyViewHolder holder=(MyViewHolder)view_holder;
+            if (view_holder instanceof MyViewHolder) {
+                final MyViewHolder holder = (MyViewHolder) view_holder;
               /*  final ProductModel obj = albumList.get(position-1);*/
                 final ProductModel obj = albumList.get(position);
-              if(position==0){
-                  holder.horizontalRecyclerView.setVisibility(View.VISIBLE);
-                  holder.txt_feature_items.setVisibility(View.VISIBLE);
-                  holder.txt_seller_items.setVisibility(View.VISIBLE);
-                  holder.feature_line.setVisibility(View.VISIBLE);
-                  holder.seller_line.setVisibility(View.VISIBLE);
-                  HorizontalItemListAdapter itemListDataAdapter = new HorizontalItemListAdapter(context, featureItemList);
-                  holder.horizontalRecyclerView.setHasFixedSize(true);
-                  holder.horizontalRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-                  holder.horizontalRecyclerView.setAdapter(itemListDataAdapter);
-                  holder.feature_below_line.setVisibility(View.VISIBLE);
+                if (position == 0) {
+                    holder.horizontalRecyclerView.setVisibility(View.VISIBLE);
+                    holder.txt_feature_items.setVisibility(View.VISIBLE);
+                    holder.txt_seller_items.setVisibility(View.VISIBLE);
+                    holder.feature_line.setVisibility(View.VISIBLE);
+                    holder.seller_line.setVisibility(View.VISIBLE);
+                    HorizontalItemListAdapter itemListDataAdapter = new HorizontalItemListAdapter(context, featureItemList);
+                    holder.horizontalRecyclerView.setHasFixedSize(true);
+                    holder.horizontalRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                    holder.horizontalRecyclerView.setAdapter(itemListDataAdapter);
+                    holder.feature_below_line.setVisibility(View.VISIBLE);
 
-              }else{
-                  holder.horizontalRecyclerView.setVisibility(View.GONE);
-                  holder.txt_feature_items.setVisibility(View.GONE);
-                  holder.txt_seller_items.setVisibility(View.GONE);
-                  holder.feature_below_line.setVisibility(View.GONE);
-                  holder.feature_line.setVisibility(View.GONE);
-                  holder.seller_line.setVisibility(View.GONE);
-              }
+                } else {
+                    holder.horizontalRecyclerView.setVisibility(View.GONE);
+                    holder.txt_feature_items.setVisibility(View.GONE);
+                    holder.txt_seller_items.setVisibility(View.GONE);
+                    holder.feature_below_line.setVisibility(View.GONE);
+                    holder.feature_line.setVisibility(View.GONE);
+                    holder.seller_line.setVisibility(View.GONE);
+                }
 
-                holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(),obj.getSalePrice()));
+                holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(), obj.getSalePrice()));
 
-                if(obj.is_bookmark())
+                if (obj.is_bookmark())
                     holder.favarite.setImageResource(R.drawable.like_full);
                 else
                     holder.favarite.setImageResource(R.drawable.like_border);
@@ -145,20 +151,29 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 else
                     holder.new_flag_image.setVisibility(View.GONE);
                 */
-              if(!obj.isAvailable()) {
-                  holder.is_sold.setVisibility(View.VISIBLE);
-                  holder.is_sold.setImageResource(R.drawable.ic_sold);
-              }
-              else
-              {
-                  holder.is_sold.setVisibility(View.INVISIBLE);
-              }
 
-              if(obj.is_new()) {
-                  holder.is_sold.setImageResource(R.drawable.ic_new);
-              }
+                if (obj.is_new()) {
+                    holder.is_sold.setVisibility(View.VISIBLE);
+                    holder.is_featured.setVisibility(View.GONE);
+                    holder.is_sold.setImageResource(R.drawable.ic_new);
+                } else if (!obj.isAvailable()) {
+                    holder.is_sold.setVisibility(View.VISIBLE);
+                    holder.is_featured.setVisibility(View.GONE);
+                    holder.is_sold.setImageResource(R.drawable.ic_sold);
+                } else if (obj.is_product_new() && obj.isIs_featured()) {
+                    holder.is_sold.setVisibility(View.GONE);
+                    holder.is_featured.setVisibility(View.VISIBLE);
+                    holder.is_featured.setImageResource(R.drawable.icon_new_feature);
+                } else if (obj.isIs_featured()) {
+                    holder.is_sold.setVisibility(View.GONE);
+                    holder.is_featured.setVisibility(View.VISIBLE);
+                    holder.is_featured.setImageResource(R.drawable.icon_feature);
+                } else {
+                    holder.is_sold.setVisibility(View.GONE);
+                    holder.is_featured.setVisibility(View.GONE);
+                }
 
-                if(obj.is_garage_item())
+                if (obj.is_garage_item())
                     holder.is_garage.setVisibility(View.VISIBLE);
                 else
                     holder.is_garage.setVisibility(View.GONE);
@@ -167,7 +182,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     @Override
                     public void onClick(View v) {
                      /*  getItemInfo(obj.getId());*/
-                        Intent intent = ProductDetail.newInstance(context,obj,null,GlobalVariables.TYPE_MY_SALE);
+                        Intent intent = ProductDetail.newInstance(context, obj, null, GlobalVariables.TYPE_MY_SALE);
                         context.startActivity(intent);
 
                     }
@@ -176,23 +191,23 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     @Override
                     public void onClick(View v) {
 
-                        if(GlobalFunctions.is_loggedIn(context)){
-                            if(obj.is_bookmark()){
+                        if (GlobalFunctions.is_loggedIn(context)) {
+                            if (obj.is_bookmark()) {
                                 holder.favarite.setImageResource(R.drawable.like_border);
-                                deleteBookmark(context,obj.getId());
+                                deleteBookmark(context, obj.getId());
                                 obj.setIs_bookmark(false);
-                            }else{
+                            } else {
                                 holder.favarite.setImageResource(R.drawable.like_full);
-                                addBookmark(context,obj.getId());
+                                addBookmark(context, obj.getId());
                                 obj.setIs_bookmark(true);
                             }
-                        }else
+                        } else
                             showSettingsAlert();
 
 
                     }
                 });
-                String item_image=obj.getItem_display_Image();
+                String item_image = obj.getItem_display_Image();
                 ImageLoader imageLoader = ImageLoader.getInstance();
                 DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
                         .cacheOnDisc(true).resetViewBeforeLoading(true)
@@ -200,9 +215,9 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         .showImageOnFail(R.drawable.placeholder_background)
                         .showImageOnLoading(R.drawable.placeholder_background).build();
                 //download and display image from url
-                imageLoader.displayImage(item_image,  holder.image_iv, options);
-            }else  if (view_holder instanceof VHLoader) {
-                VHLoader loaderViewHolder = (VHLoader)view_holder;
+                imageLoader.displayImage(item_image, holder.image_iv, options);
+            } else if (view_holder instanceof VHLoader) {
+                VHLoader loaderViewHolder = (VHLoader) view_holder;
                 if (showLoader) {
                     loaderViewHolder.progressBar.setVisibility(View.VISIBLE);
                 } else {
@@ -211,14 +226,14 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 return;
             }
 
-        } catch (NullPointerException e){
-            Log.d(TAG,"NullPointerException");
+        } catch (NullPointerException e) {
+            Log.d(TAG, "NullPointerException");
             e.printStackTrace();
-        }catch (NumberFormatException e) {
-            Log.d(TAG,"NumberFormatException");
+        } catch (NumberFormatException e) {
+            Log.d(TAG, "NumberFormatException");
             e.printStackTrace();
-        }catch (Exception e){
-            Log.d(TAG,"Exception");
+        } catch (Exception e) {
+            Log.d(TAG, "Exception");
             e.printStackTrace();
         }
     }
@@ -227,6 +242,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemCount() {
         return albumList.size();
     }
+
     @Override
     public void onPageScrolled(int i, float v, int i1) {
 
@@ -250,14 +266,15 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return TYPE_ITEM;
     }*/
 
-    private boolean isPositionHeader(int position)
-    {
+    private boolean isPositionHeader(int position) {
         return position == 0;
     }
+
     class MyClickableSpan extends ClickableSpan { //clickable span
         public void onClick(View textView) {
 
         }
+
         @Override
         public void updateDrawState(TextPaint ds) {
             ds.setColor(context.getResources().getColor(R.color.tab_selected));//set text color
@@ -267,22 +284,22 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    private void addBookmark(final Context context, String productID){
+    private void addBookmark(final Context context, String productID) {
         /*GlobalFunctions.showProgress(context, "Bookmarking Product...");*/
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.addBookmark(context, productID, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 /*GlobalFunctions.hideProgress();*/
-                if(arg0 instanceof StatusModel){
+                if (arg0 instanceof StatusModel) {
                     StatusModel statusModel = (StatusModel) arg0;
-                    if(statusModel.isStatus()){
+                    if (statusModel.isStatus()) {
 
                         Toast.makeText(context, "Added to bookmarks", Toast.LENGTH_SHORT).show();
                     }
-                }else if(arg0 instanceof ErrorModel){
+                } else if (arg0 instanceof ErrorModel) {
                     ErrorModel errorModel = (ErrorModel) arg0;
-                    String msg = errorModel.getError()!=null ? errorModel.getError() : errorModel.getMessage();
+                    String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
                    /* Toast.makeText(context, msg, Toast.LENGTH_LONG).show();*/
                 }
             }
@@ -301,21 +318,22 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }, "Add Bookmarks");
 
     }
-    private void deleteBookmark(final Context context, String productID){
+
+    private void deleteBookmark(final Context context, String productID) {
         /*GlobalFunctions.showProgress(context, "Bookmarking Product...");*/
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.deleteBookmark(context, productID, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 /*GlobalFunctions.hideProgress();*/
-                if(arg0 instanceof StatusModel){
+                if (arg0 instanceof StatusModel) {
                     StatusModel statusModel = (StatusModel) arg0;
-                    if(statusModel.isStatus()){
+                    if (statusModel.isStatus()) {
                         Toast.makeText(context, "Bookmark Removed", Toast.LENGTH_SHORT).show();
                     }
-                }else if(arg0 instanceof ErrorModel){
+                } else if (arg0 instanceof ErrorModel) {
                     ErrorModel errorModel = (ErrorModel) arg0;
-                    String msg = errorModel.getError()!=null ? errorModel.getError() : errorModel.getMessage();
+                    String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
                     /*Toast.makeText(context, msg, Toast.LENGTH_LONG).show();*/
                 }
             }
@@ -334,20 +352,22 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }, "Add Bookmarks");
 
     }
+
     public void add(List<ProductModel> items) {
         int previousDataSize = this.albumList.size();
         this.albumList.addAll(items);
         notifyItemRangeInserted(previousDataSize, items.size());
     }
-    private void getItemInfo(String product_id){
+
+    private void getItemInfo(String product_id) {
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getItemInfo(context, product_id, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 ProductModel productModel = (ProductModel) arg0;
-                Intent intent = ProductDetail.newInstance(context,productModel,null, GlobalVariables.TYPE_MY_SALE);
+                Intent intent = ProductDetail.newInstance(context, productModel, null, GlobalVariables.TYPE_MY_SALE);
                 context.startActivity(intent);
-              }
+            }
 
             @Override
             public void OnFailureFromServer(String msg) {
@@ -361,10 +381,12 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }, "GetItemInfo onSuccess Response");
 
     }
-    public void showSettingsAlert(){
-        Intent creategarrage = new Intent(context,LoginActivity.class);
+
+    public void showSettingsAlert() {
+        Intent creategarrage = new Intent(context, LoginActivity.class);
         context.startActivity(creategarrage);
     }
+
     @Override
     public int getItemViewType(int position) {
 

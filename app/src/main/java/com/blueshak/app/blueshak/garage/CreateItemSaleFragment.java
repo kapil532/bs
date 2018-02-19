@@ -495,7 +495,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                     createProductModel.setProduct_id(idModel.getId());
                     //Toast.makeText(context, "Item has been listed Successfully", Toast.LENGTH_LONG).show();
                     //closeThisActivity();
-                    startSuccessfulActivity();
+                    startSuccessfulActivity(idModel.getId(),false);
                 } else if (arg0 instanceof ErrorModel) {
                     ErrorModel errorModel = (ErrorModel) arg0;
                     String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
@@ -504,13 +504,14 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                     hideProgressBar();
                     StatusModel statusModel = (StatusModel) arg0;
                     if (statusModel.isStatus()) {
-                        Toast.makeText(context, "Item has been updated Successfully.", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(context, "Item has been updated Successfully.", Toast.LENGTH_LONG).show();
                         ProductDetail.closeThisActivity();
                         ProductModel productModel = new ProductModel();
                         productModel.setId(createProductModel.getProduct_id());
-                        closeThisActivity();
-                        Intent intent = ProductDetail.newInstance(context, productModel, null, GlobalVariables.TYPE_MY_SALE);
-                        context.startActivity(intent);
+                        //closeThisActivity();
+                        startSuccessfulActivity(createProductModel.getProduct_id(),createProductModel.isIs_featured());
+                        /*Intent intent = ProductDetail.newInstance(context, productModel, null, GlobalVariables.TYPE_MY_SALE);
+                        context.startActivity(intent);*/
                     }
                 }
             }
@@ -860,11 +861,6 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
                     time_to_deliver = ShippingSelection.time_to_deliver;
                     local_shipping_cost = ShippingSelection.local_shipping_cost_;
 
-                    Log.d("VALUES SET", "SETALLVALUES"
-                            + shipping_foc + "" +
-                            "---" + intl_shipping_cost + "" +
-                            "---" + local_shipping_cost + "" +
-                            "---" + is_intl_shipping);
 
                 } else if (requestCode == globalVariables.REQUEST_CODE_NEWITEM) {
 
@@ -1359,9 +1355,13 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         adapter = new PhotosAddListAdapter(getActivity(), Utils.getFilteredArrayList(objectUploadPhoto.getAvailablePhotos()), true, this, false);
         listView.setAdapter(adapter);
     }
-    private void startSuccessfulActivity(){
+    private void startSuccessfulActivity(String productId, boolean featureFlag){
         Intent intent = new Intent(getActivity(),SuccessfulCreationActivity.class);
+        intent.putExtra(SuccessfulCreationActivity.PRODUCTID,productId);
+        intent.putExtra(SuccessfulCreationActivity.FEATURE_FAG,featureFlag);
         startActivityForResult(intent,SuccessfulCreationActivity.SUCCESS_FEATURE);
+        closeThisActivity();
+
     }
 }
 

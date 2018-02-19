@@ -69,7 +69,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
     public static final String LOCATION_MODEL="locationmodel";
     public static final String SALES_LIST_GARAGGE_SALE_MODEL_TYPE="SalesListGarageSaleModelType";
     private Context context;
-    private TextView no_sales,results_all;
+    private TextView no_sales/*,results_all*/;
     private static  Activity activity;
     private LayoutInflater inflater = null;
     private SalesListModel salesListModel=new SalesListModel();
@@ -114,12 +114,12 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
     private SwipeRefreshLayout swipeRefreshLayout;
    /* LinearLayout header_content;*/
     private Handler handler=new Handler();
-
+    private View view;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.sales_list_item_fragment, container, false);
+        view = inflater.inflate(R.layout.sales_list_item_fragment, container, false);
         try{
             progress_bar=(ProgressBar)view.findViewById(R.id.progress_bar);
             context= getActivity();
@@ -129,7 +129,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
             locServices.setListener(this);
             swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
             swipeRefreshLayout.setOnRefreshListener(this);
-            results_all=(TextView) view.findViewById(R.id.results_all);
+            //results_all=(TextView) view.findViewById(R.id.results_all);
           /*  go_to_filter=(ImageView) view.findViewById(R.id.go_to_filter);*/
           /*  header_content=(LinearLayout)view.findViewById(R.id.header_content);
             header_content.setOnClickListener(new View.OnClickListener() {
@@ -250,10 +250,10 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                         }
                     }
                 }
-                if(!TextUtils.isEmpty(model.getResults_text()))
+                /*if(!TextUtils.isEmpty(model.getResults_text()))
                     results_all.setText("Results from "+model.getResults_text());
                 else
-                    results_all.setText(Constants.getTextFromId(context,R.string.item_list_fragment_for_list_result_from_nearest_new));
+                    results_all.setText(Constants.getTextFromId(context,R.string.item_list_fragment_for_list_result_from_nearest_new));*/
 
 
             }else{
@@ -264,10 +264,10 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                 else
                     results_all.setText("Results in "+"'"+"All"+"'");*/
 
-                if(!TextUtils.isEmpty(model.getResults_text()))
+               /* if(!TextUtils.isEmpty(model.getResults_text()))
                     results_all.setText("Results from "+model.getResults_text());
                 else
-                    results_all.setText(Constants.getTextFromId(context,R.string.item_list_fragment_for_list_result_from_nearest_new));
+                    results_all.setText(Constants.getTextFromId(context,R.string.item_list_fragment_for_list_result_from_nearest_new));*/
 
 //                results_all.setText(getResources().getString(R.string.item_list_fragment_for_list_result_from_nearest_new));
             }
@@ -511,13 +511,17 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
     }
     @Override
     public void onRefresh() {
-        endlessRecyclerOnScrollListener.reset(0, true);
+        if(endlessRecyclerOnScrollListener!=null){
+            endlessRecyclerOnScrollListener.reset(0, true);
+        }
         swipeRefreshLayout.setRefreshing(false);
         last_page=0;
         setThisPage();
     }
     public void reset(){
-        endlessRecyclerOnScrollListener.reset(0, true);
+        if(endlessRecyclerOnScrollListener!=null){
+            endlessRecyclerOnScrollListener.reset(0, true);
+        }
         last_page=0;
     }
     public void showProgress(){
@@ -679,12 +683,12 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                         model.setIs_current_country(false);
                     MainActivity.filterModel=model;
                     item_address=model.getLocation();
-                    String category_names=model.getCategory_names();
-                    if(!TextUtils.isEmpty(model.getResults_text()))
+                    String category_names = model.getCategory_names();
+                   /* if(!TextUtils.isEmpty(model.getResults_text()))
                         results_all.setText("Results from "+model.getResults_text());
                     else
                         results_all.setText(Constants.getTextFromId(context,R.string.item_list_fragment_for_list_result_from_nearest_new));
-
+*/
 
                     /*if(!TextUtils.isEmpty(category_names)&& category_names!=null)
                         results_all.setText("Results in "+"'"+model.getCategory_names()+"'");
@@ -718,17 +722,21 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                 try{
                     locationModel.setLatitude(lattitude.toString());
                     locationModel.setLongitude(longitude.toString());
-                    Log.d(TAG,"###########Setting the Current Country SHARED_PREFERENCE_LOCATION_COUNTRY############");
                     if(when_open_the_app){
-                        GlobalFunctions.setSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY,locationModel.getCountry_code());
+                        if(locationModel.getCountry_code()!=null && !locationModel.getCountry_code().isEmpty()){
+                            GlobalFunctions.setSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY,locationModel.getCountry_code());
+                        }
                         model.setCurrent_country_code(locationModel.getCountry_code());
                         model.setIs_current_country(true);
                         getItemLists(context,model);
                         when_open_the_app=false;
-                    }else{
-                        if(locationModel!=null){
-                            GlobalFunctions.setSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY,locationModel.getCountry_code());
+                    }else {
+                        if (locationModel != null) {
+                            if (locationModel.getCountry_code() != null && !locationModel.getCountry_code().isEmpty()) {
+                                GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY, locationModel.getCountry_code());
+                            }
                         }
+
                     }
                 }catch (NullPointerException ex){
                     ex.printStackTrace();
@@ -759,7 +767,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
 
     private void getFeatureList(Context context,FilterModel filterModel){
         ItemListPresenter itemListPresenter = new ItemListPresenter();
-        itemListPresenter.getItemLists(context, filterModel, new PresenterCallBack<FeatureItemsModel>() {
+        itemListPresenter.getFeatureItemLists(context, filterModel, new PresenterCallBack<FeatureItemsModel>() {
             @Override
             public void onSuccess(FeatureItemsModel object) {
                 featureItemsList.clear();
@@ -775,7 +783,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
             public void onFailure() {
 
             }
-        });
+        },"3");
     }
 }
 

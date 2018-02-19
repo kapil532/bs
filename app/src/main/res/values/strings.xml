@@ -94,7 +94,7 @@
     <string name="please_check_ur_internet">Please check your internet connection</string>
     <!-- item_list_fragment_for_list-->
     <string name="item_list_fragment_for_list_result_from_nearest">Results from Newly Listed</string>
-    <string name="item_list_fragment_for_list_result_from_nearest_new">Results from Nearest First</string>
+    <string name="item_list_fragment_for_list_result_from_nearest_new">Nearest First</string>
     <string name="item_list_fragment_for_list_result_in">Results from</string>
 
     <!-- PROFILE-->
@@ -144,6 +144,16 @@
     <string name="week_two">2 weeks for USD 1.90 (USD 0.95/wk)</string>
     <string name="week_three">3 weeks for USD 2.70(USD 0.90/wk)</string>
     <string name="week_four">4 weeks for USD 3.40(USD 0.85/wk)</string>
+
+    <string name="nearest_first">Nearest First</string>
+    <string name="newly_listed">Newly Listed</string>
+    <string name="ending_first">Ending first</string>
+    <string name="only_new_items">Only New Items</string>
+    <string name="only_negotiable_items">Only Negotiable Items</string>
+    <string name="highest_to_lowest_price">Highest to Lowest Price</string>
+    <string name="lowest_to_highest_price">Lowest to Highest Price</string>
+    <string name="only_sales_items">Only Sales Items</string>
+    <string name="done">Done</string>
 
 
 </resources>

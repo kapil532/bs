@@ -49,6 +49,8 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
     private static final int VIEWTYPE_ITEM = 1;
     private static final int VIEWTYPE_LOADER = 2;
     public String item_address;
+    private EndlessRecyclerOnScrollListenerForList endlessRecyclerOnScrollListener;
+    private FeatureItemLoadMore iLoadMore;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         protected TextView item_price, item_name, item_location, shipping_type;
@@ -60,6 +62,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
         private LinearLayout feature_below_line;
         private LinearLayout feature_line;
         private LinearLayout seller_line;
+        private ImageView is_featured;
 
         public MyViewHolder(View view) {
             super(view);
@@ -67,6 +70,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
             item_price = (TextView) view.findViewById(R.id.item_price);
             image_iv = (ImageView) view.findViewById(R.id.product_image);
             is_sold = (ImageView) view.findViewById(R.id.is_sold);
+            is_featured = (ImageView) view.findViewById(R.id.is_featured);
             is_garage = (ImageView) view.findViewById(R.id.is_garage_item);
             favarite = (ImageView) view.findViewById(R.id.item_favirate);
             item_name = (TextView) view.findViewById(R.id.item_name);
@@ -81,6 +85,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
             feature_below_line = (LinearLayout)view.findViewById(R.id.feature_below_line);
             feature_line = (LinearLayout)view.findViewById(R.id.feature_line);
             seller_line = (LinearLayout)view.findViewById(R.id.seller_line);
+
         }
     }
 
@@ -93,11 +98,13 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
         }
     }
 
-    public ItemListAdapterForList(Context mContext, List<ProductModel> albumList,List<FeatureItemData> featureItemList) {
+    public ItemListAdapterForList(Context mContext, List<ProductModel> albumList,List<FeatureItemData> featureItemList,
+                                  FeatureItemLoadMore iLoadMore) {
         this.context = mContext;
         this.albumList = albumList;
         this.featureItemList = featureItemList;
         this.item_address = GlobalFunctions.getSharedPreferenceString(mContext, GlobalVariables.CURRENT_LOCATION);
+        this.iLoadMore = iLoadMore;
      /*   imgLoader = new ImageLoader(mContext);*/
 
 
@@ -136,9 +143,22 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                         holder.seller_line.setVisibility(View.VISIBLE);
                         HorizontalItemListAdapter itemListDataAdapter = new HorizontalItemListAdapter(context, featureItemList);
                         holder.horizontalRecyclerView.setHasFixedSize(true);
-                        holder.horizontalRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                        holder.horizontalRecyclerView.setLayoutManager(layoutManager);
                         holder.horizontalRecyclerView.setAdapter(itemListDataAdapter);
                         holder.feature_below_line.setVisibility(View.VISIBLE);
+
+                        /*endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListenerForList(layoutManager) {
+                            @Override
+                            public void onLoadMore(int current_page) {
+                                if (!(current_page > ItemListFragmentForList.iTake)) {
+                                    //getItemLists(context, model);
+                                    iLoadMore.onLoadMoreItems(current_page);
+                                }
+                            }
+                        };
+                        holder.horizontalRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);*/
+
                     }else{
                         setVisible(holder);
                         holder.txt_seller_items.setVisibility(View.VISIBLE);
@@ -183,16 +203,26 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                 if (obj.isPickup()) holder.pick_up.setVisibility(View.VISIBLE);
                 if (obj.isShipable()) holder.shippable.setVisibility(View.VISIBLE);
 
-                if (!obj.isAvailable()) {
-                    holder.is_sold.setVisibility(View.VISIBLE);
-                    holder.is_sold.setImageResource(R.drawable.ic_sold);
-                } else {
-                    holder.is_sold.setVisibility(View.INVISIBLE);
-                }
 
                 if (obj.is_new()) {
                     holder.is_sold.setVisibility(View.VISIBLE);
+                    holder.is_featured.setVisibility(View.GONE);
                     holder.is_sold.setImageResource(R.drawable.ic_new);
+                }else if(!obj.isAvailable()){
+                    holder.is_sold.setVisibility(View.VISIBLE);
+                    holder.is_featured.setVisibility(View.GONE);
+                    holder.is_sold.setImageResource(R.drawable.ic_sold);
+                }else if(obj.is_product_new() && obj.isIs_featured()){
+                    holder.is_sold.setVisibility(View.GONE);
+                    holder.is_featured.setVisibility(View.VISIBLE);
+                    holder.is_featured.setImageResource(R.drawable.icon_new_feature);
+                }else if(obj.isIs_featured()){
+                    holder.is_sold.setVisibility(View.GONE);
+                    holder.is_featured.setVisibility(View.VISIBLE);
+                    holder.is_featured.setImageResource(R.drawable.icon_feature);
+                }else{
+                    holder.is_sold.setVisibility(View.GONE);
+                    holder.is_featured.setVisibility(View.GONE);
                 }
 
                 if (obj.is_garage_item())

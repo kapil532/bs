@@ -48,28 +48,59 @@
 
         </LinearLayout>
 
-        <com.blueshak.app.blueshak.text.MyTextViewMediumBold
-            android:id="@+id/results_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:maxLines="1"
-            android:padding="10dp"
-            android:scrollHorizontally="true"
-            android:layout_margin="10dp"
-            android:background="@drawable/rectangle_nearest"
-            android:singleLine="true"
-            android:text="@string/item_list_fragment_for_list_result_from_nearest_new"
-            android:textColor="@color/black"
-            android:textSize="@dimen/results_all_textsize"
-            android:textStyle="italic">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_marginRight="@dimen/margin_5dp"
+            android:layout_marginLeft="@dimen/margin_5dp"
+            android:layout_height="wrap_content">
 
-        </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+            <LinearLayout
+                android:id="@+id/layout_filter_horizontal"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginRight="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+       <!-- <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/layout_filter_flexbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="7dp"
+            app:alignContent="stretch"
+            app:alignItems="stretch"
+            android:layout_gravity="center"
+            app:flexDirection="row"
+            app:flexWrap="wrap">-->
+
+            <!--<com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                android:id="@+id/results_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/rectangle_nearest"
+                android:padding="10dp"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="Lowest to Highest Price"
+                android:textColor="@color/black"
+                android:textSize="@dimen/results_all_textsize"
+                android:textStyle="italic"></com.blueshak.app.blueshak.text.MyTextViewMediumBold>-->
+       <!-- </com.google.android.flexbox.FlexboxLayout>-->
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:background="@color/dark_gray"
-            android:layout_height="1dp">
-        </LinearLayout>
+            android:layout_height="1dp"
+            android:background="@color/dark_gray"></LinearLayout>
         <!--android:background="#DCDCDC"-->
         <LinearLayout
             android:id="@+id/linearLayout3"

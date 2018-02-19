@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<fr.castorflex.android.circularprogressbar.CircularProgressBar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/progress_bar"
+    android:layout_width="75dp"
+    android:layout_height="75dp"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:layout_gravity="center"
+    android:background="@drawable/bg_circle_unread_count"
+    android:indeterminate="true"
+    android:indeterminateTint="@color/tab_selected"
+    android:indeterminateTintMode="src_atop"
+    android:padding="10dp"
+    android:visibility="gone"
+    app:cpb_color="#F00"
+    app:cpb_colors="@array/color_array"
+    app:cpb_max_sweep_angle="300"
+    app:cpb_min_sweep_angle="10"
+    app:cpb_rotation_speed="1.0"
+
+    app:cpb_stroke_width="4dp"
+    app:cpb_sweep_speed="1.0">
+
+</fr.castorflex.android.circularprogressbar.CircularProgressBar>

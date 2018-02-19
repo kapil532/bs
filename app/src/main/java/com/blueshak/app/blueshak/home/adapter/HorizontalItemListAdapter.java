@@ -46,16 +46,16 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
     public String item_address;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        protected TextView item_price, item_name;
-        protected ImageView image_iv, is_sold;
+        protected TextView txt_feature_price, item_name;
+        protected ImageView image_iv, img_feature;
         public View container;
 
         public MyViewHolder(View view) {
             super(view);
             container = view;
-            item_price = (TextView) view.findViewById(R.id.item_price);
+            txt_feature_price = (TextView) view.findViewById(R.id.txt_feature_price);
             image_iv = (ImageView) view.findViewById(R.id.product_image);
-            is_sold = (ImageView) view.findViewById(R.id.is_sold);
+            img_feature = (ImageView) view.findViewById(R.id.img_feature);
             item_name = (TextView) view.findViewById(R.id.item_name);
 
         }
@@ -93,30 +93,26 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
             if (view_holder instanceof HorizontalItemListAdapter.MyViewHolder) {
                 final HorizontalItemListAdapter.MyViewHolder holder = (HorizontalItemListAdapter.MyViewHolder) view_holder;
                 final FeatureItemData featureData = featureItemList.get(position);
+
+
+
                 holder.item_name.setText(featureData.getProduct_name());
+                holder.txt_feature_price.setVisibility(View.VISIBLE);
                 if (featureData.getHide_item_price().equalsIgnoreCase("1")) {
-                    holder.item_price.setText("Negotiable");
+                    holder.txt_feature_price.setText("Negotiable");
                 } else {
-                    holder.item_price.setText(GlobalFunctions.getFormatedAmount(featureData.getCurrency(), featureData.getSale_price()));
-                }
-                if (!featureData.getIs_available().equalsIgnoreCase("1")) {
-                    holder.is_sold.setVisibility(View.VISIBLE);
-                    holder.is_sold.setImageResource(R.drawable.ic_sold);
-                } else {
-                    holder.is_sold.setVisibility(View.INVISIBLE);
+                    holder.txt_feature_price.setText(GlobalFunctions.getFormatedAmount(featureData.getCurrency(), featureData.getSale_price()));
                 }
 
-                if (featureData.getIs_product_new().equalsIgnoreCase("1")) {
-                    holder.is_sold.setVisibility(View.VISIBLE);
-                    holder.is_sold.setImageResource(R.drawable.ic_new);
+                if (featureData.getIs_product_new().equalsIgnoreCase("1")
+                        && featureData.getIs_featured().equalsIgnoreCase("1")) {
+                    holder.img_feature.setVisibility(View.VISIBLE);
+                    holder.img_feature.setImageResource(R.drawable.icon_new_feature_small);
+                }else if(featureData.getIs_featured().equalsIgnoreCase("1")){
+                    holder.img_feature.setVisibility(View.VISIBLE);
+                    holder.img_feature.setImageResource(R.drawable.icon_feature_small);
                 }else{
-                    holder.is_sold.setVisibility(View.INVISIBLE);
-                }
-                if (featureData.getIs_featured().equalsIgnoreCase("1")) {
-                    holder.is_sold.setVisibility(View.VISIBLE);
-                    holder.is_sold.setImageResource(R.drawable.ic_new);
-                }else{
-                    holder.is_sold.setVisibility(View.INVISIBLE);
+                    holder.img_feature.setVisibility(View.INVISIBLE);
                 }
 
                /* holder.container.setOnClickListener(new View.OnClickListener() {

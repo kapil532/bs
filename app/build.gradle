@@ -136,6 +136,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'*/
     compile 'com.android.support:gridlayout-v7:24.2.1'
     compile 'com.google.android.gms:play-services-places:9.2.0'
+    compile 'com.google.android:flexbox:0.1.3'
 
 
 }

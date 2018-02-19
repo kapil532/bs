@@ -49,6 +49,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class FilterActivity extends RootActivity implements OnSelected, LocationListener {
@@ -91,6 +92,8 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
     TextView category;
     public static String categoryText = "Category - All";
     RelativeLayout category_layout;
+    private ArrayList<String> stringArrayList = new ArrayList<String>();
+    private HashSet<String> hashSet = new HashSet<String>();
 
 
     public static Intent newInstance(Context context, LocationModel locationModel, int from) {
@@ -550,7 +553,6 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
     }
 
     private void setThisPage() {
-        Log.d(TAG, "#############Filter model###########" + detail.toString());
         if (detail != null) {
             if (detail.isDistance_enabled()) {
                 search_radius.setChecked(true);
@@ -579,9 +581,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
                 sort_by_recent.setChecked(true);
             else
                 sort_by_recent.setChecked(false);*/
-            System.out.println("##########from######" + Integer.toString(from) + "GlobalVariables.TYPE_GARAGE_SALE###" + GlobalVariables.TYPE_GARAGE_SALE);
             if (from == GlobalVariables.TYPE_GARAGE_SALE) {
-                System.out.println("##########TYPE_GARAGE_SALE######" + detail.toString());
                /* if(detail.isSorting_enabled()){
                     sorting.setChecked(true);
                     sorting_content.setVisibility(View.VISIBLE);
@@ -625,13 +625,11 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
                     nearest_first.setChecked(true);
 
             }
-            Log.d(TAG, "Formatted_address()##################" + detail.getFormatted_address());
             location.setText(detail.getFormatted_address());
             minDistanceValue = detail.getRange();
             setDistanceRangeBar(detail.getRange());
             if (!TextUtils.isEmpty(detail.getCategories()) && detail.getCategories() != null) {
                 String[] ids = detail.getCategories().split(",");
-                Log.d(TAG, "detail.getCategories()##############" + detail.getCategories());
                 for (CategoryModel categoryModel : category_list) {
                     if (ids != null && !TextUtils.isEmpty(ids.toString())) {
                         for (int i = 0; i < ids.length; i++) {
@@ -681,26 +679,17 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
     }
 
     private void onClickFunction() {
+        stringArrayList.clear();
+        hashSet.clear();
         String country = null;
-
-//        if (minDistanceValue == 0)
-//            minDistanceValue = GlobalVariables.DISTANCE_MAX_VALUE;
         if (maxPriceValue == 0)
             maxPriceValue = GlobalVariables.PRICE_MAX_VALUE;
-
         detail.setRange(minDistanceValue);
         detail.setPriceRange(minPriceValue + "," + maxPriceValue);
         detail.setType(type);
         if (current_country.isChecked()) {
             detail.setIs_current_country(true);
-           /* if(GlobalFunctions.is_loggedIn(context)){
-                 country=GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_COUNTRY);
-            }else{
-                *//*Needed when device data is cleared or not logged in*//*
-                country= context.getResources().getConfiguration().locale.getCountry();
-            }*/
             country = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
-
             detail.setCurrent_country_code(country);
         } else
             detail.setIs_current_country(false);
@@ -710,52 +699,118 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
         else
             detail.setDistance_enabled(false);
 
-        if (nly_new_items_s.isChecked())
-            detail.setNew_items(true);
-        else
-            detail.setNew_items(false);
-
-
-        if (nly_negotiable_item_s.isChecked())
-            detail.setNegotiable_items(true);
-        else
-            detail.setNegotiable_items(false);
-
         if (from == GlobalVariables.TYPE_GARAGE_SALE) {
+
+            if(nearest_first.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.nearest_first))){
+                    stringArrayList.add(getString(R.string.nearest_first));
+                }
+            }
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text("Newly Listed");
+                detail.setResults_text(getString(R.string.newly_listed));
+                if(!noDuplicateEntry(getString(R.string.newly_listed))){
+                    stringArrayList.add(getString(R.string.newly_listed));
+                }
                 detail.setSortByRecent_garage(true);
             } else
                 detail.setSortByRecent_garage(false);
 
             if (ending_soon.isChecked()) {
-                detail.setResults_text("ending first");
+                detail.setResults_text(getString(R.string.ending_first));
+                if(!noDuplicateEntry(getString(R.string.ending_first))){
+                    stringArrayList.add(getString(R.string.ending_first));
+                }
                 detail.setEnding_soon(true);
             } else
                 detail.setEnding_soon(false);
+
+            if (nly_new_items_s.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_new_items))){
+                    stringArrayList.add(getString(R.string.only_new_items));
+                }
+                detail.setNew_items(true);
+            } else
+                detail.setNew_items(false);
+
+            if (nly_negotiable_item_s.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_negotiable_items))){
+                    stringArrayList.add(getString(R.string.only_negotiable_items));
+                }
+                detail.setNegotiable_items(true);
+            }else
+                detail.setNegotiable_items(false);
+
         } else if (from == GlobalVariables.TYPE_SEARCH || from == GlobalVariables.TYPE_ITEMS) {
+
+            if(nearest_first.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.nearest_first))){
+                    stringArrayList.add(getString(R.string.nearest_first));
+                }
+            }
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text("Newly Listed");
+                detail.setResults_text(getString(R.string.newly_listed));
+                if(!noDuplicateEntry(getString(R.string.newly_listed))){
+                    stringArrayList.add(getString(R.string.newly_listed));
+                }
                 detail.setSortByRecent(true);
             } else
                 detail.setSortByRecent(false);
 
             if (h_to_l.isChecked()) {
                 detail.setPrice_h_2_l(true);
-                detail.setResults_text("highest to lowest price");
+                if(!noDuplicateEntry(getString(R.string.highest_to_lowest_price))){
+                    stringArrayList.add(getString(R.string.highest_to_lowest_price));
+                }
+                detail.setResults_text(getString(R.string.highest_to_lowest_price));
             } else
                 detail.setPrice_h_2_l(false);
             if (l_to_h.isChecked()) {
-                detail.setResults_text("lowest to highest price");
+                if(!noDuplicateEntry(getString(R.string.lowest_to_highest_price))){
+                    stringArrayList.add(getString(R.string.lowest_to_highest_price));
+                }
+                detail.setResults_text(getString(R.string.lowest_to_highest_price));
                 detail.setPrice_l_2_h(true);
             } else
                 detail.setPrice_l_2_h(false);
-            if (only_garage_items.isChecked())
+
+            stringArrayList.add(categoryText);
+
+            if(search_radius.isChecked()){
+                stringArrayList.add(distanceMaxRaange_tv.getText().toString());
+            }
+
+            if (nly_new_items_s.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_new_items))){
+                    stringArrayList.add(getString(R.string.only_new_items));
+                }
+                detail.setNew_items(true);
+            } else
+                detail.setNew_items(false);
+
+            if (nly_negotiable_item_s.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_negotiable_items))){
+                    stringArrayList.add(getString(R.string.only_negotiable_items));
+                }
+                detail.setNegotiable_items(true);
+            }else
+                detail.setNegotiable_items(false);
+
+            if (only_garage_items.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_sales_items))){
+                    stringArrayList.add(getString(R.string.only_sales_items));
+                }
                 detail.setGarage_items(true);
-            else
+            }else
                 detail.setGarage_items(false);
         }
+
         detail.setSorting_enabled(true);
+
+       /* hashSet.addAll(stringArrayList);
+        stringArrayList.clear();
+        stringArrayList.addAll(hashSet);*/
+        detail.setArrayListFilterResult(stringArrayList);
+
         GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.FILTER_MODEL, detail.toString());
 
         if (detail.getLatitude() == null || detail.getLongitude() == null)
@@ -764,17 +819,12 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
         } else {
             setReturnResult(detail);
         }
-
-
     }
 
-
-  void  onBackSaveValues()
-    {
+  void  onBackSaveValues(){
+      stringArrayList.clear();
+      hashSet.clear();
         String country = null;
-
-//        if (minDistanceValue == 0)
-//            minDistanceValue = GlobalVariables.DISTANCE_MAX_VALUE;
         if (maxPriceValue == 0)
             maxPriceValue = GlobalVariables.PRICE_MAX_VALUE;
 
@@ -783,14 +833,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
         detail.setType(type);
         if (current_country.isChecked()) {
             detail.setIs_current_country(true);
-           /* if(GlobalFunctions.is_loggedIn(context)){
-                 country=GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_COUNTRY);
-            }else{
-                *//*Needed when device data is cleared or not logged in*//*
-                country= context.getResources().getConfiguration().locale.getCountry();
-            }*/
             country = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
-
             detail.setCurrent_country_code(country);
         } else
             detail.setIs_current_country(false);
@@ -800,55 +843,127 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
         else
             detail.setDistance_enabled(false);
 
-        if (nly_new_items_s.isChecked())
-            detail.setNew_items(true);
-        else
-            detail.setNew_items(false);
-
-
-        if (nly_negotiable_item_s.isChecked())
-            detail.setNegotiable_items(true);
-        else
-            detail.setNegotiable_items(false);
 
         if (from == GlobalVariables.TYPE_GARAGE_SALE) {
+            if(nearest_first.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.nearest_first))){
+                    stringArrayList.add(getString(R.string.nearest_first));
+                }
+            }
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text("Newly Listed");
+                detail.setResults_text(getString(R.string.newly_listed));
+                if(!noDuplicateEntry(getString(R.string.newly_listed))){
+                    stringArrayList.add(getString(R.string.newly_listed));
+                }
                 detail.setSortByRecent_garage(true);
-            } else
+            } else{
                 detail.setSortByRecent_garage(false);
-
+            }
             if (ending_soon.isChecked()) {
-                detail.setResults_text("ending first");
+                detail.setResults_text(getString(R.string.ending_first));
+                if(!noDuplicateEntry(getString(R.string.ending_first))){
+                    stringArrayList.add(getString(R.string.ending_first));
+                }
                 detail.setEnding_soon(true);
             } else
                 detail.setEnding_soon(false);
+            if (nly_new_items_s.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_new_items))){
+                    stringArrayList.add(getString(R.string.only_new_items));
+                }
+                detail.setNew_items(true);
+            }else
+                detail.setNew_items(false);
+
+            if (nly_negotiable_item_s.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_negotiable_items))){
+                    stringArrayList.add(getString(R.string.only_negotiable_items));
+                }
+                detail.setNegotiable_items(true);
+            } else
+                detail.setNegotiable_items(false);
         } else if (from == GlobalVariables.TYPE_SEARCH || from == GlobalVariables.TYPE_ITEMS) {
+
+            if(nearest_first.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.nearest_first))){
+                    stringArrayList.add(getString(R.string.nearest_first));
+                }
+            }
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text("Newly Listed");
+                detail.setResults_text(getString(R.string.newly_listed));
+                if(!noDuplicateEntry(getString(R.string.newly_listed))){
+                    stringArrayList.add(getString(R.string.newly_listed));
+                }
                 detail.setSortByRecent(true);
             } else
                 detail.setSortByRecent(false);
 
             if (h_to_l.isChecked()) {
                 detail.setPrice_h_2_l(true);
-                detail.setResults_text("highest to lowest price");
+                detail.setResults_text(getString(R.string.highest_to_lowest_price));
+                if(!noDuplicateEntry(getString(R.string.highest_to_lowest_price))){
+                    stringArrayList.add(getString(R.string.highest_to_lowest_price));
+                }
             } else
                 detail.setPrice_h_2_l(false);
             if (l_to_h.isChecked()) {
-                detail.setResults_text("lowest to highest price");
+                stringArrayList.add(getString(R.string.lowest_to_highest_price));
+                if(!noDuplicateEntry(getString(R.string.lowest_to_highest_price))){
+                    stringArrayList.add(getString(R.string.lowest_to_highest_price));
+                }
                 detail.setPrice_l_2_h(true);
             } else
                 detail.setPrice_l_2_h(false);
-            if (only_garage_items.isChecked())
+
+            stringArrayList.add(categoryText);
+
+            if(search_radius.isChecked()){
+                stringArrayList.add(distanceMaxRaange_tv.getText().toString());
+            }
+
+            if (nly_new_items_s.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_new_items))){
+                    stringArrayList.add(getString(R.string.only_new_items));
+                }
+                detail.setNew_items(true);
+            }else
+                detail.setNew_items(false);
+
+            if (nly_negotiable_item_s.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_negotiable_items))){
+                    stringArrayList.add(getString(R.string.only_negotiable_items));
+                }
+                detail.setNegotiable_items(true);
+            } else
+                detail.setNegotiable_items(false);
+
+            if (only_garage_items.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_sales_items))){
+                    stringArrayList.add(getString(R.string.only_sales_items));
+                }
                 detail.setGarage_items(true);
-            else
+            }else
                 detail.setGarage_items(false);
+
         }
+       /* hashSet.addAll(stringArrayList);
+        stringArrayList.clear();
+        stringArrayList.addAll(hashSet);*/
+        detail.setArrayListFilterResult(stringArrayList);
+
         detail.setSorting_enabled(true);
         GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.FILTER_MODEL, detail.toString());
 
     }
+
+    private boolean noDuplicateEntry(String value){
+      if(stringArrayList!=null){
+          return stringArrayList.contains(value);
+      }else {
+          return false;
+      }
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -860,15 +975,10 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i(TAG, "on activity result");
         try {
             if (resultCode == activity.RESULT_OK) {
-                Log.i(TAG, "result ok ");
                 if (requestCode == globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION) {
-                    Log.i(TAG, "request code " + globalVariables.REQUEST_CODE_FILTER_PICK_LOCATION);
                     LocationModel location_model = (LocationModel) data.getExtras().getSerializable(BUNDLE_KEY_FILTER_MODEL_SERIALIZABLE);
-                    Log.i(TAG, "name " + location_model.getFormatted_address());
-                    Log.d(TAG, "##############Lat and lng#############" + location_model.getLatitude() + "," + location_model.getLongitude());
                     detail.setLatitude(location_model.getLatitude());
                     detail.setLongitude(location_model.getLongitude());
                     detail.setLocation(location_model.getCity() + " " + location_model.getState());
@@ -894,19 +1004,6 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
                         category.setText(categoryModel.getName());
                     }
                     detail.setCategory_names(categoryModel.getName());
-                   /* Log.i(TAG,"REQUEST_CODE_SELECT_CATEGORY "+requestCode);
-                    CategoryModel categoryModel = (CategoryModel) data.getExtras().getSerializable(CREATE_ITEM_CATEGORY_BUNDLE_KEY);
-                    selectedCategoryString.clear();
-                    for (int i = 0; i < categoryModel.getSelectedCategoryString().size(); i++) {
-                        selectedCategoryString.add(categoryModel.getSelectedCategoryString().get(i).getName());
-                    }
-                    if(selectedCategoryString.size()>0){
-                        String temp = "";
-                        for(int i=0;i<selectedCategoryString.size();i++){
-                            temp = i==0? selectedCategoryString.get(0): temp+", "+selectedCategoryString.get(i);
-                        }
-
-                    }*/
                 }
             }
         } catch (NullPointerException e) {

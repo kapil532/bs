@@ -56,6 +56,7 @@ public class CreateProductModel implements Serializable {
     private final String POSTCODES = "postcodes";
     private final String CATEGORIES = "categories";
     private final String IS_PRODUCT_NEW = "is_product_new";
+    private final String IS_FEATURE_PRODUCT = "is_featured";
     private final String SUBHURB = "suburb";
     private final String CITY = "city";
     private final String IS_PICKUP = "is_pickup";
@@ -216,11 +217,20 @@ public class CreateProductModel implements Serializable {
     boolean hide_item_price = false;
 
 
-    boolean
-            shippable = false,
-            is_product_new = false,
-            is_pickup = false,
-            negotiable = false;
+    boolean shippable = false;
+    boolean is_product_new = false;
+    boolean is_pickup = false;
+    boolean negotiable = false;
+
+    public boolean isIs_featured() {
+        return is_featured;
+    }
+
+    public void setIs_featured(boolean is_featured) {
+        this.is_featured = is_featured;
+    }
+
+    boolean is_featured = false;
 
     int id = -1;
 
@@ -381,6 +391,7 @@ public class CreateProductModel implements Serializable {
             shippable = json.getBoolean(IS_SHIPPABLE);
             negotiable = json.getBoolean(IS_NEGOTIABLE);
             is_product_new = json.getBoolean(IS_PRODUCT_NEW);
+            is_featured = json.getBoolean(IS_FEATURE_PRODUCT);
 
 
             if (json.has(ADDRESS)) address = json.getString(ADDRESS);
@@ -459,6 +470,7 @@ public class CreateProductModel implements Serializable {
             is_pickup = productModel.isPickup();
             negotiable = productModel.isNegotiable();
             is_product_new = productModel.is_product_new();
+            is_featured = productModel.isIs_featured();
             return true;
         } catch (Exception ex) {
             Log.d(TAG, "Product Model Exception : " + ex);
@@ -491,6 +503,7 @@ public class CreateProductModel implements Serializable {
             jsonMain.put(REQUEST_TYPE, request_type);
             jsonMain.put(SALE_PRICE, salePrice);
             jsonMain.put(IS_PRODUCT_NEW, is_product_new);
+            jsonMain.put(IS_FEATURE_PRODUCT, is_featured);
             jsonMain.put(DESCRIPTION, description);
             jsonMain.put(ADDRESS, address);
             jsonMain.put(SUBHURB, suburb);
@@ -521,6 +534,7 @@ public class CreateProductModel implements Serializable {
             jsonMain.put(IS_PICKUP, is_pickup);
             jsonMain.put(IS_NEGOTIABLE, negotiable);
             jsonMain.put(IS_PRODUCT_NEW, is_product_new);
+            jsonMain.put(IS_FEATURE_PRODUCT, is_featured);
             jsonMain.put(IS_NEGOTIABLE, negotiable);
             jsonMain.put(CURRENCY, currency);
             jsonMain.put(POSTCODES, postcodes);

@@ -196,10 +196,9 @@ public class LocationModel implements Serializable {
                             }
                             if(address_obj.has("short_name")){
                                 country_code=address_obj.getString("short_name");
-                                if(ctx!= null) {
+                                if(ctx!= null && country_code!=null && !country_code.isEmpty()) {
                                     GlobalFunctions.setSharedPreferenceString(ctx, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY, country_code);
                                 }
-                                    Log.d("COUNTRYCODE","COUNTRYCODESHORT111"+country_code);
                             }
                         }
                         if(type_arr.get(0).equals("postal_code")){

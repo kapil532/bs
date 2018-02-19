@@ -8,8 +8,10 @@ import android.graphics.Rect;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Dimension;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,16 +53,19 @@ import com.blueshak.app.blueshak.services.model.LocationModel;
 import com.blueshak.app.blueshak.services.model.ProductModel;
 import com.blueshak.app.blueshak.services.model.SalesListModel;
 import com.blueshak.app.blueshak.services.model.SalesModel;
+import com.blueshak.app.blueshak.text.MyTextViewMediumBold;
 import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.blueshak.app.blueshak.util.LocationListener;
 import com.blueshak.app.blueshak.util.LocationService;
 import com.blueshak.blueshak.R;
+import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ItemListFragmentForList extends Fragment implements LocationListener/*,onFilterChange*/, SwipeRefreshLayout.OnRefreshListener {
+public class ItemListFragmentForList extends Fragment implements LocationListener/*,onFilterChange*/,
+        SwipeRefreshLayout.OnRefreshListener,FeatureItemLoadMore {
 
     public static boolean listOrGrid = false;
     public static final String TAG = "ItemListFragment";
@@ -97,6 +103,9 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
     private ImageView go_to_filter;
     private ArrayList<FeatureItemData> featureItemsList = new ArrayList<FeatureItemData>();
     private LinearLayoutManager gridLayoutManager;
+    public static int iTake = 3;
+    //private FlexboxLayout flexboxLayout;
+    private LinearLayout layoutFilterHorizontal;
 
     public static ItemListFragmentForList newInstance(SalesListModel salesListModel, String type, FilterModel filterModel, LocationModel locationModel) {
         ItemListFragmentForList saleFragment = new ItemListFragmentForList();
@@ -129,7 +138,9 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
             locServices.setListener(this);
             swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
             swipeRefreshLayout.setOnRefreshListener(this);
-            results_all = (TextView) view.findViewById(R.id.results_all);
+
+            //results_all = (TextView) view.findViewById(R.id.results_all);
+            layoutFilterHorizontal = (LinearLayout) view.findViewById(R.id.layout_filter_horizontal);
 
             Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
             go_to_filter = (ImageView) toolbar.findViewById(R.id.go_to_filter);
@@ -207,28 +218,38 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                         }
                     }
                 }
-                if (!TextUtils.isEmpty(model.getResults_text())) {
+                if(model.getArrayListFilterResult()!=null){
+                    setFilterView(model.getArrayListFilterResult());
+                    BlueShakLog.logDebug("Result from ","getArrayListFilterResult  -> "+model.getArrayListFilterResult());
+                    BlueShakLog.logDebug("Result from ","getArrayListFilterResult  size -> "+model.getArrayListFilterResult().size());
+                }else {
+                    setFilterView(defaultFilteredList());
+                }
+                /*if (!TextUtils.isEmpty(model.getResults_text())) {
                     Log.d("VALUESS", "VALUESSS-->3  " + model.getResults_text());
                     results_all.setText("Results from " + model.getResults_text());
                 } else {
                     Log.d("VALUESS", "VALUESSS-->4  " + model.getResults_text());
                     results_all.setText(Constants.getTextFromId(context, R.string.item_list_fragment_for_list_result_from_nearest_new));
-
-                }
+                }*/
             } else {
                 item_address = model.getLocation();
-               /* String category_names=model.getCategory_names();
-                if(!TextUtils.isEmpty(category_names)&& category_names!=null)
-                    results_all.setText("Results in "+"'"+model.getCategory_names()+"'");
-                else
-                    results_all.setText("Results in "+"'"+"All"+"'");*/
-                if (!TextUtils.isEmpty(model.getResults_text())) {
+
+                if(model.getArrayListFilterResult()!=null){
+                    setFilterView(model.getArrayListFilterResult());
+                    BlueShakLog.logDebug("Result from ","getArrayListFilterResult 1 -> "+model.getArrayListFilterResult());
+                    BlueShakLog.logDebug("Result from ","getArrayListFilterResult 1 size -> "+model.getArrayListFilterResult().size());
+                }else {
+                    setFilterView(defaultFilteredList());
+                }
+
+               /* if (!TextUtils.isEmpty(model.getResults_text())) {
                     Log.d("VALUESS", "VALUESSS-->1  " + model.getResults_text());
                     results_all.setText("Results from " + model.getResults_text());
                 } else {
                     Log.d("VALUESS", "VALUESSS-->2  " + model.getResults_text());
                     results_all.setText(Constants.getTextFromId(context, R.string.item_list_fragment_for_list_result_from_nearest_new));
-                }
+                }*/
 //                results_all.setText(getResources().getString(R.string.item_list_fragment_for_list_result_from_nearest_new));
             }
             location = (TextView) view.findViewById(R.id.location);
@@ -251,7 +272,6 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
             endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListenerForList(gridLayoutManager) {
                 @Override
                 public void onLoadMore(int current_page) {
-                    Log.d(TAG, "############onLoadMore###############" + current_page + "last_page########" + last_page);
                     if (!(current_page > last_page)) {
                       /*  adapter.showLoading(true);*/
                         model.setPage(current_page);
@@ -261,9 +281,8 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                     }
                 }
             };
-
-
             recyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
+
             location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -342,7 +361,7 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
         if (when_open_the_app) {
             Log.d(TAG, "######when_open_the_app###########");
             if (locServices != null){
-                getFeatureList(context, model);
+                getFeatureList(context, model,String.valueOf(iTake));
                 setCountry(context, locServices.getLatitude(), locServices.getLongitude());
             }
 
@@ -417,7 +436,6 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
             itemListModel = model;
             last_page = itemListModel.getLast_page();
             List<ProductModel> productModels = itemListModel.getItem_list();
-            System.out.println("#######itemListModel.getItem_list()#########" + itemListModel.getItem_list().size());
             if (productModels != null) {
                 if (productModels.size() > 0 && recyclerView != null && list != null && adapter != null) {
                    /* ProductModel productModel = new ProductModel();
@@ -510,7 +528,6 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
     @Override
     public void onLocationChanged(Location location) {
     }
-
 
     public abstract class MyScrollListener extends RecyclerView.OnScrollListener {
         private int toolbarOffset = 0;
@@ -626,11 +643,20 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                     MainActivity.filterModel = model;
                     item_address = model.getLocation();
                     String category_names = model.getCategory_names();
-                    if (!TextUtils.isEmpty(model.getResults_text())) {
+
+                    if(model.getArrayListFilterResult()!=null){
+                        setFilterView(model.getArrayListFilterResult());
+                        BlueShakLog.logDebug("Result from ","getArrayListFilterResult onActivityResult -> "+model.getArrayListFilterResult());
+                        BlueShakLog.logDebug("Result from ","getArrayListFilterResult onActivityResult size -> "+model.getArrayListFilterResult().size());
+                    }else {
+                        setFilterView(defaultFilteredList());
+                    }
+
+                    /*if (!TextUtils.isEmpty(model.getResults_text())) {
                         results_all.setText(Constants.getTextFromId(context, R.string.item_list_fragment_for_list_result_in) + " " + model.getResults_text());
                     } else {
                         results_all.setText(Constants.getTextFromId(context, R.string.item_list_fragment_for_list_result_from_nearest_new));
-                    }
+                    }*/
 
                     /*if(!TextUtils.isEmpty(category_names)&& category_names!=null)
                         results_all.setText("Results in "+"'"+model.getCategory_names()+"'");
@@ -669,14 +695,18 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                     locationModel.setLongitude(longitude.toString());
                     Log.d(TAG, "###########Setting the Current Country SHARED_PREFERENCE_LOCATION_COUNTRY############");
                     if (when_open_the_app) {
-                        GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY, locationModel.getCountry_code());
+                        if(locationModel!=null && locationModel.getCountry_code()!=null && !locationModel.getCountry_code().isEmpty()){
+                            GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY, locationModel.getCountry_code());
+                        }
                         model.setCurrent_country_code(locationModel.getCountry_code());
                         model.setIs_current_country(true);
                         getItemLists(context, model);
                         when_open_the_app = false;
                     } else {
                         if (locationModel != null) {
-                            GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY, locationModel.getCountry_code());
+                            if(locationModel.getCountry_code()!=null && !locationModel.getCountry_code().isEmpty()){
+                                GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY, locationModel.getCountry_code());
+                            }
                         }
                     }
                 } catch (NullPointerException ex) {
@@ -697,9 +727,9 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
         }, "Fetching Current Location");
     }
 
-    private void getFeatureList(Context context,FilterModel filterModel){
+    private void getFeatureList(Context context,FilterModel filterModel,String take){
         ItemListPresenter itemListPresenter = new ItemListPresenter();
-        itemListPresenter.getItemLists(context, filterModel, new PresenterCallBack<FeatureItemsModel>() {
+        itemListPresenter.getFeatureItemLists(context, filterModel, new PresenterCallBack<FeatureItemsModel>() {
             @Override
             public void onSuccess(FeatureItemsModel object) {
                 featureItemsList.clear();
@@ -715,16 +745,52 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
             public void onFailure() {
 
             }
-        });
+        },take);
     }
 
     private void setAdapterItemList(ArrayList<ProductModel> product_list,ArrayList<FeatureItemData> featureItemsList){
-        adapter = new ItemListAdapterForList(context, product_list,featureItemsList);
+        adapter = new ItemListAdapterForList(context, product_list,featureItemsList,this);
         gridLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(gridLayoutManager);
         //recyclerView.addItemDecoration(new SpacesItemDecoration(getResources().getDimensionPixelSize(R.dimen.space)));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+    }
+    @Override
+    public void onLoadMoreItems(int position) {
+        iTake = iTake + 5;
+        BlueShakLog.logDebug(TAG,"onLoadMoreItems iTake ------>"+iTake);
+        getFeatureList(context, model,String.valueOf(iTake));
+    }
+
+    private void setFilterView(ArrayList<String> arrayList){
+          if(layoutFilterHorizontal!=null){
+              layoutFilterHorizontal.removeAllViews();
+          }
+        for(int i = 0; i < arrayList.size(); i++){
+
+            com.blueshak.app.blueshak.text.MyTextViewMediumBold textViewMediumBold = new MyTextViewMediumBold(getContext());
+            textViewMediumBold.setBackgroundResource(R.drawable.rectangle_nearest);
+            textViewMediumBold.setText(arrayList.get(i));
+            textViewMediumBold.setPadding(20,15,20,15);
+            textViewMediumBold.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+            textViewMediumBold.setTextSize(16);
+            FlexboxLayout.LayoutParams paramsFilterText = new FlexboxLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            //paramsFilterText.topMargin = 10;
+            //paramsFilterText.leftMargin = 5;
+            paramsFilterText.rightMargin = 15;
+            textViewMediumBold.setLayoutParams(paramsFilterText);
+
+            layoutFilterHorizontal.addView(textViewMediumBold);
+
+        }
+
+    }
+    private ArrayList<String> defaultFilteredList(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add(getString(R.string.item_list_fragment_for_list_result_from_nearest_new));
+        return arrayList;
     }
 }
 

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -27,20 +28,49 @@ public class SuccessfulCreationActivity extends AppCompatActivity {
 
     private static String TAG = "SuccessfulCreationActivity";
     public static final int SUCCESS_FEATURE = 50;
+    public static String PRODUCTID = "PRODUCTID";
+    public static String FEATURE_FAG = "feature_fag";
+    private String mProductId;
+    private boolean isFeaturedFlag = false;
+    private Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_successfull_creation);
+        init();
         onNext();
         onAnotherItem();
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle!=null){
+            mProductId = bundle.getString(PRODUCTID);
+            isFeaturedFlag = bundle.getBoolean(FEATURE_FAG);
+        }
+
+        if(isFeaturedFlag){
+            button.setText(getString(R.string.done));
+        }
+
+    }
+
+    private void init(){
+        button = (Button)findViewById(R.id.btn_next);
     }
 
     private void onNext(){
-        findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SuccessfulCreationActivity.this,FeatureItemPaymentActivity.class);
-                startActivityForResult(intent,SUCCESS_FEATURE);
+
+                if(!isFeaturedFlag){
+                    Intent intent = new Intent(SuccessfulCreationActivity.this,FeatureItemPaymentActivity.class);
+                    intent.putExtra(FeatureItemPaymentActivity.PRODUCTID,mProductId);
+                    intent.putExtra(FeatureItemPaymentActivity.FEATURE_FAG,isFeaturedFlag);
+                    startActivityForResult(intent,SUCCESS_FEATURE);
+                }else{
+                    finish();
+                    closeCreateSaleActivity();
+                }
             }
         });
     }
@@ -52,7 +82,6 @@ public class SuccessfulCreationActivity extends AppCompatActivity {
                 //setResult(RESULT_CANCELED);
                 Intent i = CreateSaleActivity.newInstance(SuccessfulCreationActivity.this, null,
                         null, null, GlobalVariables.TYPE_HOME, GlobalVariables.TYPE_ITEM);
-                startActivity(i);
                 startActivity(i);
                 finish();
             }

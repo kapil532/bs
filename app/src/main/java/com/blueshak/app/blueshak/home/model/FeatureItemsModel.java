@@ -1,7 +1,7 @@
 package com.blueshak.app.blueshak.home.model;
 
 /**
- * Created by lsingh013 on 30/01/18.
+ * Created by lalbabu on 30/01/18.
  */
 
 public class FeatureItemsModel {

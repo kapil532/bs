@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.blueshak.app.blueshak.Messaging.data.User;
 import com.blueshak.app.blueshak.Messaging.manager.MessageManager;
 import com.blueshak.app.blueshak.garage.ui.FeatureItemPaymentActivity;
+import com.blueshak.app.blueshak.garage.ui.SuccessfulCreationActivity;
 import com.blueshak.app.blueshak.home.ItemListFragmentForList;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.Messaging.activity.InboxFragment;
@@ -146,13 +147,11 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
             logo_title = (ImageView) v.findViewById(R.id.logo_title);
             grid = (ImageView) v.findViewById(R.id.grid);
             searchViewResult =(TextView)v.findViewById(R.id.searchViewResult);
-            grid.setOnClickListener(
-                    new View.OnClickListener() {
+            grid.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             switch (activeTab) {
                                 case 0:
-                                    Log.d("STATE","STATE"+is_list);
                                     if(!is_list)
                                     {
                                         is_list = true;
@@ -241,7 +240,6 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             topbarToShowOrNot(0,0);
                             grid.setVisibility(View.VISIBLE);
                             go_to_search.setVisibility(View.VISIBLE);
-                            Log.d("STATE","STATE--->"+is_list);
                             if (!is_list)
                             {
                                 ItemListFragmentForList itemListFragment = ItemListFragmentForList.newInstance(new SalesListModel(), GlobalVariables.TYPE_MULTIPLE_ITEMS, filterModel, locationModel);
@@ -281,7 +279,8 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                             View menuItemView = findViewById(R.id.list);
                      /*   menuItemView.setBackground(R.drawable.bt_add);*/
                             if (!((Activity) mainContext).isFinishing()) {
-                                show_popUp(menuItemView);
+                                //show_popUp(menuItemView);
+                                startCreateSalesActivity();
                             }
                             break;
                         case R.id.message:
@@ -338,7 +337,8 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                            // grid.setVisibility(View.GONE);
                             View menuItemView = findViewById(R.id.list);
                             if (!((Activity) mainContext).isFinishing()) {
-                                show_popUp(menuItemView);
+                                //show_popUp(menuItemView);
+                                startCreateSalesActivity();
                             }
                             break;
                         case R.id.message:
@@ -463,10 +463,10 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                 LocationModel locationModel = (LocationModel) arg0;
                 if (locationModel != null) {
                     setAddress(locationModel.getFormatted_address());
-                    Log.d(TAG, "###########Setting the Current Country SHARED_PREFERENCE_LOCATION_COUNTRY############"+locationModel.getFormatted_address());
-                    GlobalFunctions.setSharedPreferenceString(mainContext, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY, locationModel.getCountry_code());
+                    if(locationModel.getCountry_code()!=null && !locationModel.getCountry_code().isEmpty()){
+                        GlobalFunctions.setSharedPreferenceString(mainContext, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY, locationModel.getCountry_code());
+                    }
                 }
-
             }
 
             @Override
@@ -528,12 +528,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                         } else
                             showSettingsAlert();
                     } else if (item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.create_sale))) {
-                        if (GlobalFunctions.is_loggedIn(activity)) {
-                            Intent i = CreateSaleActivity.newInstance(activity, null, null, null, GlobalVariables.TYPE_HOME, GlobalVariables.TYPE_GARAGE);
-                            startActivity(i);
-                          /*  setDeFaultTabAsHome();*/
-                        } else
-                            showSettingsAlert();
+                         startCreateSalesActivity();
                     }/*else {
                     popup.dismiss();
                 }*/
@@ -542,6 +537,19 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
             });
             if (popup != null)
                 popup.show();
+        }
+
+    }
+
+    private void startCreateSalesActivity(){
+        /*Intent intent = new Intent(MainActivity.this,FeatureItemPaymentActivity.class);
+        startActivity(intent);*/
+
+        if (GlobalFunctions.is_loggedIn(activity)) {
+            Intent i = CreateSaleActivity.newInstance(activity, null, null, null, GlobalVariables.TYPE_HOME, GlobalVariables.TYPE_ITEM);
+            startActivity(i);
+        } else{
+            showSettingsAlert();
         }
 
     }
@@ -628,12 +636,6 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.d("KeyHash:", "VALUESS"+GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_COUNTRY));
-                Log.d("KeyHash:", "VALUESS"+GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY));
-                Log.d("KeyHash:", "VALUESS"+GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_PHONE));
-                Log.d("KeyHash:", "VALUESS"+GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_POSTALCODES));
-                Log.d("KeyHash:", "VALUESS"+GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_CURRENCIES));
-                Log.d("KeyHash:", "VALUESS"+GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_CURRENCY));
             }
         }
         catch (PackageManager.NameNotFoundException e) {

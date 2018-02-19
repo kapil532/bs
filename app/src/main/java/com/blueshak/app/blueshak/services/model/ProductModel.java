@@ -41,26 +41,27 @@ public class ProductModel implements Serializable {
     private final String PRODUCT_UPDATED_AT = "product_updated_at";
     private final String PRODUCT_CREATED_AT = "product_created_at";
     private final String PRODUCT_IMAGE = "images";
-    private final String PRODUCT_IMAGES="product_images";
-    private final String IMAGE="image";
+    private final String PRODUCT_IMAGES = "product_images";
+    private final String IMAGE = "image";
     private final String IS_DISPLAY_IMAGE = "is_display_image";
     private final String PRODUCT_CATEGORY = "product_category";
-    private final String SHOP_NAME="shop_or_sale_name";
+    private final String SHOP_NAME = "shop_or_sale_name";
     private final String SELLER_NAME = "seller_name";
-    private final String SELLER_PHONE="seller_phone";
-    private final String SELLER_IMAGE="seller_image";
-    private final String SELLER_ID="seller_user_id";
+    private final String SELLER_PHONE = "seller_phone";
+    private final String SELLER_IMAGE = "seller_image";
+    private final String SELLER_ID = "seller_user_id";
     private final String USER_ID = "user_id";
-    private final String VIEWS="num_views";
-    private final String OFFERS="num_offers";
-    private final String CUMULATIVE_RATING= "avg_seller_rating";
-    private final String IS_BOOKAMARK= "is_bookmarked";
-    private final String REVIEWS_COUNT="num_reviews";
-    private final String LAST_UPDATED= "last_updated";
-    private final String IS_PRODUCT_NEW="is_product_new";
-    private final String LINK="link";
+    private final String VIEWS = "num_views";
+    private final String OFFERS = "num_offers";
+    private final String CUMULATIVE_RATING = "avg_seller_rating";
+    private final String IS_BOOKAMARK = "is_bookmarked";
+    private final String REVIEWS_COUNT = "num_reviews";
+    private final String LAST_UPDATED = "last_updated";
+    private final String IS_PRODUCT_NEW = "is_product_new";
+    private final String IS_FEATURE_PRODUCT = "is_featured";
+    private final String LINK = "link";
     private final String ADDRESS = "product_address";
-    private final String IS_NEW_FLAG="is_new_flag";
+    private final String IS_NEW_FLAG = "is_new_flag";
     private List<ProductModel> horizontalList;
 
     public List<ProductModel> getHorizontalList() {
@@ -83,9 +84,8 @@ public class ProductModel implements Serializable {
         return SHIPPING_DELIVERY_DATE;
     }
 
-    private final String CITY="city";
-    private final String SHIPPING_DELIVERY_DATE="shipping_delivery_date";
-
+    private final String CITY = "city";
+    private final String SHIPPING_DELIVERY_DATE = "shipping_delivery_date";
 
 
     public String getLOCAL_SHIPPING_COST() {
@@ -112,21 +112,21 @@ public class ProductModel implements Serializable {
         return SHIPPING_FOC;
     }
 
-    private final String SUBHURB="suburb";
-    private final String IS_NEW="is_new";
+    private final String SUBHURB = "suburb";
+    private final String IS_NEW = "is_new";
 
     //changesss bool
-    private final String SHIPPING_FOC="shipping_foc";
-    private final String IS_INTL_SHIPPING= "is_intl_shipping";
+    private final String SHIPPING_FOC = "shipping_foc";
+    private final String IS_INTL_SHIPPING = "is_intl_shipping";
 
     private final String HIDE_ITEM_PRICE = "hide_item_price";
 
 
     //string
-    private final String INTL_SHIPPING_COST= "intl_shipping_cost";
+    private final String INTL_SHIPPING_COST = "intl_shipping_cost";
     private final String LOCAL_SHIPPING_COST = "local_shipping_cost";
-    private final String TIME_TO_DELIVER= "time_to_deliver";
-   //Changes
+    private final String TIME_TO_DELIVER = "time_to_deliver";
+    //Changes
 
     public String getViews() {
         return views;
@@ -150,7 +150,7 @@ public class ProductModel implements Serializable {
                 "views": 24,*/
     String
             saleID = null;
-    String currency=null;
+    String currency = null;
     String startTime = null;
     String endTime = null;
     String saleName = null;
@@ -163,29 +163,29 @@ public class ProductModel implements Serializable {
     String id = null;
     String name = null;
     String salePrice = null;
-    String retailPrice=null;
+    String retailPrice = null;
     String description = null;
     String productUpdatedAt = null;
     String productCreatedAt = null;
     String saleCreatedAt = null;
-    String image=null;
+    String image = null;
     String productCategory = null;
     String sellerName = null;
-    String seller_phone= null;
-    String seller_id=null;
-    String user_id=null;
-    String views=null;
-    String cummalative_rating=null;
-    String reviews_count=null;
-    String last_updated=null;
-    String item_display_Image=null;
-    String shop_or_sale_name=null;
-    String seller_image=null;
-    String address=null;
-    String city=null;
-    String subhrub=null;
-    String local_shipping_cost=null;
-    String shipping_delivery_date=null;
+    String seller_phone = null;
+    String seller_id = null;
+    String user_id = null;
+    String views = null;
+    String cummalative_rating = null;
+    String reviews_count = null;
+    String last_updated = null;
+    String item_display_Image = null;
+    String shop_or_sale_name = null;
+    String seller_image = null;
+    String address = null;
+    String city = null;
+    String subhrub = null;
+    String local_shipping_cost = null;
+    String shipping_delivery_date = null;
 
     public String getIntl_shipping_cost() {
         return intl_shipping_cost;
@@ -195,7 +195,7 @@ public class ProductModel implements Serializable {
         this.intl_shipping_cost = intl_shipping_cost;
     }
 
-    String intl_shipping_cost=null;
+    String intl_shipping_cost = null;
 
     public boolean isHide_item_price() {
         return hide_item_price;
@@ -238,8 +238,7 @@ public class ProductModel implements Serializable {
     }
 
 
-
-    String time_to_deliver=null;
+    String time_to_deliver = null;
 
     public String getAddress() {
         return address;
@@ -257,7 +256,7 @@ public class ProductModel implements Serializable {
         this.seller_image = seller_image;
     }
 
-    String offers=null;
+    String offers = null;
 
     public String getSeller_id() {
         return seller_id;
@@ -284,7 +283,6 @@ public class ProductModel implements Serializable {
     }
 
 
-
     public String getTAG() {
         return TAG;
     }
@@ -302,26 +300,23 @@ public class ProductModel implements Serializable {
     }
 
     boolean
-            shipable        = false;
-    boolean pickup          = false;
-    boolean available       = false;
-    boolean negotiable      = false;
-    boolean active          = false;
-    boolean sale_active  = false;
-    boolean is_garage_item=false;
+            shipable = false;
+    boolean pickup = false;
+    boolean available = false;
+    boolean negotiable = false;
+    boolean active = false;
+    boolean sale_active = false;
+    boolean is_garage_item = false;
 
 
-    boolean shipping_foc=false;
-    boolean is_intl_shipping=false;
-    boolean hide_item_price=false;
-
-
-
+    boolean shipping_foc = false;
+    boolean is_intl_shipping = false;
+    boolean hide_item_price = false;
 
 
     public boolean is_garage_item() {
-        if(saleType!=null&&saleType.equalsIgnoreCase(GlobalVariables.TYPE_GARAGE))
-           return  true;
+        if (saleType != null && saleType.equalsIgnoreCase(GlobalVariables.TYPE_GARAGE))
+            return true;
         else
             return false;
     }
@@ -338,11 +333,20 @@ public class ProductModel implements Serializable {
         this.is_selected = is_selected;
     }
 
-    boolean is_new      =false;
-    boolean is_bookmark=false;
-    boolean is_product_new=false;
-    boolean is_selected=false;
-    boolean displayImage    = false;
+    boolean is_new = false;
+    boolean is_bookmark = false;
+    boolean is_product_new = false;
+    boolean is_selected = false;
+    boolean displayImage = false;
+    boolean is_featured = false;
+
+    public boolean isIs_featured() {
+        return is_featured;
+    }
+
+    public void setIs_featured(boolean is_featured) {
+        this.is_featured = is_featured;
+    }
 
     ArrayList<String> images = new ArrayList<String>();
     ArrayList<ImageIdModel> createImageModels = new ArrayList<ImageIdModel>();
@@ -355,7 +359,8 @@ public class ProductModel implements Serializable {
         this.createImageModels = createImageModels;
     }
 
-    public ProductModel(){}
+    public ProductModel() {
+    }
 
     public String getSaleID() {
         return saleID;
@@ -456,9 +461,11 @@ public class ProductModel implements Serializable {
     public boolean isAvailable() {
         return available;
     }
+
     public boolean isNew() {
         return is_new;
     }
+
     public void setAvailable(boolean available) {
         this.available = available;
     }
@@ -675,80 +682,95 @@ public class ProductModel implements Serializable {
         this.currency = currency;
     }
 
-    public boolean toObject(String jsonObject){
+    public boolean toObject(String jsonObject) {
 
-        Log.d("VALUESSS","SHIPPINGCOST--"+jsonObject.toString());
-        try{
+        Log.d("VALUESSS", "SHIPPINGCOST--" + jsonObject.toString());
+        try {
             JSONObject json = new JSONObject(jsonObject);
-            if(json.has(SALE_ID))saleID = json.getString(SALE_ID);
-            if(json.has(ID))id = json.getString(ID);
-            if(json.has(NAME))name = json.getString(NAME);
-            if(json.has(SALE_PRICE))salePrice = json.getString(SALE_PRICE);
-            if(json.has(RETAIL_PRICE))retailPrice = json.getString(RETAIL_PRICE);
-            if(json.has(DESCRIPTION))description = json.getString(DESCRIPTION);
-            if(json.has(START_TIME))startTime = json.getString(START_TIME);
-            if(json.has(END_TIME))endTime = json.getString(END_TIME);
-            if(json.has(SALE_NAME))saleName = json.getString(SALE_NAME);
-            if(json.has(START_DATE))startDate = json.getString(START_DATE);
-            if(json.has(END_DATE))endDate = json.getString(END_DATE);
-            if(json.has(POSTALCODES))postalcodes = json.getString(POSTALCODES);
-            if(json.has(SALE_TYPE))saleType = json.getString(SALE_TYPE);
-            if(json.has(LATITUDE))latitude = json.getString(LATITUDE);
-            if(json.has(LONGITUDE))longitude = json.getString(LONGITUDE);
-            if(json.has(SELLER_NAME))sellerName = json.getString(SELLER_NAME);
-            if(json.has(SELLER_PHONE))seller_phone = json.getString(SELLER_PHONE);
-            if(json.has(USER_ID))user_id = json.getString(USER_ID);
-            if(json.has(SELLER_ID))seller_id = json.getString(SELLER_ID);
-            if(json.has(PRODUCT_UPDATED_AT))productUpdatedAt = json.getString(PRODUCT_UPDATED_AT);
-            if(json.has(PRODUCT_CREATED_AT))productCreatedAt = json.getString(PRODUCT_CREATED_AT);
-            if(json.has(SALE_CREATED_AT))saleCreatedAt = json.getString(SALE_CREATED_AT);
-            if(json.has(SHIPPING_DELIVERY_DATE))shipping_delivery_date = json.getString(SHIPPING_DELIVERY_DATE);
+            if (json.has(SALE_ID)) saleID = json.getString(SALE_ID);
+            if (json.has(ID)) id = json.getString(ID);
+            if (json.has(NAME)) name = json.getString(NAME);
+            if (json.has(SALE_PRICE)) salePrice = json.getString(SALE_PRICE);
+            if (json.has(RETAIL_PRICE)) retailPrice = json.getString(RETAIL_PRICE);
+            if (json.has(DESCRIPTION)) description = json.getString(DESCRIPTION);
+            if (json.has(START_TIME)) startTime = json.getString(START_TIME);
+            if (json.has(END_TIME)) endTime = json.getString(END_TIME);
+            if (json.has(SALE_NAME)) saleName = json.getString(SALE_NAME);
+            if (json.has(START_DATE)) startDate = json.getString(START_DATE);
+            if (json.has(END_DATE)) endDate = json.getString(END_DATE);
+            if (json.has(POSTALCODES)) postalcodes = json.getString(POSTALCODES);
+            if (json.has(SALE_TYPE)) saleType = json.getString(SALE_TYPE);
+            if (json.has(LATITUDE)) latitude = json.getString(LATITUDE);
+            if (json.has(LONGITUDE)) longitude = json.getString(LONGITUDE);
+            if (json.has(SELLER_NAME)) sellerName = json.getString(SELLER_NAME);
+            if (json.has(SELLER_PHONE)) seller_phone = json.getString(SELLER_PHONE);
+            if (json.has(USER_ID)) user_id = json.getString(USER_ID);
+            if (json.has(SELLER_ID)) seller_id = json.getString(SELLER_ID);
+            if (json.has(PRODUCT_UPDATED_AT)) productUpdatedAt = json.getString(PRODUCT_UPDATED_AT);
+            if (json.has(PRODUCT_CREATED_AT)) productCreatedAt = json.getString(PRODUCT_CREATED_AT);
+            if (json.has(SALE_CREATED_AT)) saleCreatedAt = json.getString(SALE_CREATED_AT);
+            if (json.has(SHIPPING_DELIVERY_DATE))
+                shipping_delivery_date = json.getString(SHIPPING_DELIVERY_DATE);
 
             //changes
-            if(json.has(LOCAL_SHIPPING_COST))local_shipping_cost = json.getString(LOCAL_SHIPPING_COST);
-            if(json.has(INTL_SHIPPING_COST)) {
+            if (json.has(LOCAL_SHIPPING_COST))
+                local_shipping_cost = json.getString(LOCAL_SHIPPING_COST);
+            if (json.has(INTL_SHIPPING_COST)) {
                 intl_shipping_cost = json.getString(INTL_SHIPPING_COST);
-                Log.d("VALUESSS","SHIPPINGCOST-ssss-"+intl_shipping_cost);
+                Log.d("VALUESSS", "SHIPPINGCOST-ssss-" + intl_shipping_cost);
             }
-            if(json.has(TIME_TO_DELIVER))time_to_deliver = json.getString(TIME_TO_DELIVER);
+            if (json.has(TIME_TO_DELIVER)) time_to_deliver = json.getString(TIME_TO_DELIVER);
 //changes
 
 
-            if(json.has(SALE_UPDATED_AT))productUpdatedAt = json.getString(SALE_UPDATED_AT);
-            if(json.has(VIEWS))views = json.getString(VIEWS);
-            if(json.has(OFFERS))offers = json.getString(OFFERS);
-            if(json.has(CUMULATIVE_RATING))cummalative_rating = json.getString(CUMULATIVE_RATING);
-            if(json.has(REVIEWS_COUNT))reviews_count = json.getString(REVIEWS_COUNT);
-            if(json.has(LAST_UPDATED))last_updated = json.getString(LAST_UPDATED);
-            if(json.has(IMAGE)){item_display_Image = json.getString(IMAGE);}
-            if(json.has(SHOP_NAME)){shop_or_sale_name = json.getString(SHOP_NAME);}
-            if(json.has(SELLER_IMAGE)){seller_image = json.getString(SELLER_IMAGE);}
-            if(json.has(ADDRESS)){address = json.getString(ADDRESS);}
-            if(json.has(CITY)){city = json.getString(CITY);}
-            if(json.has(SUBHURB)){subhrub = json.getString(SUBHURB);}
+            if (json.has(SALE_UPDATED_AT)) productUpdatedAt = json.getString(SALE_UPDATED_AT);
+            if (json.has(VIEWS)) views = json.getString(VIEWS);
+            if (json.has(OFFERS)) offers = json.getString(OFFERS);
+            if (json.has(CUMULATIVE_RATING)) cummalative_rating = json.getString(CUMULATIVE_RATING);
+            if (json.has(REVIEWS_COUNT)) reviews_count = json.getString(REVIEWS_COUNT);
+            if (json.has(LAST_UPDATED)) last_updated = json.getString(LAST_UPDATED);
+            if (json.has(IMAGE)) {
+                item_display_Image = json.getString(IMAGE);
+            }
+            if (json.has(SHOP_NAME)) {
+                shop_or_sale_name = json.getString(SHOP_NAME);
+            }
+            if (json.has(SELLER_IMAGE)) {
+                seller_image = json.getString(SELLER_IMAGE);
+            }
+            if (json.has(ADDRESS)) {
+                address = json.getString(ADDRESS);
+            }
+            if (json.has(CITY)) {
+                city = json.getString(CITY);
+            }
+            if (json.has(SUBHURB)) {
+                subhrub = json.getString(SUBHURB);
+            }
 
-            if(json.has(CURRENCY)){currency = json.getString(CURRENCY);}
+            if (json.has(CURRENCY)) {
+                currency = json.getString(CURRENCY);
+            }
 
 
-
-            if(json.has(PRODUCT_IMAGE)){
+            if (json.has(PRODUCT_IMAGE)) {
                 JSONArray imageArray = new JSONArray();
                 imageArray = json.getJSONArray(PRODUCT_IMAGE);
                 images.clear();
                 createImageModels.clear();
-                for(int i=0;i<imageArray.length();i++){
-                    JSONObject obj=(JSONObject)imageArray.get(i);
-                    ImageIdModel imageIdModel= new ImageIdModel();
+                for (int i = 0; i < imageArray.length(); i++) {
+                    JSONObject obj = (JSONObject) imageArray.get(i);
+                    ImageIdModel imageIdModel = new ImageIdModel();
                     imageIdModel.toObject(obj.toString());
                     createImageModels.add(imageIdModel);
-                    if(obj.has(LINK)) {
+                    if (obj.has(LINK)) {
                         images.add(obj.getString(LINK));
                     }
                     /*   images.add(imageArray.getString(i));*/
-            }
+                }
 
             }
-            if(json.has(PRODUCT_IMAGES)) {
+            if (json.has(PRODUCT_IMAGES)) {
                 JSONArray imageArray = new JSONArray();
                 imageArray = json.getJSONArray(PRODUCT_IMAGES);
                 images.clear();
@@ -766,57 +788,192 @@ public class ProductModel implements Serializable {
             }*/
 
 
-
-
-            if(json.has(PRODUCT_CATEGORY))productCategory = json.getString(PRODUCT_CATEGORY);
+            if (json.has(PRODUCT_CATEGORY)) productCategory = json.getString(PRODUCT_CATEGORY);
             int temp = 0;
-            try{temp = json.getInt(IS_SHIPABLE);}catch(Exception e){temp =0;}if(temp>0){shipable=true;}else{shipable=false;}temp=0;
-            try{temp = json.getInt(IS_PICKUP);}catch(Exception e){temp =0;}if(temp>0){pickup=true;}else{pickup=false;}temp=0;
-            try{temp = json.getInt(IS_AVAILABLE);}catch(Exception e){temp =0;}if(temp>0){available=true;}else{available=false;}temp=0;
-            try{temp = json.getInt(IS_ACTIVE);}catch(Exception e){temp =0;}if(temp>0){active=true;}else{active=false;}temp=0;
-            try{temp = json.getInt(IS_NEGOTIABLE);}catch(Exception e){temp =0;}if(temp>0){negotiable=true;}else{negotiable=false;}temp=0;
-            try{temp = json.getInt(IS_NEW);}catch(Exception e){temp =0;}if(temp>0){is_new=true;}else{is_new=false;}temp=0;
-            try{temp = json.getInt(IS_BOOKAMARK);}catch(Exception e){temp =0;}if(temp>0){is_bookmark=true;}else{is_bookmark=false;}temp=0;
-            try{temp = json.getInt(IS_PRODUCT_NEW);}catch(Exception e){temp =0;}if(temp>0){is_product_new=true;}else{is_product_new=false;}temp=0;
-            try{temp = json.getInt(IS_NEW_FLAG);}catch(Exception e){temp =0;}if(temp>0){is_new=true;}else{is_new=false;}temp=0;
+            try {
+                temp = json.getInt(IS_SHIPABLE);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                shipable = true;
+            } else {
+                shipable = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(IS_PICKUP);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                pickup = true;
+            } else {
+                pickup = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(IS_AVAILABLE);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                available = true;
+            } else {
+                available = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(IS_ACTIVE);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                active = true;
+            } else {
+                active = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(IS_NEGOTIABLE);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                negotiable = true;
+            } else {
+                negotiable = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(IS_NEW);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                is_new = true;
+            } else {
+                is_new = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(IS_BOOKAMARK);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                is_bookmark = true;
+            } else {
+                is_bookmark = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(IS_PRODUCT_NEW);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                is_product_new = true;
+            } else {
+                is_product_new = false;
+            }
+
+            temp = 0;
+            try {
+                temp = json.getInt(IS_FEATURE_PRODUCT);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                is_featured = true;
+            } else {
+                is_featured = false;
+            }
+
+            temp = 0;
+            try {
+                temp = json.getInt(IS_NEW_FLAG);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                is_new = true;
+            } else {
+                is_new = false;
+            }
+            temp = 0;
 
 
             //changes
-            try{temp = json.getInt(IS_INTL_SHIPPING);}catch(Exception e){temp =0;}if(temp>0){is_intl_shipping=true;}else{is_intl_shipping=false;}temp=0;
-            try{temp = json.getInt(SHIPPING_FOC);}catch(Exception e){temp =0;}if(temp>0){shipping_foc=true;}else{shipping_foc=false;}temp=0;
+            try {
+                temp = json.getInt(IS_INTL_SHIPPING);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                is_intl_shipping = true;
+            } else {
+                is_intl_shipping = false;
+            }
+            temp = 0;
+            try {
+                temp = json.getInt(SHIPPING_FOC);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                shipping_foc = true;
+            } else {
+                shipping_foc = false;
+            }
+            temp = 0;
 
-            try{
+            try {
                 temp = json.getInt(HIDE_ITEM_PRICE);
 
+            } catch (Exception e) {
+                temp = 0;
             }
-            catch(Exception e)
-            {
-                temp =0;
+            if (temp > 0) {
+                hide_item_price = true;
+            } else {
+                hide_item_price = false;
             }
-            if(temp>0)
-            {
-                hide_item_price=true;
+            temp = 0;
+            //ffff
+            if (json.has(IS_DISPLAY_IMAGE)) try {
+                temp = json.getInt(IS_DISPLAY_IMAGE);
+            } catch (Exception e) {
+                temp = 0;
             }
-            else
-            {
-                hide_item_price=false;
+            if (temp > 0) {
+                displayImage = true;
+            } else {
+                displayImage = false;
             }
-            temp=0;
-          //ffff
-            if(json.has(IS_DISPLAY_IMAGE))try{temp = json.getInt(IS_DISPLAY_IMAGE);}catch(Exception e){temp =0;}if(temp>0){displayImage=true;}else{displayImage=false;}
-            if(json.has(IS_SALE_ACTIVE))try{temp = json.getInt(IS_SALE_ACTIVE);}catch(Exception e){temp =0;}if(temp>0){sale_active=true;}else{sale_active=false;}
+            if (json.has(IS_SALE_ACTIVE)) try {
+                temp = json.getInt(IS_SALE_ACTIVE);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                sale_active = true;
+            } else {
+                sale_active = false;
+            }
             return true;
-        }catch(Exception ex){
+        } catch (Exception ex) {
 
-            Log.d(TAG, "Json Exception : " + ex);}
+            Log.d(TAG, "Json Exception : " + ex);
+        }
         return false;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String returnString = null;
-        Log.d("VALUESSS","SHIPPINGCOST 0000");
-        try{
+        Log.d("VALUESSS", "SHIPPINGCOST 0000");
+        try {
 
             JSONObject jsonMain = new JSONObject();
             jsonMain.put(SALE_ID, saleID);
@@ -841,7 +998,6 @@ public class ProductModel implements Serializable {
             jsonMain.put(PRODUCT_CATEGORY, productCategory);
 
 
-
             jsonMain.put(SHIPPING_FOC, shipping_foc);
             jsonMain.put(LOCAL_SHIPPING_COST, local_shipping_cost);
             jsonMain.put(IS_INTL_SHIPPING, is_intl_shipping);
@@ -849,25 +1005,68 @@ public class ProductModel implements Serializable {
             jsonMain.put(TIME_TO_DELIVER, time_to_deliver);
             jsonMain.put(HIDE_ITEM_PRICE, hide_item_price);
 
-            JSONArray imageArray =  new JSONArray();
-            if(images!=null){
-                for(int i=0;i<images.size();i++){imageArray.put(images.get(i));}
+            JSONArray imageArray = new JSONArray();
+            if (images != null) {
+                for (int i = 0; i < images.size(); i++) {
+                    imageArray.put(images.get(i));
+                }
             }
             jsonMain.put(PRODUCT_IMAGE, imageArray);
             String temp = "0";
-            if(shipable){temp = "1";}else{temp="0";}jsonMain.put(IS_SHIPABLE, temp);temp = "0";
-            if(pickup){temp = "1";}else{temp="0";}jsonMain.put(IS_PICKUP, temp);temp = "0";
-            if(available){temp = "1";}else{temp="0";}jsonMain.put(IS_AVAILABLE, temp);temp = "0";
-            if(active){temp = "1";}else{temp="0";}jsonMain.put(IS_ACTIVE, temp);temp = "0";
-            if(negotiable){temp = "1";}else{temp="0";}jsonMain.put(IS_NEGOTIABLE, temp);temp = "0";
-            if(displayImage){temp = "1";}else{temp="0";}jsonMain.put(IS_DISPLAY_IMAGE, temp);temp = "0";
+            if (shipable) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(IS_SHIPABLE, temp);
+            temp = "0";
+            if (pickup) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(IS_PICKUP, temp);
+            temp = "0";
+            if (available) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(IS_AVAILABLE, temp);
+            temp = "0";
+            if (active) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(IS_ACTIVE, temp);
+            temp = "0";
+            if (negotiable) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(IS_NEGOTIABLE, temp);
+            temp = "0";
+            if (displayImage) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(IS_DISPLAY_IMAGE, temp);
+            temp = "0";
 
 
-            if(sale_active){temp = "1";}else{temp="0";}jsonMain.put(IS_SALE_ACTIVE, temp);
+            if (sale_active) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(IS_SALE_ACTIVE, temp);
             returnString = jsonMain.toString();
+        } catch (Exception ex) {
+            Log.d(TAG, " To String Exception : " + ex);
         }
-        catch (Exception ex){Log.d(TAG," To String Exception : "+ex);
-           }
         return returnString;
     }
 }

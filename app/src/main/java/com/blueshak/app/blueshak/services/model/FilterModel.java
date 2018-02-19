@@ -7,6 +7,7 @@ import com.blueshak.app.blueshak.global.GlobalVariables;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class FilterModel implements Serializable {
     private final String TAG = "FilterModel";
@@ -53,6 +54,15 @@ public class FilterModel implements Serializable {
     String zipcode = null;
     String type = null;
     String current_country_code = null, results_text = null;
+    private ArrayList<String> arrayListFilterResult;
+
+    public ArrayList<String> getArrayListFilterResult() {
+        return arrayListFilterResult;
+    }
+
+    public void setArrayListFilterResult(ArrayList<String> arrayListFilterResult) {
+        this.arrayListFilterResult = arrayListFilterResult;
+    }
 
     public String getFormatted_address() {
         return formatted_address;

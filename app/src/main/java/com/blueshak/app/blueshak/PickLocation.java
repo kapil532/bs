@@ -793,7 +793,10 @@ public class PickLocation extends RootActivity implements LocationListener, Goog
                 Log.d(TAG,"###########Setting the Current Country SHARED_PREFERENCE_LOCATION_COUNTRY############");
                 if(locationModel!=null){
                     country=locationModel.getCountry_code();
-                  GlobalFunctions.setSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY,locationModel.getCountry_code());
+                    if(locationModel.getCountry_code()!=null && !locationModel.getCountry_code().isEmpty()){
+                        GlobalFunctions.setSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY,locationModel.getCountry_code());
+                    }
+
                 }
             }
             @Override

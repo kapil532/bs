@@ -66,8 +66,8 @@ public class ItemMyListFragment extends Fragment implements SwipeRefreshLayout.O
         progress_bar=(ProgressBar)view.findViewById(R.id.progress_bar);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         swipeRefreshLayout.setOnRefreshListener(this);
-        results_all=(TextView)view.findViewById(R.id.results_all);
-        results_all.setVisibility(View.GONE);
+        //results_all=(TextView)view.findViewById(R.id.results_all);
+        //results_all.setVisibility(View.GONE);
         searchViewResult=(TextView)view.findViewById(R.id.searchViewResult);
         searchViewResult.setVisibility(View.GONE);
       /*  header_content=(LinearLayout)view.findViewById(R.id.header_content);*/

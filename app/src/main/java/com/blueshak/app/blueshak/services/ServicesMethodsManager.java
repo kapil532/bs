@@ -59,6 +59,7 @@ import com.blueshak.app.blueshak.services.model.UserModel;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class ServicesMethodsManager {
@@ -918,6 +919,7 @@ public class ServicesMethodsManager {
             param += "&" + FilterModel.CATEGORIES + "=" + filterModel.getCategories();*/
        /* param += "&" + FilterModel.ZIPCODE + "=" + filterModel.getZipcode();*/
         String param = getParams(context,filterModel,null,null);
+        BlueShakLog.logDebug(TAG, "getHomeList Request URL param -> " + param);
         getData(context, new HomeListModel(), ServerConstants.URL_getItemList, param, TAG);
     }
 
@@ -1067,8 +1069,6 @@ public class ServicesMethodsManager {
         Utils.sortArray(images);
         ArrayList<CreateImageModel> createImages = new ArrayList<CreateImageModel>();
             if(images.size()>0){
-
-
                 for (int j = 0; j < images.size(); j++) {
                     CreateImageModel model;
                     if(images.get(j).isRealImage()){
@@ -1331,7 +1331,13 @@ public class ServicesMethodsManager {
         }
 
         if (filterModel.is_current_country()) {
-            param += "&" + FilterModel.CURRENT_COUNTRY_CODE + "=" + filterModel.getCurrent_country_code();
+            if(filterModel.getCurrent_country_code()!=null && !filterModel.getCurrent_country_code().isEmpty()){
+                param += "&" + FilterModel.CURRENT_COUNTRY_CODE + "=" + filterModel.getCurrent_country_code();
+            }else{
+                param += "&" + FilterModel.CURRENT_COUNTRY_CODE + "=" +
+                        GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
+            }
+
             param += "&" + FilterModel.IS_CURRENT_COUNTRY + "=" + (filterModel.is_current_country() ? 1 : 0);
         }
         if (filterModel.isPrice_l_2_h()) {
@@ -1359,9 +1365,9 @@ public class ServicesMethodsManager {
         return param;
     }
 
-    public void getFeatureItemsList(Context context, FilterModel filterModel, ServerResponseInterface mCallInterface, String TAG) {
+    public void getFeatureItemsList(Context context, FilterModel filterModel, ServerResponseInterface mCallInterface, String TAG,String take) {
         setCallbacks(mCallInterface);
-        String param = getParams(context,filterModel,"featured","5");
+        String param = getParams(context,filterModel,"featured",take);
         getFeatureItemsData(context, ServerConstants.URL_feature_items, param, TAG);
     }
     private void getFeatureItemsData(final Context context, String URL, String params, String TAG) {
@@ -1387,5 +1393,66 @@ public class ServicesMethodsManager {
         });
         request.makeJsonGETRequest(context, URL.trim(), TAG);
     }
+
+    public void getFeatureWeekPriceOption(final Context context, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String params = "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
+        String URL = ServerConstants.URL_feature_price_option;
+        if (params != null) {
+            if (!params.equalsIgnoreCase("")) {
+                URL += "?" + params;
+            }
+        }
+        VolleyServices request = new VolleyServices();
+        request.setCallbacks(new VolleyServices.ResposeCallBack() {
+            @Override
+            public void OnSuccess(JSONObject arg0) {
+                mUiCallBack.OnSuccessFromServer(arg0);
+            }
+            @Override
+            public void OnFailure(String cause) {
+                mUiCallBack.OnFailureFromServer(cause);
+            }
+            @Override
+            public void OnFailure(int cause) {
+                mUiCallBack.OnFailureFromServer(context.getString(cause));
+            }
+        });
+        request.makeJsonGETRequest(context, URL.trim(), TAG);
+    }
+
+    public void postFeatureItemPayment(final Context context, ServerResponseInterface mCallInterface,
+                                       String optionId,String prIdoduct,String payPalId, String TAG) {
+        setCallbacks(mCallInterface);
+        String params = "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
+        params += "&option_id=" + optionId;
+        params += "&product_id=" + prIdoduct;
+        params += "&pay_id=" + payPalId;
+        String URL = ServerConstants.URL_capture_payment;
+        if (params != null) {
+            if (!params.equalsIgnoreCase("")) {
+                URL += "?" + params;
+            }
+        }
+        VolleyServices request = new VolleyServices();
+        request.setCallbacks(new VolleyServices.ResposeCallBack() {
+            @Override
+            public void OnSuccess(JSONObject arg0){
+                mUiCallBack.OnSuccessFromServer(arg0);
+            }
+            @Override
+            public void OnFailure(String cause) {
+                mUiCallBack.OnFailureFromServer(cause);
+            }
+            @Override
+            public void OnFailure(int cause) {
+                mUiCallBack.OnFailureFromServer(context.getString(cause));
+            }
+        });
+
+        //request.setBody(obj.toString()); //for Post
+        request.makeJsonGETRequest(context, URL.trim(), TAG);
+    }
+
 
 }

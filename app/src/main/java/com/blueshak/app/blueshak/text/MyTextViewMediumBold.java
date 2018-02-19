@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 public class MyTextViewMediumBold extends TextView {
+
     public MyTextViewMediumBold(Context context) {
         super(context);
         init();
