@@ -51,6 +51,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
     public String item_address;
     private EndlessRecyclerOnScrollListenerForList endlessRecyclerOnScrollListener;
     private FeatureItemLoadMore iLoadMore;
+    public static int last_page = 0;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         protected TextView item_price, item_name, item_location, shipping_type;
@@ -151,7 +152,7 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                         /*endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListenerForList(layoutManager) {
                             @Override
                             public void onLoadMore(int current_page) {
-                                if (!(current_page > ItemListFragmentForList.iTake)) {
+                                if (!(current_page > last_page)) {
                                     //getItemLists(context, model);
                                     iLoadMore.onLoadMoreItems(current_page);
                                 }

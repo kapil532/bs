@@ -85,10 +85,10 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    public ItemListAdapter(Context mContext, List<ProductModel> albumList, List<FeatureItemData> featureItemList) {
+    public ItemListAdapter(Context mContext, List<ProductModel> albumList) {
         this.context = mContext;
         this.albumList = albumList;
-        this.featureItemList = featureItemList;
+        //this.featureItemList = featureItemList;
         this.item_address = GlobalFunctions.getSharedPreferenceString(mContext, GlobalVariables.CURRENT_LOCATION);
      /*   imgLoader = new ImageLoader(mContext);*/
 
@@ -119,7 +119,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 final MyViewHolder holder = (MyViewHolder) view_holder;
               /*  final ProductModel obj = albumList.get(position-1);*/
                 final ProductModel obj = albumList.get(position);
-                if (position == 0) {
+                /*if (position == 0) {
                     holder.horizontalRecyclerView.setVisibility(View.VISIBLE);
                     holder.txt_feature_items.setVisibility(View.VISIBLE);
                     holder.txt_seller_items.setVisibility(View.VISIBLE);
@@ -138,7 +138,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     holder.feature_below_line.setVisibility(View.GONE);
                     holder.feature_line.setVisibility(View.GONE);
                     holder.seller_line.setVisibility(View.GONE);
-                }
+                }*/
 
                 holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(), obj.getSalePrice()));
 

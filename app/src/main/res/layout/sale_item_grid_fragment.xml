@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brand_background_color">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/brand_background_color"
+        android:orientation="vertical">
+
+        <include layout="@layout/item_list_row_item_header"
+
+            />
+        <!--<include layout="@layout/item_list_row_item_header_new"
+            android:visibility="gone"/>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/brand_secondary_color"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.blueshak.app.blueshak.text.MyTextView
+                android:id="@+id/searchViewResult"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/header_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:drawableLeft="@drawable/ic_search_field"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:hint="Search BlueShak"
+                android:imeOptions="actionDone"
+                android:textColor="@color/brand_text_color"
+                android:textSize="16sp">
+
+            </com.blueshak.app.blueshak.text.MyTextView>
+
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_5dp"
+            android:layout_marginRight="@dimen/margin_5dp">
+
+            <LinearLayout
+                android:id="@+id/layout_filter_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_gray">
+
+        </LinearLayout>
+        <!--android:background="#DCDCDC"-->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/sub_header"
+                    android:orientation="horizontal">
+
+                    <com.blueshak.app.blueshak.text.MyTextView
+                        android:id="@+id/sale_header_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_map_black_24dp"
+                        android:gravity="center_vertical"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:visibility="gone">
+
+                    </com.blueshak.app.blueshak.text.MyTextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/feature_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                        android:id="@+id/txt_feature_items"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/feature_items"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/results_all_textsize"
+                        android:textStyle="italic">
+
+                    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+
+                    <LinearLayout
+                        android:id="@+id/feature_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/dark_gray"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_grid_feature"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@color/brand_background_color"
+                        android:clipToPadding="false"
+                        android:dividerHeight="7dp"
+                        android:paddingBottom="10dp"
+                        android:paddingRight="5dp"
+                        android:scrollbars="none" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/feature_below_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/dark_gray"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                    android:id="@+id/txt_seller_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/seller_items"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/results_all_textsize"
+                    android:textStyle="italic">
+
+                </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+
+                <LinearLayout
+                    android:id="@+id/seller_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_gray"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/linearLayout3">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:clipToPadding="false"
+                        android:dividerHeight="7dp"
+                        android:scrollbars="none" />
+
+
+                    <com.blueshak.app.blueshak.text.MyTextView
+                        android:id="@+id/no_sales"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="5dp"
+                        android:drawableTop="@drawable/ic_items_off"
+                        android:gravity="center"
+                        android:text="Loading products..."
+                        android:textColor="@color/brand_text_color"
+                        android:textSize="@dimen/empty_label_size"
+                        android:visibility="gone">
+
+                    </com.blueshak.app.blueshak.text.MyTextView>
+
+                    <fr.castorflex.android.circularprogressbar.CircularProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/progress_bar"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_circle_unread_count"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/tab_selected"
+                        android:indeterminateTintMode="src_atop"
+                        android:padding="10dp"
+                        android:visibility="gone"
+                        app:cpb_color="#F00"
+                        app:cpb_colors="@array/color_array"
+                        app:cpb_max_sweep_angle="300"
+                        app:cpb_min_sweep_angle="10"
+                        app:cpb_rotation_speed="1.0"
+                        app:cpb_stroke_width="4dp"
+                        app:cpb_sweep_speed="1.0" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -29,6 +29,7 @@ import com.blueshak.app.blueshak.paypal.PayPalConfig;
 import com.blueshak.app.blueshak.paypal.model.FeatureDataList;
 import com.blueshak.app.blueshak.paypal.model.FeaturedOptionModel;
 import com.blueshak.app.blueshak.paypal.model.PayPalPaymentModel;
+import com.blueshak.app.blueshak.paypal.model.PayPaymentResponseModel;
 import com.blueshak.app.blueshak.services.model.CreateImageModel;
 import com.blueshak.app.blueshak.services.model.FilterModel;
 import com.blueshak.app.blueshak.util.BlueShakLog;
@@ -68,9 +69,11 @@ public class FeatureItemPaymentActivity extends AppCompatActivity {
     private TextView seller_item_description;
     public static String PRODUCTID = "PRODUCTID";
     public static String FEATURE_FAG = "feature_fag";
+    public static String FEATURE_FIRST_IMAGE = "feature_first_image";
     private String mProductId;
     private boolean isFeaturedFlag = false;
     private String optionId;
+    private String featuredImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,7 @@ public class FeatureItemPaymentActivity extends AppCompatActivity {
         if(bundle!=null){
             mProductId = bundle.getString(PRODUCTID);
             isFeaturedFlag = bundle.getBoolean(FEATURE_FAG);
+            featuredImage = bundle.getString(FEATURE_FIRST_IMAGE);
         }
 
         startPayPalService();
@@ -128,7 +132,7 @@ public class FeatureItemPaymentActivity extends AppCompatActivity {
                 if (paymentAmount != null && !paymentAmount.isEmpty()) {
                     getPayment();
                 } else {
-                    Toast.makeText(FeatureItemPaymentActivity.this, "Please select payment option", Toast.LENGTH_LONG).show();
+                    Toast.makeText(FeatureItemPaymentActivity.this, getString(R.string.option_selection), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -137,11 +141,15 @@ public class FeatureItemPaymentActivity extends AppCompatActivity {
     private void setValues() {
         ImageView imageView = (ImageView) findViewById(R.id.img_feature);
         TextView textView = (TextView) findViewById(R.id.txt_item_name);
-        if (CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos().size() > 0) {
-            setBitmapImages(CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos(), imageView, 0);
-        } else {
+        if (featuredImage != null && !featuredImage.isEmpty()) {
+            setBitmapImages(featuredImage, imageView, 0);
+        } else if (BlueShakSharedPreferences.getFeaturedImage(this) != null
+                && !BlueShakSharedPreferences.getFeaturedImage(this).isEmpty()) {
+            setBitmapImages(BlueShakSharedPreferences.getFeaturedImage(this), imageView, 0);
+        }else{
             BlueShakLog.logDebug("paymentExample setImage() ", "setImage() else failed");
         }
+
         if (BlueShakSharedPreferences.getProductName(this) != null) {
             textView.setText(BlueShakSharedPreferences.getProductName(this));
         }
@@ -202,7 +210,8 @@ public class FeatureItemPaymentActivity extends AppCompatActivity {
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     radioButton = (RadioButton) findViewById(checkedId);
                     paymentAmount = featureItemsOptionList.get(radioButton.getId()).getAmount();
-                    paymentDescription = "Payment of " + radioButton.getText();
+                    //paymentDescription = "Feature Item for " + radioButton.getText();
+                    paymentDescription = getPaymentDiscription(featureItemsOptionList.get(radioButton.getId()).getDuration_weeks());
                     optionId = featureItemsOptionList.get(radioButton.getId()).getId();
                     //Toast.makeText(FeatureItemPaymentActivity.this, paymentDescription+" paymentAmount -> "+paymentAmount, Toast.LENGTH_SHORT).show();
                 }
@@ -214,26 +223,32 @@ public class FeatureItemPaymentActivity extends AppCompatActivity {
     private void postFeaturePayment(Context context,String optionId, String productId, String payPalId) {
         showProgressBar();
         ItemListPresenter itemListPresenter = new ItemListPresenter();
-        itemListPresenter.postFeatureItemPayment(context, new PresenterCallBack<FeaturedOptionModel>() {
+        itemListPresenter.postFeatureItemPayment(context, new PresenterCallBack<PayPaymentResponseModel>() {
             @Override
-            public void onSuccess(FeaturedOptionModel object) {
+            public void onSuccess(PayPaymentResponseModel object) {
                 hideProgressBar();
-                showPositiveAlert(FeatureItemPaymentActivity.this,"Payment Successful");
-                /*FeatureDataList[] optionModelList = object.getData();
-                seller_item_description.setText(object.getHeader_text());
-                for (FeatureDataList featureItem : optionModelList) {
-                    featureItemsOptionList.add(featureItem);
-                }
-                createRadioButton(featureItemsOptionList);*/
+                showPositiveAlert(FeatureItemPaymentActivity.this,object.getStatus(),true);
             }
 
             @Override
             public void onFailure() {
                 hideProgressBar();
-                showPositiveAlert(FeatureItemPaymentActivity.this,"Payment failed");
+                showPositiveAlert(FeatureItemPaymentActivity.this,getString(R.string.error_message),false);
 
             }
         },optionId,productId,payPalId);
+    }
+
+    private String getPaymentDiscription(String option){
+        String sValue = "Feature Item for ";
+        if(option!=null){
+            if(option.equalsIgnoreCase("1")){
+               return sValue+option +" Week";
+            } else{
+                return sValue+option +" Weeks";
+            }
+        }
+        return sValue;
     }
 
     private void getPayment() {
@@ -285,7 +300,6 @@ public class FeatureItemPaymentActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 //Getting the payment confirmation
                 PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-
                 //if confirmation is not null
                 if (confirm != null) {
                     try {
@@ -294,11 +308,15 @@ public class FeatureItemPaymentActivity extends AppCompatActivity {
                         BlueShakLog.logDebug("paymentExample", paymentDetails);
                         Gson gson = new Gson();
                         PayPalPaymentModel paymentModel = gson.fromJson(paymentDetails.toString(), PayPalPaymentModel.class);
-
                         if(paymentModel.getResponse().getState().equalsIgnoreCase("approved")){
-                            postFeaturePayment(FeatureItemPaymentActivity.this,optionId,mProductId,paymentModel.getResponse().getId());
+                            if(mProductId!=null && !mProductId.isEmpty()){
+                                postFeaturePayment(FeatureItemPaymentActivity.this,optionId,mProductId,paymentModel.getResponse().getId());
+                            }else{
+                                showPositiveAlert(this,getString(R.string.payment_id_empty),false);
+                            }
+
                         }else{
-                            showPositiveAlert(this,"Failed by PayPal, Please try again...");
+                            showPositiveAlert(this,getString(R.string.error_message),false);
                         }
 
                         //Starting a new activity for the payment details and also putting the payment details with intent
@@ -319,9 +337,9 @@ public class FeatureItemPaymentActivity extends AppCompatActivity {
         }
     }
 
-    private void setBitmapImages(ArrayList<CreateImageModel> imageList, ImageView imageView, int position) {
+    private void setBitmapImages(String imageList, ImageView imageView, int position) {
 
-        BlueShakLog.logDebug(TAG, "setBitmapImages imagelist size -> " + imageList.size());
+        BlueShakLog.logDebug(TAG, "setBitmapImages imagelist  -> " + imageList);
         DisplayImageOptions GALLERY = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .considerExifParams(true)
@@ -334,12 +352,12 @@ public class FeatureItemPaymentActivity extends AppCompatActivity {
     }
 
     private void setBitmapDecodedImage(int position, ImageView imageView, DisplayImageOptions GALLERY,
-                                       ArrayList<CreateImageModel> imageList) {
+                                       String imageList) {
         String decodedImgUri;
-        if (imageList.get(position).getImage().contains("http")) {
-            decodedImgUri = imageList.get(position).getImage();
+        if (imageList.contains("http")) {
+            decodedImgUri = imageList;
         } else {
-            decodedImgUri = Uri.fromFile(new File(imageList.get(position).getImage())).toString();
+            decodedImgUri = Uri.fromFile(new File(imageList)).toString();
         }
         ImageLoader.getInstance().displayImage(decodedImgUri, imageView, GALLERY, new ImageLoadingListener() {
             @Override
@@ -380,13 +398,16 @@ public class FeatureItemPaymentActivity extends AppCompatActivity {
             progress_bar.setVisibility(View.GONE);
     }
 
-    public void showPositiveAlert(final Activity activity,String message) {
+    public void showPositiveAlert(final Activity activity,String message,final boolean isSuccess) {
         final com.blueshak.app.blueshak.view.AlertDialog alertDialog = new com.blueshak.app.blueshak.view.AlertDialog(activity);
         alertDialog.setTitle(activity.getString(R.string.app_name));
         alertDialog.setMessage(message);
         alertDialog.setPositiveButton("Ok", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isSuccess){
+                    activity.finish();
+                }
                 alertDialog.dismiss();
                // activity.setResult(activity.RESULT_CANCELED);
                // activity.finish();

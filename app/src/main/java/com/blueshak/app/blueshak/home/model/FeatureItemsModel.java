@@ -10,7 +10,7 @@ public class FeatureItemsModel {
 
     private String next_page_url;
 
-    private String last_page;
+    private int last_page;
 
     private String total;
 
@@ -40,11 +40,11 @@ public class FeatureItemsModel {
         this.next_page_url = next_page_url;
     }
 
-    public String getLast_page() {
+    public int getLast_page() {
         return last_page;
     }
 
-    public void setLast_page(String last_page) {
+    public void setLast_page(int last_page) {
         this.last_page = last_page;
     }
 

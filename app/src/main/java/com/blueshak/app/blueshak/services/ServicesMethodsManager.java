@@ -10,6 +10,7 @@ import com.blueshak.app.blueshak.services.model.AskModel;
 import com.blueshak.app.blueshak.services.model.CurrencyListModel;
 import com.blueshak.app.blueshak.services.model.VerifyAliasModel;
 import com.blueshak.app.blueshak.util.BlueShakLog;
+import com.blueshak.app.blueshak.util.BlueShakSharedPreferences;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.global.GlobalFunctions;
 import com.blueshak.app.blueshak.global.GlobalVariables;
@@ -1069,6 +1070,7 @@ public class ServicesMethodsManager {
         Utils.sortArray(images);
         ArrayList<CreateImageModel> createImages = new ArrayList<CreateImageModel>();
             if(images.size()>0){
+                BlueShakSharedPreferences.setFeaturedImage(context,images.get(0).getImage());
                 for (int j = 0; j < images.size(); j++) {
                     CreateImageModel model;
                     if(images.get(j).isRealImage()){
@@ -1450,8 +1452,8 @@ public class ServicesMethodsManager {
             }
         });
 
-        //request.setBody(obj.toString()); //for Post
-        request.makeJsonGETRequest(context, URL.trim(), TAG);
+        request.setBody(params); //for Post
+        request.makeJsonPostRequest(context, URL.trim(), TAG);
     }
 
 

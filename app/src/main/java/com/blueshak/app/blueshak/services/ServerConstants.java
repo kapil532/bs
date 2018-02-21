@@ -64,6 +64,6 @@ public class ServerConstants
     public static final String URL_delete_sales_items = BASE_URL + "delete_sale_item";
     public static final String URL_feature_items = BASE_URL + "list_featured_items";
     public static final String URL_feature_price_option = BASE_URL + "list_featured_options";
-    public static final String URL_capture_payment = BASE_URL + "capture_payment";
+    public static final String URL_capture_payment = BASE_URL + "capture-payment";
 
 }

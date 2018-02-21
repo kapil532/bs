@@ -103,7 +103,7 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
     private ImageView go_to_filter;
     private ArrayList<FeatureItemData> featureItemsList = new ArrayList<FeatureItemData>();
     private LinearLayoutManager gridLayoutManager;
-    public static int iTake = 3;
+    public int iTake = 3;
     //private FlexboxLayout flexboxLayout;
     private LinearLayout layoutFilterHorizontal;
 
@@ -733,6 +733,7 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
             @Override
             public void onSuccess(FeatureItemsModel object) {
                 featureItemsList.clear();
+                ItemListAdapterForList.last_page = object.getLast_page();
                 FeatureItemData[] featureItemList =  object.getData();
                 for (FeatureItemData featureItem : featureItemList) {
                     featureItemsList.add(featureItem);
@@ -757,8 +758,9 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
         recyclerView.setAdapter(adapter);
     }
     @Override
-    public void onLoadMoreItems(int position) {
-        iTake = iTake + 5;
+    public void onLoadMoreItems(int current_page) {
+       // iTake = iTake + 5;
+        model.setPage(current_page);
         BlueShakLog.logDebug(TAG,"onLoadMoreItems iTake ------>"+iTake);
         getFeatureList(context, model,String.valueOf(iTake));
     }

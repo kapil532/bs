@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,16 +29,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueshak.app.blueshak.Messaging.helper.Constants;
 import com.blueshak.app.blueshak.base.PresenterCallBack;
+import com.blueshak.app.blueshak.home.adapter.HorizontalItemListAdapter;
 import com.blueshak.app.blueshak.home.model.FeatureItemData;
 import com.blueshak.app.blueshak.home.model.FeatureItemsModel;
 import com.blueshak.app.blueshak.home.presenter.ItemListPresenter;
 import com.blueshak.app.blueshak.search.SearchActivity;
+import com.blueshak.app.blueshak.text.MyTextViewMediumBold;
 import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.MainActivity;
@@ -55,6 +59,7 @@ import com.blueshak.app.blueshak.services.model.SalesListModel;
 import com.blueshak.app.blueshak.services.model.SalesModel;
 import com.blueshak.app.blueshak.util.LocationListener;
 import com.blueshak.app.blueshak.util.LocationService;
+import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +103,9 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
     private ImageView go_to_filter;
     private ArrayList<FeatureItemData> featureItemsList = new ArrayList<FeatureItemData>();
     private StaggeredGridLayoutManager gridLayoutManager;
+    private LinearLayout layoutFilterHorizontal;
+    private LinearLayout layout_feature;
+    private RecyclerView recycler_grid_feature;
 
     public static ItemListFragment newInstance(SalesListModel salesListModel, String type,FilterModel filterModel,LocationModel locationModel){
         ItemListFragment saleFragment = new ItemListFragment();
@@ -119,7 +127,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        view = inflater.inflate(R.layout.sales_list_item_fragment, container, false);
+        view = inflater.inflate(R.layout.sale_item_grid_fragment, container, false);
         try{
             progress_bar=(ProgressBar)view.findViewById(R.id.progress_bar);
             context= getActivity();
@@ -148,6 +156,10 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                 }
             });
             searchViewResult=(TextView)view.findViewById(R.id.searchViewResult);
+
+            layoutFilterHorizontal = (LinearLayout) view.findViewById(R.id.layout_filter_horizontal);
+            layout_feature = (LinearLayout)view.findViewById(R.id.feature_layout);
+            recycler_grid_feature = (RecyclerView)view.findViewById(R.id.recycler_grid_feature);
             /*searchViewResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -197,10 +209,6 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                 model=new FilterModel();
                 if(locationModel!=null)
                 {
-                    Log.d(TAG,"######locationModel####"+locationModel.toString());
-                    Log.d(TAG,"######getState####"+locationModel.getState());
-                    Log.d(TAG,"######getLatitude####"+locationModel.getLatitude());
-                    Log.d(TAG,"######getLongitude####"+locationModel.getLongitude());
                     if(locationModel.getCity()!=null&&locationModel.getState()!=null)
                         item_address=locationModel.getCity()+" "+locationModel.getState();
                     else
@@ -250,6 +258,12 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                         }
                     }
                 }
+
+                if(model.getArrayListFilterResult()!=null){
+                    setFilterView(model.getArrayListFilterResult());
+                }else {
+                    setFilterView(defaultFilteredList());
+                }
                 /*if(!TextUtils.isEmpty(model.getResults_text()))
                     results_all.setText("Results from "+model.getResults_text());
                 else
@@ -258,6 +272,13 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
 
             }else{
                 item_address=model.getLocation();
+
+                if(model.getArrayListFilterResult()!=null){
+                    setFilterView(model.getArrayListFilterResult());
+                }else {
+                    setFilterView(defaultFilteredList());
+                }
+
                /* String category_names=model.getCategory_names();
                 if(!TextUtils.isEmpty(category_names)&& category_names!=null)
                     results_all.setText("Results in "+"'"+model.getCategory_names()+"'");
@@ -286,7 +307,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView.setAdapter(adapter);*/
 
-            setAdapterItemList(product_list,featureItemsList);
+            setAdapterItemList(product_list);
 
            /* recyclerView.setOnScrollListener(new MyScrollListener(activity) {
                 @Override
@@ -363,6 +384,8 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
         }
         return view;
     }
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -456,7 +479,6 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
             itemListModel = model;
             last_page=itemListModel.getLast_page();
             List<ProductModel> productModels = itemListModel.getItem_list();
-            System.out.println("#######itemListModel.getItem_list()#########"+itemListModel.getItem_list().size());
             if(productModels!=null){
                 if(productModels.size()>0&&recyclerView!=null&&list!=null&&adapter!=null){
                     product_list.addAll(productModels);
@@ -684,6 +706,14 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                     MainActivity.filterModel=model;
                     item_address=model.getLocation();
                     String category_names = model.getCategory_names();
+
+                    if(model.getArrayListFilterResult()!=null){
+                        setFilterView(model.getArrayListFilterResult());
+                    }else {
+                        setFilterView(defaultFilteredList());
+                    }
+
+
                    /* if(!TextUtils.isEmpty(model.getResults_text()))
                         results_all.setText("Results from "+model.getResults_text());
                     else
@@ -756,13 +786,22 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
 
     }
 
-    private void setAdapterItemList(ArrayList<ProductModel> product_list,ArrayList<FeatureItemData> featureItemsList){
-        adapter = new ItemListAdapter(context, product_list,featureItemsList);
+    private void setAdapterItemList(ArrayList<ProductModel> product_list){
+        adapter = new ItemListAdapter(context, product_list);
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
         //recyclerView.addItemDecoration(new SpacesItemDecoration(getResources().getDimensionPixelSize(R.dimen.space)));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+    }
+
+    private void setAdapterFeatureItemGrid(ArrayList<FeatureItemData> feature_list){
+        HorizontalItemListAdapter itemGridDataAdapter = new HorizontalItemListAdapter(context, feature_list);
+        //LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recycler_grid_feature.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        //recycler_grid_feature.setLayoutManager(layoutManager);
+        recycler_grid_feature.setItemAnimator(new DefaultItemAnimator());
+        recycler_grid_feature.setAdapter(itemGridDataAdapter);
     }
 
     private void getFeatureList(Context context,FilterModel filterModel){
@@ -775,7 +814,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                 for (FeatureItemData featureItem : featureItemList) {
                     featureItemsList.add(featureItem);
                 }
-                setAdapterItemList(product_list,featureItemsList);
+                setAdapterFeatureItemGrid(featureItemsList);
                 BlueShakLog.logDebug(TAG,"getFeatureList Size --> "+featureItemsList.size());
             }
 
@@ -784,6 +823,36 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
 
             }
         },"3");
+    }
+
+    private void setFilterView(ArrayList<String> arrayList){
+        if(layoutFilterHorizontal!=null){
+            layoutFilterHorizontal.removeAllViews();
+        }
+        for(int i = 0; i < arrayList.size(); i++){
+
+            com.blueshak.app.blueshak.text.MyTextViewMediumBold textViewMediumBold = new MyTextViewMediumBold(getContext());
+            textViewMediumBold.setBackgroundResource(R.drawable.rectangle_nearest);
+            textViewMediumBold.setText(arrayList.get(i));
+            textViewMediumBold.setPadding(20,15,20,15);
+            textViewMediumBold.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+            textViewMediumBold.setTextSize(16);
+            FlexboxLayout.LayoutParams paramsFilterText = new FlexboxLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            //paramsFilterText.topMargin = 10;
+            //paramsFilterText.leftMargin = 5;
+            paramsFilterText.rightMargin = 15;
+            textViewMediumBold.setLayoutParams(paramsFilterText);
+
+            layoutFilterHorizontal.addView(textViewMediumBold);
+
+        }
+
+    }
+    private ArrayList<String> defaultFilteredList(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add(getString(R.string.item_list_fragment_for_list_result_from_nearest_new));
+        return arrayList;
     }
 }
 

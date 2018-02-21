@@ -157,4 +157,18 @@ public class BlueShakSharedPreferences {
         android.content.SharedPreferences prefs = context.getSharedPreferences(salesPreferences, Activity.MODE_PRIVATE);
         return prefs.getString(chat, "");
     }
+
+    public static void setFeaturedImage(Context context, String name) {
+        String chat = "FeatureImage";
+        android.content.SharedPreferences prefs = context.getSharedPreferences(salesPreferences, Activity.MODE_PRIVATE);
+        android.content.SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(chat, name);
+        editor.apply();
+    }
+
+    public static String getFeaturedImage(Context context) {
+        String chat = "FeatureImage";
+        android.content.SharedPreferences prefs = context.getSharedPreferences(salesPreferences, Activity.MODE_PRIVATE);
+        return prefs.getString(chat, "");
+    }
 }

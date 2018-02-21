@@ -1359,6 +1359,7 @@ public class CreateItemSaleFragment extends Fragment implements TokenCompleteTex
         Intent intent = new Intent(getActivity(),SuccessfulCreationActivity.class);
         intent.putExtra(SuccessfulCreationActivity.PRODUCTID,productId);
         intent.putExtra(SuccessfulCreationActivity.FEATURE_FAG,featureFlag);
+        intent.putExtra(SuccessfulCreationActivity.FEATURE_FIRST_IMAGE,CreateItemSaleFragment.objectUploadPhoto.getAvailablePhotos().get(0).getImage());
         startActivityForResult(intent,SuccessfulCreationActivity.SUCCESS_FEATURE);
         closeThisActivity();
 

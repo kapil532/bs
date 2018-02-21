@@ -30,9 +30,11 @@ public class SuccessfulCreationActivity extends AppCompatActivity {
     public static final int SUCCESS_FEATURE = 50;
     public static String PRODUCTID = "PRODUCTID";
     public static String FEATURE_FAG = "feature_fag";
+    public static String FEATURE_FIRST_IMAGE = "Feature_First_Image";
     private String mProductId;
     private boolean isFeaturedFlag = false;
     private Button button;
+    private String featureFirstImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class SuccessfulCreationActivity extends AppCompatActivity {
         if(bundle!=null){
             mProductId = bundle.getString(PRODUCTID);
             isFeaturedFlag = bundle.getBoolean(FEATURE_FAG);
+            featureFirstImage = bundle.getString(FEATURE_FIRST_IMAGE);
         }
 
         if(isFeaturedFlag){
@@ -66,6 +69,7 @@ public class SuccessfulCreationActivity extends AppCompatActivity {
                     Intent intent = new Intent(SuccessfulCreationActivity.this,FeatureItemPaymentActivity.class);
                     intent.putExtra(FeatureItemPaymentActivity.PRODUCTID,mProductId);
                     intent.putExtra(FeatureItemPaymentActivity.FEATURE_FAG,isFeaturedFlag);
+                    intent.putExtra(FeatureItemPaymentActivity.FEATURE_FIRST_IMAGE,featureFirstImage);
                     startActivityForResult(intent,SUCCESS_FEATURE);
                 }else{
                     finish();

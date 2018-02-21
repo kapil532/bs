@@ -6,6 +6,7 @@ import android.view.View;
 import com.blueshak.app.blueshak.base.PresenterCallBack;
 import com.blueshak.app.blueshak.home.model.FeatureItemsModel;
 import com.blueshak.app.blueshak.paypal.model.FeaturedOptionModel;
+import com.blueshak.app.blueshak.paypal.model.PayPaymentResponseModel;
 import com.blueshak.app.blueshak.services.ServerResponseInterface;
 import com.blueshak.app.blueshak.services.ServicesMethodsManager;
 import com.blueshak.app.blueshak.services.model.FilterModel;
@@ -69,8 +70,8 @@ public class ItemListPresenter {
         servicesMethodsManager.postFeatureItemPayment(context, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-                //FeaturedOptionModel featureItem = gson.fromJson(arg0.toString(), FeaturedOptionModel.class);
-                presenterCallBack.onSuccess("");
+                PayPaymentResponseModel paymentResponse = gson.fromJson(arg0.toString(), PayPaymentResponseModel.class);
+                presenterCallBack.onSuccess(paymentResponse);
             }
 
             @Override
