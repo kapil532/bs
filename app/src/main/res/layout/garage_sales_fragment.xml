@@ -48,7 +48,7 @@
 
         </LinearLayout>
 
-        <HorizontalScrollView
+        <!--<HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_5dp"
@@ -66,7 +66,7 @@
 
             </LinearLayout>
 
-        </HorizontalScrollView>
+        </HorizontalScrollView>-->
 
         <!-- <com.google.android.flexbox.FlexboxLayout
              android:id="@+id/layout_filter_flexbox"
@@ -82,19 +82,28 @@
              app:flexDirection="row"
              app:flexWrap="wrap">-->
 
-        <!--<com.blueshak.app.blueshak.text.MyTextViewMediumBold
+        <com.blueshak.app.blueshak.text.MyTextViewMediumBold
             android:id="@+id/results_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@drawable/rectangle_nearest"
-            android:padding="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="@dimen/margin_10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:text="Lowest to Highest Price"
             android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/margin_10dp"
+            android:layout_marginTop="@dimen/margin_5dp"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:layout_marginRight="@dimen/margin_10dp"
             android:textSize="@dimen/results_all_textsize"
-            android:textStyle="italic"></com.blueshak.app.blueshak.text.MyTextViewMediumBold>-->
+            android:textStyle="italic">
+
+        </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
         <!-- </com.google.android.flexbox.FlexboxLayout>-->
 
         <LinearLayout

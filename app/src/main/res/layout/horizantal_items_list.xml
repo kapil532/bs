@@ -19,28 +19,27 @@
     <RelativeLayout
         android:id="@+id/layout_main"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/product_image"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/is_sold"
-            android:layout_marginTop="5dp"
             android:layout_width="80dp"
-            android:adjustViewBounds="true"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/is_new_item"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
             android:clickable="true"
             android:gravity="center|end"
-            android:layout_below="@+id/is_new_item"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:scaleType="fitXY" />
 
         <ImageView
             android:id="@+id/img_feature"
@@ -56,7 +55,7 @@
             android:scaleType="fitXY" />
 
         <LinearLayout
-            android:layout_width="180dp"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/product_image"
             android:layout_marginTop="10dp"
@@ -72,11 +71,11 @@
                 android:layout_alignParentRight="true"
                 android:layout_toEndOf="@+id/profile_pic"
                 android:layout_toRightOf="@+id/profile_pic"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="Feature Item test"
                 android:textColor="@color/brand_text_color"
                 android:textSize="20sp"
-                android:text="Feature Item test"
-                android:singleLine="true"
-                android:gravity="center"
                 android:textStyle="bold">
 
             </com.blueshak.app.blueshak.text.MyTextViewMediumBold>

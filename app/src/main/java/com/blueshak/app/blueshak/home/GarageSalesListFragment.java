@@ -104,7 +104,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.sales_list_item_fragment, container, false);
+        View view = inflater.inflate(R.layout.garage_sales_fragment, container, false);
         try{
             progress_bar=(ProgressBar)view.findViewById(R.id.progress_bar);
             context= getActivity();
@@ -548,7 +548,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
         }
     }
     private void getAddressFromLatLng(final String lat,final String lng){
-        showProgressBar();
+        /*showProgressBar();*/
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getAddress(activity,Double.parseDouble(lat),Double.parseDouble(lng), new ServerResponseInterface() {
             @Override
