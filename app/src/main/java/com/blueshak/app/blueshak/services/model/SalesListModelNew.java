@@ -15,7 +15,7 @@ public class SalesListModelNew implements Serializable {
             TOTAL = "total",
             PER_PAGE = "per_page",
             CURRENT_PAGE = "current_page",
-            LAST_PAGE = "last_page",
+            LAST_PAGE = "feature_last_page",
             NEXT_PAGE_URL = "next_page_url",
             PREV_PAGE_URL = "prev_page_url",
             FROM = "from",

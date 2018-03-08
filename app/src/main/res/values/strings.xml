@@ -157,5 +157,6 @@
     <string name="error_message">An error occurred. Check your internet connection and try again.</string>
     <string name="payment_id_empty">Can\'t able to pay becasue item product_id is missing. Try again to create this item.</string>
     <string name="option_selection">For feature your item, select any of the option.</string>
+    <string name="only_free_items">Only Free Items</string>
 
 </resources>

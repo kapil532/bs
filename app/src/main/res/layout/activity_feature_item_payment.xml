@@ -72,16 +72,15 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/margin_5dp"
                 android:layout_marginTop="@dimen/margin_10dp"
-                android:gravity="center">
+                android:gravity="center|left">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/icon_feature" />
+                    android:src="@drawable/icon_feature_updated" />
 
                 <com.blueshak.app.blueshak.text.MyTextView
                     android:id="@+id/pd_salepricetype11"

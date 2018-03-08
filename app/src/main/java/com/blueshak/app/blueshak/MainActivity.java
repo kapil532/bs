@@ -161,11 +161,13 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
                                         is_list =false;
                                     }
                                     if (!is_list) {
+                                        ItemListFragmentForList.iFeature_current_page_increment = 0;
                                         ItemListFragmentForList itemListFragment = ItemListFragmentForList.newInstance(new SalesListModel(), GlobalVariables.TYPE_MULTIPLE_ITEMS, filterModel, locationModel);
                                         mainActivityFM.beginTransaction().replace(R.id.container, itemListFragment, "").commit();
                                        // is_list = true;
                                         grid.setImageResource(R.drawable.ic_grid);
                                     } else {
+                                        ItemListFragmentForList.iFeature_current_page_increment = 0;
                                         ItemListFragment itemListFragment = ItemListFragment.newInstance(new SalesListModel(), GlobalVariables.TYPE_MULTIPLE_ITEMS, filterModel, locationModel);
                                         mainActivityFM.beginTransaction().replace(R.id.container, itemListFragment, "").commit();
                                        // is_list = false;
@@ -225,6 +227,7 @@ public class MainActivity extends PushActivity implements LocationListener, Mess
            /* mBottomBar.makeBadgeForTabAt(3,mainContext.getResources().getColor(R.color.brandColor),2);*/
             mBottomBar.setBackgroundColor(mainContext.getResources().getColor(R.color.bottom_bar_background_color));
             mBottomBar.setActiveTabColor(mainContext.getResources().getColor(R.color.brandColor));
+
            /* View menuItemRefresh = mBottomBar.findViewById(R.id.list);
             menuItemRefresh.setBackgroundResource(R.drawable.ic_bt_add3x);*/
             // Use custom typeface that's located at the "/src/main/assets" directory. If using with

@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -65,7 +66,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ItemListFragment extends Fragment implements LocationListener/*,onFilterChange*/ , SwipeRefreshLayout.OnRefreshListener{
+public class ItemListFragment extends Fragment implements LocationListener/*,onFilterChange*/ , SwipeRefreshLayout.OnRefreshListener,FeatureItemLoadMore{
 
     public static  boolean listOrGrid=false;
     public static final String TAG = "ItemListFragment";
@@ -97,15 +98,20 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
     private String Sydney_latitude="-33.8688196";
     private String Sydney_longitude="151.2092955";
     private  EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
+    private EndlessRecyclerOnScrollListenerForList endlessRecyclerOnScrollListFeature;
     int minPriceValue=0, maxPriceValue=GlobalVariables.PRICE_MAX_VALUE, minDistanceValue=0, maxDistanceValue=GlobalVariables.DISTANCE_MAX_VALUE;
     private ProgressBar progress_bar;
     private TextView searchViewResult;
     private ImageView go_to_filter;
     private ArrayList<FeatureItemData> featureItemsList = new ArrayList<FeatureItemData>();
     private StaggeredGridLayoutManager gridLayoutManager;
+    private LinearLayoutManager layoutManager;
     private LinearLayout layoutFilterHorizontal;
     private LinearLayout layout_feature;
     private RecyclerView recycler_grid_feature;
+
+    public static int iFeatureTake = 5;
+    private HorizontalItemListAdapter horizontalAdapter;
 
     public static ItemListFragment newInstance(SalesListModel salesListModel, String type,FilterModel filterModel,LocationModel locationModel){
         ItemListFragment saleFragment = new ItemListFragment();
@@ -123,6 +129,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
    /* LinearLayout header_content;*/
     private Handler handler=new Handler();
     private View view;
+    private LinearLayout layout_feature_header;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -160,6 +167,8 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
             layoutFilterHorizontal = (LinearLayout) view.findViewById(R.id.layout_filter_horizontal);
             layout_feature = (LinearLayout)view.findViewById(R.id.feature_layout);
             recycler_grid_feature = (RecyclerView)view.findViewById(R.id.recycler_grid_feature);
+            layout_feature_header = (LinearLayout)view.findViewById(R.id.layout_feature_header);
+
             /*searchViewResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -203,7 +212,6 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
             locationModel = (LocationModel) getArguments().getSerializable(LOCATION_MODEL);
             model = (FilterModel) getArguments().getSerializable(SALE_FILTER);
             salesListModel = (SalesListModel) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
-
             if(model==null)
             {
                 model=new FilterModel();
@@ -318,21 +326,34 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
             endlessRecyclerOnScrollListener=new EndlessRecyclerOnScrollListener(gridLayoutManager) {
                 @Override
                 public void onLoadMore(int current_page) {
-                    Log.d(TAG,"############onLoadMore###############"+current_page+"last_page########"+last_page);
+                    BlueShakLog.logDebug(TAG,"onLoadMore current_page -> "+current_page+"\nlast_page -> "+last_page);
                     if(!(current_page>last_page)){
                       /*  adapter.showLoading(true);*/
                         model.setPage(current_page);
+                        getFeatureList(context, model,String.valueOf(iFeatureTake),false);
                         getItemLists(context,model);
                     }else{
                         /*adapter.showLoading(false);*/
                     }
                 }
             };
-
-
-
-
             recyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
+
+            /*endlessRecyclerOnScrollListFeature = new EndlessRecyclerOnScrollListenerForList(layoutManager) {
+                @Override
+                public void onLoadMore(int current_page) {
+                    if (!(current_page > feature_last_page)) {
+                        feature_current_page = current_page;
+                        model.setFeature_page(current_page);
+                        //model.setPage(current_page);
+                        getFeatureList(context, model);
+                        //iLoadMore.onLoadMoreItems(current_page);
+                        //BlueShakLog.logDebug(TAG," Feature feature_current_page more-> "+feature_current_page);
+                    }
+                }
+            };
+            recycler_grid_feature.addOnScrollListener(endlessRecyclerOnScrollListFeature);*/
+
             location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -393,7 +414,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
     @Override
     public void onResume() {
      /*   endlessRecyclerOnScrollListener.reset(0, true);
-        last_page=0;*/
+        feature_last_page=0;*/
         MainActivity.setTitle(getString(R.string.item),0);
         super.onResume();
     }
@@ -410,7 +431,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
         if(when_open_the_app){
             Log.d(TAG,"######when_open_the_app###########");
             if(locServices!=null)
-                getFeatureList(context, model);
+                //getFeatureList(context, model,itemGridDataAdapter);
                 setCountry(context,locServices.getLatitude(),locServices.getLongitude());
         }else{
             Log.d(TAG,"######from the Filter or Current Location###########");
@@ -448,6 +469,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                         Log.d("http"," http://dev.blueshak.com/api"+detail.is_current_country());
                     }
                     model.setPage(1);
+                    getFeatureList(context, model,String.valueOf(iFeatureTake),false);
                     getItemLists(context,model);
                 }
         }
@@ -501,6 +523,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
         servicesMethodsManager.getHomeList(context, filterModel, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
+                //layout_feature_header.setVisibility(View.VISIBLE);
                 swipeRefreshLayout.setRefreshing(false);
                 itemListModel = (HomeListModel) arg0;
                 String str = itemListModel.toString();
@@ -562,6 +585,21 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
     public void onLocationChanged(Location location) {
     }
 
+    @Override
+    public void onLoadMoreItems(int current_page) {
+        model.setFeature_page(current_page);
+        ItemListFragmentForList.iFeature_current_page_increment = current_page;
+        BlueShakLog.logDebug(TAG,"onLoadMoreItems current_page ------>"+current_page);
+        getFeatureList(context, model,String.valueOf(iFeatureTake),true);
+    }
+
+    @Override
+    public void onLoadMoreFeatureItems(int current_page) {
+        model.setFeature_page(current_page);
+        ItemListFragmentForList.iFeature_current_page_increment = current_page;
+        BlueShakLog.logDebug(TAG,"onLoadMoreItems current_page ------>"+current_page);
+        getFeatureList(context, model,String.valueOf(iFeatureTake),true);
+    }
 
     public abstract class MyScrollListener extends RecyclerView.OnScrollListener {
         private int toolbarOffset = 0;
@@ -758,6 +796,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                         }
                         model.setCurrent_country_code(locationModel.getCountry_code());
                         model.setIs_current_country(true);
+                        getFeatureList(context, model,String.valueOf(iFeatureTake),false);
                         getItemLists(context,model);
                         when_open_the_app=false;
                     }else {
@@ -787,34 +826,50 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
     }
 
     private void setAdapterItemList(ArrayList<ProductModel> product_list){
-        adapter = new ItemListAdapter(context, product_list);
+        adapter = new ItemListAdapter(context, product_list,this);
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
         //recyclerView.addItemDecoration(new SpacesItemDecoration(getResources().getDimensionPixelSize(R.dimen.space)));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
     }
 
     private void setAdapterFeatureItemGrid(ArrayList<FeatureItemData> feature_list){
-        HorizontalItemListAdapter itemGridDataAdapter = new HorizontalItemListAdapter(context, feature_list);
-        //LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recycler_grid_feature.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        horizontalAdapter = new HorizontalItemListAdapter(context, feature_list,model,this);
+        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        recycler_grid_feature.setLayoutManager(layoutManager);
+        recycler_grid_feature.setNestedScrollingEnabled(false);
         //recycler_grid_feature.setLayoutManager(layoutManager);
         recycler_grid_feature.setItemAnimator(new DefaultItemAnimator());
-        recycler_grid_feature.setAdapter(itemGridDataAdapter);
+        recycler_grid_feature.setAdapter(horizontalAdapter);
     }
 
-    private void getFeatureList(Context context,FilterModel filterModel){
+    private void getFeatureList(Context context, FilterModel filterModel, String take, final boolean isMore){
         ItemListPresenter itemListPresenter = new ItemListPresenter();
         itemListPresenter.getFeatureItemLists(context, filterModel, new PresenterCallBack<FeatureItemsModel>() {
             @Override
             public void onSuccess(FeatureItemsModel object) {
-                featureItemsList.clear();
+               // featureItemsList.clear();
+                ItemListFragmentForList.iFeature_last_page = object.getLast_page();
+                ItemListFragmentForList.iFeature_current_page = object.getCurrent_page();
                 FeatureItemData[] featureItemList =  object.getData();
                 for (FeatureItemData featureItem : featureItemList) {
                     featureItemsList.add(featureItem);
                 }
-                setAdapterFeatureItemGrid(featureItemsList);
+                ItemListFragmentForList.iFeatureListSize = featureItemsList.size();
+                if(featureItemsList!=null && featureItemsList.size() > 0){
+                    layout_feature_header.setVisibility(View.VISIBLE);
+                    if(isMore){
+                        horizontalAdapter.notifyDataSetChanged();
+                    }else{
+                        setAdapterFeatureItemGrid(featureItemsList);
+                    }
+
+                }else{
+                    layout_feature_header.setVisibility(View.GONE);
+                }
+
                 BlueShakLog.logDebug(TAG,"getFeatureList Size --> "+featureItemsList.size());
             }
 
@@ -822,7 +877,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
             public void onFailure() {
 
             }
-        },"3");
+        },take);
     }
 
     private void setFilterView(ArrayList<String> arrayList){
@@ -840,7 +895,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
             FlexboxLayout.LayoutParams paramsFilterText = new FlexboxLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             //paramsFilterText.topMargin = 10;
-            //paramsFilterText.leftMargin = 5;
+            paramsFilterText.leftMargin = 20;
             paramsFilterText.rightMargin = 15;
             textViewMediumBold.setLayoutParams(paramsFilterText);
 
@@ -854,5 +909,7 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
         arrayList.add(getString(R.string.item_list_fragment_for_list_result_from_nearest_new));
         return arrayList;
     }
+
+
 }
 

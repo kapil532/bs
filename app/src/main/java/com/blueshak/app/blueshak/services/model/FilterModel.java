@@ -35,12 +35,13 @@ public class FilterModel implements Serializable {
             CURRENT_COUNTRY_CODE = "current_country_code",
             CATEGORIES = "categories",
             NEW_ITEMS = "new_items",
+            FREE_ITEMS = "only_free_items",
             NEGOTIABLE_ITEMS = "negotiable_items",
             SOURCE = "source",
             TAKE = "take";
 
-    String latitude =/* GlobalVariables.Sydney_latitude*/null;
-    String longitude = /* GlobalVariables.Sydney_longitude*/null;
+    String latitude =/* GlobalVariables.Sydney_latitude*/"0.0";
+    String longitude = /* GlobalVariables.Sydney_longitude*/"0.0";
 
     public String getResults_text() {
         return results_text;
@@ -87,6 +88,16 @@ public class FilterModel implements Serializable {
 
     int page = 1;
 
+    public int getFeature_page() {
+        return feature_page;
+    }
+
+    public void setFeature_page(int feature_page) {
+        this.feature_page = feature_page;
+    }
+
+    int feature_page = 1;
+
     public int getPage() {
         return page;
     }
@@ -124,6 +135,14 @@ public class FilterModel implements Serializable {
         this.new_items = new_items;
     }
 
+    public boolean isFreeItems() {
+        return free_items;
+    }
+
+    public void setFreeItems(boolean free_items) {
+        this.free_items = free_items;
+    }
+
     public boolean isNegotiable_items() {
         return negotiable_items;
     }
@@ -137,6 +156,7 @@ public class FilterModel implements Serializable {
     boolean price_l_2_h = false;
     boolean garage_items = false;
     boolean new_items = false;
+    boolean free_items = false;
     boolean negotiable_items = false;
 
     public boolean isPrice_l_2_h() {
@@ -431,6 +451,19 @@ public class FilterModel implements Serializable {
             } else {
                 new_items = false;
             }
+
+            temp = 0;
+            try {
+                temp = json.getInt(FREE_ITEMS);
+            } catch (Exception e) {
+                temp = 0;
+            }
+            if (temp > 0) {
+                free_items = true;
+            } else {
+                free_items = false;
+            }
+
             temp = 0;
             try {
                 temp = json.getInt(NEGOTIABLE_ITEMS);
@@ -522,6 +555,15 @@ public class FilterModel implements Serializable {
                 temp = "0";
             }
             jsonMain.put(NEW_ITEMS, temp);
+
+            temp = "0";
+            if (free_items) {
+                temp = "1";
+            } else {
+                temp = "0";
+            }
+            jsonMain.put(FREE_ITEMS, temp);
+
             temp = "0";
             if (sortByRecent) {
                 temp = "1";

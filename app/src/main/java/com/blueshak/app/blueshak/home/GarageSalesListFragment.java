@@ -160,8 +160,8 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                 @Override
                 public void onLoadMore(int current_page) {
                     Log.d(TAG,"####onLoadMore#####"+current_page);
-                    if(!(current_page>last_page)){
-                        Log.d(TAG,"#####addOnScrollListener############"+last_page);
+                    if(!(current_page>feature_last_page)){
+                        Log.d(TAG,"#####addOnScrollListener############"+feature_last_page);
                         adapter.showLoading(true);
                         model.setPage(current_page);
                         getLists(context,model);

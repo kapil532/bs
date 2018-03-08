@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.blueshak.app.blueshak.garage.CreateItemSaleFragment;
 import com.blueshak.app.blueshak.garage.Utils;
+import com.blueshak.app.blueshak.home.ItemListAdapterForList;
+import com.blueshak.app.blueshak.home.ItemListFragmentForList;
 import com.blueshak.app.blueshak.services.model.AskModel;
 import com.blueshak.app.blueshak.services.model.CurrencyListModel;
 import com.blueshak.app.blueshak.services.model.VerifyAliasModel;
@@ -140,7 +142,7 @@ public class ServicesMethodsManager {
                 URL += "?" + params;
             }
         }
-        Log.d(TAG,URL);
+        BlueShakLog.logDebug(TAG, "getHomeList Request URL  -> " + URL);
         VolleyServices request = new VolleyServices();
         request.setCallbacks(new VolleyServices.ResposeCallBack() {
             @Override
@@ -920,7 +922,6 @@ public class ServicesMethodsManager {
             param += "&" + FilterModel.CATEGORIES + "=" + filterModel.getCategories();*/
        /* param += "&" + FilterModel.ZIPCODE + "=" + filterModel.getZipcode();*/
         String param = getParams(context,filterModel,null,null);
-        BlueShakLog.logDebug(TAG, "getHomeList Request URL param -> " + param);
         getData(context, new HomeListModel(), ServerConstants.URL_getItemList, param, TAG);
     }
 
@@ -1323,7 +1324,7 @@ public class ServicesMethodsManager {
         if (filterModel.isDistance_enabled()) {
             param += "&" + FilterModel.RANGE + "=" + filterModel.getRange();
         }
-        param += "&" + FilterModel.PAGE + "=" + filterModel.getPage();
+
         param += "&" + FilterModel.TYPE + "=" + filterModel.getType();
         if (filterModel.isSortByRecent()) {
             param += "&" + FilterModel.SORT_BY_RECENT + "=" + (filterModel.isSortByRecent() ? 1 : 0);
@@ -1355,6 +1356,10 @@ public class ServicesMethodsManager {
         if (filterModel.isNew_items()) {
             param += "&" + FilterModel.NEW_ITEMS + "=" + (filterModel.isNew_items() ? 1 : 0);
         }
+        if (filterModel.isFreeItems()) {
+            param += "&" + FilterModel.FREE_ITEMS + "=" + (filterModel.isFreeItems() ? 1 : 0);
+        }
+
         if (!TextUtils.isEmpty(filterModel.getCategories())) {
             param += "&" + FilterModel.CATEGORIES + "=" + filterModel.getCategories();
         }
@@ -1362,7 +1367,11 @@ public class ServicesMethodsManager {
             param += "&" + FilterModel.SOURCE + "=" + source;
         }
         if(take!=null){
+            //if(filterModel.getFeature_page()!=null)
+            param += "&" + FilterModel.PAGE + "=" + ItemListFragmentForList.iFeature_current_page_increment;
             param += "&" + FilterModel.TAKE + "=" + take;
+        }else{
+            param += "&" + FilterModel.PAGE + "=" + filterModel.getPage();
         }
         return param;
     }
@@ -1378,6 +1387,7 @@ public class ServicesMethodsManager {
                 URL += "?" + params;
             }
         }
+        BlueShakLog.logDebug(TAG,URL);
         VolleyServices request = new VolleyServices();
         request.setCallbacks(new VolleyServices.ResposeCallBack() {
             @Override

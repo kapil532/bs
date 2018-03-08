@@ -75,13 +75,18 @@
 
         </LinearLayout>
         <!--android:background="#DCDCDC"-->
-        <ScrollView
+        <!--<ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent">-->
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -107,22 +112,77 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/feature_layout"
+                    android:id="@+id/layout_feature_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:id="@+id/feature_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                            android:id="@+id/txt_feature_items"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:maxLines="1"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/feature_items"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/results_all_textsize"
+                            android:textStyle="italic">
+
+                        </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+
+                        <LinearLayout
+                            android:id="@+id/feature_line"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/dark_gray"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_grid_feature"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:background="@color/brand_background_color"
+                            android:clipToPadding="false"
+                            android:dividerHeight="7dp"
+                            android:paddingBottom="10dp"
+                            android:paddingRight="5dp"
+                            android:scrollbars="none" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/feature_below_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="@color/dark_gray"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
 
                     <com.blueshak.app.blueshak.text.MyTextViewMediumBold
-                        android:id="@+id/txt_feature_items"
+                        android:id="@+id/txt_seller_items"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
                         android:maxLines="1"
+                        android:padding="10dp"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/feature_items"
+                        android:text="@string/seller_items"
                         android:textColor="@color/black"
                         android:textSize="@dimen/results_all_textsize"
                         android:textStyle="italic">
@@ -130,62 +190,14 @@
                     </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
 
                     <LinearLayout
-                        android:id="@+id/feature_line"
+                        android:id="@+id/seller_line"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="10dp"
                         android:background="@color/dark_gray"
                         android:orientation="vertical">
 
                     </LinearLayout>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_grid_feature"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:background="@color/brand_background_color"
-                        android:clipToPadding="false"
-                        android:dividerHeight="7dp"
-                        android:paddingBottom="10dp"
-                        android:paddingRight="5dp"
-                        android:scrollbars="none" />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/feature_below_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:background="@color/dark_gray"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <com.blueshak.app.blueshak.text.MyTextViewMediumBold
-                    android:id="@+id/txt_seller_items"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:maxLines="1"
-                    android:padding="10dp"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:text="@string/seller_items"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/results_all_textsize"
-                    android:textStyle="italic">
-
-                </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
-
-                <LinearLayout
-                    android:id="@+id/seller_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/dark_gray"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -242,6 +254,7 @@
 
                 </RelativeLayout>
             </LinearLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
+        <!--</ScrollView>-->
     </LinearLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

@@ -31,6 +31,7 @@
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textSize="@dimen/results_all_textsize"
+            android:visibility="gone"
             android:textStyle="italic">
 
         </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
@@ -41,6 +42,7 @@
             android:layout_height="1dp"
             android:orientation="vertical"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             android:background="@color/dark_gray">
 
         </LinearLayout>
@@ -53,6 +55,7 @@
             android:clipToPadding="false"
             android:dividerHeight="7dp"
             android:paddingBottom="10dp"
+            android:visibility="gone"
             android:layout_marginLeft="5dp"
             android:paddingRight="5dp"
             android:scrollbars="none" />
@@ -61,6 +64,7 @@
             android:id="@+id/feature_below_line"
             android:layout_width="match_parent"
             android:layout_height="5dp"
+            android:visibility="gone"
             android:background="@color/dark_gray"
             android:orientation="vertical">
 
@@ -78,6 +82,7 @@
             android:text="@string/seller_items"
             android:textColor="@color/black"
             android:textSize="@dimen/results_all_textsize"
+            android:visibility="gone"
             android:textStyle="italic">
 
         </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
@@ -86,6 +91,7 @@
             android:id="@+id/seller_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:orientation="vertical"
             android:background="@color/dark_gray">
 

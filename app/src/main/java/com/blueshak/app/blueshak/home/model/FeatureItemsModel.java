@@ -22,7 +22,7 @@ public class FeatureItemsModel {
 
     private String prev_page_url;
 
-    private String current_page;
+    private int current_page;
 
     public String getTo() {
         return to;
@@ -88,17 +88,17 @@ public class FeatureItemsModel {
         this.prev_page_url = prev_page_url;
     }
 
-    public String getCurrent_page() {
+    public int getCurrent_page() {
         return current_page;
     }
 
-    public void setCurrent_page(String current_page) {
+    public void setCurrent_page(int current_page) {
         this.current_page = current_page;
     }
 
     @Override
     public String toString() {
-        return "ClassPojo [to = " + to + ", next_page_url = " + next_page_url + ", last_page = " + last_page + ", total = "
+        return "ClassPojo [to = " + to + ", next_page_url = " + next_page_url + ", feature_last_page = " + last_page + ", total = "
                 + total + ", per_page = " + per_page + ", data = " + data + ", from = " + from + ", prev_page_url = "
                 + prev_page_url + ", current_page = " + current_page + "]";
     }

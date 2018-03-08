@@ -95,7 +95,11 @@ public class BoomarkItemListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 holder.is_sold.setVisibility(View.VISIBLE);
                 holder.is_featured.setVisibility(View.GONE);
                 holder.is_sold.setImageResource(R.drawable.ic_new);
-            } else if (!obj.isAvailable()) {
+            }else if (!obj.isAvailable() && obj.isIs_featured()) {
+                holder.is_sold.setVisibility(View.VISIBLE);
+                holder.is_featured.setVisibility(View.GONE);
+                holder.is_sold.setImageResource(R.drawable.ic_sold);
+            }else if (!obj.isAvailable()) {
                 holder.is_sold.setVisibility(View.VISIBLE);
                 holder.is_featured.setVisibility(View.GONE);
                 holder.is_sold.setImageResource(R.drawable.ic_sold);

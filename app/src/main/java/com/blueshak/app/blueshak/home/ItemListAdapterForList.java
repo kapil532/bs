@@ -2,6 +2,7 @@ package com.blueshak.app.blueshak.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextPaint;
@@ -17,8 +18,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blueshak.app.blueshak.base.PresenterCallBack;
 import com.blueshak.app.blueshak.home.adapter.HorizontalItemListAdapter;
 import com.blueshak.app.blueshak.home.model.FeatureItemData;
+import com.blueshak.app.blueshak.home.model.FeatureItemsModel;
+import com.blueshak.app.blueshak.home.presenter.ItemListPresenter;
+import com.blueshak.app.blueshak.services.model.FilterModel;
+import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.blueshak.app.blueshak.global.GlobalFunctions;
 import com.blueshak.app.blueshak.global.GlobalVariables;
@@ -44,14 +50,17 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
     public static final String TAG = "ItemListAdapter";
     private Context context;
     private List<ProductModel> albumList;
-    private List<FeatureItemData> featureItemList;
+    public ArrayList<FeatureItemData> featureItemList;
     protected boolean showLoader;
     private static final int VIEWTYPE_ITEM = 1;
     private static final int VIEWTYPE_LOADER = 2;
     public String item_address;
     private EndlessRecyclerOnScrollListenerForList endlessRecyclerOnScrollListener;
     private FeatureItemLoadMore iLoadMore;
-    public static int last_page = 0;
+    private Handler handler = new Handler();
+    private FilterModel filterModel;
+    private HorizontalItemListAdapter itemListDataAdapter;
+   // public static boolean isFeatureItemLoaded = false;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         protected TextView item_price, item_name, item_location, shipping_type;
@@ -99,13 +108,14 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
         }
     }
 
-    public ItemListAdapterForList(Context mContext, List<ProductModel> albumList,List<FeatureItemData> featureItemList,
+    public ItemListAdapterForList(Context mContext,FilterModel filterModel, List<ProductModel> albumList,
                                   FeatureItemLoadMore iLoadMore) {
         this.context = mContext;
         this.albumList = albumList;
-        this.featureItemList = featureItemList;
+        //this.featureItemList = featureItemList;
         this.item_address = GlobalFunctions.getSharedPreferenceString(mContext, GlobalVariables.CURRENT_LOCATION);
         this.iLoadMore = iLoadMore;
+        this.filterModel = filterModel;
      /*   imgLoader = new ImageLoader(mContext);*/
 
 
@@ -135,40 +145,12 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                 final MyViewHolder holder = (MyViewHolder) view_holder;
               /*  final ProductModel obj = albumList.get(position-1);*/
                 final ProductModel obj = albumList.get(position);
-                if(position==0){
-                    if(featureItemList!=null && featureItemList.size() > 0){
-                        holder.horizontalRecyclerView.setVisibility(View.VISIBLE);
-                        holder.txt_feature_items.setVisibility(View.VISIBLE);
-                        holder.txt_seller_items.setVisibility(View.VISIBLE);
-                        holder.feature_line.setVisibility(View.VISIBLE);
-                        holder.seller_line.setVisibility(View.VISIBLE);
-                        HorizontalItemListAdapter itemListDataAdapter = new HorizontalItemListAdapter(context, featureItemList);
-                        holder.horizontalRecyclerView.setHasFixedSize(true);
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-                        holder.horizontalRecyclerView.setLayoutManager(layoutManager);
-                        holder.horizontalRecyclerView.setAdapter(itemListDataAdapter);
-                        holder.feature_below_line.setVisibility(View.VISIBLE);
 
-                        /*endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListenerForList(layoutManager) {
-                            @Override
-                            public void onLoadMore(int current_page) {
-                                if (!(current_page > last_page)) {
-                                    //getItemLists(context, model);
-                                    iLoadMore.onLoadMoreItems(current_page);
-                                }
-                            }
-                        };
-                        holder.horizontalRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);*/
-
-                    }else{
-                        setVisible(holder);
-                        holder.txt_seller_items.setVisibility(View.VISIBLE);
-                        holder.seller_line.setVisibility(View.VISIBLE);
-                    }
-
-                }else{
-                    setVisible(holder);
-                }
+               /* if(position == ItemListFragmentForList.iListSize
+                        && ItemListFragmentForList.last_page >= ItemListFragmentForList.iCurrentPage){
+                    BlueShakLog.logDebug(TAG,"onLoadMore position "+position);
+                    iLoadMore.onLoadMoreItems(ItemListFragmentForList.iCurrentPage+1);
+                }*/
 
                 holder.item_name.setText(obj.getName());
 
@@ -209,6 +191,10 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                     holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_featured.setVisibility(View.GONE);
                     holder.is_sold.setImageResource(R.drawable.ic_new);
+                }else if (!obj.isAvailable() && obj.isIs_featured()) {
+                    holder.is_sold.setVisibility(View.VISIBLE);
+                    holder.is_featured.setVisibility(View.GONE);
+                    holder.is_sold.setImageResource(R.drawable.ic_sold);
                 }else if(!obj.isAvailable()){
                     holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_featured.setVisibility(View.GONE);
@@ -226,10 +212,10 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
                     holder.is_featured.setVisibility(View.GONE);
                 }
 
-                if (obj.is_garage_item())
+               /* if (obj.is_garage_item())
                     holder.is_garage.setVisibility(View.VISIBLE);
                 else
-                    holder.is_garage.setVisibility(View.GONE);
+                    holder.is_garage.setVisibility(View.GONE);*/
 
                 holder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -300,10 +286,18 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
         holder.seller_line.setVisibility(View.GONE);
     }
 
+
+
     @Override
     public int getItemCount() {
-        return albumList.size();
+        if(albumList!=null){
+            return albumList.size();
+        }else{
+            return 0;
+        }
     }
+
+
 
     @Override
     public void onPageScrolled(int i, float v, int i1) {
@@ -454,14 +448,18 @@ public class ItemListAdapterForList extends RecyclerView.Adapter<RecyclerView.Vi
 
         // loader can't be at position 0
         // loader can only be at the last position
-        if (position != 0 && position == getItemCount() - 1) {
+       /* if (position != 0 && position == getItemCount() - 1) {
             return VIEWTYPE_LOADER;
         }
 
-        return VIEWTYPE_ITEM;
+        return VIEWTYPE_ITEM;*/
+
+        return position;
     }
 
     public void showLoading(boolean status) {
         showLoader = status;
     }
+
+
 }

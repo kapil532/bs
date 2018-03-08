@@ -313,7 +313,7 @@ public class SearchActivity extends RootActivity implements LocationListener,Swi
                         }
                     }).show();
         }else{
-            last_page=1;
+            feature_last_page=1;
             setThisPage();
         }*/
 

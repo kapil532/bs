@@ -138,10 +138,11 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     holder.item_location.setText(obj.getAddress());
                 else
                     holder.item_location.setVisibility(View.GONE);
-                if (obj.is_garage_item())
+
+                /*if (obj.is_garage_item())
                     holder.is_garage.setVisibility(View.VISIBLE);
                 else
-                    holder.is_garage.setVisibility(View.GONE);
+                    holder.is_garage.setVisibility(View.GONE);*/
 
                 if (obj.is_bookmark())
                     holder.favarite.setImageResource(R.drawable.like_full);
@@ -163,7 +164,11 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_featured.setVisibility(View.GONE);
                     holder.is_sold.setImageResource(R.drawable.ic_new);
-                } else if (!obj.isAvailable()) {
+                }else if (!obj.isAvailable() && obj.isIs_featured()) {
+                    holder.is_sold.setVisibility(View.VISIBLE);
+                    holder.is_featured.setVisibility(View.GONE);
+                    holder.is_sold.setImageResource(R.drawable.ic_sold);
+                }else if (!obj.isAvailable()) {
                     holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_featured.setVisibility(View.GONE);
                     holder.is_sold.setImageResource(R.drawable.ic_sold);

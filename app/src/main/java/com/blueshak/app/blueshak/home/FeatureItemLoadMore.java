@@ -5,5 +5,6 @@ package com.blueshak.app.blueshak.home;
  */
 
 public interface FeatureItemLoadMore {
+    void onLoadMoreFeatureItems(int position);
     void onLoadMoreItems(int position);
 }

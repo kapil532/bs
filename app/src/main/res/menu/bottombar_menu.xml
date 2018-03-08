@@ -11,8 +11,8 @@
         <!--android:title="Search" />-->
     <item
         android:id="@+id/garage"
-        android:icon="@drawable/ic_garage_off"
-        android:title="Sales" />
+        android:icon="@drawable/seller_icon_unselected"
+        android:title="Seller" />
 
     <item
         android:id="@+id/list"
@@ -31,5 +31,7 @@
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_profile_off"
+
         android:title="Profile" />
+
 </menu>

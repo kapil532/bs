@@ -1,4 +1,5 @@
 package com.blueshak.app.blueshak.item;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
@@ -104,45 +105,46 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ProductDetail extends RootActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener , LocationListener {
+public class ProductDetail extends RootActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, LocationListener {
     private static final String TAG = "ProductDetail";
-    private static final String  PRODUCTDETAIL_BUNDLE_KEY_POSITION = "ProductModelWithDetails";
-    private static final String  PRODUCTDETAIL_BUNDLE_KEY_FLAG = "ProductModelWithFlag";
-    private static final String  SELL_MODEL = "sellmodel";
+    private static final String PRODUCTDETAIL_BUNDLE_KEY_POSITION = "ProductModelWithDetails";
+    private static final String PRODUCTDETAIL_BUNDLE_KEY_FLAG = "ProductModelWithFlag";
+    private static final String FEATURE_PRODUCT_ID = "FeatureProductId";
+    private static final String SELL_MODEL = "sellmodel";
     private Toolbar toolbar;
     private ActionBar actionBar;
     private ProgressActivity progressActivity;
     public static ProductModel productModel = new ProductModel();
     private CategoryListModel categoriesModels = null;
-    private TextView sold,listing,estda, shipping_aud,product_condition,tab1,tab2,title,similarListing_label,sale_name_tv,sale_items_tv, sale_date_tv,sale_distance_tv,sale_time,close_button, read_reviews,pd_nagotiable,view_offers,image_counts,brand_new,location,pick_up_name,shippable_sale_name,garage_icon_name,item_seller_name,product_name,garage_sale_name,productName_tv, rating_count,product_retail_price, availability_tv, shipable_tv, negotabile_tv, inappropirate_tv, date_tv, category_tv, productDescriptionDetail_tv;
-    private ImageView bookmark,go_to_review_ratings;
+    private TextView sold, listing, estda, shipping_aud, product_condition, tab1, tab2, title, similarListing_label, sale_name_tv, sale_items_tv, sale_date_tv, sale_distance_tv, sale_time, close_button, read_reviews, pd_nagotiable, view_offers, image_counts, brand_new, location, pick_up_name, shippable_sale_name, garage_icon_name, item_seller_name, product_name, garage_sale_name, productName_tv, rating_count, product_retail_price, availability_tv, shipable_tv, negotabile_tv, inappropirate_tv, date_tv, category_tv, productDescriptionDetail_tv;
+    private ImageView bookmark, go_to_review_ratings;
     private Button report_listing;
-    private Button messageButton,make_offer,edit;
-    private LinearLayout item_for_sale_listing_tab,listing_tab,item_content,garage_content,pick_up_content,garage_icon_content, shippable_content,profile_content,tap_offer_extra_layout, inappropirate_layout,bottom_bar,category_content;
-    private Handler handler=new Handler();
+    private Button messageButton, make_offer, edit;
+    private LinearLayout item_for_sale_listing_tab, listing_tab, item_content, garage_content, pick_up_content, garage_icon_content, shippable_content, profile_content, tap_offer_extra_layout, inappropirate_layout, bottom_bar, category_content;
+    private Handler handler = new Handler();
     private ImageView go_back;
-    private static boolean active=false;
-    private  boolean  self_user=false,is_sale=false;
+    private static boolean active = false;
+    private boolean self_user = false, is_sale = false;
     private SliderLayout mProductSlider;
     private RoundedImageView seller_image;
     private Context context;
     public static Activity activity;
     public Window window;
     private FragmentManager fragmentManager;
-    private String seller_phone_number=null;
-    private String seller_name=null;
-    private String seller_profile_image=null;
-    private String product_image=null;
-    private String seller_user_id=null,item_name=null,item_price=null;
+    private String seller_phone_number = null;
+    private String seller_name = null;
+    private String seller_profile_image = null;
+    private String product_image = null;
+    private String seller_user_id = null, item_name = null, item_price = null;
     private LocationService locServices;
-    private TextView price_tv,view_shop,no_items;
+    private TextView price_tv, view_shop, no_items;
     private List<ProductModel> relatedList = new ArrayList<ProductModel>();
-    private  static   SalesModel salesModel=new SalesModel();
+    private static SalesModel salesModel = new SalesModel();
     private GlobalFunctions globalFunctions = new GlobalFunctions();
-    private User user=new User();
+    private User user = new User();
     private FrameLayout frameLayout;
-    private   ConversationIdModel conversationIdModel=new ConversationIdModel();
-    private double latitude,longitude;
+    private ConversationIdModel conversationIdModel = new ConversationIdModel();
+    private double latitude, longitude;
     private RecyclerView recyclerView;
     private RatingBar ratingBar1;
     private SearchListAdapter adapter;
@@ -151,12 +153,14 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
     private List<ProductModel> sales_listing = new ArrayList<ProductModel>();
     ImageLoader imageLoader;
     DisplayImageOptions options;
-    public static boolean is_map=false;
-    boolean is_tab1_selected=true;
+    public static boolean is_map = false;
+    boolean is_tab1_selected = true;
     private DatePickerDialog toDatePickerDialog;
     private ProgressBar progress_bar;
     private String email_verification_error;
-    public static Intent newInstance(Context context, ProductModel product, SalesModel salesModel, int flag){
+    private String mFeatureProductId = null;
+
+    public static Intent newInstance(Context context, ProductModel product, SalesModel salesModel, int flag) {
         Intent mIntent = new Intent(context, ProductDetail.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable(PRODUCTDETAIL_BUNDLE_KEY_POSITION, product);
@@ -166,27 +170,38 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         return mIntent;
     }
 
+    public static Intent newInstance(Context context, ProductModel product, SalesModel salesModel,String feature_productId, int flag) {
+        Intent mIntent = new Intent(context, ProductDetail.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(PRODUCTDETAIL_BUNDLE_KEY_POSITION, product);
+        bundle.putSerializable(SELL_MODEL, salesModel);
+        bundle.putInt(PRODUCTDETAIL_BUNDLE_KEY_FLAG, flag);
+        bundle.putString(FEATURE_PRODUCT_ID, feature_productId);
+        mIntent.putExtras(bundle);
+        return mIntent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_detail);
-        try{
+        try {
             context = this;
             activity = this;
             window = getWindow();
             actionBar = getSupportActionBar();
             fragmentManager = getSupportFragmentManager();
-            email_verification_error=context.getResources().getString(R.string.ErrorEmailVerification);
+            email_verification_error = context.getResources().getString(R.string.ErrorEmailVerification);
             toolbar = (Toolbar) findViewById(R.id.product_detail_tool_bar);
-            progress_bar=(ProgressBar)findViewById(R.id.progress_bar);
+            progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
             setSupportActionBar(toolbar);
             LayoutInflater inflator = LayoutInflater.from(this);
             View v = inflator.inflate(R.layout.action_bar_titlel, null);
-            title=(TextView)v.findViewById(R.id.title);
+            title = (TextView) v.findViewById(R.id.title);
             toolbar.addView(v);
-            close_button=(TextView)v.findViewById(R.id.cancel);
+            close_button = (TextView) v.findViewById(R.id.cancel);
             close_button.setVisibility(View.GONE);
-            go_back=(ImageView)findViewById(R.id.go_back);
+            go_back = (ImageView) findViewById(R.id.go_back);
             go_back.setVisibility(View.VISIBLE);
             go_back.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -197,15 +212,21 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             categoriesModels = GlobalFunctions.getCategories(activity);
             locServices = new LocationService(activity);
             locServices.setListener(this);
-            if(!locServices.canGetLocation()){/*locServices.showSettingsAlert();*/}else {
-                latitude=locServices.getLatitude();longitude=locServices.getLongitude();
+            if (!locServices.canGetLocation()) {/*locServices.showSettingsAlert();*/} else {
+                latitude = locServices.getLatitude();
+                longitude = locServices.getLongitude();
             }
+
+            if (getIntent().hasExtra(FEATURE_PRODUCT_ID)){
+                mFeatureProductId = getIntent().getStringExtra(FEATURE_PRODUCT_ID);
+            }
+
             if (getIntent().hasExtra(PRODUCTDETAIL_BUNDLE_KEY_POSITION))
                 productModel = (ProductModel) getIntent().getExtras().getSerializable(PRODUCTDETAIL_BUNDLE_KEY_POSITION);
             if (getIntent().hasExtra(SELL_MODEL))
                 salesModel = (SalesModel) getIntent().getExtras().getSerializable(SELL_MODEL);
 
-            frameLayout=(FrameLayout)findViewById(R.id.map);
+            frameLayout = (FrameLayout) findViewById(R.id.map);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 //enable translucent statusbar via flags
@@ -229,42 +250,42 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 
             recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
             recyclerView.setNestedScrollingEnabled(false);
-            ratingBar1=(RatingBar)findViewById(R.id.ratingBar1);
+            ratingBar1 = (RatingBar) findViewById(R.id.ratingBar1);
 
-            adapter = new SearchListAdapter(context, relatedList,false);
+            adapter = new SearchListAdapter(context, relatedList, false);
             LinearLayoutManager linearLayoutManagerVertical =
                     new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(linearLayoutManagerVertical);
             recyclerView.addItemDecoration(new SimpleDividerItemDecoration(activity));
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView.setAdapter(adapter);
-            similarListing_label=(TextView)findViewById(R.id.SimilarListing);
-            tab1=(TextView)findViewById(R.id.tab1);
-            tab2=(TextView)findViewById(R.id.tab2);
+            similarListing_label = (TextView) findViewById(R.id.SimilarListing);
+            tab1 = (TextView) findViewById(R.id.tab1);
+            tab2 = (TextView) findViewById(R.id.tab2);
             tab1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!is_tab1_selected){
+                    if (!is_tab1_selected) {
                         tab1.setTextColor(context.getResources().getColor(R.color.white));
                         tab1.setBackgroundColor(context.getResources().getColor(R.color.brandColor));
                         tab2.setTextColor(context.getResources().getColor(R.color.brandColor));
                         tab2.setBackgroundColor(context.getResources().getColor(R.color.brand_background_color));
-                        if(is_sale){
+                        if (is_sale) {
                             setValues(sales_listing);
-                        }else {
-                            if(similar_listing.size()>0)
+                        } else {
+                            if (similar_listing.size() > 0)
                                 setValues(similar_listing);
                             else
                                 getSimilarProducts();
                         }
-                        is_tab1_selected=true;
+                        is_tab1_selected = true;
                     }
                 }
             });
             tab2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(is_tab1_selected){
+                    if (is_tab1_selected) {
                         tab2.setTextColor(context.getResources().getColor(R.color.white));
                         tab2.setBackgroundColor(context.getResources().getColor(R.color.brandColor));
                         tab1.setTextColor(context.getResources().getColor(R.color.brandColor));
@@ -274,7 +295,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                             setValues(seller_other_listing);
                         else
                             getSellerProducts();*/
-                        is_tab1_selected=false;
+                        is_tab1_selected = false;
                     }
 
                 }
@@ -282,129 +303,128 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             no_items = (TextView) findViewById(R.id.no_items);
             sale_name_tv = (TextView) findViewById(R.id.sale_item_row_list_name_tv);
             sale_items_tv = (TextView) findViewById(R.id.sale_item_row_list_items_no_tv);
-            listing_tab=(LinearLayout)findViewById(R.id.listing_tab);
-            item_for_sale_listing_tab=(LinearLayout)findViewById(R.id.item_for_sale_listing_tab);
+            listing_tab = (LinearLayout) findViewById(R.id.listing_tab);
+            item_for_sale_listing_tab = (LinearLayout) findViewById(R.id.item_for_sale_listing_tab);
             sale_date_tv = (TextView) findViewById(R.id.sales_item_row_list_date_tv);
-            sale_distance_tv = (TextView)findViewById(R.id.sales_item_row_list_distance_tv);
-            sale_time=(TextView)findViewById(R.id.sales_item_row_list_time);
+            sale_distance_tv = (TextView) findViewById(R.id.sales_item_row_list_distance_tv);
+            sale_time = (TextView) findViewById(R.id.sales_item_row_list_time);
             progressActivity = (ProgressActivity) findViewById(R.id.products_details_progressActivity);
             mProductSlider = (SliderLayout) findViewById(R.id.product_detail_slider);
             productName_tv = (TextView) findViewById(R.id.product_detail_name_tv);
             pd_nagotiable = (TextView) findViewById(R.id.pd_nagotiable);
             price_tv = (TextView) findViewById(R.id.product_detail_price_tv);
             date_tv = (TextView) findViewById(R.id.product_detail_date_tv);
-            read_reviews= (TextView) findViewById(R.id.read_reviews);
+            read_reviews = (TextView) findViewById(R.id.read_reviews);
 
-            product_condition =(TextView) findViewById(R.id.product_condition);
-            estda =(TextView) findViewById(R.id.estda);
-            shipping_aud =(TextView) findViewById(R.id.shipping_aud);
+            product_condition = (TextView) findViewById(R.id.product_condition);
+            estda = (TextView) findViewById(R.id.estda);
+            shipping_aud = (TextView) findViewById(R.id.shipping_aud);
 
-            listing= (TextView) findViewById(R.id.listing);
-            sold= (TextView) findViewById(R.id.sold);
-           //Added in new build
+            listing = (TextView) findViewById(R.id.listing);
+            sold = (TextView) findViewById(R.id.sold);
+            //Added in new build
             listing.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent= ReviewsRatings.newInstance(activity,productModel,null,null,salesModel);
+                    Intent intent = ReviewsRatings.newInstance(activity, productModel, null, null, salesModel);
                     startActivity(intent);
                 }
             });
-          sold.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  Intent intent= ReviewsRatings.newInstance(activity,productModel,null,null,salesModel);
-                  startActivity(intent);
-              }
-          });
+            sold.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = ReviewsRatings.newInstance(activity, productModel, null, null, salesModel);
+                    startActivity(intent);
+                }
+            });
 
 
-
-            go_to_review_ratings=(ImageView)findViewById(R.id.go_to_review_ratings);
+            go_to_review_ratings = (ImageView) findViewById(R.id.go_to_review_ratings);
             go_to_review_ratings.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent= ReviewsRatings.newInstance(activity,productModel,null,null,salesModel);
+                    Intent intent = ReviewsRatings.newInstance(activity, productModel, null, null, salesModel);
                     startActivity(intent);
                 }
             });
             read_reviews.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent= ReviewsRatings.newInstance(activity,productModel,null,null,salesModel);
+                    Intent intent = ReviewsRatings.newInstance(activity, productModel, null, null, salesModel);
                     startActivity(intent);
                 }
             });
             category_tv = (TextView) findViewById(R.id.product_detail_category_tv);
             productDescriptionDetail_tv = (TextView) findViewById(R.id.product_detail_description_tv);
-            shippable_content= (LinearLayout) findViewById(R.id.shippable_content);
-            garage_icon_content= (LinearLayout) findViewById(R.id.garage_icon_content);
-            pick_up_content= (LinearLayout) findViewById(R.id.pick_up_content);
-            bottom_bar=(LinearLayout)findViewById(R.id.bottom_bar);
-            bookmark=(ImageView)findViewById(R.id.bookmark_this);
+            shippable_content = (LinearLayout) findViewById(R.id.shippable_content);
+            garage_icon_content = (LinearLayout) findViewById(R.id.garage_icon_content);
+            pick_up_content = (LinearLayout) findViewById(R.id.pick_up_content);
+            bottom_bar = (LinearLayout) findViewById(R.id.bottom_bar);
+            bookmark = (ImageView) findViewById(R.id.bookmark_this);
             product_name = (TextView) findViewById(R.id.product_name);
             pick_up_name = (TextView) findViewById(R.id.pick_up_name);
             shippable_sale_name = (TextView) findViewById(R.id.shippable_sale_name);
             garage_icon_name = (TextView) findViewById(R.id.garage_icon_name);
-            report_listing= (Button) findViewById(R.id.report_listing);
+            report_listing = (Button) findViewById(R.id.report_listing);
             /*callButton = (Button) findViewById(R.id.product_detail_call_button);*/
             messageButton = (Button) findViewById(R.id.product_detail_message_button);
-            item_seller_name=(TextView)findViewById(R.id.item_seller_name);
-            item_seller_name=(TextView)findViewById(R.id.item_seller_name);
+            item_seller_name = (TextView) findViewById(R.id.item_seller_name);
+            item_seller_name = (TextView) findViewById(R.id.item_seller_name);
             make_offer = (Button) findViewById(R.id.make_offer);
             edit = (Button) findViewById(R.id.edit);
-            item_content=(LinearLayout)findViewById(R.id.item_content);
-            garage_content=(LinearLayout)findViewById(R.id.garage_content);
+            item_content = (LinearLayout) findViewById(R.id.item_content);
+            garage_content = (LinearLayout) findViewById(R.id.garage_content);
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!is_sale){
+                    if (!is_sale) {
                         show_edit_item_pop_up(v);
-                    }else{
+                    } else {
                         show_edit_sale_pop_up(v);
                     }
                 }
             });
-            location=(TextView)findViewById(R.id.location);
-            brand_new=(TextView)findViewById(R.id.brand_new);
-            image_counts=(TextView)findViewById(R.id.image_counts);
-            seller_image=(RoundedImageView)findViewById(R.id.seller_image);
-            category_content=(LinearLayout)findViewById(R.id.category_content);
-            profile_content=(LinearLayout)findViewById(R.id.profile_content);
+            location = (TextView) findViewById(R.id.location);
+            brand_new = (TextView) findViewById(R.id.brand_new);
+            image_counts = (TextView) findViewById(R.id.image_counts);
+            seller_image = (RoundedImageView) findViewById(R.id.seller_image);
+            category_content = (LinearLayout) findViewById(R.id.category_content);
+            profile_content = (LinearLayout) findViewById(R.id.profile_content);
             profile_content.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent= ReviewsRatings.newInstance(activity,productModel,null,null,salesModel);
+                    Intent intent = ReviewsRatings.newInstance(activity, productModel, null, null, salesModel);
                     startActivity(intent);
                 }
             });
             location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i= MapActivity.newInstance(context,GlobalVariables.TYPE_MULTIPLE_ITEMS,productModel);
+                    Intent i = MapActivity.newInstance(context, GlobalVariables.TYPE_MULTIPLE_ITEMS, productModel);
                     startActivity(i);
                 }
             });
             frameLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i= MapActivity.newInstance(context,GlobalVariables.TYPE_MULTIPLE_ITEMS,productModel);
+                    Intent i = MapActivity.newInstance(context, GlobalVariables.TYPE_MULTIPLE_ITEMS, productModel);
                     startActivity(i);
                 }
             });
             report_listing.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(is_loggedIn()){
+                    if (is_loggedIn()) {
                         Intent report_listing;
-                        if(is_sale){
-                            report_listing= ReportListing.newInstance(context,salesModel.getId(),false);
+                        if (is_sale) {
+                            report_listing = ReportListing.newInstance(context, salesModel.getId(), false);
                             startActivity(report_listing);
-                        }else{
-                            report_listing= ReportListing.newInstance(context,productModel.getId(),true);
+                        } else {
+                            report_listing = ReportListing.newInstance(context, productModel.getId(), true);
                             startActivity(report_listing);
                         }
 
-                    }else{
+                    } else {
                         showSettingsAlert();
                     }
 
@@ -412,40 +432,40 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             });
             read_reviews.setPaintFlags(read_reviews.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(productModel!=null){
-                            getItemInfo(productModel,context);
-                  /*  setThisPage();*/
-                        }else if (salesModel!=null){
-                            getSaleInfo(salesModel,context);
+                @Override
+                public void run() {
+                    if (productModel != null) {
+                        getItemInfo(productModel,null, context);
+                    } else if (salesModel != null) {
+                        getSaleInfo(salesModel, context);
 
-                        }else{
-                            showErrorPage();
-                        }
+                    } else if(mFeatureProductId!=null){
+                        getItemInfo(null,mFeatureProductId, context);
+                    }else {
+                        showErrorPage();
                     }
-                });
+                }
+            });
             messageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
 
                 public void onClick(View v) {
-                  if(is_loggedIn()){
-                        if(!self_user){
-                            if(seller_name!=null || seller_user_id!=null){
+                    if (is_loggedIn()) {
+                        if (!self_user) {
+                            if (seller_name != null || seller_user_id != null) {
                                 check_conversation_exists();
-                            }else{
-                                Toast.makeText(activity,"Sorry can't send message",Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(activity, "Sorry can't send message", Toast.LENGTH_LONG).show();
                             }
-                         }else {
-                            if(!is_sale){
+                        } else {
+                            if (!is_sale) {
                                 show_edit_item_pop_up(v);
-                            }else{
+                            } else {
                                 show_edit_sale_pop_up(v);
                             }
                         }
-                    }else
+                    } else
                         showSettingsAlert();
-
 
 
                 }
@@ -453,92 +473,95 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             make_offer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(is_loggedIn()){
+                    if (is_loggedIn()) {
                         if (!self_user) {
                             Intent intent = MakeOffersActivty.newInstance(context, productModel);
                             startActivity(intent);
                         } else {
                             if (!is_sale) {
                                 if (productModel != null)
-                                    updateItemStatus(context,productModel.getId());
+                                    updateItemStatus(context, productModel.getId());
                             } else {
                                 if (salesModel != null)
                                     show_alert(salesModel.getId());
                                     /*updateSaleStatus(context,false,salesModel.getId());*/
                             }
                         }
-                    }else
+                    } else
                         showSettingsAlert();
                 }
             });
             bookmark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(is_loggedIn()){
-                        if(productModel!=null){
-                            if(productModel.is_bookmark())
-                                deleteBookmark(context,productModel.getId());
+                    if (is_loggedIn()) {
+                        if (productModel != null) {
+                            if (productModel.is_bookmark())
+                                deleteBookmark(context, productModel.getId());
                             else
                                 addBookmark(context, productModel.getId());
-                        }else
-                            Toast.makeText(context,"This product can't be bookmarked",Toast.LENGTH_LONG).show();
-                    }else{
+                        } else
+                            Toast.makeText(context, "This product can't be bookmarked", Toast.LENGTH_LONG).show();
+                    } else {
                         showSettingsAlert();
                     }
                 }
             });
 
-        } catch (NullPointerException e){
-            Log.d(TAG,"NullPointerException");
+        } catch (NullPointerException e) {
+            Log.d(TAG, "NullPointerException");
             e.printStackTrace();
-        }catch (NumberFormatException e) {
-            Log.d(TAG,"NumberFormatException");
+        } catch (NumberFormatException e) {
+            Log.d(TAG, "NumberFormatException");
             e.printStackTrace();
-        }catch (Exception e){
-            Log.d(TAG,"Exception");
+        } catch (Exception e) {
+            Log.d(TAG, "Exception");
             e.printStackTrace();
         }
 
     }
+
     public void call(String Phone) {
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
-        callIntent.setData(Uri.parse("tel:"+Phone));
+        callIntent.setData(Uri.parse("tel:" + Phone));
         startActivity(callIntent);
     }
 
-    public boolean is_loggedIn(){
-        boolean is_logged_in=false;
+    public boolean is_loggedIn() {
+        boolean is_logged_in = false;
         String token = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
-        if(token!=null){
+        if (token != null) {
             return true;
-        }else{
+        } else {
             return false;
         }
 
     }
-    public void showSettingsAlert(){
-        Intent creategarrage = new Intent(context,LoginActivity.class);
+
+    public void showSettingsAlert() {
+        Intent creategarrage = new Intent(context, LoginActivity.class);
         context.startActivity(creategarrage);
     }
-    private void getSimilarProducts(){
-      showProgressBar();
+
+    private void getSimilarProducts() {
+        showProgressBar();
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        if(categoriesModels==null)categoriesModels = GlobalFunctions.getCategories(activity);
+        if (categoriesModels == null) categoriesModels = GlobalFunctions.getCategories(activity);
         String categoryIdsString = "";
-        if(categoriesModels!=null){
+        if (categoriesModels != null) {
             categoryIdsString = categoriesModels.getIDStringfromNameString(productModel.getProductCategory());
         }
-        Log.d(TAG,"#############categoryIdsString################"+productModel.getProductCategory());
-        servicesMethodsManager.getSimilarProducts(context, productModel.getId(),categoryIdsString,Double.toString(latitude),Double.toString(longitude), new ServerResponseInterface() {
+        Log.d(TAG, "#############categoryIdsString################" + productModel.getProductCategory());
+        servicesMethodsManager.getSimilarProducts(context, productModel.getId(), categoryIdsString, Double.toString(latitude), Double.toString(longitude), new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 hideProgressBar();
                 Log.d(TAG, "getSimilarProducts onSuccess Response");
-                SimilarProductsModel similarProductsModel = (SimilarProductsModel)arg0;
+                SimilarProductsModel similarProductsModel = (SimilarProductsModel) arg0;
             /*    setSimilarProducts(similarProductsModel.getProductsList(),"Similar products");*/
 
                 setValues(similarProductsModel.getProductsList());
-                similar_listing=similarProductsModel.getProductsList();
+                similar_listing = similarProductsModel.getProductsList();
                 Log.d(TAG, similarProductsModel.toString());
             }
 
@@ -563,19 +586,19 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 
     }
 
-    public void setMap(){
-       if(fragmentManager!=null){
-           Log.d(TAG,"Product SHop"+productModel.getLatitude());
-              if(fragmentManager!=null&&!this.isFinishing()){
-                  Fragment fragment = new MapViewFragment().newInstance(GlobalVariables.TYPE_SHOP,productModel,null,false);
-                  fragmentManager.beginTransaction().replace(R.id.map,fragment).commitAllowingStateLoss();
-              }
+    public void setMap() {
+        if (fragmentManager != null) {
+            Log.d(TAG, "Product SHop" + productModel.getLatitude());
+            if (fragmentManager != null && !this.isFinishing()) {
+                Fragment fragment = new MapViewFragment().newInstance(GlobalVariables.TYPE_SHOP, productModel, null, false);
+                fragmentManager.beginTransaction().replace(R.id.map, fragment).commitAllowingStateLoss();
+            }
         }
     }
 
-    public void restoreToolbar(){
+    public void restoreToolbar() {
         Log.d(TAG, "Restore Tool Bar");
-        if(actionBar!=null){
+        if (actionBar != null) {
             Log.d(TAG, "Restore Action Bar not Null");
             actionBar.setTitle("");
             actionBar.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
@@ -583,15 +606,15 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 
     }
 
-    public static boolean isActive(){
+    public static boolean isActive() {
         return active;
     }
 
-    private void toggleInappropirateLayout(){
-        if(inappropirate_layout!=null){
-            if(inappropirate_layout.getVisibility()==View.VISIBLE){
+    private void toggleInappropirateLayout() {
+        if (inappropirate_layout != null) {
+            if (inappropirate_layout.getVisibility() == View.VISIBLE) {
                 inappropirate_layout.setVisibility(View.GONE);
-            }else{
+            } else {
                 inappropirate_layout.setVisibility(View.VISIBLE);
             }
         }
@@ -602,13 +625,19 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         productModel = product;
         setThisPage();
     }*/
-    private void getItemInfo(ProductModel productModel,Context context){
-       showProgressBar();
+    private void getItemInfo(ProductModel productModel,String featureProductId, Context context) {
+        showProgressBar();
+        String productId;
+        if(productModel!=null){
+            productId = productModel.getId();
+        }else{
+            productId = featureProductId;
+        }
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getItemInfo(context, productModel.getId(), new ServerResponseInterface() {
+        servicesMethodsManager.getItemInfo(context, productId, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-              hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, "GetItemInfo onSuccess Response");
                 ProductModel productModel = (ProductModel) arg0;
                 setThisPage(productModel);
@@ -618,46 +647,48 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             @Override
             public void OnFailureFromServer(String msg) {
                 Log.d(TAG, msg);
-              hideProgressBar();
+                hideProgressBar();
             }
 
             @Override
             public void OnError(String msg) {
                 Log.d(TAG, msg);
-              hideProgressBar();
+                hideProgressBar();
             }
         }, "GetItemInfo onSuccess Response");
 
     }
-    private void getSaleInfo(SalesModel salesModel,Context context){
+
+    private void getSaleInfo(SalesModel salesModel, Context context) {
         showProgressBar();
-        setSalesIdLatLongForDelete(context,salesModel.getId(),Double.toString(latitude),Double.toString(longitude));
+        setSalesIdLatLongForDelete(context, salesModel.getId(), Double.toString(latitude), Double.toString(longitude));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getSaleInfo(context, salesModel.getId(),Double.toString(latitude),Double.toString(longitude), new ServerResponseInterface() {
+        servicesMethodsManager.getSaleInfo(context, salesModel.getId(), Double.toString(latitude), Double.toString(longitude), new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-              hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, "GetItemInfo onSuccess Response");
-                 SalesModel salesModel = (SalesModel) arg0;
-                Log.d(TAG+"#Sale ####", salesModel.toString());
+                SalesModel salesModel = (SalesModel) arg0;
+                Log.d(TAG + "#Sale ####", salesModel.toString());
                 setThisPage(salesModel);
                 Log.d(TAG, salesModel.toString());
             }
 
             @Override
             public void OnFailureFromServer(String msg) {
-              hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, msg);
             }
 
             @Override
             public void OnError(String msg) {
-              hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, msg);
             }
         }, "GetItemInfo onSuccess Response");
 
     }
+
     private void setThisPage(ProductModel product) {
         item_content.setVisibility(View.VISIBLE);
         /*report_Listing_content.setVisibility(View.VISIBLE);*/
@@ -681,21 +712,16 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             ss = productModel.getCurrency() + "" + productModel.getIntl_shipping_cost() + "(Int'l)";
             sss = productModel.getShipping_delivery_date();
 
-            if(sss.length()>4)
-            {
+            if (sss.length() > 4) {
 
-            }
-            else {
+            } else {
                 sss = "Not Available";
             }
             if (productModel.isShipping_foc()) {
                 s = "Free Shipping";
                 ss = "";
-               // sss = "Not Available";
-            }
-            else
-
-            if (!productModel.is_intl_shipping()) {
+                // sss = "Not Available";
+            } else if (!productModel.is_intl_shipping()) {
                 ss = "Not Available " + "(Int'l)";
             }
         } else {
@@ -760,23 +786,18 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         } else {
             seller_image.setImageResource(R.drawable.squareplaceholder);
         }
-        if (productModel.isAvailable())
-        {
+        if (productModel.isAvailable()) {
             if (productModel.isHide_item_price() && productModel.isNegotiable()) {
                 price_tv.setText("Negotiable");
-            }
-            else if(productModel.isNegotiable()) {
+            } else if (productModel.isNegotiable()) {
                 price_tv.setText(GlobalFunctions.getFormatedAmount(productModel.getCurrency(), productModel.getSalePrice()));
                 pd_nagotiable.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 price_tv.setText(GlobalFunctions.getFormatedAmount(productModel.getCurrency(), productModel.getSalePrice()));
             }
-    }
-        else{
+        } else {
             price_tv.setText("Sold");
-            if(!self_user)
-            {
+            if (!self_user) {
                 /*messageButton.setEnabled(false);
                 messageButton.setAlpha(.5f);*/
                 make_offer.setAlpha(.5f);
@@ -786,52 +807,53 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
      /*   if(productModel.is_product_new()){
             brand_new.setVisibility(View.VISIBLE);
         }*/
-        if(productModel.is_bookmark()){
+        if (productModel.is_bookmark()) {
             bookmark.setImageResource(R.drawable.like_full);
-        }else
+        } else
             bookmark.setImageResource(R.drawable.like_border);
-        int grey2=getResources().getColor(R.color.grey_2);
-        int black=getResources().getColor(R.color.black);
-        if(productModel.is_garage_item())garage_icon_content.setVisibility(View.VISIBLE);
-        if(productModel.isShipable())shippable_content.setVisibility(View.VISIBLE);
-        if(productModel.isPickup())pick_up_content.setVisibility(View.VISIBLE);
+        int grey2 = getResources().getColor(R.color.grey_2);
+        int black = getResources().getColor(R.color.black);
+        /*if (productModel.is_garage_item()) garage_icon_content.setVisibility(View.VISIBLE);*/
+        if (productModel.isShipable()) shippable_content.setVisibility(View.VISIBLE);
+        if (productModel.isPickup()) pick_up_content.setVisibility(View.VISIBLE);
 
         // negotiable should be hidden
 
-      //
+        //
        /* delivery_iv.setImageResource(productModel.isShipable()? R.drawable.shippingon : R.drawable.shippingoff);
         pick_iv.setImageResource(productModel.isPickup()? R.drawable.pickupon : R.drawable.pickupoff);
-      */  shippable_sale_name.setTextColor(productModel.isShipable()? black:grey2);
-        pick_up_name.setTextColor(productModel.isPickup()?black:grey2);
-        garage_icon_name.setTextColor(productModel.is_garage_item()?black:grey2);
+      */
+        shippable_sale_name.setTextColor(productModel.isShipable() ? black : grey2);
+        pick_up_name.setTextColor(productModel.isPickup() ? black : grey2);
+        garage_icon_name.setTextColor(productModel.is_garage_item() ? black : grey2);
         date_tv.setText(/*productModel.getLast_updated()*/productModel.getProductCreatedAt());
-        String category=productModel.getProductCategory();
-        if(!TextUtils.isEmpty(category) && !productModel.getProductCategory().equalsIgnoreCase("null"))
-            category=productModel.getProductCategory();
+        String category = productModel.getProductCategory();
+        if (!TextUtils.isEmpty(category) && !productModel.getProductCategory().equalsIgnoreCase("null"))
+            category = productModel.getProductCategory();
         else
-            category="Electronics and Computers";
+            category = "Electronics and Computers";
         category_tv.setText(category);
-       // productDescriptionDetail_tv.setText("PRODU-1a->  "+EmojiParser.parseToUnicode(/*Constants.getEmoticon*/(productModel.getDescription())));
-        productDescriptionDetail_tv.setText( StringEscapeUtils.unescapeJava(productModel.getDescription()));
+        // productDescriptionDetail_tv.setText("PRODU-1a->  "+EmojiParser.parseToUnicode(/*Constants.getEmoticon*/(productModel.getDescription())));
+        productDescriptionDetail_tv.setText(StringEscapeUtils.unescapeJava(productModel.getDescription()));
         /*If the line are more than show view more or else not needed*/
 //        if(productDescriptionDetail_tv.getLineCount()>3)
 //            makeTextViewResizable(productDescriptionDetail_tv, 3, "View More", true);
         setImageOnView(productModel.getImages());
-        if(productModel.getCummalative_rating()!=null&&!TextUtils.isEmpty(productModel.getCummalative_rating())){
+        if (productModel.getCummalative_rating() != null && !TextUtils.isEmpty(productModel.getCummalative_rating())) {
             ratingBar1.setRating(Float.parseFloat(productModel.getCummalative_rating()));
 
         }
 
-        if(productModel.getAddress()!=null && !productModel.getAddress().isEmpty()){
+        if (productModel.getAddress() != null && !productModel.getAddress().isEmpty()) {
             location.setText(productModel.getAddress());
-        }else{
+        } else {
             LocationModel location_model = new LocationModel();
             String address = location_model.getSubAddressFromLatLong(this, Double.valueOf(productModel.getLatitude()),
                     Double.valueOf(productModel.getLongitude()));
-            if(address!=null){
+            if (address != null) {
                 location.setText(address);
-            }else{
-                getAddressFromLatLng(Double.parseDouble(productModel.getLatitude()),Double.parseDouble(productModel.getLongitude()));
+            } else {
+                getAddressFromLatLng(Double.parseDouble(productModel.getLatitude()), Double.parseDouble(productModel.getLongitude()));
             }
         }
 
@@ -841,71 +863,70 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         getSimilarProducts();
     }
 
-    private void shareProduct(){
-        final String product_="Family and freinds,please share this product to help me sell faster.";
-        final String product_name="Product Name :"+productModel.getName();
-        final String product_description="Product Description :"+productModel.getDescription();
-        String image_url=null;
-        if(productModel.getImage()!=null)
-            if(productModel.getImage().size()>0)
-                image_url="Product Image Url :"+productModel.getImage().get(0);
+    private void shareProduct() {
+        final String product_ = "Family and freinds,please share this product to help me sell faster.";
+        final String product_name = "Product Name :" + productModel.getName();
+        final String product_description = "Product Description :" + productModel.getDescription();
+        String image_url = null;
+        if (productModel.getImage() != null)
+            if (productModel.getImage().size() > 0)
+                image_url = "Product Image Url :" + productModel.getImage().get(0);
 
-        final String product_image_url=image_url;
-        final String product_location="Product Location :"+location.getText().toString();
-        final String product_Id_for_share="Product Id :"+productModel.getId();
-        final String product_duration="Sale Duration :"+productModel.getStartDate()+" to"+productModel.getEndDate();
+        final String product_image_url = image_url;
+        final String product_location = "Product Location :" + location.getText().toString();
+        final String product_Id_for_share = "Product Id :" + productModel.getId();
+        final String product_duration = "Sale Duration :" + productModel.getStartDate() + " to" + productModel.getEndDate();
 
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Family and freinds,please share this "+product_name+
-                " to help me sell faster."+"\n"+"Product Details");
-        shareIntent.putExtra(Intent.EXTRA_TEXT,product_+"\n"+product_name+"\n"+product_Id_for_share+"\n"+
-                product_description+"\n"/*+product_duration+"\n"*/+product_image_url+"\n"+product_location
+        shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Family and freinds,please share this " + product_name +
+                " to help me sell faster." + "\n" + "Product Details");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, product_ + "\n" + product_name + "\n" + product_Id_for_share + "\n" +
+                product_description + "\n"/*+product_duration+"\n"*/ + product_image_url + "\n" + product_location
         );
         startActivity(Intent.createChooser(shareIntent, "Share this product using"));
 
     }
 
 
-    private void setImageOnView(ArrayList<String> images)
-    {
-        final ImageModel imageModel=new ImageModel();
+    private void setImageOnView(ArrayList<String> images) {
+        final ImageModel imageModel = new ImageModel();
         mProductSlider.removeAllSliders();
         final ArrayList<String> displayImageURL = new ArrayList<String>();
         displayImageURL.clear();
         displayImageURL.addAll(/*productModel.getImage()*/images);
-        ViewActivity.displayImageURL=displayImageURL;
-        if(displayImageURL.size()>0){
-            product_image=displayImageURL.get(0);
+        ViewActivity.displayImageURL = displayImageURL;
+        if (displayImageURL.size() > 0) {
+            product_image = displayImageURL.get(0);
             user.setProduct_url(product_image);
         }
-        if(productModel.getImage().size()>1){
+        if (productModel.getImage().size() > 1) {
             image_counts.setVisibility(View.VISIBLE);
-            image_counts.setText("1"+"/"+productModel.getImage().size());
+            image_counts.setText("1" + "/" + productModel.getImage().size());
         }
 
-        for(int i=0;i<displayImageURL.size()&&displayImageURL.get(i)!=null;i++){
-          final int id=i;
-            final String url=displayImageURL.get(i).toString();
-              final  Uri uri=getUriFromUrl(url);
+        for (int i = 0; i < displayImageURL.size() && displayImageURL.get(i) != null; i++) {
+            final int id = i;
+            final String url = displayImageURL.get(i).toString();
+            final Uri uri = getUriFromUrl(url);
             CustomSliderTextView textSliderView = new CustomSliderTextView(context);
             // initialize a SliderLayout
             textSliderView
-                    .description(1+"")
+                    .description(1 + "")
                     .image(displayImageURL.get(i).toString())
                     .setScaleType(BaseSliderView.ScaleType.CenterCrop)
                    /* .setOnSliderClickListener(this);*/
-            .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                @Override
-                public void onSliderClick(BaseSliderView slider) {
-                    imageModel.setImage(url);
-                    Log.d("SELECTED ID","SELECTEDISSS"+id+"--"+url);
-                    ViewActivity.selectedI=id;
+                    .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                        @Override
+                        public void onSliderClick(BaseSliderView slider) {
+                            imageModel.setImage(url);
+                            Log.d("SELECTED ID", "SELECTEDISSS" + id + "--" + url);
+                            ViewActivity.selectedI = id;
                    /* Intent intent=ImageViewActivty.newInstance(context,productModel);*/
-                    Intent intent=ViewActivity.newInstance(context,imageModel);
-                    startActivity(intent);
-                }
-            });
+                            Intent intent = ViewActivity.newInstance(context, imageModel);
+                            startActivity(intent);
+                        }
+                    });
             //add your extra information
             textSliderView.bundle(new Bundle());
             textSliderView.getBundle()
@@ -916,7 +937,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 
         mProductSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOutSlide);
         mProductSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-       // mProductSlider.set
+        // mProductSlider.set
       /*  if(mPagerIndicator!=null){mProductSlider.setCustomIndicator(mPagerIndicator);}*/
         mProductSlider.setCustomAnimation(new DescriptionAnimation());
         mProductSlider.setDuration(4000);
@@ -953,22 +974,24 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             /*shareProduct();*/
             shareApp();
             return true;
-        }else {
+        } else {
             return super.onOptionsItemSelected(item);
         }
     }
+
     private Uri.Builder builder;
+
     public Uri getUriFromUrl(String thisUrl) {
         try {
             URL url = new URL(thisUrl);
-            builder =  new Uri.Builder()
+            builder = new Uri.Builder()
                     .scheme(url.getProtocol())
                     .authority(url.getAuthority())
                     .appendPath(url.getPath());
             return builder.build();
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            return  null;
+            return null;
         }
 
     }
@@ -980,8 +1003,8 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 
     @Override
     public void onPageSelected(int i) {
-        if(productModel!=null)
-            image_counts.setText(i+1+"/"+productModel.getImage().size());
+        if (productModel != null)
+            image_counts.setText(i + 1 + "/" + productModel.getImage().size());
     }
 
     @Override
@@ -994,20 +1017,20 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         mProductSlider.getCurrentPosition();
     }
 
-    private void showLoading(){
-        if(progressActivity!=null){
+    private void showLoading() {
+        if (progressActivity != null) {
             progressActivity.showLoading();
         }
     }
 
-    private void showContent(){
-        if(progressActivity!=null){
+    private void showContent() {
+        if (progressActivity != null) {
             progressActivity.showContent();
         }
     }
 
-    private void showErrorPage(){
-        if(progressActivity!=null){
+    private void showErrorPage() {
+        if (progressActivity != null) {
             progressActivity.showError(context.getResources().getDrawable(R.drawable.ic_error), "No Connection",
                     "We could not establish a connection with our servers. Try again when you are connected to the internet.",
                     "Try Again", new View.OnClickListener() {
@@ -1020,45 +1043,45 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         }
     }
 
-    private void showEmptyPage(){
-        if(progressActivity!=null){
+    private void showEmptyPage() {
+        if (progressActivity != null) {
             progressActivity.showEmpty(context.getResources().getDrawable(R.drawable.ic_error), "Empty Shopping Cart",
                     "Please add things in the cart to continue.");
         }
     }
 
 
-    private void addBookmark(final Context context, String productID){
+    private void addBookmark(final Context context, String productID) {
         /*GlobalFunctions.showProgress(context, "Bookmarking Product...");*/
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.addBookmark(context, productID, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 /*GlobalFunctions.hideProgress();*/
-                if(arg0 instanceof StatusModel){
+                if (arg0 instanceof StatusModel) {
                     StatusModel statusModel = (StatusModel) arg0;
-                    if(statusModel.isStatus()){
+                    if (statusModel.isStatus()) {
                         bookmark.setImageResource(R.drawable.like_full);
                         productModel.setIs_bookmark(true);
                         Toast.makeText(context, "Added to bookmarks", Toast.LENGTH_SHORT).show();
                     }
-                }else if(arg0 instanceof ErrorModel){
+                } else if (arg0 instanceof ErrorModel) {
                     ErrorModel errorModel = (ErrorModel) arg0;
-                    String msg = errorModel.getError()!=null ? errorModel.getError() : errorModel.getMessage();
-                    Log.d(TAG,"OnFailureFromServer"+msg);
+                    String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
+                    Log.d(TAG, "OnFailureFromServer" + msg);
                 }
             }
 
             @Override
             public void OnFailureFromServer(String msg) {
                 /*GlobalFunctions.hideProgress();*/
-                Log.d(TAG,"OnFailureFromServer"+msg);
+                Log.d(TAG, "OnFailureFromServer" + msg);
             }
 
             @Override
             public void OnError(String msg) {
                /* GlobalFunctions.hideProgress();*/
-                Log.d(TAG,"OnFailureFromServer"+msg);
+                Log.d(TAG, "OnFailureFromServer" + msg);
             }
         }, "Add Bookmarks");
 
@@ -1066,26 +1089,26 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 
     @Override
     protected void onResume() {
-        try{
-            if(salesModel!=null){
-                productModel=new ProductModel();
+        try {
+            if (salesModel != null) {
+                productModel = new ProductModel();
                 productModel.setLongitude(salesModel.getLongitude());
                 productModel.setLatitude(salesModel.getLatitude());
                 productModel.setName(salesModel.getName());
                 productModel.setId(salesModel.getId());
                 productModel.setImage(salesModel.getImages());
             }
-            if(is_map)
-                setMap();
+            if (is_map && mFeatureProductId==null)
+                 setMap();
 
             //deletedDataLocally();
             //updateUI(relatedList);
             super.onResume();
 
-        }catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             e.printStackTrace();
             Crashlytics.log(e.getMessage());
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Crashlytics.log(e.getMessage());
         }
@@ -1118,29 +1141,32 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         super.onBackPressed();
     }
 
-    public static void closeThisActivity(){
+    public static void closeThisActivity() {
         Log.d(TAG, "Close this Activity" + activity);
-        if(activity!=null){
+        if (activity != null) {
             activity.finish();
         }
     }
+
     @Override
     public void onProviderEnabled(String provider) {
 
     }
+
     @Override
     public void onLocationChanged(Location location) {
 
     }
-    private void getAddressFromLatLng(Double lat,Double lng){
+
+    private void getAddressFromLatLng(Double lat, Double lng) {
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getAddress(activity, lat,lng, new ServerResponseInterface() {
+        servicesMethodsManager.getAddress(activity, lat, lng, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-              hideProgressBar();
-                LocationModel locationModel =(LocationModel)arg0;
-               if(locationModel !=null)
-                   location.setText(locationModel.getFormatted_address());
+                hideProgressBar();
+                LocationModel locationModel = (LocationModel) arg0;
+                if (locationModel != null)
+                    location.setText(locationModel.getFormatted_address());
             }
 
             @Override
@@ -1154,36 +1180,37 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 
 
     }
-    private void setThisPage(SalesModel salesModel){
+
+    private void setThisPage(SalesModel salesModel) {
         garage_content.setVisibility(View.VISIBLE);
         item_content.setVisibility(View.GONE);
        /* report_Listing_content.setVisibility(View.GONE);*/
         listing_tab.setVisibility(View.GONE);
         item_for_sale_listing_tab.setVisibility(View.VISIBLE);
-        is_sale=true;
-        this.salesModel=salesModel;
-        String title_name="";
-        if(salesModel.getName()!=null&&!TextUtils.isEmpty(salesModel.getName()))
-            title_name=GlobalFunctions.getSentenceFormat(salesModel.getName());
+        is_sale = true;
+        this.salesModel = salesModel;
+        String title_name = "";
+        if (salesModel.getName() != null && !TextUtils.isEmpty(salesModel.getName()))
+            title_name = GlobalFunctions.getSentenceFormat(salesModel.getName());
 
         title.setText(title_name);
         sale_name_tv.setText(title_name);
-        String title="";
-        if(!TextUtils.isEmpty(salesModel.getSale_items_count())){
-            if(Integer.parseInt(salesModel.getSale_items_count())==1){
-                title=salesModel.getSale_items_count()+" Item";
-            }else if(Integer.parseInt(salesModel.getSale_items_count()) > 1){
-                title=salesModel.getSale_items_count()+" Items";
-            }else{
-                title="No Items Available";
+        String title = "";
+        if (!TextUtils.isEmpty(salesModel.getSale_items_count())) {
+            if (Integer.parseInt(salesModel.getSale_items_count()) == 1) {
+                title = salesModel.getSale_items_count() + " Item";
+            } else if (Integer.parseInt(salesModel.getSale_items_count()) > 1) {
+                title = salesModel.getSale_items_count() + " Items";
+            } else {
+                title = "No Items Available";
             }
 
-        }else{
-            title="No Items Available";
+        } else {
+            title = "No Items Available";
         }
         sale_items_tv.setText(title);
-        sale_date_tv.setText("Listed "+salesModel.getListedDate());
-        sale_time.setText(salesModel.getStart_time()+"-"+salesModel.getEnd_time());
+        sale_date_tv.setText("Listed " + salesModel.getListedDate());
+        sale_time.setText(salesModel.getStart_time() + "-" + salesModel.getEnd_time());
        /* holder.distance_tv.setText(obj.getDistanceAway()+" "+getContext().getString(R.string.milesAway));*/
         sale_distance_tv.setText(salesModel.getDistanceAway()/*+" "+context.getString(R.string.milesAway)*/);
         /*@@@@@@@@@@@@@@@*/
@@ -1191,16 +1218,16 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 
        /* product_name.setText(GlobalFunctions.getSentenceFormat(salesModel.getName()));*/
      /*   offers.setVisibility(View.GONE);*/
-        if(salesModel.getProducts().size()>0)
+        if (salesModel.getProducts().size() > 0)
             similarListing_label.setText("Items for sale");
         else
             similarListing_label.setText("No items for sale");
 //        read_reviews.setText("Read Reviews"+"("+salesModel.getReviews_count()+")");
-        read_reviews.setText(salesModel.getReviews_count()+"Reviews");
-        seller_user_id=salesModel.getUserID();
-        seller_name=salesModel.getSellerName();
-        seller_phone_number=salesModel.getSellerNumber();
-        seller_profile_image=salesModel.getSeller_image();
+        read_reviews.setText(salesModel.getReviews_count() + "Reviews");
+        seller_user_id = salesModel.getUserID();
+        seller_name = salesModel.getSellerName();
+        seller_phone_number = salesModel.getSellerNumber();
+        seller_profile_image = salesModel.getSeller_image();
         user.setIs_sale(true);
         user.setName(seller_name);
         user.setBs_id(seller_user_id);
@@ -1211,45 +1238,43 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         user.setSale_id(salesModel.getId());
         user.setProduct_url(product_image);
         user.setActive_tab(GlobalVariables.TYPE_BUYER_TAB);
-        if(salesModel.is_own_sale()) {
-                self_user=true;
-                bookmark.setVisibility(View.GONE);
-                make_offer.setVisibility(View.GONE);
-                messageButton.setVisibility(View.GONE);
-                edit.setVisibility(View.VISIBLE);
+        if (salesModel.is_own_sale()) {
+            self_user = true;
+            bookmark.setVisibility(View.GONE);
+            make_offer.setVisibility(View.GONE);
+            messageButton.setVisibility(View.GONE);
+            edit.setVisibility(View.VISIBLE);
         }
 
      /*   if(flag==GlobalVariables.TYPE_MY_BOOKMARKS)
             bookmark.setVisibility(View.GONE);*/
-        if(!TextUtils.isEmpty(salesModel.getName()))
+        if (!TextUtils.isEmpty(salesModel.getName()))
             productName_tv.setText(GlobalFunctions.getSentenceFormat(salesModel.getName()));
-        if(!TextUtils.isEmpty(salesModel.getSellerName()))
+        if (!TextUtils.isEmpty(salesModel.getSellerName()))
             item_seller_name.setText(GlobalFunctions.getSentenceFormat(salesModel.getSellerName()));
         price_tv.setVisibility(View.GONE);
         category_content.setVisibility(View.GONE);
 
-        String avatar=salesModel.getSeller_image();
+        String avatar = salesModel.getSeller_image();
         //download and display image from url
       /*  imageLoader.displayImage(avatar,seller_image, options);*/
-        if(!TextUtils.isEmpty(avatar)){
+        if (!TextUtils.isEmpty(avatar)) {
             Picasso.with(context)
                     .load(avatar)
                     .placeholder(R.drawable.squareplaceholder)
                     .fit().centerCrop()
                     .into(seller_image);
-        }else{
+        } else {
             seller_image.setImageResource(R.drawable.squareplaceholder);
         }
         date_tv.setText(salesModel.getStart_date());
         setImageOnView(salesModel.getImages());
         bookmark.setVisibility(View.GONE);
-        if(!salesModel.is_own_sale())
+        if (!salesModel.is_own_sale())
             make_offer.setVisibility(View.GONE);
         try {
             productDescriptionDetail_tv.setText(StringEscapeUtils.unescapeJava(salesModel.getDescription()));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             productDescriptionDetail_tv.setText((salesModel.getDescription()));
         }
         /*If the line are more than show view more or else not needed*/
@@ -1257,19 +1282,19 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 //            makeTextViewResizable(productDescriptionDetail_tv, 3, "View More", true);
 
        /* makeTextViewResizable(productDescriptionDetail_tv, 3, "More", true);*/
-        sales_listing=salesModel.getProducts();
+        sales_listing = salesModel.getProducts();
         setValues(sales_listing);
-        String rating=salesModel.getAvg_seller_rating();
-        if(salesModel.getAvg_seller_rating()!=null&&!TextUtils.isEmpty(salesModel.getAvg_seller_rating())&&!rating.equalsIgnoreCase("null")){
+        String rating = salesModel.getAvg_seller_rating();
+        if (salesModel.getAvg_seller_rating() != null && !TextUtils.isEmpty(salesModel.getAvg_seller_rating()) && !rating.equalsIgnoreCase("null")) {
             ratingBar1.setRating(Float.parseFloat(salesModel.getAvg_seller_rating()));
 
         }
         LocationModel location_model = new LocationModel();
         String address = location_model.getSubAddressFromLatLong(this, Double.valueOf(productModel.getLatitude()),
                 Double.valueOf(productModel.getLongitude()));
-        if(address!=null){
+        if (address != null) {
             location.setText(address);
-        }else{
+        } else {
             location.setText(salesModel.getSale_address());
         }
 
@@ -1277,26 +1302,28 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         showContent();
         setMap();
     }
-    public void updateItemStatus(final Context context,String product_id){
-        MarkSoldModel markSoldModel=new MarkSoldModel();
+
+    public void updateItemStatus(final Context context, String product_id) {
+        MarkSoldModel markSoldModel = new MarkSoldModel();
         markSoldModel.setProduct_id(product_id);
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.updateItemStatus(context,markSoldModel,new ServerResponseInterface() {
+        servicesMethodsManager.updateItemStatus(context, markSoldModel, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 Log.d(TAG, "onSuccess Response");
-                if(arg0 instanceof StatusModel){
+                if (arg0 instanceof StatusModel) {
                     StatusModel statusModel = (StatusModel) arg0;
-                    if(statusModel.isStatus()){
+                    if (statusModel.isStatus()) {
                         Toast.makeText(context, "Item has been marked as sold", Toast.LENGTH_LONG).show();
                         closeThisActivity();
                     }
-                }else if(arg0 instanceof ErrorModel){
+                } else if (arg0 instanceof ErrorModel) {
                     ErrorModel errorModel = (ErrorModel) arg0;
-                    String msg = errorModel.getError()!=null ? errorModel.getError() : errorModel.getMessage();
+                    String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
                 }
             }
+
             @Override
             public void OnFailureFromServer(String msg) {
                 Log.d(TAG, msg);
@@ -1308,24 +1335,26 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             }
         }, "Review Ratings");
     }
-    public void updateSaleStatus(final Context context,boolean is_Available,String sale_id){
+
+    public void updateSaleStatus(final Context context, boolean is_Available, String sale_id) {
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.updateSaleStatus(context,sale_id,is_Available,new ServerResponseInterface() {
+        servicesMethodsManager.updateSaleStatus(context, sale_id, is_Available, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 Log.d(TAG, "onSuccess Response");
-                if(arg0 instanceof StatusModel){
+                if (arg0 instanceof StatusModel) {
                     StatusModel statusModel = (StatusModel) arg0;
-                    if(statusModel.isStatus()){
+                    if (statusModel.isStatus()) {
                         Toast.makeText(context, "Sale has been marked as sold", Toast.LENGTH_LONG).show();
                         closeThisActivity();
                     }
-                }else if(arg0 instanceof ErrorModel){
+                } else if (arg0 instanceof ErrorModel) {
                     ErrorModel errorModel = (ErrorModel) arg0;
-                    String msg = errorModel.getError()!=null ? errorModel.getError() : errorModel.getMessage();
+                    String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
                 }
             }
+
             @Override
             public void OnFailureFromServer(String msg) {
                 Log.d(TAG, msg);
@@ -1337,55 +1366,60 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             }
         }, "Review Ratings");
     }
-    private void deleteSale(final Context context, String saleID){
+
+    private void deleteSale(final Context context, String saleID) {
         showProgressBar();
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.deleteSale(context, saleID, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-              hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, "onSuccess Response");
-                Toast.makeText(context,"Sale has been deleted Successfully",Toast.LENGTH_LONG).show();
-                closeThisActivity();       }
+                Toast.makeText(context, "Sale has been deleted Successfully", Toast.LENGTH_LONG).show();
+                closeThisActivity();
+            }
 
             @Override
             public void OnFailureFromServer(String msg) {
-              hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, msg);
             }
 
             @Override
             public void OnError(String msg) {
-              hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, msg);
             }
         }, "Delete Sale");
     }
-    private void deleteItem(final Context context, String saleID){
+
+    private void deleteItem(final Context context, String saleID) {
         showProgressBar();
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.deleteItem(context, saleID, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-              hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, "onSuccess Response");
-                Toast.makeText(context,"Item has been deleted Successfully",Toast.LENGTH_LONG).show();
-                closeThisActivity();       }
+                Toast.makeText(context, "Item has been deleted Successfully", Toast.LENGTH_LONG).show();
+                closeThisActivity();
+            }
 
             @Override
             public void OnFailureFromServer(String msg) {
-              hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, msg);
             }
 
             @Override
             public void OnError(String msg) {
-              hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, msg);
             }
         }, "Delete Sale");
     }
-    public  void show_alert(final String sale_id){
+
+    public void show_alert(final String sale_id) {
         final AlertDialog dialog = new AlertDialog(activity);
         dialog.setTitle("Delete Sale");
         dialog.setIcon(R.drawable.ic_warning_black_24dp);
@@ -1394,7 +1428,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         dialog.setPositiveButton("Yes", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteSale(activity,sale_id);
+                deleteSale(activity, sale_id);
                 dialog.dismiss();
             }
         });
@@ -1408,16 +1442,16 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         dialog.show();
     }
 
-    public void getShopDetails(Context context,String selle_user_id){
+    public void getShopDetails(Context context, String selle_user_id) {
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getShopDetails(context,selle_user_id,new ServerResponseInterface() {
+        servicesMethodsManager.getShopDetails(context, selle_user_id, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-                Log.d(TAG, "onSuccess Response"+arg0.toString());
+                Log.d(TAG, "onSuccess Response" + arg0.toString());
                 ShopModel ShopModel = (ShopModel) arg0;
-                Log.d(TAG,"####ShopModel#####"+ShopModel.toString());
-                Log.d(TAG,"####Profile model#####"+ShopModel.getProfileDetailsModel().toString());
-                Log.d(TAG,"####Item List#####"+ShopModel.getItem_list());
+                Log.d(TAG, "####ShopModel#####" + ShopModel.toString());
+                Log.d(TAG, "####Profile model#####" + ShopModel.getProfileDetailsModel().toString());
+                Log.d(TAG, "####Item List#####" + ShopModel.getItem_list());
                /* proceedToShop(ShopModel);*/
 
             }
@@ -1435,61 +1469,63 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         }, "Shop Model");
 
     }
-    public  void proceedToShop() {
+
+    public void proceedToShop() {
         Intent i = ShopActivity.newInstance(context, seller_user_id);
         startActivity(i);
 
     }
-    public void refreshPage(Context context){
-        if(isActive()){
-            if(is_sale)
-                getSaleInfo(salesModel,context);
+
+    public void refreshPage(Context context) {
+        if (isActive()) {
+            if (is_sale)
+                getSaleInfo(salesModel, context);
             else
-                getItemInfo(productModel,context);
-        }else {
-            if(is_sale){
-                Intent intent = ProductDetail.newInstance(context,null,salesModel,GlobalVariables.TYPE_MY_SALE);
+                getItemInfo(productModel,null, context);
+        } else {
+            if (is_sale) {
+                Intent intent = ProductDetail.newInstance(context, null, salesModel, GlobalVariables.TYPE_MY_SALE);
                 context.startActivity(intent);
-            }else{
-                Intent intent = ProductDetail.newInstance(context,productModel,null,GlobalVariables.TYPE_MY_SALE);
+            } else {
+                Intent intent = ProductDetail.newInstance(context, productModel, null, GlobalVariables.TYPE_MY_SALE);
                 context.startActivity(intent);
             }
-
 
 
         }
 
 
     }
-    private void check_conversation_exists(){
+
+    private void check_conversation_exists() {
         showProgressBar();
-        if(is_sale)
+        if (is_sale)
             conversationIdModel.setIs_garage(true);
         conversationIdModel.setProduct_id(productModel.getId());
         conversationIdModel.setSeller_id(seller_user_id);
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.check_conversation_exists(context, conversationIdModel,new ServerResponseInterface() {
+        servicesMethodsManager.check_conversation_exists(context, conversationIdModel, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 hideProgressBar();
                 Log.d(TAG, "onSuccess Response");
-                if(arg0 instanceof StatusModel){
+                if (arg0 instanceof StatusModel) {
                     StatusModel statusModel = (StatusModel) arg0;
-                    if(statusModel.isStatus()){
+                    if (statusModel.isStatus()) {
                         Toast.makeText(context, statusModel.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                }else if(arg0 instanceof ErrorModel){
+                } else if (arg0 instanceof ErrorModel) {
                     ErrorModel errorModel = (ErrorModel) arg0;
-                    String msg = errorModel.getError()!=null ? errorModel.getError() : errorModel.getMessage();
+                    String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
-                }else if(arg0 instanceof ConversationIdModel){
-                    conversationIdModel=(ConversationIdModel)arg0;
-                    Log.d(TAG,"conversationIdModel iddd##############"+conversationIdModel.getConversation_id());
+                } else if (arg0 instanceof ConversationIdModel) {
+                    conversationIdModel = (ConversationIdModel) arg0;
+                    Log.d(TAG, "conversationIdModel iddd##############" + conversationIdModel.getConversation_id());
                     user.setConversation_id(conversationIdModel.getConversation_id());
                     user.setActive_tab(conversationIdModel.getActive_tab());
-                    String id=conversationIdModel.getProduct_id();
+                    String id = conversationIdModel.getProduct_id();
                     user.setProduct_id(conversationIdModel.getProduct_id());
-                    Intent i= ChatActivity.newInstance(context,user);
+                    Intent i = ChatActivity.newInstance(context, user);
                     startActivity(i);
                 }
             }
@@ -1497,9 +1533,9 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             @Override
             public void OnFailureFromServer(String msg) {
                 hideProgressBar();
-                Log.d(TAG, "OnFailureFromServer#############"+msg);
-                if(msg!=null){
-                    if(msg.equalsIgnoreCase(email_verification_error))
+                Log.d(TAG, "OnFailureFromServer#############" + msg);
+                if (msg != null) {
+                    if (msg.equalsIgnoreCase(email_verification_error))
                         GlobalFunctions.showEmailVerificatiomAlert(context);
                     else
                         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
@@ -1510,9 +1546,9 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             @Override
             public void OnError(String msg) {
                 hideProgressBar();
-                Log.d(TAG, "OnError############"+msg);
-                if(msg!=null){
-                    if(msg.equalsIgnoreCase(email_verification_error))
+                Log.d(TAG, "OnError############" + msg);
+                if (msg != null) {
+                    if (msg.equalsIgnoreCase(email_verification_error))
                         GlobalFunctions.showEmailVerificatiomAlert(context);
                     else
                         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
@@ -1521,11 +1557,14 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         }, "Review Ratings");
 
     }
+
     private static class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         private final int space;
+
         public SpacesItemDecoration(int space) {
             this.space = space;
         }
+
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
                                    RecyclerView.State state) {
@@ -1537,6 +1576,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                 outRect.top = 2 * space;
         }
     }
+
     private void setValues(List<ProductModel> products) {
 
         relatedList.clear();
@@ -1592,33 +1632,32 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             title = "No Items Available";
         }
         sale_items_tv.setText(title);
-        if (iCount > 0){
+        if (iCount > 0) {
             similarListing_label.setText("Items for sale");
-        }
-        else{
+        } else {
             similarListing_label.setText("No items for sale");
         }
 
     }
 
-    private void deleteBookmark(final Context context, final String productID){
+    private void deleteBookmark(final Context context, final String productID) {
         /*GlobalFunctions.showProgress(context, "Bookmarking Product...");*/
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.deleteBookmark(context, productID, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 /*GlobalFunctions.hideProgress();*/
-                if(arg0 instanceof StatusModel){
+                if (arg0 instanceof StatusModel) {
                     StatusModel statusModel = (StatusModel) arg0;
-                    if(statusModel.isStatus()){
+                    if (statusModel.isStatus()) {
                         productModel.setIs_bookmark(false);
                         bookmark.setImageResource(R.drawable.like_border);
                         Toast.makeText(context, "Bookmark Removed", Toast.LENGTH_SHORT).show();
                     }
-                }else if(arg0 instanceof ErrorModel){
+                } else if (arg0 instanceof ErrorModel) {
                     ErrorModel errorModel = (ErrorModel) arg0;
-                    String msg = errorModel.getError()!=null ? errorModel.getError() : errorModel.getMessage();
-                    Log.d(TAG,"OnFailureFromServer"+msg);
+                    String msg = errorModel.getError() != null ? errorModel.getError() : errorModel.getMessage();
+                    Log.d(TAG, "OnFailureFromServer" + msg);
                    /* Toast.makeText(context, msg, Toast.LENGTH_LONG).show();*/
                 }
             }
@@ -1626,40 +1665,44 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 
             @Override
             public void OnFailureFromServer(String msg) {
-                Log.d(TAG,"OnFailureFromServer"+msg);
+                Log.d(TAG, "OnFailureFromServer" + msg);
                 /*GlobalFunctions.hideProgress();*/
                /* Toast.makeText(context, msg, Toast.LENGTH_LONG).show();*/
             }
 
             @Override
             public void OnError(String msg) {
-                Log.d(TAG,"OnFailureFromServer"+msg);
+                Log.d(TAG, "OnFailureFromServer" + msg);
                /* GlobalFunctions.hideProgress();*/
                 /*Toast.makeText(context, msg, Toast.LENGTH_LONG).show();*/
             }
         }, "Add Bookmarks");
 
     }
-    public void refreshList(){
+
+    public void refreshList() {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                synchronized (adapter){adapter.notifyDataSetChanged();}
+                synchronized (adapter) {
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
     }
-    private void getSellerProducts(){
+
+    private void getSellerProducts() {
         showProgressBar();
 
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getSellerProducts(context, seller_user_id, productModel.getId(),new ServerResponseInterface() {
+        servicesMethodsManager.getSellerProducts(context, seller_user_id, productModel.getId(), new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-             hideProgressBar();
-                Log.d(TAG, "getSellerProducts onSuccess Response"+arg0.toString());
+                hideProgressBar();
+                Log.d(TAG, "getSellerProducts onSuccess Response" + arg0.toString());
                 seller_other_listing.clear();
-                SimilarProductsModel similarProductsModel = (SimilarProductsModel)arg0;
-                seller_other_listing=similarProductsModel.getProductsList();
+                SimilarProductsModel similarProductsModel = (SimilarProductsModel) arg0;
+                seller_other_listing = similarProductsModel.getProductsList();
 
               /*  setValues(similarProductsModel.getProductsList());*/
                 Log.d(TAG, similarProductsModel.toString());
@@ -1688,6 +1731,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         }, "Similar Products");
 
     }
+
     public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
         private Drawable mDivider;
 
@@ -1714,46 +1758,48 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             }
         }
     }
+
     public static void makeTextViewResizable(final TextView tv, final int maxLine, final String expandText, final boolean viewMore) {
-            if (tv.getTag() == null) {
-                tv.setTag(tv.getText());
-            }
-            ViewTreeObserver vto = tv.getViewTreeObserver();
-            vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
-                @SuppressWarnings("deprecation")
-                @Override
-                public void onGlobalLayout() {
-                    ViewTreeObserver obs = tv.getViewTreeObserver();
-                    obs.removeGlobalOnLayoutListener(this);
-                    if (maxLine == 0) {
-                        int lineEndIndex = tv.getLayout().getLineEnd(0);
-                        String text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
-                        tv.setText(text);
-                        tv.setMovementMethod(LinkMovementMethod.getInstance());
-                        tv.setText(
-                                addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, maxLine, expandText,
-                                        viewMore), BufferType.SPANNABLE);
-                    } else if (maxLine > 0 && tv.getLineCount() >= maxLine) {
-                        int lineEndIndex = tv.getLayout().getLineEnd(maxLine - 1);
-                        String text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
-                        tv.setText(text);
-                        tv.setMovementMethod(LinkMovementMethod.getInstance());
-                        tv.setText(
-                                addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, maxLine, expandText,
-                                        viewMore), BufferType.SPANNABLE);
-                    } else {
-                        int lineEndIndex = tv.getLayout().getLineEnd(tv.getLayout().getLineCount() - 1);
-                        String text = tv.getText().subSequence(0, lineEndIndex) + " " + expandText;
-                        tv.setText(text);
-                        tv.setMovementMethod(LinkMovementMethod.getInstance());
-                        tv.setText(
-                                addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, lineEndIndex, expandText,
-                                        viewMore), BufferType.SPANNABLE);
-                    }
+        if (tv.getTag() == null) {
+            tv.setTag(tv.getText());
+        }
+        ViewTreeObserver vto = tv.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onGlobalLayout() {
+                ViewTreeObserver obs = tv.getViewTreeObserver();
+                obs.removeGlobalOnLayoutListener(this);
+                if (maxLine == 0) {
+                    int lineEndIndex = tv.getLayout().getLineEnd(0);
+                    String text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                    tv.setText(text);
+                    tv.setMovementMethod(LinkMovementMethod.getInstance());
+                    tv.setText(
+                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, maxLine, expandText,
+                                    viewMore), BufferType.SPANNABLE);
+                } else if (maxLine > 0 && tv.getLineCount() >= maxLine) {
+                    int lineEndIndex = tv.getLayout().getLineEnd(maxLine - 1);
+                    String text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                    tv.setText(text);
+                    tv.setMovementMethod(LinkMovementMethod.getInstance());
+                    tv.setText(
+                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, maxLine, expandText,
+                                    viewMore), BufferType.SPANNABLE);
+                } else {
+                    int lineEndIndex = tv.getLayout().getLineEnd(tv.getLayout().getLineCount() - 1);
+                    String text = tv.getText().subSequence(0, lineEndIndex) + " " + expandText;
+                    tv.setText(text);
+                    tv.setMovementMethod(LinkMovementMethod.getInstance());
+                    tv.setText(
+                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, lineEndIndex, expandText,
+                                    viewMore), BufferType.SPANNABLE);
                 }
-            });
+            }
+        });
 
     }
+
     private static SpannableStringBuilder addClickablePartTextViewResizable(final Spanned strSpanned, final TextView tv,
                                                                             final int maxLine, final String spanableText, final boolean viewMore) {
         String str = strSpanned.toString();
@@ -1762,7 +1808,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         if (str.contains(spanableText)) {
 
 
-            ssb.setSpan(new MySpannable(true){
+            ssb.setSpan(new MySpannable(true) {
                 @Override
                 public void onClick(View widget) {
                     if (viewMore) {
@@ -1783,6 +1829,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         return ssb;
 
     }
+
     public static class MySpannable extends ClickableSpan {
 
         private boolean isUnderline = true;
@@ -1808,19 +1855,20 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
 
         }
     }
-    public void show_edit_item_pop_up(View v){
+
+    public void show_edit_item_pop_up(View v) {
         // Open calender Image
-        if(activity!=null){
+        if (activity != null) {
             final PopupMenu popup = new PopupMenu(activity, v);
             popup.getMenuInflater().inflate(R.menu.item_edit, popup.getMenu());
            /* MenuItem sold=popup.fin*/
             Menu popupMenu = popup.getMenu();
-            if(!productModel.isAvailable())
+            if (!productModel.isAvailable())
                 popupMenu.findItem(R.id.sold_item).setVisible(false);
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 public boolean onMenuItemClick(MenuItem item) {
-                    if(item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.delete_item))){
-                        if(GlobalFunctions.is_loggedIn(activity)){
+                    if (item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.delete_item))) {
+                        if (GlobalFunctions.is_loggedIn(activity)) {
                             final AlertDialog dialog = new AlertDialog(activity);
                             dialog.setTitle("Delete Item");
                             dialog.setIcon(R.drawable.ic_warning_black_24dp);
@@ -1829,7 +1877,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                             dialog.setPositiveButton("Yes", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    deleteItem(activity,productModel.getId());
+                                    deleteItem(activity, productModel.getId());
                                     dialog.dismiss();
                                 }
                             });
@@ -1843,40 +1891,41 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                             dialog.show();
                         }
 
-                    }else if(item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.edit))){
+                    } else if (item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.edit))) {
                         CreateProductModel createProductModel = new CreateProductModel();
-                        createProductModel.toObject(productModel,GlobalFunctions.getCategories(context));
+                        createProductModel.toObject(productModel, GlobalFunctions.getCategories(context));
                       /*  closeThisActivity();*/
-                        Intent i= CreateSaleActivity.newInstance(context,null,createProductModel,null,0,GlobalVariables.TYPE_ITEM);
+                        Intent i = CreateSaleActivity.newInstance(context, null, createProductModel, null, 0, GlobalVariables.TYPE_ITEM);
                         startActivity(i);
-                    }else if(item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.mark_as_sold))){
-                        updateItemStatus(context,productModel.getId());
+                    } else if (item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.mark_as_sold))) {
+                        updateItemStatus(context, productModel.getId());
                     }
                     return true;
                 }
             });
-            if(popup!=null)
+            if (popup != null)
                 popup.show();
         }
 
     }
-    public void show_edit_sale_pop_up(View v){
+
+    public void show_edit_sale_pop_up(View v) {
         // Open calender Image
-        if(activity!=null){
+        if (activity != null) {
             final PopupMenu popup = new PopupMenu(activity, v);
             popup.getMenuInflater().inflate(R.menu.popup, popup.getMenu());
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 public boolean onMenuItemClick(MenuItem item) {
-                    if(item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.edit_Sale))){
+                    if (item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.edit_Sale))) {
                         CreateSalesModel createSalesModel = new CreateSalesModel();
-                        createSalesModel.toObject(salesModel,GlobalFunctions.getCategories(context));
+                        createSalesModel.toObject(salesModel, GlobalFunctions.getCategories(context));
                        /* closeThisActivity();*/
-                        Intent i= CreateSaleActivity.newInstance(context,createSalesModel,null,null,0,GlobalVariables.TYPE_GARAGE);
+                        Intent i = CreateSaleActivity.newInstance(context, createSalesModel, null, null, 0, GlobalVariables.TYPE_GARAGE);
                         startActivity(i);
-                    }else if(item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.end_sale))){
-                        endSale(context,salesModel.getId());
-                    }else if(item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.delete_sale))){
-                        if(GlobalFunctions.is_loggedIn(activity)){
+                    } else if (item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.end_sale))) {
+                        endSale(context, salesModel.getId());
+                    } else if (item.getTitle().toString().equalsIgnoreCase(activity.getResources().getString(R.string.delete_sale))) {
+                        if (GlobalFunctions.is_loggedIn(activity)) {
                             final AlertDialog dialog = new AlertDialog(activity);
                             dialog.setTitle("Delete sale");
                             dialog.setIcon(R.drawable.ic_warning_black_24dp);
@@ -1885,7 +1934,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                             dialog.setPositiveButton("Yes", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                   deleteSale(context,salesModel.getId());
+                                    deleteSale(context, salesModel.getId());
                                     dialog.dismiss();
                                 }
                             });
@@ -1898,7 +1947,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                             });
                             dialog.show();
                         }
-                    }else if(item.getTitle().toString().equalsIgnoreCase(context.getResources().getString(R.string.reschedule_sale))){
+                    } else if (item.getTitle().toString().equalsIgnoreCase(context.getResources().getString(R.string.reschedule_sale))) {
                         final AlertDialog dialog = new AlertDialog(activity);
                         dialog.setTitle("Reschedule Sale");
                         dialog.setIcon(R.drawable.ic_alert);
@@ -1908,7 +1957,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                             @Override
                             public void onClick(View v) {
                                 int[] dateInts = GlobalFunctions.convertTexttoDate(salesModel.getStart_date());
-                                setDateTimeField(dateInts[2],dateInts[1],dateInts[0]);
+                                setDateTimeField(dateInts[2], dateInts[1], dateInts[0]);
                                 dialog.dismiss();
                             }
                         });
@@ -1924,41 +1973,43 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                     return true;
                 }
             });
-            if(popup!=null)
+            if (popup != null)
                 popup.show();
         }
 
     }
-    private void endSale(final Context context, String saleID){
-       showProgressBar();
+
+    private void endSale(final Context context, String saleID) {
+        showProgressBar();
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.endSale(context, saleID, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-               hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, "onSuccess Response");
-                Toast.makeText(context,"Sale has been closed Successfully",Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Sale has been closed Successfully", Toast.LENGTH_LONG).show();
                 closeThisActivity();
             }
 
             @Override
             public void OnFailureFromServer(String msg) {
-              hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, msg);
             }
 
             @Override
             public void OnError(String msg) {
-              hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, msg);
             }
         }, "Delete Sale");
     }
+
     private void setDateTimeField(int year, int month, int day) {
         Calendar newCalendar = Calendar.getInstance();
-        day = day==0? newCalendar.get(Calendar.DAY_OF_MONTH) : day;
-        month = month==0? newCalendar.get(Calendar.MONTH) : month+1;
-        year = year==0? newCalendar.get(Calendar.YEAR) : year;
+        day = day == 0 ? newCalendar.get(Calendar.DAY_OF_MONTH) : day;
+        month = month == 0 ? newCalendar.get(Calendar.MONTH) : month + 1;
+        year = year == 0 ? newCalendar.get(Calendar.YEAR) : year;
         toDatePickerDialog = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
 
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -1968,19 +2019,20 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
                 changeDate(context, salesModel.getId(), newDateString, salesModel.getStart_time(), salesModel.getEnd_time());
             }
 
-        },year, month, day);
+        }, year, month, day);
 
         toDatePickerDialog.show();
     }
-    private void changeDate(final Context context, String saleID, String startDate, String startTime, String endTime){
+
+    private void changeDate(final Context context, String saleID, String startDate, String startTime, String endTime) {
         showProgressBar();
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.rescheduleSale(context, saleID, startDate, startTime, endTime, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-             hideProgressBar();
+                hideProgressBar();
                 Log.d(TAG, "onSuccess Response");
-                Toast.makeText(context,"Sale has been rescheduled Successfully",Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Sale has been rescheduled Successfully", Toast.LENGTH_LONG).show();
                 closeThisActivity();
 
             }
@@ -1999,33 +2051,36 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
         }, "Delete Sale");
 
     }
-    public void showProgressBar(){
-        if(progress_bar!=null)
+
+    public void showProgressBar() {
+        if (progress_bar != null)
             progress_bar.setVisibility(View.VISIBLE);
     }
-    public void hideProgressBar(){
-        if(progress_bar!=null)
+
+    public void hideProgressBar() {
+        if (progress_bar != null)
             progress_bar.setVisibility(View.GONE);
     }
-    public void shareApp(){
+
+    public void shareApp() {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id="+context.getPackageName());
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=" + context.getPackageName());
         try {
             context.startActivity(Intent.createChooser(shareIntent, "Share BlueShak using"));
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();
-			/*UtilityClass.showAlertDialog(context, ERROR, "Couldn't launch the market", null, 0);*/
+            /*UtilityClass.showAlertDialog(context, ERROR, "Couldn't launch the market", null, 0);*/
         }
 
     }
 
-    private void setSalesIdLatLongForDelete(Context context,String salesId,String latitude,String longitude){
-        BlueShakLog.logDebug(TAG,"setSalesIdLatLongForDelete -> salesId -> "+salesId+" latitude -> "+latitude+
-                "longitude -> "+longitude);
-        BlueShakSharedPreferences.setSalesId(context,salesId);
-        BlueShakSharedPreferences.setSalesLatitude(context,latitude);
-        BlueShakSharedPreferences.setSalesLongitude(context,longitude);
+    private void setSalesIdLatLongForDelete(Context context, String salesId, String latitude, String longitude) {
+        BlueShakLog.logDebug(TAG, "setSalesIdLatLongForDelete -> salesId -> " + salesId + " latitude -> " + latitude +
+                "longitude -> " + longitude);
+        BlueShakSharedPreferences.setSalesId(context, salesId);
+        BlueShakSharedPreferences.setSalesLatitude(context, latitude);
+        BlueShakSharedPreferences.setSalesLongitude(context, longitude);
     }
 
 }

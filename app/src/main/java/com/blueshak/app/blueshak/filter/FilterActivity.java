@@ -94,6 +94,8 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
     RelativeLayout category_layout;
     private ArrayList<String> stringArrayList = new ArrayList<String>();
     private HashSet<String> hashSet = new HashSet<String>();
+    private LinearLayout layoutFreeItems;
+    private Switch switchOnlyFreeItem;
 
 
     public static Intent newInstance(Context context, LocationModel locationModel, int from) {
@@ -149,6 +151,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
             only_garage_item_content = (LinearLayout) findViewById(R.id.only_garage_item_content);
             negotial_l = (LinearLayout) findViewById(R.id.negotial_l);
             only_new_item_l = (LinearLayout) findViewById(R.id.only_new_item_l);
+            layoutFreeItems = (LinearLayout)findViewById(R.id.layout_only_free_items);
 
 
             sorting_content = (LinearLayout) findViewById(R.id.sorting_content);
@@ -158,6 +161,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
 
 
             nly_new_items_s = (Switch) findViewById(R.id.nly_new_items_s);
+            switchOnlyFreeItem = (Switch) findViewById(R.id.switch_free_item);
 
             nly_negotiable_item_s = (Switch) findViewById(R.id.nly_negotiable_item_s);
   /*  sorting=(Switch)findViewById(R.id.sorting);*/
@@ -525,6 +529,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
         category.setText(categoryText);
         nly_negotiable_item_s.setChecked(false);
         nly_new_items_s.setChecked(false);
+        switchOnlyFreeItem.setChecked(false);
 
         all_categories.setTextColor(context.getResources().getColor(R.color.brandColor));
         ic_check.setVisibility(View.VISIBLE);
@@ -571,6 +576,13 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
                 nly_new_items_s.setChecked(true);
             else
                 nly_new_items_s.setChecked(false);
+
+            if (detail.isFreeItems()){
+                switchOnlyFreeItem.setChecked(true);
+            }else{
+                switchOnlyFreeItem.setChecked(false);
+            }
+
 
             if (detail.isNegotiable_items())
                 nly_negotiable_item_s.setChecked(true);
@@ -732,6 +744,15 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
             } else
                 detail.setNew_items(false);
 
+            if (switchOnlyFreeItem.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_free_items))){
+                    stringArrayList.add(getString(R.string.only_free_items));
+                }
+                detail.setFreeItems(true);
+            } else{
+                detail.setFreeItems(false);
+            }
+
             if (nly_negotiable_item_s.isChecked()){
                 if(!noDuplicateEntry(getString(R.string.only_negotiable_items))){
                     stringArrayList.add(getString(R.string.only_negotiable_items));
@@ -786,6 +807,15 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
                 detail.setNew_items(true);
             } else
                 detail.setNew_items(false);
+
+            if (switchOnlyFreeItem.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_free_items))){
+                    stringArrayList.add(getString(R.string.only_free_items));
+                }
+                detail.setFreeItems(true);
+            } else{
+                detail.setFreeItems(false);
+            }
 
             if (nly_negotiable_item_s.isChecked()){
                 if(!noDuplicateEntry(getString(R.string.only_negotiable_items))){
@@ -875,6 +905,15 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
             }else
                 detail.setNew_items(false);
 
+            if (switchOnlyFreeItem.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_free_items))){
+                    stringArrayList.add(getString(R.string.only_free_items));
+                }
+                detail.setFreeItems(true);
+            } else{
+                detail.setFreeItems(false);
+            }
+
             if (nly_negotiable_item_s.isChecked()){
                 if(!noDuplicateEntry(getString(R.string.only_negotiable_items))){
                     stringArrayList.add(getString(R.string.only_negotiable_items));
@@ -928,6 +967,15 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
                 detail.setNew_items(true);
             }else
                 detail.setNew_items(false);
+
+            if (switchOnlyFreeItem.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_free_items))){
+                    stringArrayList.add(getString(R.string.only_free_items));
+                }
+                detail.setFreeItems(true);
+            } else{
+                detail.setFreeItems(false);
+            }
 
             if (nly_negotiable_item_s.isChecked()){
                 if(!noDuplicateEntry(getString(R.string.only_negotiable_items))){
@@ -1196,6 +1244,7 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
         nearest_content.setVisibility(View.VISIBLE);
         h_to_l_content.setVisibility(View.VISIBLE);
         l_to_h_content.setVisibility(View.VISIBLE);
+        layoutFreeItems.setVisibility(View.VISIBLE);
 
         ending_soon_content.setVisibility(View.GONE);
 

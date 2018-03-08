@@ -46,6 +46,19 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int VIEWTYPE_LOADER = 2;
     public String item_address;
     private List<FeatureItemData> featureItemList;
+    private FeatureItemLoadMore itemLoadMore;
+
+
+    public ItemListAdapter(Context mContext, List<ProductModel> albumList,FeatureItemLoadMore itemLoadMore) {
+        this.context = mContext;
+        this.albumList = albumList;
+        this.itemLoadMore = itemLoadMore;
+        this.item_address = GlobalFunctions.getSharedPreferenceString(mContext, GlobalVariables.CURRENT_LOCATION);
+     /*   imgLoader = new ImageLoader(mContext);*/
+
+
+    }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         protected TextView item_price;
@@ -85,15 +98,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    public ItemListAdapter(Context mContext, List<ProductModel> albumList) {
-        this.context = mContext;
-        this.albumList = albumList;
-        //this.featureItemList = featureItemList;
-        this.item_address = GlobalFunctions.getSharedPreferenceString(mContext, GlobalVariables.CURRENT_LOCATION);
-     /*   imgLoader = new ImageLoader(mContext);*/
 
-
-    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -119,25 +124,11 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 final MyViewHolder holder = (MyViewHolder) view_holder;
               /*  final ProductModel obj = albumList.get(position-1);*/
                 final ProductModel obj = albumList.get(position);
-                /*if (position == 0) {
-                    holder.horizontalRecyclerView.setVisibility(View.VISIBLE);
-                    holder.txt_feature_items.setVisibility(View.VISIBLE);
-                    holder.txt_seller_items.setVisibility(View.VISIBLE);
-                    holder.feature_line.setVisibility(View.VISIBLE);
-                    holder.seller_line.setVisibility(View.VISIBLE);
-                    HorizontalItemListAdapter itemListDataAdapter = new HorizontalItemListAdapter(context, featureItemList);
-                    holder.horizontalRecyclerView.setHasFixedSize(true);
-                    holder.horizontalRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-                    holder.horizontalRecyclerView.setAdapter(itemListDataAdapter);
-                    holder.feature_below_line.setVisibility(View.VISIBLE);
 
-                } else {
-                    holder.horizontalRecyclerView.setVisibility(View.GONE);
-                    holder.txt_feature_items.setVisibility(View.GONE);
-                    holder.txt_seller_items.setVisibility(View.GONE);
-                    holder.feature_below_line.setVisibility(View.GONE);
-                    holder.feature_line.setVisibility(View.GONE);
-                    holder.seller_line.setVisibility(View.GONE);
+                /*if(position == ItemListFragmentForList.iFeatureListSize-1
+                        && ItemListFragmentForList.iFeature_last_page >= ItemListFragmentForList.iFeature_current_page){
+
+                    itemLoadMore.onLoadMoreItems(ItemListFragmentForList.iFeature_current_page+1);
                 }*/
 
                 holder.item_price.setText(GlobalFunctions.getFormatedAmount(obj.getCurrency(), obj.getSalePrice()));
@@ -156,7 +147,11 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_featured.setVisibility(View.GONE);
                     holder.is_sold.setImageResource(R.drawable.ic_new);
-                } else if (!obj.isAvailable()) {
+                }else if (!obj.isAvailable() && obj.isIs_featured()) {
+                    holder.is_sold.setVisibility(View.VISIBLE);
+                    holder.is_featured.setVisibility(View.GONE);
+                    holder.is_sold.setImageResource(R.drawable.ic_sold);
+                }else if (!obj.isAvailable()) {
                     holder.is_sold.setVisibility(View.VISIBLE);
                     holder.is_featured.setVisibility(View.GONE);
                     holder.is_sold.setImageResource(R.drawable.ic_sold);
@@ -173,10 +168,10 @@ public class ItemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     holder.is_featured.setVisibility(View.GONE);
                 }
 
-                if (obj.is_garage_item())
+                /*if (obj.is_garage_item())
                     holder.is_garage.setVisibility(View.VISIBLE);
                 else
-                    holder.is_garage.setVisibility(View.GONE);
+                    holder.is_garage.setVisibility(View.GONE);*/
 
                 holder.image_iv.setOnClickListener(new View.OnClickListener() {
                     @Override

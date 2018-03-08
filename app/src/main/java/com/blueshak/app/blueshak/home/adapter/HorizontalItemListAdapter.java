@@ -16,14 +16,18 @@ import android.widget.Toast;
 
 import com.blueshak.app.blueshak.global.GlobalFunctions;
 import com.blueshak.app.blueshak.global.GlobalVariables;
+import com.blueshak.app.blueshak.home.FeatureItemLoadMore;
+import com.blueshak.app.blueshak.home.ItemListFragmentForList;
 import com.blueshak.app.blueshak.home.model.FeatureItemData;
 import com.blueshak.app.blueshak.item.ProductDetail;
 import com.blueshak.app.blueshak.login.LoginActivity;
 import com.blueshak.app.blueshak.services.ServerResponseInterface;
 import com.blueshak.app.blueshak.services.ServicesMethodsManager;
 import com.blueshak.app.blueshak.services.model.ErrorModel;
+import com.blueshak.app.blueshak.services.model.FilterModel;
 import com.blueshak.app.blueshak.services.model.ProductModel;
 import com.blueshak.app.blueshak.services.model.StatusModel;
+import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.blueshak.blueshak.R;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -44,35 +48,16 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
     private static final int VIEWTYPE_ITEM = 1;
     private static final int VIEWTYPE_LOADER = 2;
     public String item_address;
+    private FilterModel filterModel;
+    private FeatureItemLoadMore itemLoadMore;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        protected TextView txt_feature_price, item_name;
-        protected ImageView image_iv, img_feature;
-        public View container;
 
-        public MyViewHolder(View view) {
-            super(view);
-            container = view;
-            txt_feature_price = (TextView) view.findViewById(R.id.txt_feature_price);
-            image_iv = (ImageView) view.findViewById(R.id.product_image);
-            img_feature = (ImageView) view.findViewById(R.id.img_feature);
-            item_name = (TextView) view.findViewById(R.id.item_name);
-
-        }
-    }
-
-    class VHLoader extends RecyclerView.ViewHolder {
-        ProgressBar progressBar;
-
-        public VHLoader(View itemView) {
-            super(itemView);
-            progressBar = (ProgressBar) itemView.findViewById(R.id.bottom_progress_bar);
-        }
-    }
-
-    public HorizontalItemListAdapter(Context mContext, List<FeatureItemData> featureItemList) {
+    public HorizontalItemListAdapter(Context mContext, List<FeatureItemData> featureItemList, FilterModel filterModel,
+                                     FeatureItemLoadMore itemLoadMore) {
         this.context = mContext;
         this.featureItemList = featureItemList;
+        this.filterModel = filterModel;
+        this.itemLoadMore = itemLoadMore;
         this.item_address = GlobalFunctions.getSharedPreferenceString(mContext, GlobalVariables.CURRENT_LOCATION);
      /*   imgLoader = new ImageLoader(mContext);*/
 
@@ -91,10 +76,19 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
     public void onBindViewHolder(RecyclerView.ViewHolder view_holder, int position) {
         try {
             if (view_holder instanceof HorizontalItemListAdapter.MyViewHolder) {
+
                 final HorizontalItemListAdapter.MyViewHolder holder = (HorizontalItemListAdapter.MyViewHolder) view_holder;
                 final FeatureItemData featureData = featureItemList.get(position);
 
-
+                /*BlueShakLog.logDebug(TAG,"onLoadMore Adapter feature position ----->"+position+"  iFeatureListSize -->"+
+                        ItemListFragmentForList.iFeatureListSize+" iFeature_last_page -> "+ItemListFragmentForList.iFeature_last_page
+                +" iFeature_current_page -> "+ItemListFragmentForList.iFeature_current_page);
+*/
+                if(position == ItemListFragmentForList.iFeatureListSize-1
+                        && ItemListFragmentForList.iFeature_last_page >= ItemListFragmentForList.iFeature_current_page){
+                    //BlueShakLog.logDebug(TAG,"onLoadMore Adapter feature position INSIDE----->"+position+"  iFeatureListSize -->");
+                     itemLoadMore.onLoadMoreFeatureItems(ItemListFragmentForList.iFeature_current_page+1);
+                }
 
                 holder.item_name.setText(featureData.getProduct_name());
                 holder.txt_feature_price.setVisibility(View.VISIBLE);
@@ -106,23 +100,32 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
 
                 if (featureData.getIs_product_new().equalsIgnoreCase("1")
                         && featureData.getIs_featured().equalsIgnoreCase("1")) {
+                    holder.is_sold.setVisibility(View.GONE);
                     holder.img_feature.setVisibility(View.VISIBLE);
                     holder.img_feature.setImageResource(R.drawable.icon_new_feature_small);
+                }else if (featureData.getIs_available().equalsIgnoreCase("0")
+                        && featureData.getIs_featured().equalsIgnoreCase("1")) {
+                    holder.is_sold.setVisibility(View.VISIBLE);
+                    holder.img_feature.setVisibility(View.GONE);
+                    holder.is_sold.setImageResource(R.drawable.ic_sold);
                 }else if(featureData.getIs_featured().equalsIgnoreCase("1")){
+                    holder.is_sold.setVisibility(View.GONE);
                     holder.img_feature.setVisibility(View.VISIBLE);
                     holder.img_feature.setImageResource(R.drawable.icon_feature_small);
                 }else{
-                    holder.img_feature.setVisibility(View.INVISIBLE);
+                    holder.is_sold.setVisibility(View.GONE);
+                    holder.img_feature.setVisibility(View.GONE);
                 }
 
-               /* holder.container.setOnClickListener(new View.OnClickListener() {
+                holder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = ProductDetail.newInstance(context, featureData, null, GlobalVariables.TYPE_MY_SALE);
+                        Intent intent = ProductDetail.newInstance(context, null, null,featureData.getProduct_id(),
+                                GlobalVariables.TYPE_MY_SALE);
                         context.startActivity(intent);
 
                     }
-                });*/
+                });
 
                 String item_image = featureData.getImage();
                 ImageLoader imageLoader = ImageLoader.getInstance();
@@ -135,6 +138,7 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
                 imageLoader.displayImage(item_image, holder.image_iv, options);
             } else if (view_holder instanceof HorizontalItemListAdapter.VHLoader) {
                 HorizontalItemListAdapter.VHLoader loaderViewHolder = (HorizontalItemListAdapter.VHLoader) view_holder;
+                BlueShakLog.logDebug(TAG,"onLoadMore Adapter feature position ELSE ----->");
                 if (showLoader) {
                     loaderViewHolder.progressBar.setVisibility(View.VISIBLE);
                 } else {
@@ -161,6 +165,33 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
             return featureItemList.size();
         }else{
             return 0;
+        }
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        protected TextView txt_feature_price, item_name;
+        protected ImageView image_iv, img_feature;
+        private ImageView is_sold;
+        public View container;
+
+        public MyViewHolder(View view) {
+            super(view);
+            container = view;
+            txt_feature_price = (TextView) view.findViewById(R.id.txt_feature_price);
+            image_iv = (ImageView) view.findViewById(R.id.product_image);
+            img_feature = (ImageView) view.findViewById(R.id.img_feature);
+            item_name = (TextView) view.findViewById(R.id.item_name);
+            is_sold = (ImageView)view.findViewById(R.id.is_sold);
+
+        }
+    }
+
+    class VHLoader extends RecyclerView.ViewHolder {
+        ProgressBar progressBar;
+
+        public VHLoader(View itemView) {
+            super(itemView);
+            progressBar = (ProgressBar) itemView.findViewById(R.id.bottom_progress_bar);
         }
     }
 

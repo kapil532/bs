@@ -17,22 +17,34 @@
     card_view:setPreventCornerOverlap="true">
 
     <RelativeLayout
+        android:id="@+id/layout_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp">
 
         <ImageView
             android:id="@+id/product_image"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop" />
 
         <ImageView
+            android:id="@+id/is_sold"
+            android:layout_marginTop="5dp"
+            android:layout_width="80dp"
+            android:adjustViewBounds="true"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:clickable="true"
+            android:gravity="center|end"
+            android:layout_below="@+id/is_new_item"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
             android:id="@+id/img_feature"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -44,7 +56,7 @@
             android:scaleType="fitXY" />
 
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/product_image"
             android:layout_marginTop="10dp"
@@ -53,7 +65,7 @@
 
             <com.blueshak.app.blueshak.text.MyTextViewMediumBold
                 android:id="@+id/item_name"
-                android:layout_width="120dp"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/last_text_message"
                 android:layout_alignParentEnd="true"
@@ -76,8 +88,7 @@
                 android:layout_alignBottom="@+id/profile_pic"
                 android:layout_alignLeft="@+id/contact_name"
                 android:layout_alignStart="@+id/contact_name"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:singleLine="true"
                 android:text="$ 100000.05"
                 android:textColor="@color/brandColor"
