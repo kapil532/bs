@@ -290,7 +290,7 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                 @Override
                 public void onLoadMore(int current_page) {
                     if (!(current_page > last_page)) {
-                      BlueShakLog.logDebug(TAG,"onLoadMore ----->");
+                        BlueShakLog.logDebug(TAG,"onLoadMore ----->");
                         model.setPage(current_page);
                         getItemLists(context, model,true);
                     } else {

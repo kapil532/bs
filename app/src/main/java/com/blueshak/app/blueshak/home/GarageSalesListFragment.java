@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,11 +28,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.blueshak.app.blueshak.base.PresenterCallBack;
 import com.blueshak.app.blueshak.filter.FilterActivityForMap;
+import com.blueshak.app.blueshak.home.adapter.HorizontalItemListAdapter;
+import com.blueshak.app.blueshak.home.adapter.SellerHorizontalItemListAdapter;
+import com.blueshak.app.blueshak.home.model.FeatureItemData;
+import com.blueshak.app.blueshak.home.model.FeatureItemsModel;
+import com.blueshak.app.blueshak.home.presenter.ItemListPresenter;
 import com.blueshak.app.blueshak.search.SearchActivity;
+import com.blueshak.app.blueshak.seller.model.Data;
+import com.blueshak.app.blueshak.seller.model.SellerFeatured;
+import com.blueshak.app.blueshak.services.model.ProductModel;
+import com.blueshak.app.blueshak.text.MyTextViewMediumBold;
+import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.MainActivity;
 import com.blueshak.app.blueshak.PickLocation;
@@ -45,11 +58,13 @@ import com.blueshak.app.blueshak.services.model.SalesListModelNew;
 import com.blueshak.app.blueshak.services.model.SalesModel;
 import com.blueshak.app.blueshak.util.LocationListener;
 import com.blueshak.app.blueshak.util.LocationService;
+import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GarageSalesListFragment  extends Fragment implements LocationListener/*,onFilterChange*/  , SwipeRefreshLayout.OnRefreshListener{
+public class GarageSalesListFragment  extends Fragment implements LocationListener/*,onFilterChange*/
+        , SwipeRefreshLayout.OnRefreshListener,FeatureItemLoadMore{
 
     public static final String TAG = "GarageSalesListFragment";
     public static final String SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE="GarageSalesListGarageSaleModelSerialize";
@@ -66,7 +81,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
     private LayoutInflater inflater = null;
     private SalesListModelNew salesListModel=new SalesListModelNew();
     private SalesListAdapterNew adapter;
-    private TextView sale_header_name,results_all;
+    private TextView sale_header_name;
     private String header_name;
     private ArrayList<SalesModel> sales_list = new ArrayList<SalesModel>();
     private String type = GlobalVariables.TYPE_GARAGE;
@@ -74,7 +89,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private  LocationModel locationModel=new LocationModel();
-    FilterModel model = new FilterModel();
+    private static FilterModel model = new FilterModel();
     private SwipeRefreshLayout swipeRefreshLayout;
     public String item_address;
     private boolean location_available;
@@ -88,6 +103,25 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
     private ProgressBar progress_bar;
     private TextView searchViewResult;
     private EndlessRecyclerOnScrollListenerLinearView endlessRecyclerOnScrollListenerLinearView;
+
+    private ArrayList<Data> featureItemsList = new ArrayList<Data>();
+    private LinearLayoutManager gridLayoutManager;
+    public static int iFeatureTake = 5;
+    //private FlexboxLayout flexboxLayout;
+    private LinearLayout layoutFilterHorizontal;
+    private SellerHorizontalItemListAdapter horizontalAdapter;
+    private LinearLayoutManager layoutManager;
+    private RecyclerView recycler_list_feature;
+    private LinearLayout layout_feature_header;
+    public static int iFeatureListSize = 0;
+    public static int iFeature_last_page = 0;
+    public static int iFeature_current_page = 0;
+    public static int iFeature_current_page_increment = 0;
+    //public static int last_page = 0;
+    public static int iCurrentPage = 0;
+    public static int iListSize = 0;
+
+
     public static GarageSalesListFragment newInstance(SalesListModelNew salesListModel, String type,FilterModel filterModel,LocationModel locationModel,boolean list_my_sales){
         GarageSalesListFragment garageSalesListFragment = new GarageSalesListFragment();
         Bundle bundle = new Bundle();
@@ -116,13 +150,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
             swipeRefreshLayout.setOnRefreshListener(this);
 
             searchViewResult=(TextView)toolbar.findViewById(R.id.searchViewResult);
-           /* searchViewResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SearchActivity.TYPE_SEARCH=GlobalVariables.TYPE_GARAGE;
-                    startActivity(new Intent(activity, SearchActivity.class));
-                }
-            });*/
+
             swipeRefreshLayout.setColorSchemeColors(context.getResources().getColor(R.color.brandColor),
                     context.getResources().getColor(R.color.tab_selected),
                     context.getResources().getColor(R.color.darkorange),
@@ -130,71 +158,27 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
             salesListModel = (SalesListModelNew) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
             type = getArguments().getString(SALES_LIST_GARAGGE_SALE_MODEL_TYPE);
             location = (TextView)view.findViewById(R.id.location);
-            results_all=(TextView) view.findViewById(R.id.results_all);
+           // results_all=(TextView) view.findViewById(R.id.results_all);
             filter_tag = (TextView)view.findViewById(R.id.filter_tag);
             location_arrow=(ImageView)view.findViewById(R.id.location_arrow);
             filter=(ImageView)view.findViewById(R.id.filter);
             no_sales = (TextView) view.findViewById(R.id.no_sales);
             sale_header_name= (TextView) view.findViewById(R.id.sale_header_name);
-           /* header_content=(LinearLayout)view.findViewById(R.id.header_content);
-            header_content.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addFilter();
-                }
-            });*/
+
+            layoutFilterHorizontal = (LinearLayout) view.findViewById(R.id.layout_filter_horizontal);
+
             locServices = new LocationService(activity);
             locServices.setListener(this);
             recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-            adapter = new SalesListAdapterNew(context, sales_list);
-            LinearLayoutManager linearLayoutManagerVertical =
-                    new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-            recyclerView.addItemDecoration(new SpacesItemDecoration(
-                    getResources().getDimensionPixelSize(R.dimen.space)));
-            recyclerView.setLayoutManager(linearLayoutManagerVertical);
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView.setAdapter(adapter);
 
-    /* recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListenerLinearView(
-                    linearLayoutManagerVertical) {
-                @Override
-                public void onLoadMore(int current_page) {
-                    Log.d(TAG,"####onLoadMore#####"+current_page);
-                    if(!(current_page>feature_last_page)){
-                        Log.d(TAG,"#####addOnScrollListener############"+feature_last_page);
-                        adapter.showLoading(true);
-                        model.setPage(current_page);
-                        getLists(context,model);
-                    }else{
-                        adapter.showLoading(false);
-                    }
-                }
-            });*/
-           endlessRecyclerOnScrollListenerLinearView=new EndlessRecyclerOnScrollListenerLinearView(linearLayoutManagerVertical) {
-                @Override
-                public void onLoadMore(int current_page) {
-                    Log.d(TAG,"####onLoadMore#####"+current_page);
-                    if(!(current_page>last_page)){
-                        Log.d(TAG,"#####addOnScrollListener############"+last_page);
-                        adapter.showLoading(true);
-                        model.setPage(current_page);
-                        getLists(context,model);
-                    }else{
-                       // adapter.showLoading(false);
-                    }
-                }
-            };
-            recyclerView.addOnScrollListener(endlessRecyclerOnScrollListenerLinearView);
-           /* recyclerView.setOnScrollListener(new MyScrollListener(activity) {
-                @Override
-                public void onMoved(int distance) {
-                    toolbar.setTranslationY(-distance);
-                }
-            });*/
+
             salesListModel = (SalesListModelNew) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
             locationModel = (LocationModel) getArguments().getSerializable(LOCATION_MODEL);
             model = (FilterModel) getArguments().getSerializable(SALE_FILTER);
             salesListModel = (SalesListModelNew) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
+            recycler_list_feature = (RecyclerView)view.findViewById(R.id.horizontal_recycler_view);
+            layout_feature_header = (LinearLayout)view.findViewById(R.id.layout_feature_header);
+
             if(model==null){
                 model=new FilterModel();
                 if(locationModel!=null){
@@ -221,7 +205,6 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                         model.setPriceRange(minPriceValue+","+maxPriceValue);
              /*   getItemLists(context,model);*/
                     }else{
-                        Log.d(TAG,"###############Garage Sale Lis First TIme##################");
                         String country= GlobalFunctions.getSharedPreferenceString(context,GlobalVariables.SHARED_PREFERENCE_LOCATION_COUNTRY);
                         model.setCurrent_country_code(country);
                         model.setIs_current_country(true);
@@ -240,22 +223,38 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                         }
                     }
                 }
-                if(!TextUtils.isEmpty(model.getResults_text()))
-                    results_all.setText("Results from "+model.getResults_text());
-                else
-                    results_all.setText("Results from Nearest First");
+                if(model.getArrayListFilterResult()!=null){
+                    setFilterView(model.getArrayListFilterResult());
+                    BlueShakLog.logDebug("Result from ","getArrayListFilterResult  -> "+model.getArrayListFilterResult());
+                }else {
+                    setFilterView(defaultFilteredList());
+                }
+
             }else{
                 item_address=model.getLocation();
-              /*  String category_names=model.getCategory_names();
-                if(!TextUtils.isEmpty(category_names)&& category_names!=null)
-                    results_all.setText("Results in "+"'"+model.getCategory_names()+"'");
-                else
-                    results_all.setText("Results in "+"'"+"All"+"'");*/
-                if(!TextUtils.isEmpty(model.getResults_text()))
-                    results_all.setText("Results from "+model.getResults_text());
-                else
-                    results_all.setText("Results from Nearest First");
+
+                if(model.getArrayListFilterResult()!=null){
+                    setFilterView(model.getArrayListFilterResult());
+                    BlueShakLog.logDebug("Result from ","getArrayListFilterResult  size -> "+model.getArrayListFilterResult().size());
+                }else {
+                    setFilterView(defaultFilteredList());
+                }
+
             }
+
+            endlessRecyclerOnScrollListenerLinearView=new EndlessRecyclerOnScrollListenerLinearView(gridLayoutManager) {
+                @Override
+                public void onLoadMore(int current_page) {
+                    if(!(current_page>last_page)){
+                        adapter.showLoading(true);
+                        model.setPage(current_page);
+                        getLists(context,model,true);
+                    }else{
+                         adapter.showLoading(false);
+                    }
+                }
+            };
+            recyclerView.addOnScrollListener(endlessRecyclerOnScrollListenerLinearView);
 
             activity.runOnUiThread(new Runnable() {
                 @Override
@@ -263,20 +262,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                     setThisPage();
                 }
             });
-           /* go_to_filter=(ImageView) view.findViewById(R.id.go_to_filter);
-            go_to_filter.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addFilter();
-                }
-            });
-            location.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent= PickLocation.newInstance(context,GlobalVariables.TYPE_HOME,true,null);
-                    context.startActivity(intent);
-                }
-            });*/
+
             Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
 
@@ -327,8 +313,8 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
         swipeRefreshLayout.setRefreshing(false);
         endlessRecyclerOnScrollListenerLinearView.reset(0, true);
         last_page=0;
-        setThisPage();
-        /*setThisPage();*/
+        //setThisPage();
+
     }
     private void setThisPage(){
         if(TextUtils.isEmpty(item_address)&&model.getLongitude()!=null&&model.getLongitude()!=null)
@@ -338,9 +324,10 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
 
         if(sales_list!=null){
             sales_list.clear();
-            refreshList();
+            //refreshList();
          /*   synchronized (adapter){adapter.notifyDataSetChanged();}*/
         }
+
         if(model!=null)
         {
 
@@ -371,7 +358,8 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                 Log.d("http"," http://dev.blueshak.com/api"+detail.is_current_country());
             }
             model.setPage(1);
-            getLists(context,model);
+            getFeatureList(context, model,String.valueOf(iFeatureTake),false);
+            getLists(context,model,false);
         }
 
     }
@@ -382,14 +370,14 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
 
         super.onResume();
     }
-    private void setValues(SalesListModelNew model){
+    private void setValues(SalesListModelNew model,boolean isMore){
         if(model!=null){
             String str = "";
             salesListModel = model;
             last_page=model.getLast_page();
             List<SalesModel> productModels = salesListModel.getSalesList();
             if(productModels!=null){
-                if(productModels.size()>0&&recyclerView!=null&&sales_list!=null&&adapter!=null){
+                if(productModels.size()>0&&recyclerView!=null&&sales_list!=null){
                     if(productModels.size()==1)
                         str = productModels.size() + " Garage Sale you";
                     else
@@ -398,10 +386,14 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                     sale_header_name.setText(str);
 
                     no_sales.setVisibility(View.GONE);
-                 /*   sales_list.clear();*/
+
                     sales_list.addAll(productModels);
-                    Log.d(TAG,"productModels########"+productModels.size()+"sales_list#########"+sales_list.size());
-                    refreshList();
+                    if(isMore){
+                        adapter.notifyDataSetChanged();
+                    }else{
+                        setAdapterItemList(sales_list);
+                    }
+                   // refreshList();
                     // setHeader(inflater);
                 } else{   no_sales.setVisibility(View.VISIBLE);
                     no_sales.setText("No Sales found");
@@ -431,7 +423,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
         }
     }
 
-    private void getLists(Context context, FilterModel filterModel){
+    private void getLists(Context context, FilterModel filterModel, final boolean isMore){
         showProgressBar();
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getListDetails(context, filterModel, new ServerResponseInterface() {
@@ -443,7 +435,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                 salesListModel = (SalesListModelNew) arg0;
                 String str = salesListModel.toString();
                 Log.d(TAG, str);
-                setValues(salesListModel);
+                setValues(salesListModel,isMore);
             }
 
             @Override
@@ -485,7 +477,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                 model.setShipable(true);
                 model.setType(type);
                 model.setPriceRange("0,10000");
-                getLists(getContext(),model);
+                getLists(getContext(),model,false);
                 locServices.removeListener();
             }
         }else {
@@ -606,12 +598,13 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
         }
     }
     public void refreshList(){
-        handler.post(new Runnable() {
+        /*handler.post(new Runnable() {
             @Override
             public void run() {
-                synchronized (adapter){adapter.notifyDataSetChanged();}
+                synchronized (adapter){
+                    adapter.notifyDataSetChanged();}
             }
-        });
+        });*/
     }
         public void addFilter(){
             Intent filter_intent= FilterActivityForMap.newInstance(context,locationModel,GlobalVariables.TYPE_GARAGE_SALE);
@@ -630,16 +623,13 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                         MainActivity.filterModelForSale=model;
                         item_address=model.getLocation();
                         String category_names=model.getCategory_names();
-                     /*   if(!TextUtils.isEmpty(category_names)&& category_names!=null)
-                            results_all.setText("Results in "+"'"+model.getCategory_names()+"'");
-                        else
-                            results_all.setText("Results in "+"'"+"All"+"'");*/
-                        if(!TextUtils.isEmpty(model.getResults_text()))
-                            results_all.setText("Results from "+model.getResults_text());
-                        else
-                            results_all.setText("Results from Nearest First");
 
-                        Log.i(TAG,"name pm"+model.getFormatted_address());
+                        if(model.getArrayListFilterResult()!=null){
+                            setFilterView(model.getArrayListFilterResult());
+                        }else {
+                            setFilterView(defaultFilteredList());
+                        }
+
                         reset();
                         setThisPage();
                     }
@@ -675,7 +665,7 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
                 salesListModel = (SalesListModelNew)arg0;
                 String str = salesListModel.toString();
                 Log.d(TAG, str);
-                setValues(salesListModel);
+                setValues(salesListModel,false);
             }
             @Override
             public void OnFailureFromServer(String msg) {
@@ -706,6 +696,114 @@ public class GarageSalesListFragment  extends Fragment implements LocationListen
     public void hideProgressBar(){
         if(progress_bar!=null)
             progress_bar.setVisibility(View.GONE);
+    }
+
+
+    private void getFeatureList(Context context, FilterModel filterModel, String take, final boolean isMore){
+        ItemListPresenter itemListPresenter = new ItemListPresenter();
+        itemListPresenter.getSellerFeatureItemLists(context, filterModel, new PresenterCallBack<SellerFeatured>() {
+            @Override
+            public void onSuccess(SellerFeatured object) {
+                //featureItemsList.clear();
+                iFeature_last_page = object.getLastPage();
+                iFeature_current_page = object.getCurrentPage();
+
+                List<Data> featureItemList =  object.getData();
+                featureItemsList.addAll(featureItemList);
+
+                iFeatureListSize = featureItemsList.size();
+                if(featureItemsList!=null && featureItemsList.size() > 0){
+                    layout_feature_header.setVisibility(View.VISIBLE);
+                    if(isMore){
+                        horizontalAdapter.notifyDataSetChanged();
+                    }else{
+                        setAdapterFeatureItemList(featureItemsList,model);
+                    }
+
+                }else{
+                    layout_feature_header.setVisibility(View.GONE);
+                }
+
+                BlueShakLog.logDebug(TAG,"getFeatureList Size iFeatureListSize --> "+iFeatureListSize);
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        },take);
+    }
+    //@RequiresApi(api = Build.VERSION_CODES.M)
+    // @TargetApi(Build.VERSION_CODES.M)
+    int lastVisibleItem,totalCount;
+    private void setAdapterItemList(ArrayList<SalesModel> sales_list){
+        //layout_feature_header.setVisibility(View.VISIBLE);
+        adapter = new SalesListAdapterNew(context, sales_list);
+        gridLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+       /* recyclerView.addItemDecoration(new SpacesItemDecoration(
+                getResources().getDimensionPixelSize(R.dimen.space)));*/
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+
+
+    }
+
+    private void setAdapterFeatureItemList(ArrayList<Data> feature_list, FilterModel filterModel){
+        //layout_feature_header.setVisibility(View.VISIBLE);
+        horizontalAdapter = new SellerHorizontalItemListAdapter(context, feature_list,filterModel,this);
+        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        recycler_list_feature.setLayoutManager(layoutManager);
+        recycler_list_feature.setNestedScrollingEnabled(false);
+        //recycler_grid_feature.setLayoutManager(layoutManager);
+        recycler_list_feature.setItemAnimator(new DefaultItemAnimator());
+        recycler_list_feature.setAdapter(horizontalAdapter);
+    }
+
+    @Override
+    public void onLoadMoreItems(int current_page) {
+        /*BlueShakLog.logDebug(TAG,"onLoadMore current_page ----->"+current_page);
+        model.setPage(current_page);
+        getItemLists(context, model,true);*/
+    }
+
+    @Override
+    public void onLoadMoreFeatureItems(int current_page) {
+        //BlueShakLog.logDebug(TAG,"onLoadMore FeatureItems current_page ----->"+current_page);
+        model.setFeature_page(current_page);
+        iFeature_current_page_increment = current_page;
+        getFeatureList(context, model,String.valueOf(iFeatureTake),true);
+    }
+
+
+    private void setFilterView(ArrayList<String> arrayList){
+        if(layoutFilterHorizontal!=null){
+            layoutFilterHorizontal.removeAllViews();
+        }
+        for(int i = 0; i < arrayList.size(); i++){
+            com.blueshak.app.blueshak.text.MyTextViewMediumBold textViewMediumBold = new MyTextViewMediumBold(getContext());
+            textViewMediumBold.setBackgroundResource(R.drawable.rectangle_nearest);
+            textViewMediumBold.setText(arrayList.get(i));
+            textViewMediumBold.setPadding(20,15,20,15);
+            textViewMediumBold.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+            textViewMediumBold.setTextSize(16);
+            FlexboxLayout.LayoutParams paramsFilterText = new FlexboxLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            //paramsFilterText.topMargin = 10;
+            //paramsFilterText.leftMargin = 5;
+            paramsFilterText.rightMargin = 15;
+            textViewMediumBold.setLayoutParams(paramsFilterText);
+
+            layoutFilterHorizontal.addView(textViewMediumBold);
+
+        }
+
+    }
+    private ArrayList<String> defaultFilteredList(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add(getString(R.string.item_list_fragment_for_list_result_from_nearest_new));
+        return arrayList;
     }
 }
 

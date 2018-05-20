@@ -2,6 +2,8 @@ package com.blueshak.app.blueshak.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -14,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.blueshak.app.blueshak.garage.CreateSaleActivity;
+import com.blueshak.app.blueshak.services.model.CreateImageModel;
+import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
@@ -27,45 +31,97 @@ import com.blueshak.app.blueshak.item.ProductDetail;
 import com.blueshak.app.blueshak.login.LoginActivity;
 import com.blueshak.app.blueshak.services.model.SalesModel;
 import com.blueshak.app.blueshak.view.CustomSliderTextView;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.vlonjatg.progressactivity.ProgressActivity;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SalesListAdapterNew extends  RecyclerView.Adapter<RecyclerView.ViewHolder> implements
-        ViewPagerEx.OnPageChangeListener{
-
-private Context context;
-private List<SalesModel> albumList;
+public class SalesListAdapterNew extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
+        ViewPagerEx.OnPageChangeListener {
+    private static String TAG = "SalesListAdapterNew";
+    private Context context;
+    private List<SalesModel> albumList;
     protected boolean showLoader;
     private static final int VIEWTYPE_ITEM = 1;
     private static final int VIEWTYPE_LOADER = 2;
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
-    protected TextView name_tv, items_tv, date_tv, distance_tv,sale_time,address;
-    //    protected ImageView image_iv;
-    protected ImageView image_iv;
-    protected SliderLayout mProductSlider;
-    protected ProgressActivity progressActivity;
-    protected PagerIndicator mPagerIndicator;
-    protected LinearLayout detail_content;
-    public MyViewHolder(View view) {
-        super(view);
-        name_tv = (TextView) view.findViewById(R.id.sale_item_row_list_name_tv);
-        items_tv = (TextView) view.findViewById(R.id.sale_item_row_list_items_no_tv);
-        date_tv = (TextView) view.findViewById(R.id.sales_item_row_list_date_tv);
-        address = (TextView) view.findViewById(R.id.address);
-        distance_tv = (TextView) view.findViewById(R.id.sales_item_row_list_distance_tv);
-        progressActivity = (ProgressActivity) view.findViewById(R.id.products_details_progressActivity);
-        mProductSlider = (SliderLayout) view.findViewById(R.id.product_detail_slider);
-        sale_time=(TextView)view.findViewById(R.id.sales_item_row_list_time);
-        detail_content=(LinearLayout) view.findViewById(R.id.detail_content);
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        protected TextView name_tv, items_tv, date_tv, distance_tv, sale_time, address;
+        //    protected ImageView image_iv;
+        protected ImageView image_iv;
+        // protected SliderLayout mProductSlider;
+        protected ProgressActivity progressActivity;
+        protected PagerIndicator mPagerIndicator;
+        protected LinearLayout detail_content;
+
+        private LinearLayout layout_two;
+        private LinearLayout layout_four;
+        private LinearLayout layout_six;
+        private LinearLayout layout_asymmetric_main;
+
+        private ImageView img_two_1;
+        private ImageView img_two_2;
+        private View empty_two_2;
+
+        private ImageView img_four_1;
+        private ImageView img_four_2;
+        private ImageView img_four_3;
+        private ImageView img_four_4;
+        private View empty_four_4;
+
+        private ImageView img_six_1;
+        private ImageView img_six_2;
+        private ImageView img_six_3;
+        private ImageView img_six_4;
+        private ImageView img_six_5;
+        private TextView tv_more;
+
+        public MyViewHolder(View view) {
+            super(view);
+            name_tv = (TextView) view.findViewById(R.id.sale_item_row_list_name_tv);
+            items_tv = (TextView) view.findViewById(R.id.sale_item_row_list_items_no_tv);
+            date_tv = (TextView) view.findViewById(R.id.sales_item_row_list_date_tv);
+            address = (TextView) view.findViewById(R.id.address);
+            distance_tv = (TextView) view.findViewById(R.id.sales_item_row_list_distance_tv);
+            progressActivity = (ProgressActivity) view.findViewById(R.id.products_details_progressActivity);
+            // mProductSlider = (SliderLayout) view.findViewById(R.id.product_detail_slider);
+            sale_time = (TextView) view.findViewById(R.id.sales_item_row_list_time);
+            detail_content = (LinearLayout) view.findViewById(R.id.detail_content);
+
+            layout_two = (LinearLayout) view.findViewById(R.id.layout_two);
+            layout_four = (LinearLayout) view.findViewById(R.id.layout_four);
+            layout_six = (LinearLayout) view.findViewById(R.id.layout_six);
+            layout_asymmetric_main = (LinearLayout) view.findViewById(R.id.layout_asymmetric_main);
+
+            img_two_1 = (ImageView) view.findViewById(R.id.img_two_1);
+            img_two_2 = (ImageView) view.findViewById(R.id.img_two_2);
+            empty_two_2 = (View) view.findViewById(R.id.empty_two_2);
+
+            img_four_1 = (ImageView) view.findViewById(R.id.img_four_1);
+            img_four_2 = (ImageView) view.findViewById(R.id.img_four_2);
+            img_four_3 = (ImageView) view.findViewById(R.id.img_four_3);
+            img_four_4 = (ImageView) view.findViewById(R.id.img_four_4);
+            empty_four_4 = (View) view.findViewById(R.id.empty_four_4);
+
+            img_six_1 = (ImageView) view.findViewById(R.id.img_six_1);
+            img_six_2 = (ImageView) view.findViewById(R.id.img_six_2);
+            img_six_3 = (ImageView) view.findViewById(R.id.img_six_3);
+            img_six_4 = (ImageView) view.findViewById(R.id.img_six_4);
+            img_six_5 = (ImageView) view.findViewById(R.id.img_six_5);
+            tv_more = (TextView) view.findViewById(R.id.tv_more);
 
 
-
+        }
     }
-}
-    class VHLoader extends RecyclerView.ViewHolder{
+
+    class VHLoader extends RecyclerView.ViewHolder {
         ProgressBar progressBar;
+
         public VHLoader(View itemView) {
             super(itemView);
             progressBar = (ProgressBar) itemView.findViewById(R.id.bottom_progress_bar);
@@ -97,86 +153,119 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder view_holder, int position) {
-        if(view_holder instanceof MyViewHolder){
-            final  MyViewHolder holder=(MyViewHolder)view_holder;
-            int grey2=context.getResources().getColor(R.color.grey_2);
-            int black=context.getResources().getColor(R.color.black);
+        if (view_holder instanceof MyViewHolder) {
+            final MyViewHolder holder = (MyViewHolder) view_holder;
+            int grey2 = context.getResources().getColor(R.color.grey_2);
+            int black = context.getResources().getColor(R.color.black);
             final SalesModel obj = albumList.get(position);
-            if(!TextUtils.isEmpty(obj.getName()))
+            if (!TextUtils.isEmpty(obj.getName()))
                 holder.name_tv.setText(GlobalFunctions.getSentenceFormat(obj.getName()));
 
       /*  holder.name_tv.setText(obj.getName());*/
-            String title="";
-            if(!TextUtils.isEmpty(obj.getSale_items_count()))
-                if(Integer.parseInt(obj.getSale_items_count())==1)
-                    title=obj.getSale_items_count()+" Item";
-                else if(Integer.parseInt(obj.getSale_items_count())>1)
-                    title=obj.getSale_items_count()+" Items";
+            String title = "";
+            if (!TextUtils.isEmpty(obj.getSale_items_count()))
+                if (Integer.parseInt(obj.getSale_items_count()) == 1)
+                    title = obj.getSale_items_count() + " Item";
+                else if (Integer.parseInt(obj.getSale_items_count()) > 1)
+                    title = obj.getSale_items_count() + " Items";
                 else
-                    title="No Items Available";
+                    title = "No Items Available";
             else
-                title="No Items Available";
+                title = "No Items Available";
 
             holder.items_tv.setText(title);
             holder.address.setText(obj.getSale_address());
-            holder.date_tv.setText("Listed "+obj.getListedDate());
-            holder.sale_time.setText(obj.getStart_time()+"-"+obj.getEnd_time());
+            holder.date_tv.setText("Listed " + obj.getListedDate());
+            holder.sale_time.setText(obj.getStart_time() + "-" + obj.getEnd_time());
        /* holder.distance_tv.setText(obj.getDistanceAway()+" "+getContext().getString(R.string.milesAway));*/
             holder.distance_tv.setText(obj.getDistanceAway()/*+" "+context.getString(R.string.milesAway)*/);
             holder.detail_content.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = ProductDetail.newInstance(context, null, obj, GlobalVariables.TYPE_MY_SALE);
+                    context.startActivity(intent);
+                }
+            });
+       /* holder.distance_tv.setVisibility(obj.getDistanceAway()==null?View.GONE:View.VISIBLE);*/
+
+            //holder.mProductSlider.removeAllSliders();
+
+            ArrayList<String> displayImageURL = new ArrayList<String>();
+            displayImageURL.clear();
+            displayImageURL = obj.getImages();
+
+            int imageSize = displayImageURL.size();
+            BlueShakLog.logDebug(TAG, "Position --> " + position + "  imageSize --> " + imageSize);
+
+            if (imageSize > 0 && imageSize <= 2) {
+                holder.layout_two.setVisibility(View.VISIBLE);
+                holder.layout_four.setVisibility(View.GONE);
+                holder.layout_six.setVisibility(View.GONE);
+                if (imageSize == 1) {
+                    holder.img_two_1.setVisibility(View.VISIBLE);
+                    holder.img_two_2.setVisibility(View.GONE);
+                    holder.empty_two_2.setVisibility(View.GONE);
+                    setBitmapImages(holder.img_two_1, displayImageURL.get(0).toString());
+                } else {
+                    holder.img_two_1.setVisibility(View.VISIBLE);
+                    holder.img_two_2.setVisibility(View.VISIBLE);
+                    holder.empty_two_2.setVisibility(View.VISIBLE);
+                    setBitmapImages(holder.img_two_1, displayImageURL.get(0).toString());
+                    setBitmapImages(holder.img_two_2, displayImageURL.get(1).toString());
+                }
+
+            } else if (imageSize == 3 || imageSize == 4) {
+                holder.layout_two.setVisibility(View.GONE);
+                holder.layout_four.setVisibility(View.VISIBLE);
+                holder.layout_six.setVisibility(View.GONE);
+                if (imageSize == 3) {
+                    holder.img_four_1.setVisibility(View.VISIBLE);
+                    holder.img_four_2.setVisibility(View.VISIBLE);
+                    holder.img_four_3.setVisibility(View.VISIBLE);
+                    holder.img_four_4.setVisibility(View.GONE);
+                    holder.empty_four_4.setVisibility(View.GONE);
+                    setBitmapImages(holder.img_four_1, displayImageURL.get(0).toString());
+                    setBitmapImages(holder.img_four_2, displayImageURL.get(1).toString());
+                    setBitmapImages(holder.img_four_3, displayImageURL.get(2).toString());
+
+                } else {
+                    holder.img_four_1.setVisibility(View.VISIBLE);
+                    holder.img_four_2.setVisibility(View.VISIBLE);
+                    holder.img_four_3.setVisibility(View.VISIBLE);
+                    holder.img_four_4.setVisibility(View.VISIBLE);
+                    holder.empty_four_4.setVisibility(View.VISIBLE);
+                    setBitmapImages(holder.img_four_1, displayImageURL.get(0).toString());
+                    setBitmapImages(holder.img_four_2, displayImageURL.get(1).toString());
+                    setBitmapImages(holder.img_four_3, displayImageURL.get(2).toString());
+                    setBitmapImages(holder.img_four_4, displayImageURL.get(3).toString());
+                }
+            } else if (imageSize == 5 || imageSize > 5) {
+                holder.layout_two.setVisibility(View.GONE);
+                holder.layout_four.setVisibility(View.GONE);
+                holder.layout_six.setVisibility(View.VISIBLE);
+                if (imageSize == 5) {
+                    holder.tv_more.setVisibility(View.GONE);
+
+                } else {
+                    holder.tv_more.setVisibility(View.VISIBLE);
+                    holder.tv_more.setText("+" + (imageSize - 4));
+                }
+                setBitmapImages(holder.img_six_1, displayImageURL.get(0).toString());
+                setBitmapImages(holder.img_six_2, displayImageURL.get(1).toString());
+                setBitmapImages(holder.img_six_3, displayImageURL.get(2).toString());
+                setBitmapImages(holder.img_six_4, displayImageURL.get(3).toString());
+                setBitmapImages(holder.img_six_5, displayImageURL.get(4).toString());
+            }
+            holder.layout_asymmetric_main.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = ProductDetail.newInstance(context,null,obj,GlobalVariables.TYPE_MY_SALE);
                     context.startActivity(intent);
                 }
             });
-       /* holder.distance_tv.setVisibility(obj.getDistanceAway()==null?View.GONE:View.VISIBLE);*/
-            holder.mProductSlider.removeAllSliders();
-            ArrayList<String> displayImageURL = new ArrayList<String>();
-            displayImageURL.clear();
-            displayImageURL=obj.getImages();
-            for(int i=0;i<displayImageURL.size()&&displayImageURL.get(i)!=null;i++){
-                CustomSliderTextView textSliderView = new CustomSliderTextView(context);
-                // initialize a SliderLayout
-                textSliderView
-                        .description(1+"")
-                        .image(displayImageURL.get(i).toString())
-                        .setScaleType(BaseSliderView.ScaleType.CenterCrop)
-                 /*   .setScaleType(BaseSliderView.ScaleType.CenterInside);*/
-                        .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                            @Override
-                            public void onSliderClick(BaseSliderView slider) {
-                                Intent intent = ProductDetail.newInstance(context,null,obj,GlobalVariables.TYPE_MY_SALE);
-                                context.startActivity(intent);
-                            }
-                        });
-                //add your extra information
-                textSliderView.bundle(new Bundle());
-                textSliderView.getBundle()
-                        .putString("extra", 1 + "");
 
-                holder.mProductSlider.addSlider(textSliderView);
-            }
-
-            /*  holder.mProductSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOutSlide);*/
-            holder.mProductSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        /*  if(holder.mPagerIndicator!=null){holder.mProductSlider.setCustomIndicator(holder.mPagerIndicator);}
-        */  holder.mProductSlider.setCustomAnimation(new DescriptionAnimation());
-            holder.mProductSlider.setDuration(4000);
-            holder.mProductSlider.addOnPageChangeListener(this);
-            holder.mProductSlider.stopAutoCycle();
-
-            if (displayImageURL.size() < 2) {
-                holder.mProductSlider.stopAutoCycle();
-                holder.mProductSlider.setPagerTransformer(false, new BaseTransformer() {
-                    @Override
-                    protected void onTransform(View view, float v) {
-                    }
-                });
-                //TODO: disable indicator
-            }
-        }else  if (view_holder instanceof VHLoader) {
-            VHLoader loaderViewHolder = (VHLoader)view_holder;
+        } else if (view_holder instanceof VHLoader) {
+            VHLoader loaderViewHolder = (VHLoader) view_holder;
             if (showLoader) {
                 loaderViewHolder.progressBar.setVisibility(View.VISIBLE);
             } else {
@@ -184,15 +273,13 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
             }
             return;
         }
-
-
-
     }
 
     @Override
     public int getItemCount() {
         return albumList.size();
     }
+
     @Override
     public void onPageScrolled(int i, float v, int i1) {
 
@@ -207,19 +294,21 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     public void onPageScrollStateChanged(int i) {
 
     }
-    public void showSettingsAlert(){
+
+    public void showSettingsAlert() {
         final com.blueshak.app.blueshak.view.AlertDialog alertDialog = new com.blueshak.app.blueshak.view.AlertDialog(context);
         alertDialog.setTitle("Login/Register");
         alertDialog.setMessage("Please Login/Register to continue");
         alertDialog.setPositiveButton("Continue", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent creategarrage = new Intent(context,LoginActivity.class);
+                Intent creategarrage = new Intent(context, LoginActivity.class);
                 context.startActivity(creategarrage);
             }
         });
         alertDialog.show();
     }
+
     @Override
     public int getItemViewType(int position) {
 
@@ -234,5 +323,42 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
     public void showLoading(boolean status) {
         showLoader = status;
+    }
+
+    private void setBitmapImages(ImageView imageView, String decodedImgUri) {
+
+        DisplayImageOptions GALLERY = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .considerExifParams(true)
+                .cacheOnDisk(true)
+                .showImageForEmptyUri(R.drawable.placeholder_background)
+                .showImageOnFail(R.drawable.placeholder_background)
+                .showImageOnLoading(R.drawable.placeholder_background).build();
+
+        setBitmapDecodedImage(imageView, GALLERY, decodedImgUri);
+    }
+
+    private void setBitmapDecodedImage(ImageView imageView, DisplayImageOptions GALLERY, String decodedImgUri) {
+
+        ImageLoader.getInstance().displayImage(decodedImgUri, imageView, GALLERY, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+            }
+
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                BlueShakLog.logDebug(TAG, "setBitmapDecodedImage  onLoadingFailed ");
+            }
+
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                BlueShakLog.logDebug(TAG, "setBitmapDecodedImage  onLoadingComplete ");
+            }
+
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+                BlueShakLog.logDebug(TAG, "setBitmapDecodedImage  onLoadingCancelled ");
+            }
+        });
     }
 }

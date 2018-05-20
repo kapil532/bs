@@ -87,5 +87,7 @@
     <color name="dark_gray">#A9A9A9</color>
     <color name="dark_white">#F9F9F8</color>
     <color name="default_background">#F3F3F3</color>
+    <color name="white_trasnparent">#33ffffff</color>
+    <color name="black_trasnparent">#33000000</color>
 
 </resources>

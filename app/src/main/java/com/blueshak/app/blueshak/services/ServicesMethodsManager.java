@@ -1385,9 +1385,12 @@ public class ServicesMethodsManager {
         if (params != null) {
             if (!params.equalsIgnoreCase("")) {
                 URL += "?" + params;
+               /* URL = "http://dev.blueshak.com/api/list_featured_sellers?\n" +
+                        "current_country_code=AU&ending_soon=0&is_current_country=1&latitude=-33.7328755&longitude=151.0049495&page=1&" +
+                        "sortByRecent=0&take=20&token=e";*/
             }
         }
-        BlueShakLog.logDebug(TAG,URL);
+        BlueShakLog.logDebug(TAG," Request URL -> "+URL);
         VolleyServices request = new VolleyServices();
         request.setCallbacks(new VolleyServices.ResposeCallBack() {
             @Override
@@ -1404,6 +1407,12 @@ public class ServicesMethodsManager {
             }
         });
         request.makeJsonGETRequest(context, URL.trim(), TAG);
+    }
+
+    public void getSellerFeatureItemsList(Context context, FilterModel filterModel, ServerResponseInterface mCallInterface, String TAG,String take) {
+        setCallbacks(mCallInterface);
+        String param = getParams(context,filterModel,"featured",take);
+        getFeatureItemsData(context, ServerConstants.URL_feature_sellers, param, TAG);
     }
 
     public void getFeatureWeekPriceOption(final Context context, ServerResponseInterface mCallInterface, String TAG) {

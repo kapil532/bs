@@ -87,6 +87,7 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
     TextView category;
     public static String categoryText = "Category - All";
     RelativeLayout category_layout;
+    private ArrayList<String> stringArrayList = new ArrayList<String>();
 
     public static Intent newInstance(Context context, LocationModel locationModel, int from) {
         System.out.println("########newInstance#######" + Integer.toString(from));
@@ -532,7 +533,6 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
     }
 
     private void setThisPage() {
-        Log.d(TAG, "#############Filter model###########" + detail.toString());
         if (detail != null) {
             if (detail.isDistance_enabled()) {
                 search_radius.setChecked(true);
@@ -549,9 +549,7 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
                 sort_by_recent.setChecked(true);
             else
                 sort_by_recent.setChecked(false);*/
-            System.out.println("##########from######" + Integer.toString(from) + "GlobalVariables.TYPE_GARAGE_SALE###" + GlobalVariables.TYPE_GARAGE_SALE);
             if (from == GlobalVariables.TYPE_GARAGE_SALE) {
-                System.out.println("##########TYPE_GARAGE_SALE######" + detail.toString());
                /* if(detail.isSorting_enabled()){
                     sorting.setChecked(true);
                     sorting_content.setVisibility(View.VISIBLE);
@@ -644,6 +642,14 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
         }
     }
 
+    private boolean noDuplicateEntry(String value){
+        if(stringArrayList!=null){
+            return stringArrayList.contains(value);
+        }else {
+            return false;
+        }
+    }
+
     private void onClickFunction() {
         String country = null;
 //
@@ -675,39 +681,90 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
             detail.setDistance_enabled(false);
 
         if (from == GlobalVariables.TYPE_GARAGE_SALE) {
+
+            if(nearest_first.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.nearest_first))){
+                    stringArrayList.add(getString(R.string.nearest_first));
+                }
+            }
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text("Newly Listed");
+                detail.setResults_text(getString(R.string.newly_listed));
+                if(!noDuplicateEntry(getString(R.string.newly_listed))){
+                    stringArrayList.add(getString(R.string.newly_listed));
+                }
                 detail.setSortByRecent_garage(true);
             } else
                 detail.setSortByRecent_garage(false);
 
             if (ending_soon.isChecked()) {
-                detail.setResults_text("ending first");
+                detail.setResults_text(getString(R.string.ending_first));
+                if(!noDuplicateEntry(getString(R.string.ending_first))){
+                    stringArrayList.add(getString(R.string.ending_first));
+                }
                 detail.setEnding_soon(true);
             } else
                 detail.setEnding_soon(false);
+
+            if(!noDuplicateEntry(categoryText)){
+                stringArrayList.add(categoryText);
+            }
+
+            if(search_radius.isChecked()){
+                if(!noDuplicateEntry(distanceMaxRaange_tv.getText().toString())){
+                    stringArrayList.add(distanceMaxRaange_tv.getText().toString());
+                }
+            }
+
         } else if (from == GlobalVariables.TYPE_SEARCH || from == GlobalVariables.TYPE_ITEMS) {
+
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text("Newly Listed");
+                detail.setResults_text(getString(R.string.newly_listed));
+                if(!noDuplicateEntry(getString(R.string.newly_listed))){
+                    stringArrayList.add(getString(R.string.newly_listed));
+                }
                 detail.setSortByRecent(true);
             } else
                 detail.setSortByRecent(false);
 
             if (h_to_l.isChecked()) {
                 detail.setPrice_h_2_l(true);
-                detail.setResults_text("highest to lowest price");
+                if(!noDuplicateEntry(getString(R.string.highest_to_lowest_price))){
+                    stringArrayList.add(getString(R.string.highest_to_lowest_price));
+                }
+                detail.setResults_text(getString(R.string.highest_to_lowest_price));
             } else
                 detail.setPrice_h_2_l(false);
             if (l_to_h.isChecked()) {
-                detail.setResults_text("lowest to highest price");
+                if(!noDuplicateEntry(getString(R.string.lowest_to_highest_price))){
+                    stringArrayList.add(getString(R.string.lowest_to_highest_price));
+                }
+                detail.setResults_text(getString(R.string.lowest_to_highest_price));
                 detail.setPrice_l_2_h(true);
             } else
                 detail.setPrice_l_2_h(false);
-            if (only_garage_items.isChecked())
+
+
+
+            if (only_garage_items.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_sales_items))){
+                    stringArrayList.add(getString(R.string.only_sales_items));
+                }
                 detail.setGarage_items(true);
+            }
             else
                 detail.setGarage_items(false);
+
+            if(!noDuplicateEntry(categoryText)){
+                stringArrayList.add(categoryText);
+            }
+
+            if(search_radius.isChecked()){
+                if(!noDuplicateEntry(distanceMaxRaange_tv.getText().toString())){
+                    stringArrayList.add(distanceMaxRaange_tv.getText().toString());
+                }
+            }
         }
+        detail.setArrayListFilterResult(stringArrayList);
         detail.setSorting_enabled(true);
         GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.FILTER_MODEL_FOR_MAP, detail.toString());
         if (detail.getLatitude() == null || detail.getLongitude() == null) {
@@ -722,7 +779,7 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
     @Override
     protected void onStop() {
         super.onStop();
-        onBackSaveValues();
+        //onBackSaveValues();
     }
 
     void onBackSaveValues()
@@ -757,39 +814,80 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
             detail.setDistance_enabled(false);
 
         if (from == GlobalVariables.TYPE_GARAGE_SALE) {
+            if(nearest_first.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.nearest_first))){
+                    stringArrayList.add(getString(R.string.nearest_first));
+                }
+            }
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text("Newly Listed");
+                detail.setResults_text(getString(R.string.newly_listed));
+                if(!noDuplicateEntry(getString(R.string.newly_listed))){
+                    stringArrayList.add(getString(R.string.newly_listed));
+                }
                 detail.setSortByRecent_garage(true);
             } else
                 detail.setSortByRecent_garage(false);
 
             if (ending_soon.isChecked()) {
-                detail.setResults_text("ending first");
+                detail.setResults_text(getString(R.string.ending_first));
+                if(!noDuplicateEntry(getString(R.string.ending_first))){
+                    stringArrayList.add(getString(R.string.ending_first));
+                }
                 detail.setEnding_soon(true);
             } else
                 detail.setEnding_soon(false);
+
+            stringArrayList.add(categoryText);
+            if(search_radius.isChecked()){
+                if(!noDuplicateEntry(distanceMaxRaange_tv.getText().toString())){
+                    stringArrayList.add(distanceMaxRaange_tv.getText().toString());
+                }
+            }
         } else if (from == GlobalVariables.TYPE_SEARCH || from == GlobalVariables.TYPE_ITEMS) {
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text("Newly Listed");
+                detail.setResults_text(getString(R.string.newly_listed));
+                if(!noDuplicateEntry(getString(R.string.newly_listed))){
+                    stringArrayList.add(getString(R.string.newly_listed));
+                }
                 detail.setSortByRecent(true);
             } else
                 detail.setSortByRecent(false);
 
             if (h_to_l.isChecked()) {
                 detail.setPrice_h_2_l(true);
-                detail.setResults_text("highest to lowest price");
+                if(!noDuplicateEntry(getString(R.string.highest_to_lowest_price))){
+                    stringArrayList.add(getString(R.string.highest_to_lowest_price));
+                }
+                detail.setResults_text(getString(R.string.highest_to_lowest_price));
             } else
                 detail.setPrice_h_2_l(false);
             if (l_to_h.isChecked()) {
-                detail.setResults_text("lowest to highest price");
+                if(!noDuplicateEntry(getString(R.string.lowest_to_highest_price))){
+                    stringArrayList.add(getString(R.string.lowest_to_highest_price));
+                }
+                detail.setResults_text(getString(R.string.lowest_to_highest_price));
                 detail.setPrice_l_2_h(true);
             } else
                 detail.setPrice_l_2_h(false);
-            if (only_garage_items.isChecked())
+
+            if (only_garage_items.isChecked()){
+                if(!noDuplicateEntry(getString(R.string.only_sales_items))){
+                    stringArrayList.add(getString(R.string.only_sales_items));
+                }
                 detail.setGarage_items(true);
+            }
             else
                 detail.setGarage_items(false);
+
+           // stringArrayList.add(categoryText);
+
+            if(search_radius.isChecked()){
+                if(!noDuplicateEntry(distanceMaxRaange_tv.getText().toString())){
+                    stringArrayList.add(distanceMaxRaange_tv.getText().toString());
+                }
+            }
         }
+        detail.setArrayListFilterResult(stringArrayList);
         detail.setSorting_enabled(true);
         GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.FILTER_MODEL_FOR_MAP, detail.toString());
     }
@@ -904,7 +1002,6 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
 
     private void setReturnResult(FilterModel filterModel) {
         if (filterModel != null) {
-            Log.d(TAG, "##########setReturnResult#########" + filterModel.toString());
             Bundle bundle = new Bundle();
             Intent result;
             if (from == GlobalVariables.TYPE_SEARCH) {
@@ -955,7 +1052,6 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
             ic_check.setVisibility(View.GONE);
         }
 
-        Log.d(TAG, "onSelected###############" + category_list.get(position).getName());
         all_categories.setTextColor(context.getResources().getColor(R.color.brand_text_color));
         ic_check.setVisibility(View.GONE);
         detail.setCategories(category_list.get(position).getId() + "");
@@ -982,7 +1078,6 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
         }
         CategoryModel categoryModel = new CategoryModel();
         categoryModel.setSelectedCategoryString(selected_List);
-        Log.d(TAG, "####Selected ids#########" + data);
 
         selectedCategoryString.clear();
         for (int i = 0; i < categoryModel.getSelectedCategoryString().size(); i++) {

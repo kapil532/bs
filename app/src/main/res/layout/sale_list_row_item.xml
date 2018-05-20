@@ -20,8 +20,6 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-
-
         <LinearLayout
             android:id="@+id/detail_content"
             android:layout_width="match_parent"
@@ -137,7 +135,10 @@
                     android:textSize="17sp"></com.blueshak.app.blueshak.text.MyTextView>
             </LinearLayout>
         </LinearLayout>
-        <com.vlonjatg.progressactivity.ProgressActivity
+
+        <include layout="@layout/seller_items_asymmetric_gridview"/>
+
+        <!--<com.vlonjatg.progressactivity.ProgressActivity
             android:id="@+id/products_details_progressActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -159,15 +160,8 @@
                     custom:pager_animation="ZoomOutSlide"
                     custom:pager_animation_span="1100"
                     custom:selected_color="@color/brandColor"
-                    custom:unselected_color="#55555555"
-
-                    />
-
-
-
+                    custom:unselected_color="#55555555"/>
             </RelativeLayout>
-
-
-        </com.vlonjatg.progressactivity.ProgressActivity>
+        </com.vlonjatg.progressactivity.ProgressActivity>-->
     </LinearLayout>
 </android.support.v7.widget.CardView>
