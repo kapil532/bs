@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.blueshak.app.blueshak.util.BlueShakLog;
@@ -73,6 +74,16 @@ public class RootActivity extends AppCompatActivity {
         }catch (Exception e) {
             BlueShakLog.logDebug(TAG, "Exception in setToolBar");
         }
+    }
+
+    public void showProgressBar(ProgressBar progress_bar) {
+        if (progress_bar != null)
+            progress_bar.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgressBar(ProgressBar progress_bar) {
+        if (progress_bar != null)
+            progress_bar.setVisibility(View.GONE);
     }
 
 }

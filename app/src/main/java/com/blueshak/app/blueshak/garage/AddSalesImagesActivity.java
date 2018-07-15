@@ -386,6 +386,7 @@ public class AddSalesImagesActivity extends RootActivity implements OnDeletePict
     }
 
     private void onToolBarCancel() {
+        ((TextView) mToolBarView.findViewById(R.id.cancel)).setVisibility(View.VISIBLE);
         ((TextView) mToolBarView.findViewById(R.id.cancel)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

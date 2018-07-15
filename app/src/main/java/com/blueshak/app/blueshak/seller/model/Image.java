@@ -3,11 +3,13 @@ package com.blueshak.app.blueshak.seller.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by lal on 18/04/18.
  */
 
-public class Image {
+public class Image implements Serializable {
     @SerializedName("link")
     @Expose
     private String link;

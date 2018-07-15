@@ -20,56 +20,202 @@
         android:background="@color/white"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:id="@+id/layout_seller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_10dp"
+            android:layout_marginLeft="@dimen/margin_10dp"
+            android:layout_marginRight="@dimen/margin_10dp"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:gravity="center|left">
+
+            <com.blueshak.app.blueshak.helper.RoundedImageView
+                android:id="@+id/seller_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_pic">
+
+            </com.blueshak.app.blueshak.helper.RoundedImageView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_toLeftOf="@+id/image_right_arrow"
+                android:layout_toRightOf="@+id/seller_image"
+                android:gravity="center|left"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                        android:id="@+id/seller_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="Seller"
+                        android:textColor="@color/brand_text_color"
+                        android:textSize="20sp"
+                        android:textStyle="bold">
+
+                    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+
+                    <ImageView
+                        android:id="@+id/image_feature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_20dp"
+                        android:gravity="center|right"
+                        android:src="@drawable/icon_feature" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_review"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                        android:id="@+id/txt_review"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="Review"
+                        android:textColor="@color/brandColor"
+                        android:textSize="15sp"
+                        android:textStyle="bold">
+
+                    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+
+                    <RatingBar
+                        android:id="@+id/rating_bar"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin_5dp"
+                        android:gravity="center"
+                        android:progressTint="@color/tab_selected"
+                        android:rating="0" />
+                </LinearLayout>
+
+
+                <com.blueshak.app.blueshak.text.MyTextViewBold
+                    android:id="@+id/txt_last_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:gravity="center|left"
+                    android:singleLine="true"
+                    android:text="Last date"
+                    android:textAppearance="@style/MediumText"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="15sp"
+                    android:textStyle="bold">
+
+                </com.blueshak.app.blueshak.text.MyTextViewBold>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/image_right_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:src="@drawable/ic_brow_arrow" />
+        </RelativeLayout>
+
+
         <LinearLayout
             android:id="@+id/detail_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/slider"
+            android:layout_margin="@dimen/margin_10dp"
             android:background="@color/white"
-            android:orientation="vertical"
-            android:paddingBottom="20dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="20dp">
+            android:orientation="vertical">
 
-            <com.blueshak.app.blueshak.text.MyTextView
-                android:id="@+id/sale_item_row_list_name_tv"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight=".5"
-                android:singleLine="true"
-                android:text="Andy's Garrage Sale"
-                android:textAppearance="@style/MediumText"
-                android:textColor="@color/black"
-                android:textSize="22sp"></com.blueshak.app.blueshak.text.MyTextView>
+                android:layout_height="wrap_content">
+
+                <com.blueshak.app.blueshak.text.MyTextView
+                    android:id="@+id/txt_shop_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_toLeftOf="@+id/layout_bookmark"
+                    android:singleLine="true"
+                    android:text="Andy's Garrage Sale"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold">
+
+                </com.blueshak.app.blueshak.text.MyTextView>
+
+                <LinearLayout
+                    android:id="@+id/layout_bookmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center|left">
+
+                    <ImageView
+                        android:id="@+id/image_bookmark"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_toLeftOf="@+id/image_more" />
+
+                    <ImageView
+                        android:id="@+id/image_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/margin_5dp"
+                        app:srcCompat="@drawable/ic_more_horiz_black_24dp" />
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
                 android:orientation="horizontal">
 
                 <com.blueshak.app.blueshak.text.MyTextView
-                    android:id="@+id/sale_item_row_list_items_no_tv"
+                    android:id="@+id/txt_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight=".40"
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:text="7 Items"
                     android:textAppearance="@style/MediumText"
                     android:textColor="@color/brandColor"
                     android:textSize="15sp"
-                    android:textStyle="bold"></com.blueshak.app.blueshak.text.MyTextView>
+                    android:textStyle="bold">
+
+                </com.blueshak.app.blueshak.text.MyTextView>
 
                 <com.blueshak.app.blueshak.text.MyTextView
                     android:id="@+id/sales_item_row_list_distance_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight=".6"
                     android:drawableLeft="@drawable/ic_map_blue_24dp"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"
@@ -77,91 +223,82 @@
                     android:text="333332 km Away"
                     android:textAppearance="@style/MediumText"
                     android:textColor="@color/brandColor"
-                    android:textSize="15sp"></com.blueshak.app.blueshak.text.MyTextView>
+                    android:textSize="15sp"
+                    android:visibility="gone">
+
+                </com.blueshak.app.blueshak.text.MyTextView>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
 
                 <com.blueshak.app.blueshak.text.MyTextView
-                    android:id="@+id/sales_item_row_list_date_tv"
-                    android:layout_width="match_parent"
+                    android:id="@+id/txt_description"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    android:singleLine="true"
-                    android:text="1st August"
+                    android:layout_marginTop="@dimen/margin_5dp"
                     android:textAppearance="@style/MediumText"
-                    android:textColor="#808080"
-                    android:textSize="17sp"></com.blueshak.app.blueshak.text.MyTextView>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="#808080"
-                    android:visibility="gone" />
-
-                <com.blueshak.app.blueshak.text.MyTextView
-                    android:id="@+id/sales_item_row_list_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    android:gravity="right"
-                    android:singleLine="true"
-                    android:text="1st August"
-                    android:textAppearance="@style/MediumText"
-                    android:textColor="#808080"
+                    android:textColor="@color/black"
                     android:textSize="17sp"
-                    android:visibility="gone"></com.blueshak.app.blueshak.text.MyTextView>
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:visibility="visible">
+
+                </com.blueshak.app.blueshak.text.MyTextView>
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:orientation="horizontal">
 
-                <com.blueshak.app.blueshak.text.MyTextView
-                    android:id="@+id/address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    android:singleLine="true"
-                    android:text="1st August"
-                    android:textAppearance="@style/MediumText"
-                    android:textColor="#808080"
-                    android:textSize="17sp"></com.blueshak.app.blueshak.text.MyTextView>
-            </LinearLayout>
         </LinearLayout>
 
-        <include layout="@layout/seller_items_asymmetric_gridview"/>
+        <include layout="@layout/seller_items_asymmetric_gridview" />
 
-        <!--<com.vlonjatg.progressactivity.ProgressActivity
-            android:id="@+id/products_details_progressActivity"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            progressActivity:emptyBackgroundColor="@color/app_color_background"
-            progressActivity:errorBackgroundColor="@color/app_color_background"
-            progressActivity:loadingBackgroundColor="@color/app_color_background">
+            android:layout_marginLeft="@dimen/margin_10dp"
+            android:layout_marginRight="@dimen/margin_10dp"
+            android:layout_marginTop="@dimen/margin_10dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <com.blueshak.app.blueshak.text.MyTextView
+                android:id="@+id/txt_like"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@drawable/unlike_icon"
+                android:drawablePadding="@dimen/margin_5dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="Like"
+                android:textAppearance="@style/MediumText"
+                android:textColor="@color/black"
+                android:textSize="17sp">
 
-                <com.daimajia.slider.library.SliderLayout
-                    android:id="@+id/product_detail_slider"
-                    android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:clickable="true"
-                    custom:indicator_visibility="visible"
-                    custom:pager_animation="ZoomOutSlide"
-                    custom:pager_animation_span="1100"
-                    custom:selected_color="@color/brandColor"
-                    custom:unselected_color="#55555555"/>
-            </RelativeLayout>
-        </com.vlonjatg.progressactivity.ProgressActivity>-->
+            </com.blueshak.app.blueshak.text.MyTextView>
+
+            <com.blueshak.app.blueshak.text.MyTextView
+                android:id="@+id/txt_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/chat_selector"
+                android:drawablePadding="@dimen/margin_5dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="Chat"
+                android:textAppearance="@style/MediumText"
+                android:textColor="@color/black"
+                android:textSize="17sp">
+
+            </com.blueshak.app.blueshak.text.MyTextView>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:background="@color/dark_gray"></LinearLayout>
     </LinearLayout>
+
 </android.support.v7.widget.CardView>

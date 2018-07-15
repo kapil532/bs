@@ -28,6 +28,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blueshak.app.blueshak.seller.model.Data;
+import com.blueshak.app.blueshak.seller.model.SellerData;
 import com.crashlytics.android.Crashlytics;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.global.GlobalFunctions;
@@ -57,6 +59,8 @@ public class ReviewsRatings extends RootActivity {
     static final String  REVIEWS_RATINGS_PRODUVT_SHOP_MODEL_ID = "ReviewsRatingsShopModelWithDetails";
     static final String  REVIEWS_RATINGS_PRODUVT_SALE_MODEL_ID = "ReviewsRatingsSaleModelWithDetails";
     static final String  REVIEWS_RATINGS_PRODUVT_PROFILE_MODEL_ID = "ReviewsRatingsProfileModelWithDetails";
+    static final String  REVIEWS_RATINGS_SELLER_DATA_FEATURE_MODEL = "ReviewsRatingsSellerFeatureModel";
+    static final String  REVIEWS_RATINGS_SELLER_DATA_MODEL = "ReviewsRatingsSellerModel";
     private TextView seller_name;
     private ListView reviews_rating_list_view;
     private Button sumbit_ratings;
@@ -83,6 +87,9 @@ public class ReviewsRatings extends RootActivity {
     private ImageView go_back;
     private CardView user_commu_content;
     private ProgressBar progress_bar;
+    private Data dataModel=null;
+    private SellerData sellerDataModel = null;
+
     public static Intent newInstance(Context context, ProductModel productModel, ShopModel shopModel, ProfileDetailsModel profileDetailsModel, SalesModel salesModel){
         Intent mIntent = new Intent(context, ReviewsRatings.class);
         Bundle bundle = new Bundle();
@@ -93,6 +100,16 @@ public class ReviewsRatings extends RootActivity {
         mIntent.putExtras(bundle);
         return mIntent;
     }
+
+    public static Intent newInstance(Context context, Data dataModel, SellerData sellerDataModel){
+        Intent mIntent = new Intent(context, ReviewsRatings.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(REVIEWS_RATINGS_SELLER_DATA_FEATURE_MODEL,dataModel);
+        bundle.putSerializable(REVIEWS_RATINGS_SELLER_DATA_MODEL,sellerDataModel);
+        mIntent.putExtras(bundle);
+        return mIntent;
+    }
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,6 +152,12 @@ public class ReviewsRatings extends RootActivity {
                 profileDetailsModel = (ProfileDetailsModel) getIntent().getExtras().getSerializable(REVIEWS_RATINGS_PRODUVT_PROFILE_MODEL_ID);
             if(getIntent().hasExtra(REVIEWS_RATINGS_PRODUVT_SALE_MODEL_ID))
                 salesModel = (SalesModel) getIntent().getExtras().getSerializable(REVIEWS_RATINGS_PRODUVT_SALE_MODEL_ID);
+            if(getIntent().hasExtra(REVIEWS_RATINGS_SELLER_DATA_FEATURE_MODEL)){
+                dataModel = (Data) getIntent().getExtras().getSerializable(REVIEWS_RATINGS_SELLER_DATA_FEATURE_MODEL);
+            }
+            if(getIntent().hasExtra(REVIEWS_RATINGS_SELLER_DATA_MODEL)){
+                sellerDataModel = (SellerData) getIntent().getExtras().getSerializable(REVIEWS_RATINGS_SELLER_DATA_MODEL);
+            }
 
             LayoutInflater factory = LayoutInflater.from(this);
             adapter = new ReviewsRatingListAdapter(factory,relatedList);
@@ -210,6 +233,14 @@ public class ReviewsRatings extends RootActivity {
             seller_id=profileDetailsModel.getId();
             sellerName=profileDetailsModel.getName();
             avatar=profileDetailsModel.getAvatar();
+        }else if(dataModel!=null){
+            seller_id=dataModel.getSellerId();
+            sellerName=dataModel.getSellerName();
+            avatar=dataModel.getSellerImage();
+        }else if(sellerDataModel!=null){
+            seller_id=sellerDataModel.getSellerId();
+            sellerName=sellerDataModel.getSellerName();
+            avatar=sellerDataModel.getSellerImage();
         }
         String signed_user_user_id=GlobalFunctions.getSharedPreferenceString(this, GlobalVariables.SHARED_PREFERENCE_USERID);
         if(signed_user_user_id!=null && seller_id!=null){

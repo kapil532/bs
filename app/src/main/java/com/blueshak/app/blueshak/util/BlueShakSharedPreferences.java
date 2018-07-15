@@ -171,4 +171,18 @@ public class BlueShakSharedPreferences {
         android.content.SharedPreferences prefs = context.getSharedPreferences(salesPreferences, Activity.MODE_PRIVATE);
         return prefs.getString(chat, "");
     }
+
+    public static void setSelfUser(Context context, boolean name) {
+        String selfUser = "SelfUser";
+        android.content.SharedPreferences prefs = context.getSharedPreferences(salesPreferences, Activity.MODE_PRIVATE);
+        android.content.SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(selfUser,name);
+        editor.apply();
+    }
+
+    public static boolean getSelfUser(Context context) {
+        String selfUser = "SelfUser";
+        android.content.SharedPreferences prefs = context.getSharedPreferences(salesPreferences, Activity.MODE_PRIVATE);
+        return prefs.getBoolean(selfUser,false);
+    }
 }

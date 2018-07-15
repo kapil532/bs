@@ -259,6 +259,7 @@ public class ProductDetail extends RootActivity implements BaseSliderView.OnSlid
             recyclerView.addItemDecoration(new SimpleDividerItemDecoration(activity));
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView.setAdapter(adapter);
+
             similarListing_label = (TextView) findViewById(R.id.SimilarListing);
             tab1 = (TextView) findViewById(R.id.tab1);
             tab2 = (TextView) findViewById(R.id.tab2);

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spannable;
@@ -15,9 +16,8 @@ import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.EditText;
 
-public class EmojiEditText extends EditText {
+public class EmojiEditText extends AppCompatEditText {
 
     private static final String TAG = EmojiEditText.class.getName();
     private static final String START_CHAR = "[";

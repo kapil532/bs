@@ -17,7 +17,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -34,22 +33,17 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.blueshak.app.blueshak.MainActivity;
 import com.blueshak.app.blueshak.Messaging.helper.Constants;
+import com.blueshak.app.blueshak.PickLocation;
 import com.blueshak.app.blueshak.base.PresenterCallBack;
+import com.blueshak.app.blueshak.filter.FilterActivity;
+import com.blueshak.app.blueshak.global.GlobalFunctions;
+import com.blueshak.app.blueshak.global.GlobalVariables;
 import com.blueshak.app.blueshak.home.adapter.HorizontalItemListAdapter;
 import com.blueshak.app.blueshak.home.model.FeatureItemData;
 import com.blueshak.app.blueshak.home.model.FeatureItemsModel;
 import com.blueshak.app.blueshak.home.presenter.ItemListPresenter;
-import com.blueshak.app.blueshak.search.SearchActivity;
-import com.blueshak.app.blueshak.text.MyTextViewMediumBold;
-import com.blueshak.app.blueshak.util.BlueShakLog;
-import com.blueshak.blueshak.R;
-import com.blueshak.app.blueshak.MainActivity;
-import com.blueshak.app.blueshak.PickLocation;
-import com.blueshak.app.blueshak.filter.FilterActivity;
-import com.blueshak.app.blueshak.global.GlobalFunctions;
-import com.blueshak.app.blueshak.global.GlobalVariables;
 import com.blueshak.app.blueshak.services.ServerResponseInterface;
 import com.blueshak.app.blueshak.services.ServicesMethodsManager;
 import com.blueshak.app.blueshak.services.model.FilterModel;
@@ -58,8 +52,11 @@ import com.blueshak.app.blueshak.services.model.LocationModel;
 import com.blueshak.app.blueshak.services.model.ProductModel;
 import com.blueshak.app.blueshak.services.model.SalesListModel;
 import com.blueshak.app.blueshak.services.model.SalesModel;
+import com.blueshak.app.blueshak.text.MyTextViewMediumBold;
+import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.blueshak.app.blueshak.util.LocationListener;
 import com.blueshak.app.blueshak.util.LocationService;
+import com.blueshak.blueshak.R;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
@@ -836,6 +833,20 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
     }
 
     private void setAdapterFeatureItemGrid(ArrayList<FeatureItemData> feature_list){
+
+        try {
+            if(feature_list.size() > 0){
+                FeatureItemData featureItemImage = new FeatureItemData();
+                featureItemImage.setImage(Constants.BLUESHAK_SHOP_IMAGE);
+                feature_list.add(0,featureItemImage);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        BlueShakLog.logDebug(TAG,"ListSize setAdapterFeatureItemGrid -> "+feature_list.size());
+
         horizontalAdapter = new HorizontalItemListAdapter(context, feature_list,model,this);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recycler_grid_feature.setLayoutManager(layoutManager);
@@ -850,13 +861,17 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
         itemListPresenter.getFeatureItemLists(context, filterModel, new PresenterCallBack<FeatureItemsModel>() {
             @Override
             public void onSuccess(FeatureItemsModel object) {
-               // featureItemsList.clear();
+                //featureItemsList.clear();
                 ItemListFragmentForList.iFeature_last_page = object.getLast_page();
                 ItemListFragmentForList.iFeature_current_page = object.getCurrent_page();
                 FeatureItemData[] featureItemList =  object.getData();
-                for (FeatureItemData featureItem : featureItemList) {
-                    featureItemsList.add(featureItem);
+
+                if(featureItemList.length > 0){
+                    for (FeatureItemData featureItem : featureItemList) {
+                        featureItemsList.add(featureItem);
+                    }
                 }
+                BlueShakLog.logDebug(TAG,"ListSize getFeatureList -> "+featureItemList.length);
                 ItemListFragmentForList.iFeatureListSize = featureItemsList.size();
                 if(featureItemsList!=null && featureItemsList.size() > 0){
                     layout_feature_header.setVisibility(View.VISIBLE);
@@ -867,10 +882,10 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
                     }
 
                 }else{
-                    layout_feature_header.setVisibility(View.GONE);
+                    //layout_feature_header.setVisibility(View.GONE);
                 }
 
-                BlueShakLog.logDebug(TAG,"getFeatureList Size --> "+featureItemsList.size());
+                BlueShakLog.logDebug(TAG,"ListSize getFeatureList  --> "+featureItemsList.size());
             }
 
             @Override
@@ -906,10 +921,8 @@ public class ItemListFragment extends Fragment implements LocationListener/*,onF
     }
     private ArrayList<String> defaultFilteredList(){
         ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add(getString(R.string.item_list_fragment_for_list_result_from_nearest_new));
+        arrayList.add(getString(R.string.nearest_first));
         return arrayList;
     }
-
-
 }
 

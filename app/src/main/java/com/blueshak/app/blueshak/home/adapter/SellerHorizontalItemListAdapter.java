@@ -14,18 +14,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blueshak.app.blueshak.global.GlobalFunctions;
 import com.blueshak.app.blueshak.global.GlobalVariables;
 import com.blueshak.app.blueshak.home.FeatureItemLoadMore;
+import com.blueshak.app.blueshak.home.SalesDetailsListActivity;
 import com.blueshak.app.blueshak.home.ItemListFragmentForList;
-import com.blueshak.app.blueshak.item.ProductDetail;
 import com.blueshak.app.blueshak.login.LoginActivity;
+import com.blueshak.app.blueshak.reviews_rating.ReviewsRatings;
 import com.blueshak.app.blueshak.seller.model.Data;
-import com.blueshak.app.blueshak.seller.model.SellerFeatured;
+import com.blueshak.app.blueshak.seller.ui.SellerDetailsActivity;
 import com.blueshak.app.blueshak.services.model.FilterModel;
 import com.blueshak.app.blueshak.util.BlueShakLog;
+import com.blueshak.app.blueshak.util.BlueShakSharedPreferences;
 import com.blueshak.blueshak.R;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -33,7 +36,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -118,31 +120,49 @@ public class SellerHorizontalItemListAdapter extends RecyclerView.Adapter<Recycl
                     holder.img_feature.setVisibility(View.GONE);
                 }
 
-                holder.container.setOnClickListener(new View.OnClickListener() {
+                holder.layout_feature_image.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = ProductDetail.newInstance(context, null, null,
+
+                        try {
+                            Intent intent = new Intent(context, SalesDetailsListActivity.class);
+                            intent.putExtra(SalesDetailsListActivity.FEATURE_DATA,featureData);
+                            context.startActivity(intent);
+                        /*Intent intent = ProductDetail.newInstance(context, null, null,
                                 sellerFeatureItemList.get(position).getSellerId(),
                                 GlobalVariables.TYPE_MY_SALE);
-                        context.startActivity(intent);
+                        context.startActivity(intent);*/
+                        } catch (Exception e) {
+                            BlueShakLog.logDebug(TAG,"Feature image click -> "+e.getLocalizedMessage());
+                        }
 
                     }
                 });
 
-                /*String item_image = featureData.getImage();
-                ImageLoader imageLoader = ImageLoader.getInstance();
-                DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                        .cacheOnDisc(true).resetViewBeforeLoading(true)
-                        .showImageForEmptyUri(R.drawable.placeholder_background)
-                        .showImageOnFail(R.drawable.placeholder_background)
-                        .showImageOnLoading(R.drawable.placeholder_background).build();
-                //download and display image from url
-                imageLoader.displayImage(item_image, holder.image_iv, options);
-                */
+                holder.layout_seller.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                       /* Intent intent = ReviewsRatings.newInstance(context, featureData, null);
+                        context.startActivity(intent);*/
+                            Intent intent = new Intent(context, SellerDetailsActivity.class);
+                            intent.putExtra(SellerDetailsActivity.SALES_FEATURE_DATA, featureData);
+                            context.startActivity(intent);
+                        } catch (Exception e) {
+                            BlueShakLog.logDebug(TAG,"Seller click -> "+e.getLocalizedMessage());
+                        }
 
-                /*ArrayList<String> displayImageURL = new ArrayList<String>();
-                displayImageURL.clear();
-                displayImageURL = featureData.getImages().get(position).getLink();*/
+                    }
+                });
+
+                String signed_user_user_id = GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_USERID);
+                if (signed_user_user_id != null && featureData.getSellerId() != null) {
+                    if (Integer.parseInt(featureData.getSellerId()) == Integer.parseInt(signed_user_user_id)) {
+                        BlueShakSharedPreferences.setSelfUser(context,true);
+                    } else {
+                        BlueShakSharedPreferences.setSelfUser(context,false);
+                    }
+                }
 
                 int imageSize = featureData.getImages().size();
                 BlueShakLog.logDebug(TAG, "Position SellerHorizontalItemListAdapter --> " + position + "  imageSize --> " + imageSize);
@@ -266,6 +286,8 @@ public class SellerHorizontalItemListAdapter extends RecyclerView.Adapter<Recycl
         private ImageView feature_seller_image;
         //private TextView txt_feature_count;
         private RatingBar rating_bar_feature;
+        private LinearLayout layout_seller;
+        private RelativeLayout layout_feature_image;
 
         public MyViewHolder(View view) {
             super(view);
@@ -300,6 +322,8 @@ public class SellerHorizontalItemListAdapter extends RecyclerView.Adapter<Recycl
             feature_seller_image = (ImageView)view.findViewById(R.id.feature_seller_image);
             //txt_feature_count = (TextView)view.findViewById(R.id.txt_feature_count);
             rating_bar_feature = (RatingBar)view.findViewById(R.id.rating_bar_feature);
+            layout_seller = (LinearLayout)view.findViewById(R.id.layout_seller);
+            layout_feature_image = (RelativeLayout) view.findViewById(R.id.layout_feature_image);
 
         }
     }

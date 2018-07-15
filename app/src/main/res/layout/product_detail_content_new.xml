@@ -1028,7 +1028,9 @@
                 android:gravity="center"
                 android:text="No Items Found"
                 android:textSize="@dimen/empty_label_size"
-                android:visibility="gone"></com.blueshak.app.blueshak.text.MyTextView>
+                android:visibility="gone">
+
+            </com.blueshak.app.blueshak.text.MyTextView>
 
 
         </RelativeLayout>

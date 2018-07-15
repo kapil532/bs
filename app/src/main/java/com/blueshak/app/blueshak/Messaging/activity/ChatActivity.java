@@ -202,7 +202,7 @@ public class ChatActivity extends RootActivity implements  MessageManager.Messag
             View v = inflator.inflate(R.layout.action_bar_titlel, null);
             ((TextView)v.findViewById(R.id.title)).setText(user.getName());
             toolbar.addView(v);
-            toolbar.setOverflowIcon(ContextCompat.getDrawable(context,R.drawable.ic_more_horiz_black_24dp));
+            toolbar.setOverflowIcon(ContextCompat.getDrawable(context,R.drawable.ic_more_horiz_white_24dp));
             close_button=(TextView)v.findViewById(R.id.cancel);
             close_button.setVisibility(View.GONE);
             close_button.setText("Report");

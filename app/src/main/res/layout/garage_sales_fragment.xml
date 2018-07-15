@@ -218,7 +218,6 @@
 
                 app:cpb_stroke_width="4dp"
                 app:cpb_sweep_speed="1.0" />
-
         </RelativeLayout>
     </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

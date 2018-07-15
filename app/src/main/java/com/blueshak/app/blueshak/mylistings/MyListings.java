@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import com.blueshak.app.blueshak.seller.model.SellerModel;
 import com.blueshak.blueshak.R;
 import com.blueshak.app.blueshak.global.GlobalFunctions;
 import com.blueshak.app.blueshak.global.GlobalVariables;
@@ -70,7 +72,7 @@ public class MyListings extends RootActivity {
         });
 
         itemMyListFragment=new  ItemMyListFragment();
-        garageSalesListFragment=GarageSalesMyListFragment.newInstance(new SalesListModelNew(),GlobalVariables.TYPE_GARAGE,null,null,true);
+        garageSalesListFragment=GarageSalesMyListFragment.newInstance(new SellerModel(),GlobalVariables.TYPE_GARAGE,null,null,true);
         mainActivityFM.beginTransaction().replace(R.id.container, itemMyListFragment, "").commit();
         tab1=(TextView)findViewById(R.id.tab1);
         tab2=(TextView)findViewById(R.id.tab2);

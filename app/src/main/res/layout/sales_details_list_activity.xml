@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/margin_10dp"
+                        android:orientation="vertical">
+
+                        <com.blueshak.app.blueshak.text.MyTextViewBold
+                            android:id="@+id/txt_listed_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/margin_10dp"
+                            android:gravity="center|left"
+                            android:singleLine="true"
+                            android:text="Last date"
+                            android:textAppearance="@style/MediumText"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="15sp"
+                            android:textStyle="bold">
+
+                        </com.blueshak.app.blueshak.text.MyTextViewBold>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_5dp">
+
+                            <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                                android:id="@+id/sales_description_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:text="@string/seller_description"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold">
+
+                            </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+
+
+                            <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                                android:id="@+id/txt_items_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:text="Items"
+                                android:textColor="@color/brandColor"
+                                android:textSize="15sp"
+                                android:textStyle="bold">
+
+                            </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+
+                        </RelativeLayout>
+
+                        <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                            android:id="@+id/sales_description"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="normal">
+
+                        </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+
+                        <RelativeLayout
+                            android:id="@+id/layout_seller"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10dp"
+                            android:gravity="center|left">
+
+                            <com.blueshak.app.blueshak.helper.RoundedImageView
+                                android:id="@+id/seller_icon"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/profile_pic">
+
+                            </com.blueshak.app.blueshak.helper.RoundedImageView>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_10dp"
+                                android:layout_toLeftOf="@+id/image_right_arrow"
+                                android:layout_toRightOf="@+id/seller_icon"
+                                android:gravity="center|left"
+                                android:orientation="vertical">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center|left"
+                                    android:orientation="horizontal">
+
+                                    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                                        android:id="@+id/seller_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:singleLine="true"
+                                        android:text="Seller"
+                                        android:textColor="@color/brand_text_color"
+                                        android:textSize="20sp"
+                                        android:textStyle="bold">
+
+                                    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+
+                                    <ImageView
+                                        android:id="@+id/image_feature"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="@dimen/margin_5dp"
+                                        android:layout_marginRight="@dimen/margin_20dp"
+                                        android:gravity="center|right"
+                                        android:src="@drawable/icon_feature"
+                                        android:visibility="gone" />
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/layout_review"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center|left"
+                                    android:orientation="horizontal">
+
+                                    <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                                        android:id="@+id/txt_review"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:singleLine="true"
+                                        android:text="Review"
+                                        android:textColor="@color/brandColor"
+                                        android:textSize="15sp"
+                                        android:textStyle="bold">
+
+                                    </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+
+                                    <RatingBar
+                                        android:id="@+id/rating_bar"
+                                        style="?android:attr/ratingBarStyleSmall"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="@dimen/margin_5dp"
+                                        android:gravity="center"
+                                        android:progressTint="@color/tab_selected"
+                                        android:rating="0" />
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/image_right_arrow"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="@dimen/margin_5dp"
+                                android:src="@drawable/ic_brow_arrow" />
+                        </RelativeLayout>
+
+                        <com.blueshak.app.blueshak.text.MyTextViewMediumBold
+                            android:id="@+id/seller_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="@dimen/margin_10dp"
+                            android:gravity="center"
+                            android:text="Bangalore, India"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold">
+
+                        </com.blueshak.app.blueshak.text.MyTextViewMediumBold>
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:id="@+id/seller_map"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/seller_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10dp"
+                        android:background="@color/brand_background_color"
+                        android:clipToPadding="false"
+                        android:dividerHeight="7dp"
+                        android:scrollbars="none" />
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progress_bar"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_circle_unread_count"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/tab_selected"
+        android:indeterminateTintMode="src_atop"
+        android:padding="10dp"
+        android:visibility="gone"
+        card_view:cpb_color="#F00"
+        card_view:cpb_colors="@array/color_array"
+        card_view:cpb_max_sweep_angle="300"
+        card_view:cpb_min_sweep_angle="10"
+        card_view:cpb_rotation_speed="1.0"
+        card_view:cpb_stroke_width="4dp"
+        card_view:cpb_sweep_speed="1.0" />
+
+</RelativeLayout>

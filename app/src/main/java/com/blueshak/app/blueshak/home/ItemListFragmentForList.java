@@ -38,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueshak.app.blueshak.MainActivity;
+import com.blueshak.app.blueshak.Messaging.helper.Constants;
 import com.blueshak.app.blueshak.PickLocation;
 import com.blueshak.app.blueshak.base.PresenterCallBack;
 import com.blueshak.app.blueshak.filter.FilterActivity;
@@ -765,9 +766,15 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                 iFeature_last_page = object.getLast_page();
                 iFeature_current_page = object.getCurrent_page();
                 FeatureItemData[] featureItemList =  object.getData();
-                for (FeatureItemData featureItem : featureItemList) {
-                    featureItemsList.add(featureItem);
+
+                if(featureItemList.length > 0){
+                    for (FeatureItemData featureItem : featureItemList) {
+                        featureItemsList.add(featureItem);
+                    }
                 }
+                BlueShakLog.logDebug(TAG,"ListSize getFeatureList -> "+featureItemList.length);
+
+
                 iFeatureListSize = featureItemsList.size();
                 if(featureItemsList!=null && featureItemsList.size() > 0){
                     layout_feature_header.setVisibility(View.VISIBLE);
@@ -778,10 +785,10 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
                     }
 
                 }else{
-                    layout_feature_header.setVisibility(View.GONE);
+                   // layout_feature_header.setVisibility(View.GONE);
                 }
 
-                BlueShakLog.logDebug(TAG,"getFeatureList Size iFeatureListSize --> "+iFeatureListSize);
+                BlueShakLog.logDebug(TAG,"ListSize getFeatureList  iFeatureListSize --> "+iFeatureListSize);
             }
 
             @Override
@@ -822,6 +829,19 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
 
     private void setAdapterFeatureItemList(ArrayList<FeatureItemData> feature_list, FilterModel filterModel){
         //layout_feature_header.setVisibility(View.VISIBLE);
+
+        try {
+            if(feature_list.size() > 0){
+                FeatureItemData featureItemImage = new FeatureItemData();
+                featureItemImage.setImage(Constants.BLUESHAK_SHOP_IMAGE);
+                feature_list.add(0,featureItemImage);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        BlueShakLog.logDebug(TAG,"ListSize setAdapterFeatureItemList -> "+feature_list.size());
         horizontalAdapter = new HorizontalItemListAdapter(context, feature_list,filterModel,this);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recycler_list_feature.setLayoutManager(layoutManager);
@@ -843,7 +863,7 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
         //BlueShakLog.logDebug(TAG,"onLoadMore FeatureItems current_page ----->"+current_page);
         model.setFeature_page(current_page);
         iFeature_current_page_increment = current_page;
-        getFeatureList(context, model,String.valueOf(iFeatureTake),true);
+        //getFeatureList(context, model,String.valueOf(iFeatureTake),true);
     }
 
     private void setFilterView(ArrayList<String> arrayList){
@@ -871,7 +891,7 @@ public class ItemListFragmentForList extends Fragment implements LocationListene
     }
     private ArrayList<String> defaultFilteredList(){
         ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add(getString(R.string.item_list_fragment_for_list_result_from_nearest_new));
+        arrayList.add(getString(R.string.nearest_first));
         return arrayList;
     }
 

@@ -22,6 +22,11 @@ public class Constants {
     public static final String BROADCAST_ACTION_NOTIFICATION = "com.langoor.blueshak.gcm.notification";
     public static final String EXTENDED_DATA_MESSAGE = "com.langoor.blueshak.gcm.message";
     public static final String  PREFERENCES_FILENAME = "UserPreferences";
+    public static final String  BLUESHAK_SHOP_IMAGE = "http://dev.blueshak.com/assets/images/products/blueshakshop.png";
+    public static final String  BLUESHAK_SHOP_WEB_LINK = "https://www.blueshakshop.com";
+
+
+
 
    /* *//*Blueshak Dev Accounts Api keis*//*
     public static final String PUSHWHOOSH_API_KEY = "pLFkGmP0VxOyzaHJmIdaEENX1bxJ6b2EgTzqdaa3n9uWvroYsB1IiJAkdHhgsu4AxeVouOQJ63ong4eAJcob";

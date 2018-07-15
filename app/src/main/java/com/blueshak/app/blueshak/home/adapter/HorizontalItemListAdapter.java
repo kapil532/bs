@@ -2,6 +2,7 @@ package com.blueshak.app.blueshak.home.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blueshak.app.blueshak.Messaging.helper.Constants;
 import com.blueshak.app.blueshak.global.GlobalFunctions;
 import com.blueshak.app.blueshak.global.GlobalVariables;
 import com.blueshak.app.blueshak.home.FeatureItemLoadMore;
@@ -73,69 +75,72 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder view_holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder view_holder, final int position) {
         try {
             if (view_holder instanceof HorizontalItemListAdapter.MyViewHolder) {
 
                 final HorizontalItemListAdapter.MyViewHolder holder = (HorizontalItemListAdapter.MyViewHolder) view_holder;
                 final FeatureItemData featureData = featureItemList.get(position);
 
-                /*BlueShakLog.logDebug(TAG,"onLoadMore Adapter feature position ----->"+position+"  iFeatureListSize -->"+
-                        ItemListFragmentForList.iFeatureListSize+" iFeature_last_page -> "+ItemListFragmentForList.iFeature_last_page
-                +" iFeature_current_page -> "+ItemListFragmentForList.iFeature_current_page);
-*/
-                if(position == ItemListFragmentForList.iFeatureListSize-1
-                        && ItemListFragmentForList.iFeature_last_page >= ItemListFragmentForList.iFeature_current_page){
-                    //BlueShakLog.logDebug(TAG,"onLoadMore Adapter feature position INSIDE----->"+position+"  iFeatureListSize -->");
-                     itemLoadMore.onLoadMoreFeatureItems(ItemListFragmentForList.iFeature_current_page+1);
-                }
+                if(position == 0){
+                    holder.item_name.setText("BlueShak Shop");
+                    loadImage(Constants.BLUESHAK_SHOP_IMAGE,holder.image_iv);
+                    holder.txt_feature_price.setVisibility(View.GONE);
 
-                holder.item_name.setText(featureData.getProduct_name());
-                holder.txt_feature_price.setVisibility(View.VISIBLE);
-                if (featureData.getHide_item_price().equalsIgnoreCase("1")) {
-                    holder.txt_feature_price.setText("Negotiable");
-                } else {
-                    holder.txt_feature_price.setText(GlobalFunctions.getFormatedAmount(featureData.getCurrency(), featureData.getSale_price()));
-                }
-
-                if (featureData.getIs_product_new().equalsIgnoreCase("1")
-                        && featureData.getIs_featured().equalsIgnoreCase("1")) {
-                    holder.is_sold.setVisibility(View.GONE);
-                    holder.img_feature.setVisibility(View.VISIBLE);
-                    holder.img_feature.setImageResource(R.drawable.icon_new_feature_small);
-                }else if (featureData.getIs_available().equalsIgnoreCase("0")
-                        && featureData.getIs_featured().equalsIgnoreCase("1")) {
-                    holder.is_sold.setVisibility(View.VISIBLE);
-                    holder.img_feature.setVisibility(View.GONE);
-                    holder.is_sold.setImageResource(R.drawable.ic_sold);
-                }else if(featureData.getIs_featured().equalsIgnoreCase("1")){
-                    holder.is_sold.setVisibility(View.GONE);
-                    holder.img_feature.setVisibility(View.VISIBLE);
-                    holder.img_feature.setImageResource(R.drawable.icon_feature_small);
                 }else{
-                    holder.is_sold.setVisibility(View.GONE);
-                    holder.img_feature.setVisibility(View.GONE);
+                    if(position == ItemListFragmentForList.iFeatureListSize-1
+                            && ItemListFragmentForList.iFeature_last_page >= ItemListFragmentForList.iFeature_current_page){
+                        //BlueShakLog.logDebug(TAG,"onLoadMore Adapter feature position INSIDE----->"+position+"  iFeatureListSize -->");
+                       // itemLoadMore.onLoadMoreFeatureItems(ItemListFragmentForList.iFeature_current_page+1);
+                    }
+
+                    holder.item_name.setText(featureData.getProduct_name());
+                    holder.txt_feature_price.setVisibility(View.VISIBLE);
+                    if (featureData.getHide_item_price().equalsIgnoreCase("1")) {
+                        holder.txt_feature_price.setText("Negotiable");
+                    } else {
+                        holder.txt_feature_price.setText(GlobalFunctions.getFormatedAmount(featureData.getCurrency(), featureData.getSale_price()));
+                    }
+
+                    if (featureData.getIs_product_new().equalsIgnoreCase("1")
+                            && featureData.getIs_featured().equalsIgnoreCase("1")) {
+                        holder.is_sold.setVisibility(View.GONE);
+                        holder.img_feature.setVisibility(View.VISIBLE);
+                        holder.img_feature.setImageResource(R.drawable.icon_new_feature_small);
+                    }else if (featureData.getIs_available().equalsIgnoreCase("0")
+                            && featureData.getIs_featured().equalsIgnoreCase("1")) {
+                        holder.is_sold.setVisibility(View.VISIBLE);
+                        holder.img_feature.setVisibility(View.GONE);
+                        holder.is_sold.setImageResource(R.drawable.ic_sold);
+                    }else if(featureData.getIs_featured().equalsIgnoreCase("1")){
+                        holder.is_sold.setVisibility(View.GONE);
+                        holder.img_feature.setVisibility(View.VISIBLE);
+                        holder.img_feature.setImageResource(R.drawable.icon_feature_small);
+                    }else{
+                        holder.is_sold.setVisibility(View.GONE);
+                        holder.img_feature.setVisibility(View.GONE);
+                    }
+
+
+                    String item_image = featureData.getImage();
+                    loadImage(item_image,holder.image_iv);
                 }
 
                 holder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = ProductDetail.newInstance(context, null, null,featureData.getProduct_id(),
-                                GlobalVariables.TYPE_MY_SALE);
-                        context.startActivity(intent);
+                        if(position == 0){
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BLUESHAK_SHOP_WEB_LINK));
+                            context.startActivity(browserIntent);
+                        }else{
+                            Intent intent = ProductDetail.newInstance(context, null, null,featureData.getProduct_id(),
+                                    GlobalVariables.TYPE_MY_SALE);
+                            context.startActivity(intent);
+                        }
 
                     }
                 });
 
-                String item_image = featureData.getImage();
-                ImageLoader imageLoader = ImageLoader.getInstance();
-                DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                        .cacheOnDisc(true).resetViewBeforeLoading(true)
-                        .showImageForEmptyUri(R.drawable.placeholder_background)
-                        .showImageOnFail(R.drawable.placeholder_background)
-                        .showImageOnLoading(R.drawable.placeholder_background).build();
-                //download and display image from url
-                imageLoader.displayImage(item_image, holder.image_iv, options);
             } else if (view_holder instanceof HorizontalItemListAdapter.VHLoader) {
                 HorizontalItemListAdapter.VHLoader loaderViewHolder = (HorizontalItemListAdapter.VHLoader) view_holder;
                 BlueShakLog.logDebug(TAG,"onLoadMore Adapter feature position ELSE ----->");
@@ -157,6 +162,17 @@ public class HorizontalItemListAdapter extends RecyclerView.Adapter<RecyclerView
             Log.d(TAG, "Exception");
             e.printStackTrace();
         }
+    }
+
+    private void loadImage(String imageUrl, ImageView imageView){
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
+                .cacheOnDisc(true).resetViewBeforeLoading(true)
+                .showImageForEmptyUri(R.drawable.placeholder_background)
+                .showImageOnFail(R.drawable.placeholder_background)
+                .showImageOnLoading(R.drawable.placeholder_background).build();
+        //download and display image from url
+        imageLoader.displayImage(imageUrl, imageView, options);
     }
 
     @Override

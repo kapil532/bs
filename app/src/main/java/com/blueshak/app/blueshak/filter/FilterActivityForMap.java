@@ -683,14 +683,14 @@ public class FilterActivityForMap extends RootActivity implements OnSelected, Lo
         if (from == GlobalVariables.TYPE_GARAGE_SALE) {
 
             if(nearest_first.isChecked()){
-                if(!noDuplicateEntry(getString(R.string.nearest_first))){
-                    stringArrayList.add(getString(R.string.nearest_first));
+                if(!noDuplicateEntry(getString(R.string.item_list_fragment_for_list_result_from_nearest_seller))){
+                    stringArrayList.add(getString(R.string.item_list_fragment_for_list_result_from_nearest_seller));
                 }
             }
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text(getString(R.string.newly_listed));
-                if(!noDuplicateEntry(getString(R.string.newly_listed))){
-                    stringArrayList.add(getString(R.string.newly_listed));
+                detail.setResults_text(getString(R.string.filter_newest_seller));
+                if(!noDuplicateEntry(getString(R.string.filter_newest_seller))){
+                    stringArrayList.add(getString(R.string.filter_newest_seller));
                 }
                 detail.setSortByRecent_garage(true);
             } else

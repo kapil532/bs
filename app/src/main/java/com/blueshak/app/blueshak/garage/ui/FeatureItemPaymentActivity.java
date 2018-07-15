@@ -62,7 +62,7 @@ public class FeatureItemPaymentActivity extends AppCompatActivity {
     //Payment Amount
     private String paymentAmount = null;
     private String paymentDescription;
-    private String paymentCurrency = "USD";
+    private String paymentCurrency = "AUD";
     private ProgressBar progress_bar;
     private RadioGroup radioGroup;
     private ArrayList<FeatureDataList> featureItemsOptionList = new ArrayList<FeatureDataList>();

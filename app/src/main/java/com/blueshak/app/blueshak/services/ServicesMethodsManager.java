@@ -8,6 +8,10 @@ import com.blueshak.app.blueshak.garage.CreateItemSaleFragment;
 import com.blueshak.app.blueshak.garage.Utils;
 import com.blueshak.app.blueshak.home.ItemListAdapterForList;
 import com.blueshak.app.blueshak.home.ItemListFragmentForList;
+import com.blueshak.app.blueshak.seller.model.SalesDetailsModel;
+import com.blueshak.app.blueshak.seller.model.SalesEditModel;
+import com.blueshak.app.blueshak.seller.model.SellerLikeModel;
+import com.blueshak.app.blueshak.seller.model.SellerModel;
 import com.blueshak.app.blueshak.services.model.AskModel;
 import com.blueshak.app.blueshak.services.model.CurrencyListModel;
 import com.blueshak.app.blueshak.services.model.VerifyAliasModel;
@@ -117,21 +121,22 @@ public class ServicesMethodsManager {
         request.setCallbacks(new VolleyServices.ResposeCallBack() {
             @Override
             public void OnSuccess(JSONObject arg0) {
-                System.out.println("####arg0#######" + arg0.toString());
-                parseResponse(context, obj, arg0);
+                if(obj instanceof SellerLikeModel){
+                    mUiCallBack.OnSuccessFromServer(arg0);
+                }else{
+                    parseResponse(context, obj, arg0);
+                }
+
             }
             @Override
             public void OnFailure(String cause) {
-                System.out.println("##context.getString(cause)######" + cause);
                 mUiCallBack.OnFailureFromServer(cause);
             }
             @Override
             public void OnFailure(int cause) {
-                System.out.println("##context.getString(cause)######" + context.getString(cause));
                 mUiCallBack.OnFailureFromServer(context.getString(cause));
             }
         });
-        System.out.println("##URL#"+URL);
         request.setBody(obj.toString());
         request.makeJsonPostRequest(context, URL, TAG);
     }
@@ -154,17 +159,49 @@ public class ServicesMethodsManager {
                 } else if (obj instanceof CurrencyListModel) {
                     GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_CURRENCIES, arg0.toString());
                 }
-                BlueShakLog.logDebug("ServiceMethod", "Chat List ServiceMethod - > " + arg0.toString()+"\n\n");
                 parseResponse(context, obj, arg0);
             }
             @Override
             public void OnFailure(String cause) {
-                Log.d("OnFailure","coming in side the OnFailure ########String cause##############");
                 mUiCallBack.OnFailureFromServer(cause);
             }
             @Override
             public void OnFailure(int cause) {
-                Log.d("OnFailure","coming in side the OnFailure #########int cause#############");
+                mUiCallBack.OnFailureFromServer(context.getString(cause));
+            }
+        });
+        if (obj != null) {
+            request.setBody(obj.toString());
+        }
+        request.makeJsonGETRequest(context, URL.trim(), TAG);
+    }
+
+    private void getDataParser(final Context context, final Object obj, String URL, String params, String TAG) {
+        if (params != null) {
+            if (!params.equalsIgnoreCase("")) {
+                URL += "?" + params;
+            }
+        }
+        BlueShakLog.logDebug(TAG, "getHomeList Request Parser URL  -> " + URL);
+        VolleyServices request = new VolleyServices();
+        request.setCallbacks(new VolleyServices.ResposeCallBack() {
+            @Override
+            public void OnSuccess(JSONObject arg0) {
+                if (obj instanceof CategoryListModel) {
+                    GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_CATEGORIES, arg0.toString());
+                } else if (obj instanceof PostcodeListModel) {
+                    GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_POSTALCODES, arg0.toString());
+                } else if (obj instanceof CurrencyListModel) {
+                    GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_CURRENCIES, arg0.toString());
+                }
+                mUiCallBack.OnSuccessFromServer(arg0);
+            }
+            @Override
+            public void OnFailure(String cause) {
+                mUiCallBack.OnFailureFromServer(cause);
+            }
+            @Override
+            public void OnFailure(int cause) {
                 mUiCallBack.OnFailureFromServer(context.getString(cause));
             }
         });
@@ -318,7 +355,10 @@ public class ServicesMethodsManager {
             } else {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
-        } else if (obj instanceof SalesModel) {
+        }else if (obj instanceof SellerModel) {
+            //SellerModel salesListModelNew = new SellerModel();
+            mUiCallBack.OnSuccessFromServer(obj);
+        }else if (obj instanceof SalesModel) {
             if (resp.has("id")) {
                 IDModel idModel = new IDModel();
                 if (idModel.toObject(resp.toString())) {
@@ -760,6 +800,13 @@ public class ServicesMethodsManager {
                     mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
                 }
             }
+        }else if(obj instanceof SalesEditModel){
+            StatusModel statusModel = new StatusModel();
+            if (statusModel.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(statusModel);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+            }
         }
     }
 
@@ -829,8 +876,7 @@ public class ServicesMethodsManager {
         setCallbacks(mCallInterface);
         String param = "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
         param += "&user_id="+seller_id;
-        param += "&current_product_id=" + product_id;
-        Log.d(TAG, "#########param ######" + param+"######URL_getSellerProducts######"+ServerConstants.URL_getSellerProducts);
+        param += "&current_product_id=" + product_id;//no required for sales
         getData(context, new SimilarProductsModel(), ServerConstants.URL_getSellerProducts, param, TAG);
     }
     public void getListDetails(Context context, FilterModel filterModel, ServerResponseInterface mCallInterface, String TAG) {
@@ -861,8 +907,34 @@ public class ServicesMethodsManager {
         if(!TextUtils.isEmpty(filterModel.getCategories()))
             param += "&" + FilterModel.CATEGORIES + "=" + filterModel.getCategories();
         /*param += "&" + FilterModel.ZIPCODE + "=" + filterModel.getZipcode();*/
-        getData(context, /*new SalesListModel()*/new SalesListModelNew(), ServerConstants.URL_getListSales, param, TAG);
+        getData(context, /*new SalesListModel()*/new SellerModel(), ServerConstants.URL_getListSales, param, TAG);
     }
+
+    private void getSellerList(final Context context, String URL, String params, String TAG) {
+        if (params != null) {
+            if (!params.equalsIgnoreCase("")) {
+                URL += "?" + params;
+            }
+        }
+        BlueShakLog.logDebug(TAG," Request getSellerList URL -> "+URL);
+        VolleyServices request = new VolleyServices();
+        request.setCallbacks(new VolleyServices.ResposeCallBack() {
+            @Override
+            public void OnSuccess(JSONObject arg0) {
+                mUiCallBack.OnSuccessFromServer(arg0);
+            }
+            @Override
+            public void OnFailure(String cause) {
+                mUiCallBack.OnFailureFromServer(cause);
+            }
+            @Override
+            public void OnFailure(int cause) {
+                mUiCallBack.OnFailureFromServer(context.getString(cause));
+            }
+        });
+        request.makeJsonGETRequest(context, URL.trim(), TAG);
+    }
+
     public  void getItemListDetails(Context context, FilterModel filterModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String param = "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
@@ -1376,6 +1448,42 @@ public class ServicesMethodsManager {
         return param;
     }
 
+
+    private String getSellerListParams(Context context, FilterModel filterModel,String take) {
+
+        String param = "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
+        if(!TextUtils.isEmpty(filterModel.getLatitude()) && !TextUtils.isEmpty(filterModel.getLongitude())){
+            param += "&" + FilterModel.LATITUDE + "=" + filterModel.getLatitude();
+            param += "&" + FilterModel.LONGITUDE + "=" + filterModel.getLongitude();
+        }
+        if(filterModel.isDistance_enabled())
+            param += "&" + FilterModel.RANGE + "=" + filterModel.getRange();
+        param += "&" + FilterModel.PAGE + "=" + filterModel.getPage();
+        param += "&" + FilterModel.TYPE + "=" + filterModel.getType();
+       /* param += "&" + FilterModel.PRICE_RANGE + "=" + filterModel.getPriceRange();*/
+       /* param += "&" + FilterModel.IS_SHIPABLE + "=" + (filterModel.isShipable() ? 1 : 0);*/
+        if(filterModel.isSortByRecent_garage())
+            param += "&" + FilterModel.SORT_BY_RECENT + "=" + (filterModel.isSortByRecent_garage() ? 1 : 0);
+        if(filterModel.isEnding_soon())
+            param += "&" + FilterModel.ENDING_SOON + "=" + (filterModel.isEnding_soon() ? 1 : 0);
+        if(filterModel.is_current_country()){
+            param += "&" + FilterModel.CURRENT_COUNTRY_CODE + "=" +  filterModel.getCurrent_country_code();
+            param += "&" + FilterModel.IS_CURRENT_COUNTRY + "=" + (filterModel.is_current_country() ? 1 : 0);
+        }
+
+        param += "&" + FilterModel.GARAGE_ITEMS + "="+1;
+        /*  param += "&" + FilterModel.IS_PICKUP + "=" + (filterModel.isPickup() ? 1 : 0);
+        param += "&" + FilterModel.IS_AVAILABLE + "=" + (filterModel.isAvailable() ? 1 : 0);*/
+        if(!TextUtils.isEmpty(filterModel.getCategories()))
+            param += "&" + FilterModel.CATEGORIES + "=" + filterModel.getCategories();
+
+        if(take!=null){
+            param += "&" + FilterModel.TAKE + "=" + take;
+        }
+        return param;
+    }
+
+
     public void getFeatureItemsList(Context context, FilterModel filterModel, ServerResponseInterface mCallInterface, String TAG,String take) {
         setCallbacks(mCallInterface);
         String param = getParams(context,filterModel,"featured",take);
@@ -1474,6 +1582,68 @@ public class ServicesMethodsManager {
         request.setBody(params); //for Post
         request.makeJsonPostRequest(context, URL.trim(), TAG);
     }
+    public void getSellerItemsList(Context context, FilterModel filterModel, ServerResponseInterface mCallInterface, String TAG,String take) {
+        setCallbacks(mCallInterface);
+        String param = getSellerListParams(context,filterModel,take);
+        getSellerItemsData(context, ServerConstants.URL_get_seller_list, param, TAG);
+    }
 
+    private void getSellerItemsData(final Context context, String URL, String params, String TAG) {
+        if (params != null) {
+            if (!params.equalsIgnoreCase("")) {
+                URL += "?" + params;
+
+            }
+        }
+        BlueShakLog.logDebug(TAG," Request SellerItemsData URL -> "+URL);
+        VolleyServices request = new VolleyServices();
+        request.setCallbacks(new VolleyServices.ResposeCallBack() {
+            @Override
+            public void OnSuccess(JSONObject arg0) {
+                mUiCallBack.OnSuccessFromServer(arg0);
+            }
+            @Override
+            public void OnFailure(String cause) {
+                mUiCallBack.OnFailureFromServer(cause);
+            }
+            @Override
+            public void OnFailure(int cause) {
+                mUiCallBack.OnFailureFromServer(context.getString(cause));
+            }
+        });
+        request.makeJsonGETRequest(context, URL.trim(), TAG);
+    }
+    public void postLikeSeller(final Context context, String shop_id,String seller_id, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String param = "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
+        param += "&shop_id=" + shop_id;
+        param += "&seller_id=" + seller_id;
+        param += "&content=" + "application/json";
+        postData(context, new SellerLikeModel(), ServerConstants.URL_post_like_seller, param, TAG);
+
+    }
+
+    public void getSalesDetails(Context context, String shop_id,String latitude,String longitude, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String param = "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
+        param += "&sale_id=" + shop_id;
+        param += "&latitude=" + latitude;
+        param += "&longitude=" + longitude;
+        getDataParser(context, new SalesDetailsModel(), ServerConstants.URL_VIEW_SALE, param, TAG);
+    }
+
+    public void postBookmarkSeller(final Context context, String shop_id, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String param = "token=" + GlobalFunctions.getSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN);
+        param += "&shop_id=" + shop_id;
+        param += "&content=" + "application/json";
+        postData(context, new SellerLikeModel(), ServerConstants.URL_post_bookmark_seller, param, TAG);
+
+    }
+
+    public void publishOwnSales(Context context, SalesEditModel salesModel, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        postData(context, salesModel, ServerConstants.URL_PublishSale, TAG);
+    }
 
 }

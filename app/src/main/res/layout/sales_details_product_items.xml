@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dip"
+            android:background="@color/sub_header">
+
+        </View>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/margin_10dp">
+
+            <com.blueshak.app.blueshak.text.MyTextViewBold
+                android:id="@+id/txt_item_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:singleLine="true"
+                android:text="Item"
+                android:textAppearance="@style/MediumText"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold">
+
+            </com.blueshak.app.blueshak.text.MyTextViewBold>
+
+            <com.blueshak.app.blueshak.text.MyTextView
+                android:id="@+id/txt_items_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@+id/txt_item_no"
+                android:singleLine="true"
+                android:textAppearance="@style/MediumText"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold">
+
+            </com.blueshak.app.blueshak.text.MyTextView>
+
+            <com.blueshak.app.blueshak.text.MyTextView
+                android:id="@+id/txt_items_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:layout_toRightOf="@+id/txt_items_name"
+                android:singleLine="true"
+                android:text=" - AUD 100.3"
+                android:textAppearance="@style/MediumText"
+                android:textColor="@color/brandColor"
+                android:textSize="15sp"
+                android:textStyle="bold">
+
+            </com.blueshak.app.blueshak.text.MyTextView>
+
+            <ImageView
+                android:id="@+id/image_bookmark"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_toLeftOf="@+id/image_more" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/image_slider_card_portrait_height">
+
+            <ImageView
+                android:id="@+id/img_sales_product"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_slider_card_portrait_height"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder_background" />
+
+            <ProgressBar
+                android:id="@+id/img_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_10dp">
+
+            <com.blueshak.app.blueshak.text.MyButton
+                android:id="@+id/btn_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_corner_thin_brand_background_border_bg"
+                android:text="Edit"
+                android:textAppearance="@style/MediumText"
+                android:textColor="@color/brand_text_color"
+                android:textSize="@dimen/sign_up_text_size"
+                android:visibility="gone">
+
+            </com.blueshak.app.blueshak.text.MyButton>
+
+            <com.blueshak.app.blueshak.text.MyButton
+                android:id="@+id/btn_sold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@color/green"
+                android:text="Sold"
+                android:textAppearance="@style/MediumText"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sign_up_text_size"
+                android:visibility="gone">
+
+            </com.blueshak.app.blueshak.text.MyButton>
+
+
+            <com.blueshak.app.blueshak.text.MyButton
+                android:id="@+id/btn_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_corner_secondary_btn_style"
+                android:text="Message"
+                android:textAppearance="@style/MediumText"
+                android:textColor="@color/brandColor"
+                android:textSize="@dimen/sign_up_text_size">
+
+            </com.blueshak.app.blueshak.text.MyButton>
+
+            <com.blueshak.app.blueshak.text.MyButton
+                android:id="@+id/btn_make_offer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/round_corner_btn__style"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Make offer"
+                android:textAppearance="@style/MediumText"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sign_up_text_size">
+
+            </com.blueshak.app.blueshak.text.MyButton>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

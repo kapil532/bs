@@ -181,12 +181,13 @@
                             android:orientation="horizontal">
 
                             <com.blueshak.app.blueshak.text.MyTextView
+                                android:id="@+id/tv_nearest_first"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".3"
                                 android:gravity="center_vertical"
                                 android:padding="10dp"
-                                android:text="Nearest First"
+                                android:text="@string/item_list_fragment_for_list_result_from_nearest_seller"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
 
@@ -211,14 +212,17 @@
                             android:orientation="horizontal">
 
                             <com.blueshak.app.blueshak.text.MyTextView
+                                android:id="@+id/tv_newly_listed"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".3"
                                 android:gravity="center_vertical"
                                 android:padding="10dp"
-                                android:text="Newly Listed"
+                                android:text="@string/filter_newest_seller"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/sign_up_text_size"></com.blueshak.app.blueshak.text.MyTextView>
+                                android:textSize="@dimen/sign_up_text_size">
+
+                            </com.blueshak.app.blueshak.text.MyTextView>
 
                             <Switch
                                 android:id="@+id/sort_by_recent"

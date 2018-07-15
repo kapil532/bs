@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/listing_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/rounded_border_textview_for_item_info"
+        android:orientation="horizontal">
+
+        <com.blueshak.app.blueshak.text.MyTextViewBold
+            android:id="@+id/tv_seller_listing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:layout_weight=".5"
+            android:background="@color/brandColor"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="@string/seller_listing"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sign_up_text_size" />
+
+        <com.blueshak.app.blueshak.text.MyTextViewBold
+            android:id="@+id/tv_seller_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:layout_weight=".5"
+            android:background="@color/brand_background_color"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="@string/seller_review"
+            android:textColor="@color/brandColor"
+            android:textSize="@dimen/sign_up_text_size" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listening_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false"
+            android:dividerHeight="7dp"
+            android:paddingLeft="@dimen/space"
+            android:paddingRight="@dimen/space"
+            android:scrollbars="none" />
+
+        <com.blueshak.app.blueshak.text.MyTextView
+            android:id="@+id/no_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/ic_items_off"
+            android:gravity="center"
+            android:text="No Items Found"
+            android:textSize="@dimen/empty_label_size"
+            android:visibility="gone">
+
+        </com.blueshak.app.blueshak.text.MyTextView>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -37,11 +37,15 @@ public class StatusModel {
     }
 
     public boolean toObject(String jsonObject){
-        try{
+        try {
             JSONObject json = new JSONObject(jsonObject);
             String result = json.getString(STATUS);
-            if(result.equalsIgnoreCase("success")){status = true;}
-            else{status = false;message=result;}
+            if (result.equalsIgnoreCase("success")) {
+                status = true;
+            } else {
+                status = false;
+                message = result;
+            }
             return true;
         }catch(Exception ex){
             Log.d(TAG, "Json Exception : " + ex);

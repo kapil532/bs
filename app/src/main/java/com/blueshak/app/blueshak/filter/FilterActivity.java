@@ -96,6 +96,8 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
     private HashSet<String> hashSet = new HashSet<String>();
     private LinearLayout layoutFreeItems;
     private Switch switchOnlyFreeItem;
+    private TextView mTvNearestFirst;
+    private TextView mTvNewlyListed;
 
 
     public static Intent newInstance(Context context, LocationModel locationModel, int from) {
@@ -152,6 +154,9 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
             negotial_l = (LinearLayout) findViewById(R.id.negotial_l);
             only_new_item_l = (LinearLayout) findViewById(R.id.only_new_item_l);
             layoutFreeItems = (LinearLayout)findViewById(R.id.layout_only_free_items);
+
+            mTvNearestFirst = (TextView)findViewById(R.id.tv_nearest_first);
+            mTvNewlyListed = (TextView)findViewById(R.id.tv_newly_listed);
 
 
             sorting_content = (LinearLayout) findViewById(R.id.sorting_content);
@@ -714,15 +719,30 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
         if (from == GlobalVariables.TYPE_GARAGE_SALE) {
 
             if(nearest_first.isChecked()){
-                if(!noDuplicateEntry(getString(R.string.nearest_first))){
-                    stringArrayList.add(getString(R.string.nearest_first));
+                if (from == GlobalVariables.TYPE_GARAGE_SALE){
+                    if(!noDuplicateEntry(getString(R.string.item_list_fragment_for_list_result_from_nearest_seller))){
+                        stringArrayList.add(getString(R.string.item_list_fragment_for_list_result_from_nearest_seller));
+                    }
+                }else{
+                    if(!noDuplicateEntry(getString(R.string.nearest_first))){
+                        stringArrayList.add(getString(R.string.nearest_first));
+                    }
                 }
+
             }
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text(getString(R.string.newly_listed));
-                if(!noDuplicateEntry(getString(R.string.newly_listed))){
-                    stringArrayList.add(getString(R.string.newly_listed));
+                if (from == GlobalVariables.TYPE_GARAGE_SALE){
+                    detail.setResults_text(getString(R.string.filter_newest_seller));
+                    if(!noDuplicateEntry(getString(R.string.filter_newest_seller))){
+                        stringArrayList.add(getString(R.string.filter_newest_seller));
+                    }
+                }else{
+                    detail.setResults_text(getString(R.string.newly_listed));
+                    if(!noDuplicateEntry(getString(R.string.newly_listed))){
+                        stringArrayList.add(getString(R.string.newly_listed));
+                    }
                 }
+
                 detail.setSortByRecent_garage(true);
             } else
                 detail.setSortByRecent_garage(false);
@@ -764,14 +784,27 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
         } else if (from == GlobalVariables.TYPE_SEARCH || from == GlobalVariables.TYPE_ITEMS) {
 
             if(nearest_first.isChecked()){
-                if(!noDuplicateEntry(getString(R.string.nearest_first))){
-                    stringArrayList.add(getString(R.string.nearest_first));
+                if (from == GlobalVariables.TYPE_GARAGE_SALE){
+                    if(!noDuplicateEntry(getString(R.string.item_list_fragment_for_list_result_from_nearest_seller))){
+                        stringArrayList.add(getString(R.string.item_list_fragment_for_list_result_from_nearest_seller));
+                    }
+                }else{
+                    if(!noDuplicateEntry(getString(R.string.nearest_first))){
+                        stringArrayList.add(getString(R.string.nearest_first));
+                    }
                 }
             }
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text(getString(R.string.newly_listed));
-                if(!noDuplicateEntry(getString(R.string.newly_listed))){
-                    stringArrayList.add(getString(R.string.newly_listed));
+                if (from == GlobalVariables.TYPE_GARAGE_SALE){
+                    detail.setResults_text(getString(R.string.filter_newest_seller));
+                    if(!noDuplicateEntry(getString(R.string.filter_newest_seller))){
+                        stringArrayList.add(getString(R.string.filter_newest_seller));
+                    }
+                }else{
+                    detail.setResults_text(getString(R.string.newly_listed));
+                    if(!noDuplicateEntry(getString(R.string.newly_listed))){
+                        stringArrayList.add(getString(R.string.newly_listed));
+                    }
                 }
                 detail.setSortByRecent(true);
             } else
@@ -876,14 +909,29 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
 
         if (from == GlobalVariables.TYPE_GARAGE_SALE) {
             if(nearest_first.isChecked()){
-                if(!noDuplicateEntry(getString(R.string.nearest_first))){
-                    stringArrayList.add(getString(R.string.nearest_first));
+
+                if (from == GlobalVariables.TYPE_GARAGE_SALE){
+                    if(!noDuplicateEntry(getString(R.string.item_list_fragment_for_list_result_from_nearest_seller))){
+                        stringArrayList.add(getString(R.string.item_list_fragment_for_list_result_from_nearest_seller));
+                    }
+                }else{
+                    if(!noDuplicateEntry(getString(R.string.nearest_first))){
+                        stringArrayList.add(getString(R.string.nearest_first));
+                    }
                 }
+
             }
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text(getString(R.string.newly_listed));
-                if(!noDuplicateEntry(getString(R.string.newly_listed))){
-                    stringArrayList.add(getString(R.string.newly_listed));
+                if (from == GlobalVariables.TYPE_GARAGE_SALE){
+                    detail.setResults_text(getString(R.string.filter_newest_seller));
+                    if(!noDuplicateEntry(getString(R.string.filter_newest_seller))){
+                        stringArrayList.add(getString(R.string.filter_newest_seller));
+                    }
+                }else{
+                    detail.setResults_text(getString(R.string.newly_listed));
+                    if(!noDuplicateEntry(getString(R.string.newly_listed))){
+                        stringArrayList.add(getString(R.string.newly_listed));
+                    }
                 }
                 detail.setSortByRecent_garage(true);
             } else{
@@ -924,14 +972,30 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
         } else if (from == GlobalVariables.TYPE_SEARCH || from == GlobalVariables.TYPE_ITEMS) {
 
             if(nearest_first.isChecked()){
-                if(!noDuplicateEntry(getString(R.string.nearest_first))){
-                    stringArrayList.add(getString(R.string.nearest_first));
+
+                if (from == GlobalVariables.TYPE_GARAGE_SALE){
+                    if(!noDuplicateEntry(getString(R.string.item_list_fragment_for_list_result_from_nearest_seller))){
+                        stringArrayList.add(getString(R.string.item_list_fragment_for_list_result_from_nearest_seller));
+                    }
+                }else{
+                    if(!noDuplicateEntry(getString(R.string.nearest_first))){
+                        stringArrayList.add(getString(R.string.nearest_first));
+                    }
                 }
+
             }
             if (sort_by_recent.isChecked()) {
-                detail.setResults_text(getString(R.string.newly_listed));
-                if(!noDuplicateEntry(getString(R.string.newly_listed))){
-                    stringArrayList.add(getString(R.string.newly_listed));
+
+                if (from == GlobalVariables.TYPE_GARAGE_SALE){
+                    detail.setResults_text(getString(R.string.filter_newest_seller));
+                    if(!noDuplicateEntry(getString(R.string.filter_newest_seller))){
+                        stringArrayList.add(getString(R.string.filter_newest_seller));
+                    }
+                }else{
+                    detail.setResults_text(getString(R.string.newly_listed));
+                    if(!noDuplicateEntry(getString(R.string.newly_listed))){
+                        stringArrayList.add(getString(R.string.newly_listed));
+                    }
                 }
                 detail.setSortByRecent(true);
             } else
@@ -1219,6 +1283,8 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
 
     public void setupGarageFilter() {
         title_tv.setText("Sale Filter");
+        mTvNearestFirst.setText(getString(R.string.item_list_fragment_for_list_result_from_nearest_seller));
+        mTvNewlyListed.setText(getString(R.string.filter_newest_seller));
         sorting_main_content.setVisibility(View.VISIBLE);
         sorting_content.setVisibility(View.VISIBLE);
         nearest_content.setVisibility(View.VISIBLE);
@@ -1235,6 +1301,10 @@ public class FilterActivity extends RootActivity implements OnSelected, Location
         } else if (from == GlobalVariables.TYPE_ITEMS) {
             title_tv.setText("Item Filter");
         }
+
+        mTvNearestFirst.setText(getString(R.string.nearest_first));
+        mTvNewlyListed.setText(getString(R.string.filter_newly_listed_item));
+
         only_garage_item_content.setVisibility(View.VISIBLE);
         negotial_l.setVisibility(View.VISIBLE);
         only_new_item_l.setVisibility(View.VISIBLE);

@@ -95,6 +95,11 @@
     <!-- item_list_fragment_for_list-->
     <string name="item_list_fragment_for_list_result_from_nearest">Results from Newly Listed</string>
     <string name="item_list_fragment_for_list_result_from_nearest_new">Nearest First</string>
+    <string name="item_list_fragment_for_list_result_from_nearest_seller">Nearest Seller</string>
+    <string name="filter_newly_listed_item">Newly Listed</string>
+    <string name="filter_newest_seller">Newest Seller</string>
+    <string name="nearest_first">Nearest First</string>
+    <string name="newly_listed">Newly Listed</string>
     <string name="item_list_fragment_for_list_result_in">Results from</string>
 
     <!-- PROFILE-->
@@ -145,8 +150,6 @@
     <string name="week_three">3 weeks for USD 2.70(USD 0.90/wk)</string>
     <string name="week_four">4 weeks for USD 3.40(USD 0.85/wk)</string>
 
-    <string name="nearest_first">Nearest First</string>
-    <string name="newly_listed">Newly Listed</string>
     <string name="ending_first">Ending first</string>
     <string name="only_new_items">Only New Items</string>
     <string name="only_negotiable_items">Only Negotiable Items</string>
@@ -158,5 +161,18 @@
     <string name="payment_id_empty">Can\'t able to pay becasue item product_id is missing. Try again to create this item.</string>
     <string name="option_selection">For feature your item, select any of the option.</string>
     <string name="only_free_items">Only Free Items</string>
+    <string name="listed_label">Listed</string>
+    <string name="read_review">Read Review</string>
+    <string name="read_reviews">Read Reviews</string>
+    <string name="seller_description">Sales Description:</string>
+
+    <string name="member_since">Member Since:</string>
+    <string name="item_sold">Number of Item Sold:</string>
+    <string name="average_rating">Average Rating:</string>
+    <string name="seller_details">Seller Details</string>
+    <string name="seller_listing">Seller Listings</string>
+    <string name="seller_review">Seller Reviews</string>
+    <string name="edit_seller">Edit Seller</string>
+
 
 </resources>

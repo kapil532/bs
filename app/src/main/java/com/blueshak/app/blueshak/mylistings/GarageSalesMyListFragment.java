@@ -35,6 +35,8 @@ import com.blueshak.app.blueshak.global.GlobalVariables;
 import com.blueshak.app.blueshak.home.EndlessRecyclerOnScrollListenerLinearView;
 import com.blueshak.app.blueshak.home.SalesListAdapterNew;
 import com.blueshak.app.blueshak.search.SearchActivity;
+import com.blueshak.app.blueshak.seller.model.SellerData;
+import com.blueshak.app.blueshak.seller.model.SellerModel;
 import com.blueshak.app.blueshak.services.ServerResponseInterface;
 import com.blueshak.app.blueshak.services.ServicesMethodsManager;
 import com.blueshak.app.blueshak.services.model.FilterModel;
@@ -48,7 +50,8 @@ import com.blueshak.blueshak.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GarageSalesMyListFragment extends Fragment implements LocationListener/*,onFilterChange*/  , SwipeRefreshLayout.OnRefreshListener{
+public class GarageSalesMyListFragment extends Fragment implements LocationListener/*,onFilterChange*/  ,
+        SwipeRefreshLayout.OnRefreshListener,SalesListAdapterNew.OnSellerLikeListener{
 
     public static final String TAG = "GarageSalesListFragment";
     public static final String SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE="GarageSalesListGarageSaleModelSerialize";
@@ -63,11 +66,11 @@ public class GarageSalesMyListFragment extends Fragment implements LocationListe
     private String no_sales_text="No Sales found near you";
     private Activity activity;
     private LayoutInflater inflater = null;
-    private SalesListModelNew salesListModel=new SalesListModelNew();
+    private SellerModel salesListModel=new SellerModel();
     private SalesListAdapterNew adapter;
     private TextView sale_header_name,results_all;
     private String header_name;
-    private ArrayList<SalesModel> sales_list = new ArrayList<SalesModel>();
+    private ArrayList<SellerData> sales_list = new ArrayList<SellerData>();
     private String type = GlobalVariables.TYPE_GARAGE;
     private LocationService locServices;
     private Toolbar toolbar;
@@ -87,7 +90,9 @@ public class GarageSalesMyListFragment extends Fragment implements LocationListe
     private ProgressBar progress_bar;
     private TextView searchViewResult;
     private EndlessRecyclerOnScrollListenerLinearView endlessRecyclerOnScrollListenerLinearView;
-    public static GarageSalesMyListFragment newInstance(SalesListModelNew salesListModel, String type, FilterModel filterModel, LocationModel locationModel, boolean list_my_sales){
+    private SalesListModelNew salesListModelNew=new SalesListModelNew();
+
+    public static GarageSalesMyListFragment newInstance(SellerModel salesListModel, String type, FilterModel filterModel, LocationModel locationModel, boolean list_my_sales){
         GarageSalesMyListFragment garageSalesListFragment = new GarageSalesMyListFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE, salesListModel);
@@ -123,7 +128,7 @@ public class GarageSalesMyListFragment extends Fragment implements LocationListe
                     context.getResources().getColor(R.color.tab_selected),
                     context.getResources().getColor(R.color.darkorange),
                     context.getResources().getColor(R.color.brandColor));
-            salesListModel = (SalesListModelNew) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
+            salesListModel = (SellerModel) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
             type = getArguments().getString(SALES_LIST_GARAGGE_SALE_MODEL_TYPE);
             location = (TextView)view.findViewById(R.id.location);
             results_all=(TextView) view.findViewById(R.id.results_all);
@@ -142,7 +147,7 @@ public class GarageSalesMyListFragment extends Fragment implements LocationListe
             locServices = new LocationService(activity);
             locServices.setListener(this);
             recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-            adapter = new SalesListAdapterNew(context, sales_list);
+            adapter = new SalesListAdapterNew(context, sales_list,this);
             LinearLayoutManager linearLayoutManagerVertical =
                     new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
             recyclerView.addItemDecoration(new SpacesItemDecoration(
@@ -170,10 +175,10 @@ public class GarageSalesMyListFragment extends Fragment implements LocationListe
                     toolbar.setTranslationY(-distance);
                 }
             });*/
-            salesListModel = (SalesListModelNew) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
+            salesListModel = (SellerModel) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
             locationModel = (LocationModel) getArguments().getSerializable(LOCATION_MODEL);
             model = (FilterModel) getArguments().getSerializable(SALE_FILTER);
-            salesListModel = (SalesListModelNew) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
+            salesListModel = (SellerModel) getArguments().getSerializable(SALES_LIST_GARAGGE_SALE_MODEL_SERIALIZE);
 
             Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
@@ -209,12 +214,12 @@ public class GarageSalesMyListFragment extends Fragment implements LocationListe
         getMyLists(context);
         super.onResume();
     }
-    private void setValues(SalesListModelNew model){
+    private void setValues(SellerModel model){
         if(model!=null){
             String str = "";
             salesListModel = model;
-            last_page=model.getLast_page();
-            List<SalesModel> productModels = salesListModel.getSalesList();
+            last_page=model.getLastPage();
+            List<SellerData> productModels = salesListModel.getData();
             if(productModels!=null){
                 if(productModels.size()>0&&recyclerView!=null&&sales_list!=null&&adapter!=null){
                     if(productModels.size()==1)
@@ -225,16 +230,11 @@ public class GarageSalesMyListFragment extends Fragment implements LocationListe
                     sale_header_name.setText(str);
 
                     no_sales.setVisibility(View.GONE);
-                 /*   sales_list.clear();*/
                     sales_list.addAll(productModels);
-                    Log.d(TAG,"productModels########"+productModels.size()+"sales_list#########"+sales_list.size());
                     refreshList();
-                    // setHeader(inflater);
                 } else{   no_sales.setVisibility(View.VISIBLE);
                     no_sales.setText("No Sales found");
-
                     sale_header_name.setText("No Sales found near you");
-
                     sale_header_name.setVisibility(View.GONE);
                 }
             } else{
@@ -243,6 +243,29 @@ public class GarageSalesMyListFragment extends Fragment implements LocationListe
                 sale_header_name.setText("No Sales found near you");
 
                 sale_header_name.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
+    private void setValues(SalesListModelNew model){
+        if(model!=null){
+            String str = "";
+            salesListModelNew = model;
+            List<SalesModel> productModels = salesListModelNew.getSalesList();
+            if(productModels!=null){
+                if(productModels.size()>0&&recyclerView!=null&&sales_list!=null&&adapter!=null){
+                    no_sales.setVisibility(View.GONE);
+                    //sales_list.addAll(productModels);
+                    //refreshList();
+                } else{
+                    no_sales.setVisibility(View.VISIBLE);
+                    no_sales.setText("No Sales found");
+                }
+            } else{
+                no_sales.setVisibility(View.VISIBLE);
+                no_sales.setText("No Sales found");
+
             }
         }
 
@@ -267,7 +290,7 @@ public class GarageSalesMyListFragment extends Fragment implements LocationListe
                 hideProgressBar();
                 swipeRefreshLayout.setRefreshing(false);
                 Log.d(TAG, "onSuccess Response");
-                salesListModel = (SalesListModelNew) arg0;
+                salesListModel = (SellerModel) arg0;
                 String str = salesListModel.toString();
                 Log.d(TAG, str);
                 setValues(salesListModel);
@@ -318,6 +341,11 @@ public class GarageSalesMyListFragment extends Fragment implements LocationListe
         }else {
             locServices.removeListener();
         }
+    }
+
+    @Override
+    public void onSellerLike(String shop_id, String seller_id) {
+
     }
 
     public abstract class MyScrollListener extends RecyclerView.OnScrollListener {
@@ -457,10 +485,8 @@ public class GarageSalesMyListFragment extends Fragment implements LocationListe
             public void OnSuccessFromServer(Object arg0) {
                 hideProgressBar();
                 Log.d(TAG, "onSuccess Response");
-                salesListModel = (SalesListModelNew)arg0;
+                SalesListModelNew salesListModel = (SalesListModelNew) arg0;
                 swipeRefreshLayout.setRefreshing(false);
-                String str = salesListModel.toString();
-                Log.d(TAG, str);
                 setValues(salesListModel);
             }
             @Override
@@ -495,5 +521,18 @@ public class GarageSalesMyListFragment extends Fragment implements LocationListe
         if(progress_bar!=null)
             progress_bar.setVisibility(View.GONE);
     }
+
+   /* private void setAdapterItemList(ArrayList<SellerData> sales_list){
+        //layout_feature_header.setVisibility(View.VISIBLE);
+        adapter = new SalesListAdapterNew(context, sales_list);
+        gridLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+
+
+    }*/
 }
 

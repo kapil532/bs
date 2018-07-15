@@ -22,9 +22,10 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/layout_seller"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_5dp"
+            android:layout_marginBottom="@dimen/margin_10dp"
             android:layout_marginLeft="@dimen/margin_5dp"
             android:layout_marginTop="@dimen/margin_5dp"
             android:gravity="center">
@@ -96,7 +97,7 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/layout_main"
+            android:id="@+id/layout_feature_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 

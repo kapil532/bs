@@ -8,6 +8,7 @@ import com.blueshak.app.blueshak.home.model.FeatureItemsModel;
 import com.blueshak.app.blueshak.paypal.model.FeaturedOptionModel;
 import com.blueshak.app.blueshak.paypal.model.PayPaymentResponseModel;
 import com.blueshak.app.blueshak.seller.model.SellerFeatured;
+import com.blueshak.app.blueshak.seller.model.SellerModel;
 import com.blueshak.app.blueshak.services.ServerResponseInterface;
 import com.blueshak.app.blueshak.services.ServicesMethodsManager;
 import com.blueshak.app.blueshak.services.model.FilterModel;
@@ -107,6 +108,28 @@ public class ItemListPresenter {
                 presenterCallBack.onFailure();
             }
         },optionId, prIdoduct,payPalId,"Feature Item price option");
+
+    }
+
+    public void getSellerItemLists(final Context context, FilterModel filterModel, final PresenterCallBack presenterCallBack,String take) {
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getSellerItemsList(context, filterModel, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                SellerModel sellerItem = gson.fromJson(arg0.toString(), SellerModel.class);
+                presenterCallBack.onSuccess(sellerItem);
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                presenterCallBack.onFailure();
+            }
+
+            @Override
+            public void OnError(String msg) {
+                presenterCallBack.onFailure();
+            }
+        }, "Seller Item list",take);
 
     }
 }

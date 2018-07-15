@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
@@ -315,25 +316,29 @@ public class MapFragmentSales extends Fragment implements OnMapReadyCallback,Loc
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 Log.d(TAG, "########onSuccess Response###########");
-                salesListModel = (SalesListModelNew) arg0;
-                String str = salesListModel.toString();
-                current_page=salesListModel.getCurrent_page();
-                last_page=salesListModel.getLast_page();
-                Log.d(TAG, "#########current_page##########"+current_page);
-                List<SalesModel> local_list=salesListModel.getSalesList();
-                list.addAll(local_list);
-                local_list.clear();
-                if(!(current_page>=last_page)){
-                    current_page++;
-                    model.setPage(current_page);
-                    getLists(context,model);
-                }else{
-                    Log.d(TAG, "#########All pages done##########");
-                    hideProgressBar();
-                    addItems();
-                    current_page=1;
-                    last_page=1;
-                  }
+                try {
+                    salesListModel = (SalesListModelNew) arg0;
+                    String str = salesListModel.toString();
+                    current_page = salesListModel.getCurrent_page();
+                    last_page = salesListModel.getLast_page();
+                    Log.d(TAG, "#########current_page##########" + current_page);
+                    List<SalesModel> local_list = salesListModel.getSalesList();
+                    list.addAll(local_list);
+                    local_list.clear();
+                    if (!(current_page >= last_page)) {
+                        current_page++;
+                        model.setPage(current_page);
+                        getLists(context, model);
+                    } else {
+                        Log.d(TAG, "#########All pages done##########");
+                        hideProgressBar();
+                        addItems();
+                        current_page = 1;
+                        last_page = 1;
+                    }
+                } catch (Exception e) {
+                    BlueShakLog.logDebug(TAG,"Error -> "+e.getLocalizedMessage());
+                }
             }
 
             @Override

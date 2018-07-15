@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.blueshak.app.blueshak.Messaging.helper.Constants;
 import com.blueshak.app.blueshak.PickLocationFromMap;
+import com.blueshak.app.blueshak.seller.model.SellerData;
 import com.blueshak.app.blueshak.util.BlueShakLog;
 import com.blueshak.app.blueshak.util.BlueShakSharedPreferences;
 import com.blueshak.blueshak.R;
@@ -81,6 +82,7 @@ public class CreateGarageSaleFragment extends Fragment implements MyItemListAdap
     public static final String CREATE_GARRAGE_LOCATION_BUNDLE_KEY = "CreateItemActivityLocationBundleKey";
     public static final String FROM_KEY = "from_key";
     public static final String CREATE_GARRAGE_ACTIVITY_SELECT_ITEMS_KEY = "CreateGarrageActivitySelectItemsKey";
+    public static final String CREATE_GARRAGE_ACTIVITY_SELLER = "CreateGarrageActivitySeller";
     private Toolbar toolbar;
     private Boolean type_edit_sale = false;
     private TextView select_items;
@@ -112,6 +114,14 @@ public class CreateGarageSaleFragment extends Fragment implements MyItemListAdap
         bundle.putSerializable(CREATE_GARRAGE_ACTIVITY_BUNDLE_KEY, sales);
         bundle.putSerializable(CREATE_GARRAGE_ACTIVITY_TYPE_BUNDLE_KEY, type);
         bundle.putInt(FROM_KEY, from);
+        createGarageSaleFragment.setArguments(bundle);
+        return createGarageSaleFragment;
+    }
+
+    public static CreateGarageSaleFragment newInstance(Context context, SellerData sales) {
+        CreateGarageSaleFragment createGarageSaleFragment = new CreateGarageSaleFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(CREATE_GARRAGE_ACTIVITY_SELLER, sales);
         createGarageSaleFragment.setArguments(bundle);
         return createGarageSaleFragment;
     }

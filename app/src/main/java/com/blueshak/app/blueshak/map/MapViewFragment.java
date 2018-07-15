@@ -25,6 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blueshak.app.blueshak.seller.model.SalesDetailsModel;
+import com.blueshak.app.blueshak.seller.model.SalesDetailsProduct;
 import com.blueshak.blueshak.R;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -70,6 +72,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
     public static final String MAP_FRAGMENT_SALES_PRODUCT_ID_STRING = "MapFragmentProductIdTypeString";
     public static final String MAP_FRAGMENT_SALES_FROM_ACTIVITY_ID_STRING = "MapFragmentFromActivitypeString";
     public static final String SHOP = "shop";
+    public static final String SALES_DETAILS = "SalesDetails";
     public FilterModel model = new FilterModel();
     private GlobalVariables globalVariables = new GlobalVariables();
     // Declare a variable for <></>he cluster manager.
@@ -95,6 +98,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
     private ImageView en_large, go_to_filter;
     private LinearLayout header_content;
     int minPriceValue = 0, maxPriceValue = GlobalVariables.PRICE_MAX_VALUE, minDistanceValue = 0, maxDistanceValue = GlobalVariables.DISTANCE_MAX_VALUE;
+    private SalesDetailsModel salesDetails = null;
 
     public static MapViewFragment newInstance(String type, ProductModel product_id, Shop shop, boolean from_activity) {
         MapViewFragment mapFragmentSales = new MapViewFragment();
@@ -103,6 +107,16 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
         bundle.putSerializable(MAP_FRAGMENT_SALES_PRODUCT_ID_STRING, product_id);
         bundle.putBoolean(MAP_FRAGMENT_SALES_FROM_ACTIVITY_ID_STRING, from_activity);
         bundle.putSerializable(SHOP, shop);
+        mapFragmentSales.setArguments(bundle);
+        return mapFragmentSales;
+    }
+
+    public static MapViewFragment newInstance(String type, SalesDetailsModel detailsModel, boolean from_activity) {
+        MapViewFragment mapFragmentSales = new MapViewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(MAP_FRAGMENT_SALES_BUNDLE_TYPE_STRING, type);
+        bundle.putSerializable(SALES_DETAILS, detailsModel);
+        bundle.putBoolean(MAP_FRAGMENT_SALES_FROM_ACTIVITY_ID_STRING, from_activity);
         mapFragmentSales.setArguments(bundle);
         return mapFragmentSales;
     }
@@ -181,6 +195,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
             if (type.equalsIgnoreCase(GlobalVariables.TYPE_SHOP)) {
                 shop = (Shop) getArguments().getSerializable(SHOP);
                 productModel = (ProductModel) getArguments().getSerializable(MAP_FRAGMENT_SALES_PRODUCT_ID_STRING);
+                salesDetails = (SalesDetailsModel) getArguments().getSerializable(SALES_DETAILS);
                 if (shop != null) {
                     shop_name = shop.getName();
                     icon_name = shop_name;
@@ -193,6 +208,11 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Loc
                     shop_name = productModel.getName();
                     lat = Double.parseDouble(productModel.getLatitude());
                     lng = Double.parseDouble(productModel.getLongitude());
+                }if(salesDetails!=null){
+                    icon_name = salesDetails.getName();
+                    shop_name = salesDetails.getName();
+                    lat = Double.parseDouble(salesDetails.getLatitude());
+                    lng = Double.parseDouble(salesDetails.getLongitude());
                 }
             } else {
                 Location loc = locServices.getLocation();

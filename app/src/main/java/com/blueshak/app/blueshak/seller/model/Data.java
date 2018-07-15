@@ -3,13 +3,14 @@ package com.blueshak.app.blueshak.seller.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by lal on 18/04/18.
  */
 
-public class Data {
+public class Data implements Serializable {
 
     @SerializedName("shop_id")
     @Expose
